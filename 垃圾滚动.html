@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .view-box{position:relative;width: 200px; height: 200px; overflow: hidden;}
+    .container{ position: relative; padding: 0; font-size: 0;}
+    .item{width: 200px;height: 200px;  display: inline-block;color: #fff;font-size: 40px;}
+    .item1{background-color: red;}
+    .item2{background-color: blue;}
+    .item3{background-color: yellow;}
+    .item4{background-color: green;}
+</style>
+<body>
+
+<div class="view-box">
+    <ul class="container">
+        <li class="item item1">10hjhjjhhh909090hg000000</li>
+        <li class="item item2">2222222</li>
+        <li class="item item3">33333333333</li>
+        <li class="item item4">4444444444</li>
+        <li class="item item1">10hjhjjhhh909090hg000000</li>
+    </ul>
+</div>
+
+<input type="button" onclick="start()" value="启动">
+<input type="button" onclick="stop()" value="停止">
+
+</body>
+<script>
+    let offset = 0;
+    let slicing = () => {
+        //requestAnimationFrame方法的作用为在屏幕刷新每一帧时执行一次回调函数
+        const requestAnimationFrame =
+            window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame
+        const cancelAnimationFrame =
+            window.cancelAnimationFrame || window.webkitCancelAnimationFrame || window.mozCancelAnimationFrame
+        const outer = document.getElementsByClassName("view-box")[0]
+        const inner = document.getElementsByClassName("container")[0]
+        //单个轮播元素宽度
+        offset = offset || 0
+        const itemWidth = 200
+        const distance = inner.clientHeight - itemWidth
+        inner.style.top = inner.style.top || 0
+        let requestId = null, sliceStatus = "start", wait = 0, waitMax = 0
+        //每一帧执行的回调函数
+        const scrollLeft = () => {
+            if (offset % itemWidth === 0 && wait < waitMax) {
+                wait++;
+            }
+            else {
+                if (offset % itemWidth === 0 && wait === waitMax) {
+                    wait = 0;
+                }
+                const speed = 4
+                offset +=  speed
+                inner.style.top = -offset + 'px'
+            }
+            if (distance <= offset) offset = 0
+            requestId = requestAnimationFrame(scrollLeft)
+        }
+
+
+        requestId = requestAnimationFrame(scrollLeft)
+        return (status) => {
+            if (sliceStatus === status) return
+            status === "start" ? requestId =
+                requestAnimationFrame(scrollLeft) : cancelAnimationFrame(requestId)
+            sliceStatus = status
+        }
+    }
+
+    let slice = null
+    let start = () => slice === null ? slice = slicing() : slice("start")
+    let stop = () => slice("stop")
+    start()
+</script>
+</html>
