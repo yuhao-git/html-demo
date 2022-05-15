@@ -7,7 +7,7 @@ requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnim
 cancelAnimationFrame = window.cancelAnimationFrame || window.webkitCancelAnimationFrame || window.mozCancelAnimationFrame
 
 class Swiper {
-  constructor({ container, interval = 0, speed = 2, duraction = 0.01, step = false, animationType = 'frame' }) {
+  constructor({ container, interval = 0, speed = 1, duraction = 1.5, step = false, animationType = 'frame' }) {
     this.container = container;
     this.timer = null; // 定时器
     this.offset = 0;  // 偏移量
@@ -59,14 +59,14 @@ class Swiper {
   initInterval() {
     this.timer = setInterval(() => {
       if (this.container.children[0]) {
-        let scrollHeight = parseInt(this.container.children[0].offsetHeight);
+        let scrollHeight = parseFloat(this.container.children[0].offsetHeight);
         if (this.step) {
           this.container.style.transform = `translateY(-${scrollHeight}px)`;
           this.container.style.transition = `all ${this.duraction}s ease-in-out`;
         }
         else {
           this.container.style.transform = `translateY(${this.offset -= this.speed}px)`;
-          this.container.style.transition = `all ${100 / 60}ms ease`;
+          // this.container.style.transition = `all ${100 / 60}ms ease`;
           if (-this.offset >= scrollHeight) {
             this.animationEndHandler();
           }
@@ -77,7 +77,7 @@ class Swiper {
   }
 
   /**
-   * 帧动画实现定时
+   * 帧动画实现
    */
   startAnimation = () => {
     this.frameAnimation();
@@ -90,7 +90,7 @@ class Swiper {
     if (!this.frameAnimateStart) {
       return
     }
-    let scrollHeight = parseInt(this.container.children[0].offsetHeight);
+    let scrollHeight = parseFloat(this.container.children[0].offsetHeight);
     if (this.wait < this.interval) {
       this.wait++;
     }
