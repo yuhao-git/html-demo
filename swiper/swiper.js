@@ -2,22 +2,32 @@
  * 滚动
  * @container 列表容器 
  * @interval 间隔
+ * @container 
+ * @timer // 定时器
+ * @offset  // 偏移量
+ * @interval //时间间隔 'interval'模式下单位为秒 
+ * @speed  // 移动速度
+ * @duraction  //动画时间 step 为 true时有效 
+ * @step  // 步进
+ * @wait 
+ * @frameAnimateStart  // 帧动画开始
+ * @animationType  // 动画方式 'interval' | 'frame'
  */
 requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame
 cancelAnimationFrame = window.cancelAnimationFrame || window.webkitCancelAnimationFrame || window.mozCancelAnimationFrame
 
 class Swiper {
-  constructor({ container, interval = 0, speed = 1, duraction = 1.5, step = false, animationType = 'frame' }) {
+  constructor({ container, interval = 100, speed = 0.2, duraction = 1.5, step = true, animationType = 'frame' }) {
     this.container = container;
-    this.timer = null; // 定时器
-    this.offset = 0;  // 偏移量
-    this.interval = interval; //时间间隔 单位为秒 interval>duraction
-    this.speed = speed; // 移动速度
-    this.duraction = duraction; //动画时间 step 为 true时有效 
-    this.step = step; // 步进
+    this.timer = null;
+    this.offset = 0;
+    this.interval = interval;
+    this.speed = speed;
+    this.duraction = duraction;
+    this.step = step;
     this.wait = 0;
-    this.frameAnimateStart = true; // 帧动画开始
-    this.animationType = animationType; // 动画方式 'interval' | 'frame'
+    this.frameAnimateStart = true;
+    this.animationType = animationType;
 
     this.init();
   }
@@ -28,7 +38,7 @@ class Swiper {
       this.container.removeEventListener("transitionend", this.animationEndHandler);
       this.container.addEventListener("transitionend", this.animationEndHandler);
     }
-    this.container.addEventListener('mouseenter', this.mouseEnterHander);    
+    this.container.addEventListener('mouseenter', this.mouseEnterHander);
     this.container.addEventListener('mouseleave', this.mouseLeaveHandler);
 
     this.startAnimate()
@@ -98,7 +108,7 @@ class Swiper {
       this.wait = 0;
       if (this.step) {
         this.container.style.transform = `translateY(-${scrollHeight}px)`;
-        this.container.style.transition = `all ${this.duraction}s ease-in-out`;
+        this.container.style.transition = `all ${this.duraction}s ease`;
       }
       else {
         this.offset += this.speed
