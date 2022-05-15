@@ -37,44 +37,171 @@
     const canvas = document.createElement("canvas");
     container.appendChild(canvas);
     const ctx = canvas.getContext("2d");
+    let animationStart = true
+
     let canvasSize = {
         width: container.clientWidth,
         height: container.clientHeight
     }
+    let everyPer = 0;
     let x = 0;
     let y = 0;
 
     init();
-    draw();
     addObserver();
 
     // 初始化画布
     function init() {
-        canvas.width = canvasSize.width;
-        canvas.height = canvasSize.height;
-        Object.assign(canvas.style, {
-            width: `100%`,
-            height: `100%`,
-            // background: "red",
-            display: "block"
-        })
+        animationStart = false;
+        setTimeout(() => {
+            animationStart = true;
+            canvas.width = canvasSize.width;
+            canvas.height = canvasSize.height;
+            Object.assign(canvas.style, {
+                width: `${canvasSize.width}px`,
+                height: `${canvasSize.height}px`,
+                // background: "red",
+                display: "block"
+            })
+            draw();
+        }, 0)
+
+    }
+    // 创建圆
+    function createCircle(config) {
+        let _config = {
+            x: 10, y: 10, r: 10, color: "blue"
+        }
+        Object.assign(_config, config)
+        ctx.beginPath();
+        ctx.arc(_config.x, _config.y, _config.r, 0, 2 * Math.PI);
+        ctx.fillStyle = _config.color;
+        ctx.fill();
+        ctx.closePath()
+    }
+    // 创建矩形
+    function createRect(config) {
+        let _config = {
+            x: 10, y: 10, w: 10, h: 10, color: "blue"
+        }
+        Object.assign(_config, config)
+        ctx.beginPath();
+
+        ctx.fillStyle = _config.color;
+        ctx.strokeStyle = _config.color;
+        // 无填充
+        ctx.strokeRect(_config.x, _config.y, _config.w, _config.h);
+        // 有填充
+        // ctx.fillRect(_config.x, _config.y, _config.w, _config.h);
+
+        var gradient = ctx.createLinearGradient(0, 0, 170, 0);
+        gradient.addColorStop("0", "magenta");
+        gradient.addColorStop("0.5", "blue");
+        gradient.addColorStop("1.0", "red");
+
+        // 用渐变进行填充
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = 5;
+        ctx.strokeRect(20, 20, 150, 100);
+        ctx.closePath()
+
+    }
+    // 创建文本
+    function createText(config) {
+        // let _config = {
+        //     x: 10, y: 10, w: 10, h: 10, color: "blue"
+        // }
+        // Object.assign(_config, config)
+        ctx.beginPath();
+
+        ctx.font = "30px Verdana";
+        // Create gradient
+        var gradient = ctx.createLinearGradient(0, 0, 200, 0);
+        gradient.addColorStop("0", "magenta");
+        gradient.addColorStop("0.5", "blue");
+        gradient.addColorStop("1.0", "red");
+        // Fill with gradient
+        ctx.strokeStyle = gradient;
+        ctx.strokeText("w3school.com.cn", 10, 30);
+        ctx.closePath()
+
+    }
+    // 三角形
+    function createTriangle() {
+        ctx.beginPath();
+        ctx.fillStyle = "red";
+        // ctx.moveTo(75, 50);
+        // ctx.lineTo(100, 75);
+        // ctx.lineTo(100, 25);
+        // ctx.fill();
+
+        // 填充三角形
+        ctx.beginPath();
+        ctx.moveTo(25, 25);
+        ctx.lineTo(105, 25);
+        ctx.lineTo(25, 105);
+        ctx.fill();
+
+        // 描边三角形
+        ctx.beginPath();
+        ctx.moveTo(125, 125);
+        ctx.lineTo(125, 45);
+        ctx.lineTo(45, 125);
+        ctx.closePath();
+        ctx.stroke();
+        ctx.closePath()
+    }
+    function createSmile() {
+        ctx.beginPath();
+        ctx.arc(75, 75, 50, 0, Math.PI * 2, true); // 绘制
+        ctx.moveTo(110, 75);
+        ctx.arc(75, 75, 35, 0, Math.PI, false);   // 口(顺时针)
+        ctx.moveTo(65, 65);
+        ctx.arc(60, 65, 5, 0, Math.PI * 2, true);  // 左眼
+        ctx.moveTo(95, 65);
+        ctx.arc(90, 65, 5, 0, Math.PI * 2, true);  // 右眼
+        ctx.stroke();
+        ctx.closePath();
+    }
+    // 创建图片
+    function createImage(config) {
+        let _config = {
+            x: 10, y: 10, w: 50, h: 50, color: "blue"
+        }
+        Object.assign(_config, config)
+        let img = new Image();
+        // 参数 1：要绘制的 img   参数 2、3：绘制的 img 在 canvas 中的坐标 参数4,5是width，height
+        // ctx.setLineDash([5, 5])
+        // ctx.strokeRect(10, 10, 300, 150)
+        img.src = "../assets/img/happy.png";
+        ctx.drawImage(img, _config.x, _config.y, _config.w, _config.h);
     }
 
     // 绘制
-
     function draw() {
-        ctx.clearRect(0, 0, canvasSize.width, canvasSize.height);
-
-        y += 0.5;
-        if (y > 1000) {
-            y = 0
+        if (!animationStart) {
+            return
         }
-        ctx.strokeRect(100, y, 150, 100);
-        // ctx.fillStyle = "#0000ff";
-        // ctx.fillRect(20, y, 150, 100);
+        ctx.clearRect(0, 0, canvasSize.width, canvasSize.height);
+        // y += 1;
+        // if (y > canvasSize.height) {
+        //     y = 0
+        // }
+        everyPer = ((Math.PI / 180) + everyPer) % 360;
+        // everyPer += 0.02;
+
+        x = 100 * Math.sin(everyPer) + 200;
+        y = 100 * Math.cos(everyPer) + 200;
+
+        // createCircle({ x: 100, y })
+        // createRect({ x: 50, y })
+        // createText()
+        // createTriangle()
+        // createSmile()
+        createImage({ x, y })
+        // ctx.rotate(Math.PI / 1000);
         requestAnimationFrame(draw)
     }
-
 
     // 监听窗口变化 重绘
     function addObserver() {
