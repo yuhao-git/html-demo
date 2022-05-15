@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        #container {
+            box-sizing: border-box;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<div id="container"></div>
+
+<body>
+
+</body>
+<script>
+    const container = document.getElementById("container");
+    const canvas = document.createElement("canvas");
+    container.appendChild(canvas);
+    const ctx = canvas.getContext("2d");
+    let canvasSize = {
+        width: container.clientWidth,
+        height: container.clientHeight
+    }
+    let x = 0;
+    let y = 0;
+
+    init();
+    draw();
+    addObserver();
+
+    // 初始化画布
+    function init() {
+        canvas.width = canvasSize.width;
+        canvas.height = canvasSize.height;
+        Object.assign(canvas.style, {
+            width: `100%`,
+            height: `100%`,
+            // background: "red",
+            display: "block"
+        })
+    }
+
+    // 绘制
+
+    function draw() {
+        ctx.clearRect(0, 0, canvasSize.width, canvasSize.height);
+
+        y += 0.5;
+        if (y > 1000) {
+            y = 0
+        }
+        ctx.strokeRect(100, y, 150, 100);
+        // ctx.fillStyle = "#0000ff";
+        // ctx.fillRect(20, y, 150, 100);
+        requestAnimationFrame(draw)
+    }
+
+
+    // 监听窗口变化 重绘
+    function addObserver() {
+        window.addEventListener("resize", init)
+    }
+
+    // 去除监听
+    function removeObserver() {
+        window.reoveEventListener("resize", init)
+    }
+
+    // 销毁
+    function dispose() {
+        removeObserver()
+    }
+
+
+</script>
+
+</html>
