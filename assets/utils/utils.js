@@ -134,3 +134,15 @@ function getPixelRatio(context) {
     return (window.devicePixelRatio || 1) / backingStore;
 };
 
+/** * 
+ * @param canvas 为获取的canvas的dom实例 
+ * @param clientX EventObj.clientX
+ * @param clientY EventObj.clientY */
+ function winCoordinate2CanvasCoordinate(canvas, clientX, clientY) {
+    letclientRect = canvas.getBoundingClientRect();
+    return { 
+        x: (clientX - clientRect.left) * (canvas.width / clientBox.width), 
+        y: (clientY - clientRect.top) * (canvas.height / canvas.height), 
+    }
+}
+// ctx.isPointInPath(30,50)
