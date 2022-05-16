@@ -38,11 +38,23 @@
     container.appendChild(canvas);
     const ctx = canvas.getContext("2d");
     let animationStart = true
+    // 像素比
+    var getPixelRatio = function (context) {
+        var backingStore = context.backingStorePixelRatio ||
+            context.webkitBackingStorePixelRatio ||
+            context.mozBackingStorePixelRatio ||
+            context.msBackingStorePixelRatio ||
+            context.oBackingStorePixelRatio ||
+            context.backingStorePixelRatio || 1;
+        return (window.devicePixelRatio || 1) / backingStore;
+    };
+    var ratio = getPixelRatio(ctx);
+    console.log(ratio)
 
-    let canvasSize = {
-        width: container.clientWidth,
-        height: container.clientHeight
-    }
+        let canvasSize = {
+            width: container.clientWidth,
+            height: container.clientHeight
+        }
     let everyPer = 0;
     let x = 0;
     let y = 0;
@@ -55,8 +67,9 @@
         animationStart = false;
         setTimeout(() => {
             animationStart = true;
-            canvas.width = canvasSize.width;
-            canvas.height = canvasSize.height;
+            canvas.width = canvasSize.width * ratio;
+            canvas.height = canvasSize.height * ratio;
+
             Object.assign(canvas.style, {
                 width: `${canvasSize.width}px`,
                 height: `${canvasSize.height}px`,
@@ -70,7 +83,10 @@
     // 创建圆
     function createCircle(config) {
         let _config = {
-            x: 10, y: 10, r: 10, color: "blue"
+            x: 10,
+            y: 10,
+            r: 10,
+            color: "blue"
         }
         Object.assign(_config, config)
         ctx.beginPath();
@@ -82,7 +98,11 @@
     // 创建矩形
     function createRect(config) {
         let _config = {
-            x: 10, y: 10, w: 10, h: 10, color: "blue"
+            x: 10,
+            y: 10,
+            w: 10,
+            h: 10,
+            color: "blue"
         }
         Object.assign(_config, config)
         ctx.beginPath();
@@ -151,30 +171,38 @@
         ctx.stroke();
         ctx.closePath()
     }
+
     function createSmile() {
         ctx.beginPath();
         ctx.arc(75, 75, 50, 0, Math.PI * 2, true); // 绘制
         ctx.moveTo(110, 75);
-        ctx.arc(75, 75, 35, 0, Math.PI, false);   // 口(顺时针)
+        ctx.arc(75, 75, 35, 0, Math.PI, false); // 口(顺时针)
         ctx.moveTo(65, 65);
-        ctx.arc(60, 65, 5, 0, Math.PI * 2, true);  // 左眼
+        ctx.arc(60, 65, 5, 0, Math.PI * 2, true); // 左眼
         ctx.moveTo(95, 65);
-        ctx.arc(90, 65, 5, 0, Math.PI * 2, true);  // 右眼
+        ctx.arc(90, 65, 5, 0, Math.PI * 2, true); // 右眼
         ctx.stroke();
         ctx.closePath();
     }
     // 创建图片
     function createImage(config) {
         let _config = {
-            x: 10, y: 10, w: 50, h: 50, color: "blue"
+            x: 10,
+            y: 10,
+            w: 100,
+            h: 100,
+            color: "blue"
         }
         Object.assign(_config, config)
         let img = new Image();
         // 参数 1：要绘制的 img   参数 2、3：绘制的 img 在 canvas 中的坐标 参数4,5是width，height
         // ctx.setLineDash([5, 5])
         // ctx.strokeRect(10, 10, 300, 150)
+        img.onload = () => {
+            ctx.drawImage(img, _config.x, _config.y, _config.w, _config.h);
+
+        }
         img.src = "../assets/img/happy.png";
-        ctx.drawImage(img, _config.x, _config.y, _config.w, _config.h);
     }
 
     // 绘制
@@ -198,14 +226,26 @@
         // createText()
         // createTriangle()
         // createSmile()
-        createImage({ x, y })
+        createImage({
+            x,
+            y
+        })
         // ctx.rotate(Math.PI / 1000);
-        requestAnimationFrame(draw)
+        // requestAnimationFrame(draw)
     }
 
     // 监听窗口变化 重绘
     function addObserver() {
         window.addEventListener("resize", init)
+
+        canvas.addEventListener('click', (e) => {
+            createCircle({
+                x: e.clientX * ratio,
+                y: e.clientY * ratio,
+                r: 5,
+            })
+        })
+
     }
 
     // 去除监听
@@ -217,8 +257,6 @@
     function dispose() {
         removeObserver()
     }
-
-
 </script>
 
 </html>

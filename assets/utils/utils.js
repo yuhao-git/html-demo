@@ -102,3 +102,35 @@ function treeFindPath(tree, func, path = [], result = []) {
     return result
 }
 
+/**
+ * canvas 大小自适应
+ * @param {*} renderer 
+ */
+function resizeRendererToDisplaySize(renderer) {
+    const canvas = renderer.domElement;
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    const needResize = canvas.width !== width || canvas.height !== height;
+    if (needResize) {
+        renderer.setSize(width, height, false);
+    }
+    returnneedResize;
+}
+
+/**
+ * 获取像素比
+ * @param {*} context 
+ * @returns 
+ * 使用 var ratio = getPixelRatio(ctx);
+ * 
+ */
+function getPixelRatio(context) {
+    var backingStore = context.backingStorePixelRatio ||
+        context.webkitBackingStorePixelRatio ||
+        context.mozBackingStorePixelRatio ||
+        context.msBackingStorePixelRatio ||
+        context.oBackingStorePixelRatio ||
+        context.backingStorePixelRatio || 1;
+    return (window.devicePixelRatio || 1) / backingStore;
+};
+
