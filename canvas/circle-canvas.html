@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        #container {
+            box-sizing: border-box;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<div id="container"></div>
+
+<body>
+
+</body>
+<script>
+    const container = document.getElementById("container");
+    const canvas = document.createElement("canvas");
+    container.appendChild(canvas);
+    const ctx = canvas.getContext("2d");
+    let animationStart = true
+    // 像素比
+    var getPixelRatio = function (context) {
+        var backingStore = context.backingStorePixelRatio ||
+            context.webkitBackingStorePixelRatio ||
+            context.mozBackingStorePixelRatio ||
+            context.msBackingStorePixelRatio ||
+            context.oBackingStorePixelRatio ||
+            context.backingStorePixelRatio || 1;
+        return (window.devicePixelRatio || 1) / backingStore;
+    };
+    var ratio = getPixelRatio(ctx);
+
+    let canvasSize = {
+        width: container.clientWidth,
+        height: container.clientHeight
+    }
+    let everyPer = 0;
+    let x = 0;
+    let y = 0;
+    let mouse = null; // 保存鼠标事件信息
+    let move = false;
+    let offset = {} // 鼠标点下位置
+    let selectedItem = null // 选中图形
+    let hoverItem = null
+
+    let position = {
+        x: (Math.random() * 100 + 100).toFixed(0) * 1,
+        y: (Math.random() * 100 + 400).toFixed(0) * 1
+    }
+    let currentPosition = {
+        x: 100, y: 400
+    }
+
+    let dataList = [{
+        id: '1',
+        type: "circle",
+        x: 190,
+        y: 120,
+        _r: 20,
+        _color: "red"
+    },
+    {
+        id: '2',
+        type: "circle",
+        x: 320,
+        y: 120,
+        _r: 20,
+        _color: "rgba(0,0,0,1)"
+    },
+    {
+        id: '3',
+        type: "circle",
+        x: 110,
+        y: 100,
+        _r: 28,
+        _color: "blue"
+    },
+    ];
+    init();
+    addObserver();
+
+    // 初始化画布
+    function init() {
+        animationStart = true;
+        canvas.width = canvasSize.width * ratio;
+        canvas.height = canvasSize.height * ratio;
+
+        Object.assign(canvas.style, {
+            width: `${canvasSize.width}px`,
+            height: `${canvasSize.height}px`,
+            // background: "red",
+            display: "block"
+        })
+        draw();
+    }
+
+    // 绘制
+    function draw() {
+        if (!animationStart) {
+            return
+        }
+        requestAnimationFrame(draw)
+
+        ctx.clearRect(0, 0, canvasSize.width, canvasSize.height);
+        if (Math.abs(currentPosition.x - position.x) > 5) {
+            if (currentPosition.x < position.x) {
+                currentPosition.x += 3
+            }
+            else {
+                currentPosition.x -= 3
+            }
+        }
+        if (Math.abs(currentPosition.y - position.y) > 5) {
+            if (currentPosition.y < position.y) {
+                currentPosition.y += 3
+            }
+            else {
+                currentPosition.y -= 3
+            }
+        }
+
+        if (Math.abs(currentPosition.x - position.x) < 20 && Math.abs(currentPosition.y == position.y) < 20) {
+            position = {
+                x: (Math.random() * 500 + 100).toFixed(0) * 1,
+                y: (Math.random() * 500 + 400).toFixed(0) * 1,
+            }
+        }
+
+        createCircle({ x: currentPosition.x, y: currentPosition.y })
+
+        dataList.forEach(item => {
+            createCircle(item)
+
+            if (move && mouse && selectedItem && selectedItem.id === item.id) {
+                item.x = mouse.x
+                item.y = mouse.y
+                item.color = '#f0f2f5'
+                item.r = item._r * 1.5
+            } else {
+                item.color = item._color
+                item.r = item._r
+            }
+        })
+    }
+
+    function addObserver() {
+        canvas.addEventListener('mousedown', (e) => {
+            move = true;
+            requestAnimationFrame(() => {
+                dataList.forEach(item => {
+                    createCircle(item)
+                    if (ctx.isPointInPath(e.x, e.y)) {
+                        selectedItem = item
+                        offset = {
+                            x: e.clientX - selectedItem.x,
+                            y: e.clientY - selectedItem.y
+                        }
+                        // 鼠标按下时必须mouse 否则会将上次移动的mouse位置赋值给新选中的对象
+                        if (move && selectedItem) {
+                            mouse = {
+                                x: e.clientX - offset.x,
+                                y: e.clientY - offset.y,
+                            }
+                        }
+                    }
+                })
+            })
+        })
+
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (move && selectedItem) {
+                mouse = {
+                    x: e.clientX - offset.x,
+                    y: e.clientY - offset.y,
+                }
+            }
+        })
+
+        canvas.addEventListener('mouseup', (e) => {
+            move = false;
+
+            selectedItem = null;
+        })
+
+    }
+
+    // 创建圆
+    function createCircle(config) {
+        let _config = {
+            x: 10,
+            y: 10,
+            r: 10,
+            color: "blue"
+        }
+        Object.assign(_config, config)
+        ctx.beginPath();
+        ctx.arc(_config.x, _config.y, _config.r, 0, 2 * Math.PI);
+        ctx.fillStyle = _config.color;
+        ctx.fill();
+        ctx.closePath()
+    }
+
+
+</script>
+
+</html>
