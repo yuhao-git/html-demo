@@ -1,0 +1,43 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style >
+    .love_move {
+        position: absolute;
+        font-size: 20px;
+        offset-path: path("m264.72273,137.28284c52.77378,-129.9431 259.54318,0 0,167.0697c-259.54318,-167.0697 -52.77378,-297.01281 0,-167.0697z");
+        animation: move 6s linear infinite;
+    }
+  
+    @keyframes move {
+        100% {offset-distance: 100%;}
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <span class="love_move">love</span>
+    <svg width="580" height="400" style="border:1px solid #f0f2f5" xmlns="http://www.w3.org/2000/svg">
+        <g>
+            <title>background</title>
+            <rect fill="white" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+            <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+                <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+            </g>
+        </g>
+        <g>
+            <title>Layer 1</title>
+            <path id="svg_2"
+                  d="m264.72273,137.28284c52.77378,-129.9431 259.54318,0 0,167.0697c -259.54318,-167.0697 -52.77378,-297.01281 0,-167.0697z"
+                  stroke-width="1.5" stroke="red" fill="red"/>
+        </g>
+    </svg>
+</div>
+</body>
+</html>
