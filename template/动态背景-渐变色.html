@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        .background--custom {
+            background: linear-gradient(90deg, #89e39d, #1b5fe7, #1ecc10);
+
+            background-size: 400% 100%;
+            animation: gradient 4s alternate infinite;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0%;
+            }
+
+            100% {
+                background-position: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background--custom"></div>
+</body>
+
+</html>

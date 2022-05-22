@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>3DPhoto</title>
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+    <style type='text/css'>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            perspective: 800px;
+            background: #000;
+            touch-action: none;
+        }
+
+        .wrap {
+            position: relative;
+            width: 120px;
+            height: 180px;
+            margin: auto;
+            transform-style: preserve-3d;
+            pointer-events: none;
+        }
+
+        .wrap img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 2px;
+            /* -webkit-box-reflect: below 5px -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.5) 100%); */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="wrap">
+            <img src="../images/incarnation/baiyuekui.jpg" alt="">
+            <img src="../images/incarnation/heguanzhe.jpg" alt="">
+            <img src="../images/incarnation/ailika.jpg" alt="">
+            <img src="../images/incarnation/jiexika.jpg" alt="">
+            <img src="../images/incarnation/chenmin4277.jpg" alt="">
+            <img src="../images/incarnation/feixue.jpg" alt="">
+            <img src="../images/incarnation/hongkou.jpg" alt="">
+            <img src="../images/incarnation/peini.jpg" alt="">
+            <img src="../images/incarnation/suixing.jpg" alt="">
+            <img src="../images/incarnation/jingnan.jpg" alt="">
+            <img src="../images/incarnation/xiadou.jpg" alt="">
+            <img src="../images/incarnation/ranbing.jpg" alt="">
+        </div>
+    </div>
+
+    <script>
+        // 获取dom
+        const container = document.querySelector('.container');
+        const wrap = document.querySelector('.wrap');
+        const imgList = document.querySelectorAll('.wrap img');
+        const length = imgList.length;
+        const angle = 360 / length;
+
+        // 开场动画 延时1000 / 60 = 16.666667 ≈ 17，否则transition不会生效
+        setTimeout(() => {
+            for (let i = 0; i < length; i++) {
+                imgList[i].style.transition = 'transform 1s ease ' + (length - 1 - i) * 0.1 + 's';
+                imgList[i].style.transform = 'rotateY(' + (angle * i) + 'deg) translateZ(320px)';
+            }
+        }, 17);
+        // wrap沿x轴旋转-10度
+        const rotate = { x: -10, y: 0 };
+        wrap.style.transform = 'rotateX(' + rotate.x + 'deg)';
+
+        // 拖拽查看
+        let isPointerDown = false;
+        let point = null;
+        let last = null;
+        let diff = null;
+        let rafId = null;
+        container.addEventListener('pointerdown', function (e) {
+            this.setPointerCapture(e.pointerId);
+            isPointerDown = true;
+            cancelAnimationFrame(rafId);
+            point = { x: e.clientX, y: e.clientY };
+            last = { x: e.clientX, y: e.clientY };
+            diff = { x: 0, y: 0 };
+        });
+        container.addEventListener('pointermove', function (e) {
+            if (isPointerDown) {
+                const current = { x: e.clientX, y: e.clientY };
+                diff = { x: current.x - last.x, y: current.y - last.y };
+                rotate.x -= diff.y * 0.1;
+                rotate.y += diff.x * 0.1;
+                last = { x: current.x, y: current.y };
+                wrap.style.transform = 'rotateX(' + rotate.x + 'deg) rotateY(' + rotate.y + 'deg)';
+            }
+        });
+        container.addEventListener('pointerup', function (e) {
+            isPointerDown = false;
+            raf();
+        });
+        container.addEventListener('pointercancel', function (e) {
+            isPointerDown = false;
+        });
+
+        // 惯性滚动
+        function raf() {
+            let { x, y } = diff;
+            function step() {
+                x *= 0.95;
+                y *= 0.95;
+                rotate.x -= y * 0.1;
+                rotate.y += x * 0.1;
+                wrap.style.transform = 'rotateX(' + rotate.x + 'deg) rotateY(' + rotate.y + 'deg)';
+                if (Math.abs(x) > 1 || Math.abs(y) > 1) {
+                    rafId = requestAnimationFrame(step);
+                }
+            }
+            rafId = requestAnimationFrame(step);
+        }
+    </script>
+</body>
+
+</html>

@@ -28,33 +28,39 @@
         // 相机
         var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         // 渲染器
-        var renderer = new THREE.WebGLRenderer();
+        var renderer = new THREE.WebGLRenderer(
+            { antialias: true, }  // 抗锯齿
+        );
+        renderer.setPixelRatio(window.devicePixelRatio)
 
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
         var spriteMap = new THREE.TextureLoader().load('../assets/img/happy.png');
-        scene.background = new THREE.Color( 0xf0f0f0 );
+        scene.background = new THREE.Color(0xf0f0f0);
         // 光源 
         scene.add(new THREE.AmbientLight(0xf0f0f0));
-        const light = new THREE.SpotLight(0xffffff, 1.5);
-        light.position.set(0, 1500, 200);
-        light.angle = Math.PI * 0.2;
-        light.castShadow = true;
-        light.shadow.camera.near = 200;
-        light.shadow.camera.far = 2000;
-        light.shadow.bias = - 0.000222;
-        light.shadow.mapSize.width = 1024;
-        light.shadow.mapSize.height = 1024;
-        scene.add(light);
+        // const light = new THREE.SpotLight(0xffffff, 1.5);
+        // light.position.set(0, 1500, 100);
+        // light.angle = Math.PI * 0.2;
+        // light.castShadow = true;
+        // light.shadow.camera.near = 200;
+        // light.shadow.camera.far = 2000;
+        // light.shadow.bias = - 0.000222;
+        // light.shadow.mapSize.width = 1024;
+        // light.shadow.mapSize.height = 1024;
+        // scene.add(light);
 
+        camera.position.set( 0, 4, 6);
+        camera.lookAt(scene.position);
         // mesh
-        var geometry = new THREE.BoxGeometry(1, 1, 1);
+        var geometry = new THREE.BoxGeometry(1, 0.2, 1);
         // 材质
-        var material = new THREE.MeshBasicMaterial({ map: spriteMap });
+        // var material = new THREE.MeshBasicMaterial({ map: spriteMap });
+        var material = new THREE.MeshMatcapMaterial({ color: 0xf0f2f0 });
+
         // 正方体
         var cube = new THREE.Mesh(geometry, material);
         scene.add(cube);
-        scene.add(light);
 
 
 
@@ -64,14 +70,12 @@
         // sprite.scale.set(2, 2, 1)
         // sprite.position.set(0, 2, 1)
 
-        // scene.add( sprite );
+        // scene.add( sprite )
+        cube.rotation.y += 0.02
 
-        camera.position.z = 5;
 
         var animate = function () {
             requestAnimationFrame(animate);
-
-            cube.rotation.x += 0.01;
             cube.rotation.y += 0.02
 
             renderer.render(scene, camera);

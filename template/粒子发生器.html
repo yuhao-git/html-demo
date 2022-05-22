@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!--浏览器获知文档类型为HTML5-->
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <!--编码格式-->
+    <title>粒子发生器</title>
+    <!--引入js-->
+    <!--注意js文件的名字-->
+    <style>
+        /*定义样式*/
+        #cns1 {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="cns1" width="500px" height="500px"></canvas>
+    <!--canvas画布-->
+</body>
+<script>
+    var Model = function (canvas) {    //传参 画布
+        var me = this;
+        me.puppleArr = new Array();       //泡泡数组
+        me.puppleNum = 100;              //泡泡个数
+        me.canvas = canvas;              //获取画布元素
+        me.context = canvas.getContext('2d');      //获取用于在画布上绘图的环境
+
+
+        for (var i = 0; i < me.puppleNum; i++) {
+            me.puppleArr.push(me.genPupple());     //将泡泡属性添加到数组
+        }
+        me.shake();   //泡泡发射（移动）
+    }
+    Model.prototype.genPupple = function () {    //使用 prototype 属性来向对象添加属性
+        return {            //返回泡泡的各种属性
+            radius: Math.random() * 10,//半径
+            v: Math.random() * 100, //速度
+            r: Math.random() * 255 | 0,      //|0是取整   random()是0~1之间的随机数
+            g: Math.random() * 255 | 0,
+            b: Math.random() * 255 | 0,   //r g b 三原色
+            a: Math.random(),        //透明度
+            angle: Math.PI * Math.random() * 2,      //泡泡移动方向    
+            x: this.canvas.width / 2,          //泡泡位置坐标
+            y: this.canvas.height / 2,
+        }
+    }
+    Model.prototype.shake = function () {          //使用 prototype 属性来向对象添加属性
+        var me = this;
+        var ctx = me.context;
+        foo();     //绘制到画布上
+        function foo() {
+            ctx.clearRect(0, 0, me.canvas.width, me.canvas.height);   //清空画布
+            for (var i = 0; i < me.puppleNum; i++) {
+                var o = me.puppleArr[i];
+                ctx.fillStyle = "rgba(" + o.r + "," + o.g + "," + o.b + "," + o.a + ")";    //设定绘制颜色及透明度
+                ctx.beginPath(); //开始绘制
+                ctx.arc(o.x, o.y, o.radius, 0, 360, false);    //绘制一个圆
+                ctx.fill();      //填充颜色
+                ctx.closePath();  //结束绘制
+
+                o.x += (o.v) * Math.cos(o.angle) * 0.03;        //泡泡位置移动
+                o.y += (o.v) * Math.sin(o.angle) * 0.03;
+                o.a -= 0.01;        //透明度逐渐降低
+                if (o.a <= 0) {              //透明度降低至0时（肉眼看不见了），便重置泡泡的各种属性
+                    me.puppleArr[i] = me.genPupple();
+                }
+            }
+            // setTimeout(foo, 30);     //每隔30ms绘制一次
+            requestAnimationFrame(foo)
+        }
+    }
+    window.Pupple = Model;
+    
+    window.onload = () => {
+        //获取CSS选择器的画布元素  并new一个粒子发生器的对象出来(即实例化)
+        var Game = new Pupple(document.querySelector("#cns1"));
+    }
+
+
+
+
+</script>
+
+</html>
