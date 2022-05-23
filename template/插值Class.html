@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>插值</title>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <style>
+    .item-center{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 2px;
+      /* margin-bottom: 1px; */
+    }
+  </style>
+</head>
+
+<body>
+  <div id="main"></div>
+  <script type="module">
+    import {
+      Color,
+      colorsBetween
+    } from "../assets/utils/Color.js"
+
+    let c = new Color()
+    let main = d3.select('#main')
+
+    function reset() {
+      let c1 = "#ffffff"
+      let c2 = "#000000"
+      let n = 100
+      var cols = colorsBetween(c1, c2, parseInt(n));
+      cols.forEach((item, index) => {
+        main.append("div")
+          // .style('height', '20px')
+          .style('width', '200px')
+          .style('background-color', item)
+          .attr('class', 'item-center')
+          // .text(` rgb - ${c.fromHex(item)}`)
+      })
+    }
+
+    reset()
+  </script>
+</body>
+
+</html>

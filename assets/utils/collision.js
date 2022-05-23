@@ -86,8 +86,8 @@ function didCollide(ball, bucket) {
     ball.y < bucket.mockTop + bucket.mockHeight
   );
 }
-}
 
+export default didCollide
 
 // ctx.isPointInPath(30,50) 路径内
 // isPointInStroke() 边上
