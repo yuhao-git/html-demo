@@ -42,7 +42,7 @@
   //style
   let mainDom = d3.select('#main')
     .style('width', '600px')
-    .style('height', '500px')
+    .style('height', '600px')
     .style('border', '1px solid #eee')
 
   let svg = mainDom.append('svg')
@@ -50,6 +50,9 @@
     .style('height', '500px')
     .style("margin-left", '20px')
     .style("margin-top", '20px')
+    .style("transform"," scale(1,-1) ") // 坐标转换 左上角换到左下角
+    // rotate(angle,centerX,centerY)  // 旋转中心设置
+    // translate(centerX,centerY) rotate(angle) translate(-centerX,-centerY)
   let fillColor = "#c4eef8"
   // 柱状图
   function drawBars() {
@@ -60,7 +63,8 @@
     rectData.forEach((item, index) => {
       svg.append("rect")
         .attr("x", index * 30 + 10)
-        .attr("y", max - item)
+        // .attr("y", max - item)
+        .attr("y", 0)
         .attr("height", item + 'px')
         .attr("width", '20px')
         .attr("fill", '#c4eef8') //填充色
@@ -132,7 +136,7 @@
   // 折线 不会自动闭合
   function drawPolyline() {
     svg.append("polyline")
-      .attr('points', '300, 150 300,250 500 ,150')
+      .attr('points', '300, 100 300,200 500 ,100')
       .attr('stroke', fillColor)
       .attr('fill', "none")
       
@@ -148,14 +152,7 @@
 
   main()
 
-  // stroke	             笔画颜色
-  // stroke-width	       笔画宽度
-  // stroke-opacity	     笔画不透明度
-  // stroke-dasharray	   虚线笔画
-  // stroke-linecap	     笔画头的形状 butt(默认),round,square
-  // stroke-linejoin	   图形棱角，有miter(默认),round和bevel三个取值
-  // stroke-miterlimit	 相交处显示宽度与线宽的最大比例，默认为4
-  // fill	               填充颜色 默认black
-  // fill-opacity	       填充不透明度
-  // fill-rule	         填充规则
+
+
+  
 </script>
