@@ -52,7 +52,7 @@ function treeFilter(tree, func, times = 0) {
  * @param {*} tree 
  * @param {*} func 
  */
-function treeForeach(tree, func) {
+function treeForeachBreadth(tree, func) {
     let node, list = [...tree]
     while (node = list.shift()) {
         func(node)
@@ -65,24 +65,24 @@ function treeForeach(tree, func) {
  * @param {*} tree 
  * @param {*} func 
  */
-function treeForeach(tree, func) {
+function firstSequenceTraversal(tree, func) {
     tree.forEach(data => {
         func(data)
-        data.children && treeForeach(data.children, func) // 遍历子树
+        data.children && firstSequenceTraversal(data.children, func) // 遍历子树
     })
 }
 
-// /**
-//  * 后序遍历
-//  * @param {*} tree 
-//  * @param {*} func 
-//  */
-// function treeForeach(tree, func) {
-//     tree.forEach(data => {
-//         data.children && treeForeach(data.children, func) // 遍历子树
-//         func(data)
-//     })
-// }
+/**
+ * 后序遍历
+ * @param {*} tree 
+ * @param {*} func 
+ */
+function afterSequenceTraversal(tree, func) {
+    tree.forEach(data => {
+        data.children && afterSequenceTraversal(data.children, func) // 遍历子树
+        func(data)
+    })
+}
 
 /**
  * 路径 
@@ -104,7 +104,7 @@ function treeFindPath(tree, func, path = [], result = []) {
 
 /**
  * canvas 大小自适应
- * @param {*} renderer 
+ * @param {*} renderer cenvas父容器
  */
 function resizeRendererToDisplaySize(renderer) {
     const canvas = renderer.domElement;
@@ -116,4 +116,5 @@ function resizeRendererToDisplaySize(renderer) {
     }
     returnneedResize;
 }
+
 

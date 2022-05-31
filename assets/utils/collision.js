@@ -1,5 +1,4 @@
 
-// let distance = ball.currentSpeed * t; 
 /**
  * 判断是否两个矩形发生碰撞
  * @param {*} sprite 
@@ -88,12 +87,3 @@ function didCollide(ball, bucket) {
 }
 
 export default didCollide
-
-// ctx.isPointInPath(30,50) 路径内
-// isPointInStroke() 边上
-// isPointInPath()不支持canvas自带的两个方法fillRect(),strokeRect();
-// ctx.rect(x,y,w,h);
-// ctx.stroke(); //替代strokeRect();
-
-// ctx.rect(x,y,w,h);
-// ctx.fill(); //替代fillRect();

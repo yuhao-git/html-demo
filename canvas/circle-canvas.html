@@ -49,7 +49,6 @@
         return (window.devicePixelRatio || 1) / backingStore;
     };
     var ratio = getPixelRatio(ctx);
-
     let canvasSize = {
         width: container.clientWidth,
         height: container.clientHeight
@@ -68,33 +67,34 @@
         y: (Math.random() * 100 + 400).toFixed(0) * 1
     }
     let currentPosition = {
-        x: 100, y: 400
+        x: 100,
+        y: 400
     }
 
     let dataList = [{
-        id: '1',
-        type: "circle",
-        x: 190,
-        y: 120,
-        _r: 20,
-        _color: "red"
-    },
-    {
-        id: '2',
-        type: "circle",
-        x: 320,
-        y: 120,
-        _r: 20,
-        _color: "rgba(0,0,0,1)"
-    },
-    {
-        id: '3',
-        type: "circle",
-        x: 110,
-        y: 100,
-        _r: 28,
-        _color: "blue"
-    },
+            id: '1',
+            type: "circle",
+            x: 190,
+            y: 120,
+            _r: 20,
+            _color: "red"
+        },
+        {
+            id: '2',
+            type: "circle",
+            x: 320,
+            y: 120,
+            _r: 20,
+            _color: "rgba(0,0,0,1)"
+        },
+        {
+            id: '3',
+            type: "circle",
+            x: 110,
+            y: 100,
+            _r: 28,
+            _color: "blue"
+        },
     ];
     init();
     addObserver();
@@ -102,8 +102,8 @@
     // 初始化画布
     function init() {
         animationStart = true;
-        canvas.width = canvasSize.width * ratio;
-        canvas.height = canvasSize.height * ratio;
+        canvas.width = canvasSize.width ;
+        canvas.height = canvasSize.height ;
 
         Object.assign(canvas.style, {
             width: `${canvasSize.width}px`,
@@ -125,16 +125,14 @@
         if (Math.abs(currentPosition.x - position.x) > 5) {
             if (currentPosition.x < position.x) {
                 currentPosition.x += 3
-            }
-            else {
+            } else {
                 currentPosition.x -= 3
             }
         }
         if (Math.abs(currentPosition.y - position.y) > 5) {
             if (currentPosition.y < position.y) {
                 currentPosition.y += 3
-            }
-            else {
+            } else {
                 currentPosition.y -= 3
             }
         }
@@ -146,7 +144,10 @@
             }
         }
 
-        createCircle({ x: currentPosition.x, y: currentPosition.y })
+        createCircle({
+            x: currentPosition.x,
+            y: currentPosition.y
+        })
 
         dataList.forEach(item => {
             createCircle(item)
@@ -175,7 +176,7 @@
                             x: e.clientX - selectedItem.x,
                             y: e.clientY - selectedItem.y
                         }
-                        // 鼠标按下时必须mouse 否则会将上次移动的mouse位置赋值给新选中的对象
+                        // 鼠标按下时必须获取mouse,否则会将上次移动的mouse位置赋值给新选中的对象
                         if (move && selectedItem) {
                             mouse = {
                                 x: e.clientX - offset.x,
@@ -220,8 +221,6 @@
         ctx.fill();
         ctx.closePath()
     }
-
-
 </script>
 
 </html>

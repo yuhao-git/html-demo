@@ -1,51 +1,46 @@
 /**
  * 滚动
  * @container 列表容器 
- * @interval 间隔
- * @container 
- * @timer // 定时器
- * @offset  // 偏移量
- * @interval //时间间隔 'interval'模式下单位为秒 
- * @speed  // 移动速度
- * @duraction  //动画时间 step 为 true时有效 
- * @step  // 步进
- * @wait 
- * @frameAnimateStart  // 帧动画开始
- * @animationType  // 动画方式 'interval' | 'frame'
  */
 requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame
 cancelAnimationFrame = window.cancelAnimationFrame || window.webkitCancelAnimationFrame || window.mozCancelAnimationFrame
 
 class Swiper {
-  constructor({ container, interval = 100, speed = 0.2, duraction = 1.5, step = true, animationType = 'frame' }) {
-    this.container = container;
-    this.timer = null;
-    this.offset = 0;
-    this.interval = interval;
-    this.speed = speed;
-    this.duraction = duraction;
-    this.step = step;
-    this.wait = 0;
-    this.frameAnimateStart = true;
-    this.animationType = animationType;
-
+  constructor(config) {
+    // 内置变量
+    this.state = {
+      timer: null,             // 定时器
+      offset: 0,               // 偏移量
+      frameAnimateStart: true, // 帧动画开始
+      wait: 0,                 // 延时计数
+    }
+    // 配置
+    this.config = {
+      container: null,         // 容器
+      interval: 2,             // 时间间隔,单位为秒
+      speed: 1,                // 移动速度,单位为px
+      step: true,              // 开启步进
+      duraction: 1,            // 动画持续时间,step==true时有效 
+      animationType: 'frame',  // 动画方式:'interval' | 'frame'
+      ...config
+    }
     this.init();
   }
 
   init = () => {
-    if (this.step) {
+    if (this.config.step) {
       // 监听过渡动画结束后触发回调
-      this.container.removeEventListener("transitionend", this.animationEndHandler);
-      this.container.addEventListener("transitionend", this.animationEndHandler);
+      this.config.container.removeEventListener("transitionend", this.animationEndHandler);
+      this.config.container.addEventListener("transitionend", this.animationEndHandler);
     }
-    this.container.addEventListener('mouseenter', this.mouseEnterHander);
-    this.container.addEventListener('mouseleave', this.mouseLeaveHandler);
+    this.config.container.addEventListener('mouseenter', this.mouseEnterHander);
+    this.config.container.addEventListener('mouseleave', this.mouseLeaveHandler);
 
     this.startAnimate()
   }
 
   startAnimate = () => {
-    if (this.animationType === 'interval') {
+    if (this.config.animationType === 'interval') {
       this.initInterval();
     }
     else {
@@ -57,33 +52,33 @@ class Swiper {
    * 动画结束 将头部dom移动到末尾
    * */
   animationEndHandler = () => {
-    this.container.style.transform = "translateY(0)";
-    this.offset = 0;
-    this.container.style.transition = "";
-    this.container.appendChild(this.container.children[0]);
+    this.config.container.style.transform = "translateY(0)";
+    this.state.offset = 0;
+    this.config.container.style.transition = "";
+    this.config.container.appendChild(this.config.container.children[0]);
   };
 
   /**
    * 开始滚动
    * */
   initInterval() {
-    this.timer = setInterval(() => {
-      if (this.container.children[0]) {
-        let scrollHeight = parseFloat(this.container.children[0].offsetHeight);
-        if (this.step) {
-          this.container.style.transform = `translateY(-${scrollHeight}px)`;
-          this.container.style.transition = `all ${this.duraction}s ease-in-out`;
+    this.state.timer = setInterval(() => {
+      if (this.config.container.children[0]) {
+        let scrollHeight = parseFloat(this.config.container.children[0].offsetHeight);
+        if (this.config.step) {
+          this.config.container.style.transform = `translateY(-${scrollHeight}px)`;
+          this.config.container.style.transition = `all ${this.config.duraction}s ease-in-out`;
         }
         else {
-          this.container.style.transform = `translateY(${this.offset -= this.speed}px)`;
-          // this.container.style.transition = `all ${100 / 60}ms ease`;
-          if (-this.offset >= scrollHeight) {
+          this.config.container.style.transform = `translateY(${this.state.offset -= this.config.speed}px)`;
+          // this.config.container.style.transition = `all ${100 / 60}ms ease`;
+          if (-this.state.offset >= scrollHeight) {
             this.animationEndHandler();
           }
         }
 
       }
-    }, this.interval * 1000);
+    }, this.config.interval * 1000);
   }
 
   /**
@@ -97,28 +92,28 @@ class Swiper {
    * 帧动画
    */
   frameAnimation = () => {
-    if (!this.frameAnimateStart) {
+    if (!this.state.frameAnimateStart) {
       return
     }
-    let scrollHeight = parseFloat(this.container.children[0].offsetHeight);
-    if (this.wait < this.interval) {
-      this.wait++;
+    let scrollHeight = parseFloat(this.config.container.children[0].offsetHeight);
+    if (this.state.wait < this.config.interval * 60) {
+      this.state.wait++;
     }
     else {
-      this.wait = 0;
-      if (this.step) {
-        this.container.style.transform = `translateY(-${scrollHeight}px)`;
-        this.container.style.transition = `all ${this.duraction}s ease`;
+      this.state.wait = 0;
+      if (this.config.step) {
+        this.config.container.style.transform = `translateY(-${scrollHeight}px)`;
+        this.config.container.style.transition = `all ${this.config.duraction}s ease`;
       }
       else {
-        this.offset += this.speed
-        this.container.style.transform = `translateY(-${this.offset}px)`;
-        if (this.offset >= scrollHeight) {
+        this.state.offset += this.config.speed
+        this.config.container.style.transform = `translateY(-${this.state.offset}px)`;
+        if (this.state.offset >= scrollHeight) {
           this.animationEndHandler();
         }
       }
     }
-    this.timer = requestAnimationFrame(this.frameAnimation)
+    this.state.timer = requestAnimationFrame(this.frameAnimation)
   }
 
   /**
@@ -132,17 +127,17 @@ class Swiper {
    * 鼠标移出
    * */
   mouseLeaveHandler = () => {
-    this.frameAnimateStart = true;
+    this.state.frameAnimateStart = true;
     this.startAnimate();
   };
 
   // 销毁
   dispose = () => {
-    if (this.timer) {
-      clearInterval(this.timer);
-      cancelAnimationFrame(this.timer);
-      this.frameAnimateStart = false;
-      this.timer = null;
+    if (this.state.timer) {
+      clearInterval(this.state.timer);
+      cancelAnimationFrame(this.state.timer);
+      this.state.frameAnimateStart = false;
+      this.state.timer = null;
     }
   }
 }

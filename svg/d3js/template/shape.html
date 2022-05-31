@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .line-run {
+      stroke-dashoffset: 0;
+      animation: move 3s linear infinite;
+    }
+
+    @keyframes move {
+      100% {
+        stroke-dashoffset: 100%;
+      }
+    }
+
+    .circle {
+      transition: all 1s;
+      stroke-dasharray: 314, 314;
+      stroke-dashoffset: 314;
+    }
+
+    .circle:hover {
+      stroke-dashoffset: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="main">
+  </div>
+</body>
+
+</html>
+<script src="../build/d3.v5.min.js"></script>
+
+<script>
+  //style
+  let mainDom = d3.select('#main')
+    .style('width', '600px')
+    .style('height', '500px')
+    .style('border', '1px solid #eee')
+
+  let svg = mainDom.append('svg')
+    .style('width', '600px')
+    .style('height', '500px')
+    .style("margin-left", '20px')
+    .style("margin-top", '20px')
+  let fillColor = "#c4eef8"
+  // 柱状图
+  function drawBars() {
+    let rectData = [10, 20, 40, 60, 80, 100];
+    let max = Math.max(...rectData) + 0;
+
+    // 柱状图 rect
+    rectData.forEach((item, index) => {
+      svg.append("rect")
+        .attr("x", index * 30 + 10)
+        .attr("y", max - item)
+        .attr("height", item + 'px')
+        .attr("width", '20px')
+        .attr("fill", '#c4eef8') //填充色
+        .attr("stroke", "red") //边框颜色
+        .attr("stroke-width", 1.5) // 边框宽度
+        .attr("rx", 5) // 圆角
+        .attr("ry", 5)
+    })
+  }
+
+  // x轴 line
+  function drawLines() {
+    let lineList = [{
+      x1: 0,
+      y1: 120,
+      x2: 200,
+      y2: 200
+    }, {
+      x1: 200,
+      y1: 120,
+      x2: 0,
+      y2: 200
+    }]
+    lineList.forEach((item) => {
+      svg.append("line")
+        .attr('x1', item.x1)
+        .attr('y1', item.y1)
+        .attr('x2', item.x2)
+        .attr('y2', item.y2)
+        .attr('stroke', "red")
+        .attr('stroke-width', 2) //shape-rendering 抗锯齿
+        .attr('stroke-opacity', 0.5)
+        .attr('stroke-dasharray', "10 15") // 虚线长 间距 
+        // .attr('stroke-dashoffset', "220")
+        .attr('class', "line-run")
+    })
+  }
+
+  // 圆 
+  function drawCircle() {
+    svg.append("circle")
+      .attr('cx', 100)
+      .attr('cy', 260)
+      .attr('r', 30)
+      .attr('fill', fillColor)
+      .attr('stroke-width', 2)
+      .attr('stroke', "red")
+      .attr("class", 'circle')
+
+
+    svg.append("ellipse")
+      .attr('cx', 100)
+      .attr('cy', 340)
+      .attr('rx', 30)
+      .attr('ry', 30)
+      .attr('fill', fillColor)
+
+  }
+
+  // 多边形 会自动闭合
+  function drawPolygon() {
+    svg.append("polygon")
+      .attr('points', '300, 0 300 ,100 500, 100')
+      .attr('fill', fillColor)
+      .attr('fill-rule', 'mozero') // 填充规则 mozero | evenodd
+      
+  }
+
+  // 折线 不会自动闭合
+  function drawPolyline() {
+    svg.append("polyline")
+      .attr('points', '300, 150 300,250 500 ,150')
+      .attr('stroke', fillColor)
+      .attr('fill', "none")
+      
+  }
+
+  function main() {
+    drawBars()
+    drawLines()
+    drawCircle()
+    drawPolygon()
+    drawPolyline()
+  }
+
+  main()
+
+  // stroke	             笔画颜色
+  // stroke-width	       笔画宽度
+  // stroke-opacity	     笔画不透明度
+  // stroke-dasharray	   虚线笔画
+  // stroke-linecap	     笔画头的形状 butt(默认),round,square
+  // stroke-linejoin	   图形棱角，有miter(默认),round和bevel三个取值
+  // stroke-miterlimit	 相交处显示宽度与线宽的最大比例，默认为4
+  // fill	               填充颜色 默认black
+  // fill-opacity	       填充不透明度
+  // fill-rule	         填充规则
+</script>
