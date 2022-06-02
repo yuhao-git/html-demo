@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <svg width="500" height="500" viewBox="0 0 500 500" style="border: 1px solid #f0f2f5;" >
+    <rect x="10" y="10" width="200" height="25" stroke="black" fill="none">
+      <animate 
+        id="c1"
+        attributeName="width" 
+        attributeType="XML" 
+        from="200" to="20" 
+        begin="0s" dur="1s" 
+        fill="freeze">
+      </animate>
+    </rect>
+    <circle cx="120" cy="60" r="10" stroke="black" fill="none">
+      <animate
+        attributeName="r"
+        attributeType="XML"
+        begin="c1.end"
+        from="10" to="20"
+        repeatCount="indefinite"
+        dur="1s"
+      ></animate>
+    </circle>
+  </svg>
+</body>
+</html>
+</html>

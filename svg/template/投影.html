@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <svg width="500" height="500" viewBox="0 0 500 500" style="border: 1px solid #f0f2f5;" >
+    <defs>
+      <filter id="gaussian" x="0" y="0">
+        <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="blur"></feGaussianBlur>
+      <feOffset in="blur" dx="10" dy="10" result="offsetBlur"></feOffset>
+        <feMerge>
+          <feMergeNode in="offsetBlur" />
+          <feMergeNode in="SourceGraphic" /> 
+        </feMerge>
+      </filter>
+    </defs>
+    
+    <g>
+      <rect x="10" y="10" width="100" height="100" fill="black" filter="url(#gaussian)"></rect>
+    </g>
+
+  </svg>
+</body>
+</html>
