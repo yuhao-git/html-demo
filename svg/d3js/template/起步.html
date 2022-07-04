@@ -19,16 +19,35 @@
 <script src="../build/d3.v5.min.js"></script>
 
 <script>
-     //style
-    let main= d3.select('#main')
-                .style('width', '500px')
-                .style('height', '500px');
 
-    main.selectAll('.item')
-        .style('height', '10px')
-        .style('width', '100%')
-        .style('background', (d, i) => {
-           return i % 2 ? 'red' : 'blue'
-        })
+    // append
+    const svg = d3.select('#main')
+        .append('svg')
+        .style('border', "1px solid ")
+        .attr('width', 500)
+        .attr('height', 500);
+
+    //append一个rect 添加一些属性
+    svg.append('rect')
+        .attr('width', 100)
+        .attr('height', 100)
+        .attr('fill', 'red')
+        .attr('x', 10)
+        .attr('y', 10)
+        .attr('stroke', 'blue')
+
+    svg.append('circle')
+        .attr('r', 50)
+        .attr('fill', 'red')
+        .attr('cx', 200)
+        .attr('cy', 200)
+        .attr('stroke', 'blue')
+
+    svg.append('polygon')
+        .attr('points', '220,100 300,210 170,250 123,234')
+        .attr('fill', 'red')
+        .attr('stroke', 'blue')
+
+
 
 </script>
