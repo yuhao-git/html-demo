@@ -142,17 +142,35 @@
       
   }
 
+  // 路径 
+  function drawPath(){
+    svg.append("g")
+       .style("transform","translate(300px,240px)")
+       .append("path")
+       .attr('d', 'M48,1.67364c-8.70376,0 -16.15836,0.82752 -22.87067,4.80044c4.83931,8.72557 22.87067,41.52592 22.87067,41.52592c0,0 -38.13488,-18.787 -41.97772,-20.56485c-2.91738,6.0731 -4.34864,14.17503 -4.34864,20.56485c0,22.28486 17.33021,46.32636 46.32636,46.32636c28.99615,0 46.32636,-24.96068 46.32636,-46.32636c0,-21.36568 -18.74502,-46.32636 -46.32636,-46.32636z')
+       .attr('fill', 'transparent')
+       .attr('stroke',"red")
+  }
+
+  // 标记
+  function drawMarker(){
+    svg.append("marker")
+       .attr('d', 'M 0 0 4 4 0 8')
+       .attr('fill', 'transparent')
+       .attr('stroke',"red")
+  }
+
   function main() {
     drawBars()
     drawLines()
     drawCircle()
     drawPolygon()
     drawPolyline()
+
+    drawPath()
+    drawMarker()
   }
 
   main()
 
-
-
-  
 </script>

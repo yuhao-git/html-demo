@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <svg width="500" height="500" viewBox="0 0 500 500" style="border: 1px solid #f0f2f5;" >
+    <defs>
+      <path id="path" d="M30 40 C 50 10 ,70 10,120 40 S150 0,200 40" style="fill:none;stroke:black"></path>
+    </defs>
+
+    <g transform="translate(10,50)">
+      <path id="path" d="M30 40 C 50 10 ,70 10,120 40 S150 0,200 40" style="fill:none;stroke:black"></path>
+      <text>
+        <textPath xlink:href="#path">
+          hello world
+        </textPath>
+      </text>
+    </g>
+
+  </svg>
+</body>
+</html>
