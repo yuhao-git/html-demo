@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+
+<body>
+    <svg width="500" height="500" viewBox="0 0 500 500" style="border: 1px solid #f0f2f5;">
+       
+    <!-- <rect x="-10" y="-10" width="20" height="20" style="fill:#ff9;stroke:black">
+      <animateMotion path="M50,135C100,25 150,225 200,125"  dur="6s" fill="freeze" repeatCount="indefinite"></animateMotion>
+    </rect> -->
+
+    <path id="movePath" d="M50,135C100,25 150,225 200,125" fill="none" stroke="transform"></path>
+
+    <!-- <rect x="-10" y="-10" width="20" height="20" style="fill:#ff9;stroke:black">
+        <animateMotion dur="1s"  repeatCount="indefinite"  rotate="auto">
+          <mPath xlink:href="#movePath"></mPath>
+        </animateMotion>
+    </rect> -->
+
+      <image xlink:href="../../assets/img/laugh.png" x="-10" y="-10" height="20" width="20" >
+       <animateMotion dur="1.5s"  repeatCount="indefinite"  rotate="auto">
+        <mPath xlink:href="#movePath"></mPath>
+       </animateMotion>
+      </image>
+
+      <image xlink:href="../../assets/img/amazed.png" x="-10" y="-10" height="20" width="20" >
+        <animateMotion dur="1.2s"  repeatCount="indefinite"  rotate="auto">
+         <mPath xlink:href="#movePath"></mPath>
+        </animateMotion>
+       </image>
+
+       <image xlink:href="../../assets/img/happy.png" x="-10" y="-10" height="20" width="20" >
+        <animateMotion dur="1.3s"  repeatCount="indefinite"  rotate="auto">
+         <mPath xlink:href="#movePath"></mPath>
+        </animateMotion>
+       </image>
+
+       <image xlink:href="../../assets/img/naughty.png" x="-10" y="-10" height="20" width="20" >
+        <animateMotion dur="1.8s"  delay="2s" repeatCount="indefinite"  rotate="auto">
+         <mPath xlink:href="#movePath"></mPath>
+        </animateMotion>
+       </image>
+
+  </svg>
+</body>
+
+</html>

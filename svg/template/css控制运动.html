@@ -13,7 +13,13 @@
       position: absolute;
       /* 当前规范上的语法 2016年12月支持 */
       offset-path: path("M50,4.21053c25.28883,0 45.78947,20.50065 45.78947,45.78947c0,25.28883 -20.50065,45.78947 -45.78947,45.78947c-25.28883,0 -45.78947,-20.50065 -45.78947,-45.78947c0,-25.28883 20.50065,-45.78947 45.78947,-45.78947z");
-      animation: move 1.5s linear  infinite;
+
+      /* animation-direction : alternate
+         animation-play-state : runnin / paused
+       */
+
+      /* |animation-name	|animation-duration	|animation-timing-function|animation-iteration-count|animation-direction |animation-play-state |animation-delay |animation-fill-mode	| */
+      animation: move 1.5s linear  infinite ;
     }
 
     @keyframes move {

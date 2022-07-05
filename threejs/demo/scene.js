@@ -9,12 +9,30 @@ import getText from "./text.js"
 import getGroup from './group.js'
 // import getAureole from "./aureole.js"
 import { TrackballControls } from '../jsm/controls/TrackballControls.js';
+import { EffectComposer } from '../jsm/postprocessing/EffectComposer.js'
+import { RenderPass } from '../jsm/postprocessing/RenderPass.js'
+import { OutlinePass } from '../jsm/postprocessing/OutlinePass.js'
+import { ShaderPass } from '../jsm/postprocessing/ShaderPass.js'
+import { changeCommonUniforms } from './line.js'
+import { UnrealBloomPass } from '../jsm/postprocessing/UnrealBloomPass.js';
 
 async function drawChart() {
     // 场景
     var scene = new THREE.Scene();
     // 相机
-    var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 100);
+    // var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 100);
+    var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 5000);
+    // camera.position.set(0, 0, 1000);
+    var width = window.innerWidth; //窗口宽度
+    var height = window.innerHeight; //窗口高度
+    var k = width / height; //窗口宽高比
+    // var s = 200;
+    var s = 6; //根据包围盒大小(行政区域经纬度分布范围大小)设置渲染范围
+    //创建相机对象
+    var camera = new THREE.OrthographicCamera(-s * k, s * k, s, -s, 1, 1000);
+    
+    // camera.position.set(0, 0, 1000);
+    camera.lookAt(0, 0, 0);
     // 渲染器
     var renderer = new THREE.WebGLRenderer(
         {
@@ -27,31 +45,56 @@ async function drawChart() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     document.body.appendChild(renderer.domElement);
-    scene.background = new THREE.Color(0x123979);
+    scene.background = new THREE.Color(0x152c5a);
     // 光源 
-    // scene.add(new THREE.AmbientLight(0xfffffff));
+    scene.add(new THREE.AmbientLight(0xfffffff));
 
+    var directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
+    directionalLight.position.set(400, 200, 300);
+    scene.add(directionalLight);
+    // 平行光2
+    var directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.6);
+    directionalLight2.position.set(-400, -200, -300);
+    scene.add(directionalLight2);
+    //环境光
+    var ambient = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambient);
 
+    //---> 泛光开始
+    var renderScene = new RenderPass(scene, camera);
+    //Bloom通道创建
+    var bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
+    bloomPass.renderToScreen = true;
+    bloomPass.threshold = 0;
+    bloomPass.strength = 0;
+    bloomPass.radius = 0;
 
+    let composer = new EffectComposer(renderer);
+    composer.setSize(window.innerWidth, window.innerHeight);
+    composer.addPass(renderScene);
+    // 眩光通道bloomPass插入到composer
+    composer.addPass(bloomPass);
+
+    //---> 泛光结束
     camera.position.set(0, 0, 15);
     camera.lookAt(scene.position);
 
-    
-    
-    // let text = await getText(scene);
+
+
+    let text = await getText(scene);
     let group = await getGroup();
     // let aureole = getAureole();
     // scene.add(text);
     // scene.add(circle);
     scene.add(group);
-    
+
     // scene.add(aureole);
-    
+
     // cube.rotateX(Math.PI/7)
     // cube.rotation.y += 0.02
     var controls = new TrackballControls(camera, renderer.domElement);
-    controls.minDistance = 0;
-    controls.maxDistance = 600;
+    // controls.minDistance = 0;
+    // controls.maxDistance = 1000;
     controls.addEventListener('change', render);
 
 
@@ -61,17 +104,18 @@ async function drawChart() {
     var animate = function () {
         requestAnimationFrame(animate);
         controls.update();
-        group.rotation.z += 0.005
         // text.rotation.y += 0.005
-
-        renderer.render(scene, camera);
+        render()
     };
 
     function render() {
 
+        group.rotation.z += 0.005
+        changeCommonUniforms(0.005);
         renderer.render(scene, camera);
-
+        // composer.render();
     }
+
     animate();
 }
 
@@ -83,4 +127,6 @@ function changePivot(x, y, z, obj) {
     obj.position.set(-x, -y, -z);
     return wrapper;
 }
+
+
 drawChart()

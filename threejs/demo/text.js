@@ -29,7 +29,7 @@ async function getText() {
 
 
     let fontObj = new THREE.Mesh(textMesh, material);
-    fontObj.position.set(-2, 0, 0.3);
+    fontObj.position.set(-2, 0, 0.12);
     // fontObj.rotateX(Math.PI / 2)
     fontObj.rotateX(Math.PI / 2)
     return fontObj
