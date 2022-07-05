@@ -62,13 +62,16 @@ function initLineMaterial(setting) {
     color: {
       type: 'v3',
       value: color
+    },
+    height:{
+      value: 1
     }
   };
   var spriteMap = new THREE.TextureLoader().load('../../assets/img/circle.png');
   let lineMaterial = new THREE.ShaderMaterial({
     uniforms: singleUniforms,
     vertexShader: `
-    varying vec2 vUv;
+      varying vec2 vUv;
       attribute float percent;
       uniform float u_time;
       uniform float number;
@@ -76,10 +79,11 @@ function initLineMaterial(setting) {
       uniform float length;
       varying float opacity;
       uniform float size;
-
+      varying vec3 modelPos;
       void main()
     {
-      vUv = uv;
+      // vUv = uv;
+      modelPos = position;
       vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
       float l = clamp(1.0-length,0.0,1.0);//空白部分长度
 
@@ -92,10 +96,10 @@ function initLineMaterial(setting) {
     #ifdef GL_ES
     precision mediump float;
     #endif
-  
+    varying vec3 modelPos;
     varying float opacity;
     uniform vec3 color;
-  
+    uniform float height;
     void main(){
         // if(opacity <=0.2){
         //   discard;
@@ -124,7 +128,7 @@ export default initFlyLine(curve, {
   color: new THREE.Vector3(1.0, 1.0, 1.0),
   number: 1.0,
   length: 0.6,
-  size: 8.0
+  size: 4.0
 }, 4000);
 
 

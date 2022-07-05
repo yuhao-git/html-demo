@@ -73,6 +73,7 @@ function initBloom() {
   bloomComposer.addPass(renderScene);
   bloomComposer.addPass(bloomPass);
 
+  console.log(bloomComposer.renderTarget2.texture)
   const finalPass = new ShaderPass(
     new THREE.ShaderMaterial({
       uniforms: {

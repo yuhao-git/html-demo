@@ -99,8 +99,8 @@ async function drawChart() {
 
         group.rotation.z += 0.005
         changeCommonUniforms(0.005);
-        // renderer.render(scene, camera);
-        composer.render();
+        renderer.render(scene, camera);
+        // composer.render();
     }
 
     animate();

@@ -1,3 +1,4 @@
+import gradientMaterial from "./gradientMaterial.js"
 // 立圆环
 var group = new THREE.Group();
 function addShapeDRN(shape, extrudeSettings, color, x, y, z, rx, ry, rz, s) {
@@ -7,32 +8,14 @@ function addShapeDRN(shape, extrudeSettings, color, x, y, z, rx, ry, rz, s) {
     /**
      * ShapeBufferGeometry形状缓冲几何体
      */
+    // var geometry = new THREE.ShapeBufferGeometry(shape);
 
-    var geometry = new THREE.ShapeBufferGeometry(shape);
-    /**
-     * 网格（Mesh）
-     * MaterialPhong网格材质(MeshPhongMaterial)
-     一种用于具有镜面高光的光泽表面的材质。
-     * **/
-
-
-    // extruded shape挤压成形
-    /**
-     * ExtrudeBufferGeometry
-     * 挤压缓冲几何体
-     * 从一个形状路径中，挤压出一个BufferGeometry。
-     * */
-    /**
-     * 网格（Mesh）
-     * MaterialPhong网格材质(MeshPhongMaterial)
-     一种用于具有镜面高光的光泽表面的材质。
-     * **/
-    var geometry = new THREE.ExtrudeBufferGeometry(shape, extrudeSettings);
+    var geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
     var material = new THREE.MeshPhysicalMaterial({ color: color, opacity: 0.6, transparent: true })
-    var mesh = new THREE.Mesh(geometry, material);
+    var mesh = new THREE.Mesh(geometry, gradientMaterial);
     mesh.position.set(x, y, z - 75);
     mesh.rotation.set(rx, ry, rz);
-    mesh.scale.set(s, s, s); 
+    mesh.scale.set(s, s, s);
     group.add(mesh);
     var mesh2 = mesh.clone();
     mesh2.rotateZ(Math.PI * 2 / 6)
@@ -78,7 +61,6 @@ arcShapeDrn01.absarc(0, 0, 3.48, Math.PI * 2 / 6 / 6 * 5.8, 0, true);
 var arcShapeDrn02 = arcShapeDrn01
 
 
-
 /**
  *curveSegments — int，曲线上点的数量，默认值是12。
  steps — int，用于沿着挤出样条的深度细分的点的数量，默认值为1。
@@ -102,5 +84,30 @@ var extrudeSettings = {
 addShapeDRN(arcShapeDrn02, extrudeSettings, 0x6188d2, 0, 0, 0, 0, 0, 0, 1);
 
 group.position.set(0, 0, 75)
+
+
+
+// const length = 4, width = 4;
+
+// const shape = new THREE.Shape();
+// shape.moveTo(0, 0);
+// shape.lineTo(0, width);
+// shape.lineTo(length, width);
+// shape.lineTo(length, 0);
+// shape.lineTo(0, 0);
+
+// extrudeSettings = {
+//     steps: 2,
+//     depth: 2,
+//     bevelEnabled: true,
+//     bevelThickness: 1,
+//     bevelSize: 1,
+//     bevelOffset: 0,
+//     bevelSegments: 1
+// };
+
+// const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+// const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+// const mesh = new THREE.Mesh(geometry, gradientMaterial);
 
 export default group;

@@ -23,13 +23,10 @@ async function getText() {
     });
 
     let material = new THREE.MeshMatcapMaterial({ color: 0xffffff, })
-    // let material = new THREE.MeshNormalMaterial({
-    //     color: 0xffffff, 
-    // })
 
 
     let fontObj = new THREE.Mesh(textMesh, material);
-    fontObj.position.set(-2, 0, 0.12);
+    fontObj.position.set(-2.2, 0.15, 0.12);
     // fontObj.rotateX(Math.PI / 2)
     fontObj.rotateX(Math.PI / 2)
     return fontObj
