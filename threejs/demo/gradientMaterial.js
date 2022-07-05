@@ -22,7 +22,12 @@ let gradientMaterial = new THREE.ShaderMaterial({
          varying vec3 modelPos;
 
          void main() {
-            gl_FragColor = vec4(targetColor.xyz,(1.0 - modelPos.z/height)*(1.0 - modelPos.z/height));
+            if(modelPos.x < 1.85 || modelPos.x > 3.4998 || modelPos.z < 0.02 || modelPos.z > 0.59){
+                gl_FragColor = vec4(1.0,1.0,1.0,0.8);
+            }
+            else{
+                gl_FragColor = vec4(targetColor.xyz,(1.0 - modelPos.z/height)*(1.0 - modelPos.z/height));
+            }
         }`
 });
 
