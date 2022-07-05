@@ -64,6 +64,7 @@ function initLineMaterial(setting) {
       value: color
     }
   };
+  var spriteMap = new THREE.TextureLoader().load('../../assets/img/circle.png');
   let lineMaterial = new THREE.ShaderMaterial({
     uniforms: singleUniforms,
     vertexShader: `
@@ -96,32 +97,33 @@ function initLineMaterial(setting) {
     uniform vec3 color;
   
     void main(){
-        
+        // if(opacity <=0.2){
+        //   discard;
+        // }
         gl_FragColor = vec4(color,1.0);
     }`,
     transparent: true,
+    map: spriteMap,
     //blending:THREE.AdditiveBlending,
   });
   return lineMaterial;
 }
 
-// if(opacity <=0.1){
-//   discard;
-// }
+
 
 let curve = new THREE.EllipseCurve(
   0, 0, // ax, aY
-  4.65, 4.65, // xRadius, yRadius
+  4.7, 4.7, // xRadius, yRadius
   0, 2 * Math.PI, // aStartAngle, aEndAngle
   false, // aClockwise
   0 // aRotation
 );
 
 export default initFlyLine(curve, {
-  speed: 1,
+  speed: 0.2,
   color: new THREE.Vector3(1.0, 1.0, 1.0),
   number: 1.0,
-  length: 0.3,
+  length: 0.6,
   size: 8.0
 }, 4000);
 

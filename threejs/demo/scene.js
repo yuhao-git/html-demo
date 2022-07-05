@@ -18,6 +18,8 @@ import { UnrealBloomPass } from '../jsm/postprocessing/UnrealBloomPass.js';
 
 async function drawChart() {
     // 场景
+    const bloomLayer = new THREE.Layers();
+    bloomLayer.set(1);
     var scene = new THREE.Scene();
     // 相机
     // var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 100);
@@ -30,7 +32,7 @@ async function drawChart() {
     var s = 6; //根据包围盒大小(行政区域经纬度分布范围大小)设置渲染范围
     //创建相机对象
     var camera = new THREE.OrthographicCamera(-s * k, s * k, s, -s, 1, 1000);
-    
+
     // camera.position.set(0, 0, 1000);
     camera.lookAt(0, 0, 0);
     // 渲染器
@@ -47,7 +49,7 @@ async function drawChart() {
     document.body.appendChild(renderer.domElement);
     scene.background = new THREE.Color(0x152c5a);
     // 光源 
-    scene.add(new THREE.AmbientLight(0xfffffff));
+    scene.add(new THREE.AmbientLight(0xffffff));
 
     var directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
     directionalLight.position.set(400, 200, 300);
@@ -66,7 +68,7 @@ async function drawChart() {
     var bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
     bloomPass.renderToScreen = true;
     bloomPass.threshold = 0;
-    bloomPass.strength = 0;
+    bloomPass.strength = 0.2;
     bloomPass.radius = 0;
 
     let composer = new EffectComposer(renderer);
@@ -76,31 +78,16 @@ async function drawChart() {
     composer.addPass(bloomPass);
 
     //---> 泛光结束
+    
     camera.position.set(0, 0, 15);
     camera.lookAt(scene.position);
 
-
-
-    let text = await getText(scene);
     let group = await getGroup();
-    // let aureole = getAureole();
-    // scene.add(text);
-    // scene.add(circle);
     scene.add(group);
-
-    // scene.add(aureole);
-
-    // cube.rotateX(Math.PI/7)
-    // cube.rotation.y += 0.02
     var controls = new TrackballControls(camera, renderer.domElement);
-    // controls.minDistance = 0;
-    // controls.maxDistance = 1000;
+    controls.minDistance = 0;
+    controls.maxDistance = 1000;
     controls.addEventListener('change', render);
-
-
-    // const axesHelper = new THREE.AxesHelper( 50 );
-    // scene.add( axesHelper );
-
     var animate = function () {
         requestAnimationFrame(animate);
         controls.update();
@@ -112,8 +99,8 @@ async function drawChart() {
 
         group.rotation.z += 0.005
         changeCommonUniforms(0.005);
-        renderer.render(scene, camera);
-        // composer.render();
+        // renderer.render(scene, camera);
+        composer.render();
     }
 
     animate();

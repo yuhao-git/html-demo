@@ -5,7 +5,8 @@ var spriteMap = new THREE.TextureLoader().load('../../assets/img/circle.png');
 
 var material = new THREE.MeshBasicMaterial({
     transparent: true,
-    color: 0xffffff, map: spriteMap,
+    color: 0xffffff, 
+    map: spriteMap,
     side: THREE.DoubleSide,
     opacity: 0.7
 });

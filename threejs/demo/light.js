@@ -1,40 +1,214 @@
-var directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
-directionalLight.position.set(400, 200, 300);
-scene.add(directionalLight);
-// 平行光2
-var directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.6);
-directionalLight2.position.set(-400, -200, -300);
-scene.add(directionalLight2);
-//环境光
-var ambient = new THREE.AmbientLight(0xffffff, 0.6);
-scene.add(ambient);
-//three.js辅助坐标系
-var axesHelper = new THREE.AxesHelper(300);
-scene.add(axesHelper);
-var width = containerDom.clientWidth; //窗口宽度
-var height = containerDom.clientHeight; //窗口高度
-/**
- * 相机设置
- */
-var k = width / height; //窗口宽高比
-// var s = 200;
-var s = 6; //根据包围盒大小(行政区域经纬度分布范围大小)设置渲染范围
-//创建相机对象
-var camera = new THREE.OrthographicCamera(-s * k, s * k, s, -s, 1, 1000);
-// camera.position.set(200, 300, 200); //设置相机位置
-// camera.position.set(113.51, 33.87, 200); //沿着z轴观察
-// 通过OrbitControls在控制台打印相机位置选择一个合适的位置
-camera.position.set(0, -205, 65);
-camera.lookAt(0, 0, 0);
-// const cameraHelper = new THREE.CameraHelper(camera);
+import * as THREE from 'three';
+import ring from './ring.js'
+import {
+  OrbitControls
+} from '../jsm/controls/OrbitControls.js';
+import {
+  EffectComposer
+} from '../jsm/postprocessing/EffectComposer.js';
+import {
+  RenderPass
+} from '../jsm/postprocessing/RenderPass.js';
+import {
+  ShaderPass
+} from '../jsm/postprocessing/ShaderPass.js';
+import {
+  UnrealBloomPass
+} from '../jsm/postprocessing/UnrealBloomPass.js';
+//---> 变量定义开始
+const BLOOM_SCENE = 1;  // 指定图层显示发光状态 图层范围 0 - 31
+const bloomLayer = new THREE.Layers();
+bloomLayer.set(BLOOM_SCENE);
+const materials = {};
+//---> 变量定义结束
 
-// scene.add(cameraHelper);
-/**
- * 创建渲染器对象
- */
-var renderer = new THREE.WebGLRenderer({
-  antialias: false, //开启锯齿
-  alpha: false, // canvas是否包含alpha (透明度) 默认为 false
+//---> 模糊处理开始
+const renderer = new THREE.WebGLRenderer({
+  antialias: true
 });
-renderer.setSize(width, height); //设置渲染区域尺寸
-renderer.setClearColor("#152c5a", 0); //设置背景颜色
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.toneMapping = THREE.ReinhardToneMapping;
+document.body.appendChild(renderer.domElement);
+//-------------------------------------------------------
+const bloomComposer = new EffectComposer(renderer);
+const finalComposer = new EffectComposer(renderer);
+const mouse = new THREE.Vector2();        //鼠标
+const raycaster = new THREE.Raycaster();  // 射线
+//-------------------------------------------------------
+
+//---> 模糊处理结束
+// 场景初始化开始，添加场景、摄像机、控制器、环境光
+const scene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 200);
+camera.position.set(0, 0, 20);
+camera.lookAt(0, 0, 0);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.maxPolarAngle = Math.PI * 0.5;
+controls.minDistance = 1;
+controls.maxDistance = 1000;
+controls.addEventListener('change', render);
+
+scene.add(new THREE.AmbientLight(0x404040));
+ring.layers.enable(BLOOM_SCENE);
+scene.add(ring)
+// 场景初始化结束
+function initBloom() {
+  const renderScene = new RenderPass(scene, camera);
+  const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
+  const params = {
+    exposure: 1,
+    bloomStrength: 5,
+    bloomThreshold: 0,
+    bloomRadius: 0,
+    scene: 'Scene with Glow'
+  };
+  bloomPass.threshold = params.bloomThreshold;
+  bloomPass.strength = params.bloomStrength;
+  bloomPass.radius = params.bloomRadius;
+
+  bloomComposer.renderToScreen = false;
+  bloomComposer.addPass(renderScene);
+  bloomComposer.addPass(bloomPass);
+
+  const finalPass = new ShaderPass(
+    new THREE.ShaderMaterial({
+      uniforms: {
+        baseTexture: {
+          value: null
+        },
+        bloomTexture: {
+          value: bloomComposer.renderTarget2.texture
+        }
+      },
+      vertexShader: `
+      varying vec2 vUv;
+      void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+      }`,
+      fragmentShader: `
+      uniform sampler2D baseTexture;
+      uniform sampler2D bloomTexture;
+      varying vec2 vUv;
+      void main() {
+        gl_FragColor = ( texture2D( baseTexture, vUv ) + vec4( 1.0 ) * texture2D( bloomTexture, vUv ) );
+      }`,
+      defines: {}
+    }), 'baseTexture'
+  );
+  finalPass.needsSwap = true;
+
+  finalComposer.addPass(renderScene);
+  finalComposer.addPass(finalPass);
+
+  // 交互选中
+  window.addEventListener('pointerdown', onPointerDown);
+}
+
+// 鼠标按下，射线拾取物体 
+function onPointerDown(event) {
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObjects(scene.children, false);
+  if (intersects.length > 0) {
+    const object = intersects[0].object;
+    object.layers.toggle(BLOOM_SCENE);
+    render();
+
+  }
+
+}
+
+// 监听窗口重绘
+window.onresize = function () {
+
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+
+  renderer.setSize(width, height);
+
+  bloomComposer.setSize(width, height);
+  finalComposer.setSize(width, height);
+
+  render();
+
+};
+
+// 初始化数据
+function setupScene() {
+
+  scene.traverse(disposeMaterial);
+  scene.children.length = 0;
+
+  const geometry = new THREE.BoxGeometry(1, 1, 1);
+
+  for (let i = 0; i < 5; i++) {
+
+    const color = new THREE.Color();
+    color.setHSL(Math.random(), 0.7, Math.random() * 0.2 + 0.05);
+    const material = new THREE.MeshBasicMaterial({
+      color: color
+    });
+
+    const sphere = new THREE.Mesh(geometry, material);
+    sphere.position.x = Math.random() * 10 - 5;
+    sphere.position.y = Math.random() * 10 - 5;
+    sphere.position.z = Math.random() * 10 - 5;
+
+    sphere.position.normalize().multiplyScalar(Math.random() * 4.0 + 2.0);
+    sphere.scale.setScalar(Math.random() * Math.random() + 0.5);
+    scene.add(sphere);
+
+    if (Math.random() < 0.25) {
+      sphere.layers.enable(BLOOM_SCENE);
+    }
+
+  }
+
+  render();
+
+}
+
+// 销毁
+function disposeMaterial(obj) {
+  if (obj.material) {
+    obj.material.dispose();
+  }
+}
+
+function render() {
+  // render scene with bloom
+  scene.traverse(darkenNonBloomed);
+  bloomComposer.render();
+  scene.traverse(restoreMaterial);
+  finalComposer.render();
+}
+
+// 置黑
+function darkenNonBloomed(obj) {
+  const darkMaterial = new THREE.MeshBasicMaterial({
+    color: 'black'
+  });
+  if (obj.isMesh && bloomLayer.test(obj.layers) === false) {
+    materials[obj.uuid] = obj.material;
+    obj.material = darkMaterial;
+  }
+}
+
+function restoreMaterial(obj) {
+  if (materials[obj.uuid]) {
+    obj.material = materials[obj.uuid];
+    delete materials[obj.uuid];
+  }
+}
+
+initBloom()
+setupScene();

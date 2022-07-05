@@ -32,7 +32,7 @@ function addShapeDRN(shape, extrudeSettings, color, x, y, z, rx, ry, rz, s) {
     var mesh = new THREE.Mesh(geometry, material);
     mesh.position.set(x, y, z - 75);
     mesh.rotation.set(rx, ry, rz);
-    mesh.scale.set(s, s, s);
+    mesh.scale.set(s, s, s); 
     group.add(mesh);
     var mesh2 = mesh.clone();
     mesh2.rotateZ(Math.PI * 2 / 6)
