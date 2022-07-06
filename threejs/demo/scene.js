@@ -40,7 +40,7 @@ async function drawChart() {
         {
             antialias: true,
             alpha: true,
-            precision: "highp"
+            precision: "highp",
         }  // 抗锯齿
     );
     renderer.setPixelRatio(window.devicePixelRatio)
@@ -48,6 +48,7 @@ async function drawChart() {
 
     document.body.appendChild(renderer.domElement);
     scene.background = new THREE.Color(0x152c5a);
+    // scene.background = new THREE.Color(0xffffff);
     // 光源 
     scene.add(new THREE.AmbientLight(0xffffff, 0.5));
 
@@ -66,8 +67,8 @@ async function drawChart() {
         let params = {
             x: -10, y: 0, z: 10, ...option
         }
-        let ambientLight = new THREE.AmbientLight("#111111");
-        scene.add(ambientLight);
+        let ambientLight = new THREE.AmbientLight("#ffffff", 0.1);
+        scene.add(ambientLight)
 
         let pointLight = new THREE.PointLight("#ffffff", 0.8);
         pointLight.position.set(params.x, params.y, params.z);
@@ -114,10 +115,16 @@ async function drawChart() {
         // text.rotation.y += 0.005
         render()
     };
+    let angle = 0;
+    let R = 5.1;
     function render() {
 
         ring.rotation.z += 0.002
         lineCircleDash.rotation.z -= 0.002
+        angle -= 0.004;
+        point.position.x = R * Math.sin(angle);
+        point.position.y = R * Math.cos(angle);
+
         // group.rotation.z -= 0.01
         // changeCommonUniforms(0.005);  // 飞线动画
         renderer.render(scene, camera);

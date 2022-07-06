@@ -1,7 +1,9 @@
 
 
 var textureLoader = new THREE.TextureLoader();
-var texture = textureLoader.load("../../assets/img/point.png");
+var textureBall = textureLoader.load("../../assets/img/point.png");
+var textureBar = textureLoader.load("../../assets/happy/.png");
+
 // 点精灵材质
 var spriteMaterial = new THREE.SpriteMaterial({
   map: texture,//贴图
@@ -26,11 +28,6 @@ var mesh = new THREE.Mesh(geometry, material);
 mesh.scale.set(1.5, 0.8, 1);
 mesh.position.set(5.25, 0, -0.3)
 
-
-// let angle = 3.5;
-// let R = 5.2
-// mesh.position.x = R * Math.sin(angle);
-// mesh.position.y = R * Math.cos(angle);
 
 mesh.add(sprite);
 

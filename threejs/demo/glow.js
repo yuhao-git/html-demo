@@ -40,6 +40,9 @@ THREE.AeroSphere = {
     glowColor: {
       type: "c",
       value: new THREE.Color(0xffff00)
+    },
+    center: {
+      value: new THREE.Vector3()
     }
   },
   vertexShader: vertexShader,
@@ -106,6 +109,44 @@ THREE.GlowSphere = {
   ].join('\n')
 }
 
+// 平面
+let glowPlane = {
+  uniforms: {
+    center: { value: new THREE.Vector3(0.0, 0.0, 0.0) },
+    color: {
+      value: new THREE.Color(0x00bbff)
+    },
+    radius: { value: 5.1 }, // 半径
+    min: { value: 4.6 }, // 小于隐藏
+  },
+  side: THREE.DoubleSide,
+  transparent: true,
+  vertexShader: [
+    "varying vec3 modelPos;",
+    "void main() {",
+    " modelPos = position;",
+    "	gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+    "}"
+  ].join("\n"),
+  fragmentShader: [
+    "varying vec3 modelPos;",
+    "uniform vec3 center;",
+    "uniform vec3 color;",
+    "uniform float radius;",
+    "uniform float min;",
+    "void main() {",
+    "float dis = distance(center,modelPos.xyz ) ;",
+    "if(dis > min){",
+    "float o = 1.0-(radius  - dis) / (radius  - min);",
+    "gl_FragColor = vec4(color,  o*o*0.5);",
+    "}",
+    "else{",
+    "gl_FragColor = vec4(color, 0);", 
+    "}",
+    "}"
+  ].join("\n")
+}
+
 //球体 辉光 大气层
 export default function shad() {
   var material1 = new THREE.ShaderMaterial({
@@ -123,16 +164,26 @@ export default function shad() {
     blending: THREE.NormalBlending,
     transparent: true
   });
-  var sphere = new THREE.SphereBufferGeometry(0.1, 20, 20);
-  
+
+  var material3 = new THREE.ShaderMaterial({
+    uniforms: glowPlane.uniforms,
+    vertexShader: glowPlane.vertexShader,
+    fragmentShader: glowPlane.fragmentShader,
+    blending: THREE.NormalBlending,
+    transparent: true,
+    side: THREE.DoubleSide,
+  });
+
+  var sphere = new THREE.SphereBufferGeometry(2, 200, 200);
   var mesh = new THREE.Mesh(sphere, material1);
-  // scene.add(mesh);
 
   var sphere2 = new THREE.SphereBufferGeometry(0.1, 20, 20);
   var mesh2 = new THREE.Mesh(sphere2, material2);
-  //mesh2.position.x = 15;
-  // scene.add(mesh2);
-  mesh2.position.z = 2;
-  return mesh2;
+
+  const geometry = new THREE.CircleGeometry(5.15, 100);
+  const circle = new THREE.Mesh(geometry, material3);
+  circle.position.z = -0.3;
+
+  return circle;
 }
 

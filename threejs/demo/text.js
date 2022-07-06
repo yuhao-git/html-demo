@@ -22,7 +22,7 @@ async function getText(option) {
         font: response,
         fontName: "Microsoft YaHei_Bold",
         size: params.size,             // 字体大小，默认值为100
-        height: 0.3,           // 挤出文本的厚度。默认值为50
+        height: 0.2,           // 挤出文本的厚度。默认值为50
         hover: 10,
         curveSegments: 10,   // 弧线分段数，使得文字的曲线更加光滑
         bevelThickness: 2,   // 文本上斜角的深度，默认值为20
@@ -36,7 +36,7 @@ async function getText(option) {
     // })
 
     var material = new THREE.MeshLambertMaterial({
-        color: 0x99f8ff
+        color: 0x80ffff
     });
 
     let fontObj = new THREE.Mesh(textMesh, material);
