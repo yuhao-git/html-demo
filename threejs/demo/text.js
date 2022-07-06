@@ -1,18 +1,27 @@
 
-//https://blog.csdn.net/qq_34122822/article/details/122473154 字体
+//https://blog.csdn.net/qq_34122822/article/details/122473154 
+//http://gero3.github.io/facetype.js/ 字体转换
 import { FontLoader } from "../jsm/loaders/FontLoader.js";
 import { TextGeometry } from '../jsm/geometries/TextGeometry.js';
-async function getText() {
+async function getText(option) {
+    let params = {
+        x: -1.2,
+        y: 1.0,
+        z: 0.5,
+        size: 0.6,
+        text: "共享平台",
+        ...option
+    }
     let response = await new Promise(res => {
-        new FontLoader().load("./FZHei.json", (response) => {
+        new FontLoader().load("./Microsoft YaHei_Bold.json", (response) => {
             res(response)
         })
     })
 
-    let textMesh = new TextGeometry("共享平台", {
+    let textMesh = new TextGeometry(params.text, {
         font: response,
-        fontName: "FZHei",
-        size: 0.8,             // 字体大小，默认值为100
+        fontName: "Microsoft YaHei_Bold",
+        size: params.size,             // 字体大小，默认值为100
         height: 0.3,           // 挤出文本的厚度。默认值为50
         hover: 10,
         curveSegments: 10,   // 弧线分段数，使得文字的曲线更加光滑
@@ -22,13 +31,19 @@ async function getText() {
         bevelEnabled: false  // 是否使用倒角，意为在边缘处斜切
     });
 
-    let material = new THREE.MeshMatcapMaterial({ color: 0xffffff, })
+    // let material = new THREE.MeshMatcapMaterial({
+    //     color: 0xffffff,
+    // })
 
+    var material = new THREE.MeshLambertMaterial({
+        color: 0x99f8ff
+    });
 
     let fontObj = new THREE.Mesh(textMesh, material);
-    fontObj.position.set(-2.2, 0.15, 0.12);
-    // fontObj.rotateX(Math.PI / 2)
+    fontObj.position.set(params.x, params.y, params.z);
+    fontObj.rotateZ(-Math.PI / 5)
     fontObj.rotateX(Math.PI / 2)
+    fontObj.castShadow = true;
     return fontObj
 }
 

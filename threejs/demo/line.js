@@ -107,17 +107,17 @@ function initLineMaterial(setting) {
         gl_FragColor = vec4(color,1.0);
     }`,
     transparent: true,
-    map: spriteMap,
+    // map: spriteMap,
     //blending:THREE.AdditiveBlending,
   });
   return lineMaterial;
 }
 
 
-
+let radius = 4.2
 let curve = new THREE.EllipseCurve(
   0, 0, // ax, aY
-  4.7, 4.7, // xRadius, yRadius
+  radius, radius, // xRadius, yRadius
   0, 2 * Math.PI, // aStartAngle, aEndAngle
   false, // aClockwise
   0 // aRotation
@@ -127,8 +127,8 @@ export default initFlyLine(curve, {
   speed: 0.2,
   color: new THREE.Vector3(1.0, 1.0, 1.0),
   number: 1.0,
-  length: 0.6,
-  size: 4.0
+  length: 1,
+  size: 1.0
 }, 4000);
 
 

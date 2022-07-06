@@ -9,7 +9,7 @@ function getCirclePlane(position = { x: 0, y: 0, z: 0 }) {
         color: 0xffffff,
         map: spriteMap,
         side: THREE.DoubleSide,
-        opacity: 0.7
+        opacity: 0.65
     });
 
     const geometry = new THREE.CircleGeometry(5, 100);

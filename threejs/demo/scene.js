@@ -49,18 +49,38 @@ async function drawChart() {
     document.body.appendChild(renderer.domElement);
     scene.background = new THREE.Color(0x152c5a);
     // 光源 
-    scene.add(new THREE.AmbientLight(0xffffff));
+    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
 
     var directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
-    directionalLight.position.set(400, 200, 300);
-    scene.add(directionalLight);
-    // 平行光2
-    var directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.6);
-    directionalLight2.position.set(-400, -200, -300);
-    scene.add(directionalLight2);
-    //环境光
-    var ambient = new THREE.AmbientLight(0xffffff, 0.6);
-    scene.add(ambient);
+    // directionalLight.position.set(400, 200, 300);
+    // scene.add(directionalLight);
+    // // 平行光2
+    // var directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.6);
+    // directionalLight2.position.set(-400, -200, -300);
+    // scene.add(directionalLight2);
+    // //环境光
+    // var ambient = new THREE.AmbientLight(0xffffff, 0.6);
+    // scene.add(ambient);
+
+    function initLight(option) {
+        let params = {
+            x: -10, y: 0, z: 10, ...option
+        }
+        let ambientLight = new THREE.AmbientLight("#111111");
+        scene.add(ambientLight);
+
+        let pointLight = new THREE.PointLight("#ffffff", 0.8);
+        pointLight.position.set(params.x, params.y, params.z);
+
+        //告诉平行光需要开启阴影投射
+        pointLight.castShadow = true;
+
+        scene.add(pointLight);
+    }
+    initLight()
+    // // 阴影
+    // renderer.shadowMap.enabled = true;
+    // light.castShadow = true;
 
     //---> 泛光开始
     var renderScene = new RenderPass(scene, camera);
@@ -78,11 +98,11 @@ async function drawChart() {
     composer.addPass(bloomPass);
 
     //---> 泛光结束
-    
+
     camera.position.set(0, 0, 15);
     camera.lookAt(scene.position);
 
-    let group = await getGroup();
+    let { group, ring, lineCircleDash, point } = await getGroup();
     scene.add(group);
     var controls = new TrackballControls(camera, renderer.domElement);
     controls.minDistance = 0;
@@ -94,11 +114,12 @@ async function drawChart() {
         // text.rotation.y += 0.005
         render()
     };
-
     function render() {
 
-        group.rotation.z += 0.005
-        changeCommonUniforms(0.005);
+        ring.rotation.z += 0.002
+        lineCircleDash.rotation.z -= 0.002
+        // group.rotation.z -= 0.01
+        // changeCommonUniforms(0.005);  // 飞线动画
         renderer.render(scene, camera);
         // composer.render();
     }
