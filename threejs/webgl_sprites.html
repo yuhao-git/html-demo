@@ -1,148 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>three.js webgl - sprites</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<link type="text/css" rel="stylesheet" href="main.css">
-	</head>
 
-	<body>
-		<div id="info">
-			<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - sprites
-		</div>
+<head>
+	<title>three.js webgl - sprites</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link type="text/css" rel="stylesheet" href="main.css">
+</head>
 
-		<!-- Import maps polyfill -->
-		<!-- Remove this when import maps will be widely supported -->
-		<script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+<body>
+	<div id="info">
+		<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - sprites
+	</div>
 
-		<script type="importmap">
-			{
+	<!-- Import maps polyfill -->
+	<!-- Remove this when import maps will be widely supported -->
+	<script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+
+	<script type="importmap">
+		{
 				"imports": {
 					"three": "../build/three.module.js"
 				}
 			}
 		</script>
 
-		<script type="module">
+	<script type="module">
+		import * as THREE from 'three';
 
-			import * as THREE from 'three';
+		let camera, scene, renderer;
+		let cameraOrtho, sceneOrtho;
 
-			let camera, scene, renderer;
-			let cameraOrtho, sceneOrtho;
+		let spriteTL, spriteTR, spriteBL, spriteBR, spriteC;
 
-			let spriteTL, spriteTR, spriteBL, spriteBR, spriteC;
+		let mapC;
 
-			let mapC;
+		let group;
 
-			let group;
+		init();
+		animate();
 
-			init();
-			animate();
+		function init() {
 
-			function init() {
+			const width = window.innerWidth;
+			const height = window.innerHeight;
+			camera = new THREE.PerspectiveCamera(60, width / height, 1, 2100);
+			camera.position.z = 1000;
+			cameraOrtho = new THREE.OrthographicCamera(-width / 2, width / 2, height / 2, -height / 2, 1, 10);
+			cameraOrtho.position.z = 10;
+			scene = new THREE.Scene();
+			scene.fog = new THREE.Fog(0x000000, 1500, 2100);
+			sceneOrtho = new THREE.Scene();
+			// create sprites
 
-				const width = window.innerWidth;
-				const height = window.innerHeight;
-				camera = new THREE.PerspectiveCamera( 60, width / height, 1, 2100 );
-				camera.position.z = 2000;
-				cameraOrtho = new THREE.OrthographicCamera( - width / 2, width / 2, height / 2, - height / 2, 1, 10 );
-				cameraOrtho.position.z = 10;
-				scene = new THREE.Scene();
-				scene.fog = new THREE.Fog( 0x000000, 1500, 2100 );
-				sceneOrtho = new THREE.Scene();
-				// create sprites
+			const amount = 6;
+			const radius = 30;
 
-				const amount = 6;
-				const radius = 500;
+			const textureLoader = new THREE.TextureLoader();
+			const mapA = textureLoader.load('./demo/img/bg.png');
+			const mapB = textureLoader.load('./demo/img/light-point-s.png');
+			mapC = textureLoader.load('./demo/img/light-point-l.png');
 
-				const textureLoader = new THREE.TextureLoader();
+			group = new THREE.Group();
+			const materialA = new THREE.SpriteMaterial({
+				map: mapA,
+				color: 0xffffff,
+				fog: true
+			});
+			const materialC = new THREE.SpriteMaterial({
+				map: mapC,
+				color: 0xffffff,
+				fog: true
+			});
+			const materialB = new THREE.SpriteMaterial({
+				map: mapB,
+				color: 0xffffff,
+				fog: true
+			});
+			let sprite = new THREE.Sprite(materialA);
+			sprite.position.set(0, 1, 10);
+			sprite.position.normalize();
+			// sprite.position.multiplyScalar(radius);
+			sprite.scale.set(100, 800, 1);
 
-				const mapB = textureLoader.load( '../assets/img/happy.png' );
-				mapC = textureLoader.load( '../assets/img/happy.png' );
+			scene.add(sprite);
+			for (let a = 0; a < amount; a++) {
 
-				group = new THREE.Group();
+				const x = (Math.random() * 0.2) - 0.1;
+				const y = 0;
+				const z = 1;
 
-				const materialC = new THREE.SpriteMaterial( { map: mapC, color: 0xffffff, fog: true } );
-				const materialB = new THREE.SpriteMaterial( { map: mapB, color: 0xffffff, fog: true } );
+				let isSmall = Math.random() > 0.5;
+				let material = isSmall ? materialB.clone() : materialC.clone();
+				let scale = isSmall ? [10, 200, 1.0] : [50, 220, 1.0]
+				const sprite = new THREE.Sprite(material);
 
-				for ( let a = 0; a < amount; a ++ ) {
+				sprite.position.set(x, y, z);
+				sprite.position.normalize();
+				// sprite.position.multiplyScalar(radius);
+				sprite.scale.set(...scale);
+				sprite.speed = Math.random() * 2 + 1;
+				group.add(sprite);
 
-					const x = Math.random()  - 0.5;
-					const y = 0;
-					const z = 1;
+			}
+			scene.add(group);
 
-					let material;
+			// renderer
 
-					if ( z < 0 ) {
+			renderer = new THREE.WebGLRenderer();
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			renderer.autoClear = false; // To allow render overlay on top of sprited sphere
 
-						material = materialB.clone();
+			document.body.appendChild(renderer.domElement);
 
-					} else {
 
-						material = materialC.clone();
-						// console.log(material.map)
-						// material.color.setHSL( 0.5 * Math.random(), 0.75, 0.5 );
-						// material.map.offset.set( - 0.5, - 0.5 );
-						// material.map.repeat.set( 2, 2 );
+		}
 
-					}
 
-					const sprite = new THREE.Sprite( material );
+		function animate() {
 
-					sprite.position.set( x, y, z );
-					sprite.position.normalize();
-					sprite.position.multiplyScalar( radius );
-					sprite.scale.set(100 , 100, 1.0 );
-					sprite.speed = Math.random()*2 + 1;
-					group.add( sprite );
+			requestAnimationFrame(animate);
+			render();
 
+		}
+
+		function render() {
+
+			const time = Date.now() / 1000;
+
+			for (let i = 0, l = group.children.length; i < l; i++) {
+				const sprite = group.children[i];
+				sprite.position.y -= sprite.speed;
+				if (sprite.position.y < -200) {
+					sprite.position.y = 400
+					sprite.position.x = ((Math.random() * 0.15) - 0.1) * 500
 				}
-
-				scene.add( group );
-
-				// renderer
-
-				renderer = new THREE.WebGLRenderer();
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				renderer.autoClear = false; // To allow render overlay on top of sprited sphere
-
-				document.body.appendChild( renderer.domElement );
-
-
 			}
 
+			// group.position.y -= 1;
 
-			function animate() {
+			renderer.clear();
+			renderer.render(scene, camera);
+			renderer.clearDepth();
+			renderer.render(sceneOrtho, cameraOrtho);
 
-				requestAnimationFrame( animate );
-				render();
+		}
+	</script>
+</body>
 
-			}
-
-			function render() {
-
-				const time = Date.now() / 1000;
-
-				for ( let i = 0, l = group.children.length; i < l; i ++ ) {
-
-					const sprite = group.children[ i ];
-					sprite.position.y -= sprite.speed;
-					if(sprite.position.y < -400){
-						sprite.position.y = 120
-					}
-				}
-
-				// group.position.y -= 1;
-
-				renderer.clear();
-				renderer.render( scene, camera );
-				renderer.clearDepth();
-				renderer.render( sceneOrtho, cameraOrtho );
-
-			}
-
-		</script>
-	</body>
 </html>

@@ -1,20 +1,11 @@
-// Physijs 一款物理引擎，可以辅助three.js模拟物理现象，比如重力下落、物体碰撞等  https://github.com/chandlerprall/Physijs
-// stats.js 渲染性能性能监控器，查看Threejs渲染帧率FPS  https://github.com/mrdoob/stats.js
-// dat.gui 轻量UI交互库  https://github.com/dataarts/dat.gui
-// tween.js 借助tween.js快速创建补间动画  https://github.com/tweenjs/tween.js/
-// ThreeBSP 模型布尔运算   https://github.com/sshirokov/ThreeBSP
-// import cube from "./cube.js"
-import circle from "./circle.js"
-import getText from "./text.js"
 import getGroup from './group.js'
-// import getAureole from "./aureole.js"
 import { TrackballControls } from '../jsm/controls/TrackballControls.js';
 import { EffectComposer } from '../jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from '../jsm/postprocessing/RenderPass.js'
-import { OutlinePass } from '../jsm/postprocessing/OutlinePass.js'
-import { ShaderPass } from '../jsm/postprocessing/ShaderPass.js'
-import { changeCommonUniforms } from './line.js'
 import { UnrealBloomPass } from '../jsm/postprocessing/UnrealBloomPass.js';
+import initLight from './part/pointLight.js'
+
+import { tadpoleMove } from './part/lightRain.js'
 
 async function drawChart() {
     // 场景
@@ -24,7 +15,6 @@ async function drawChart() {
     // 相机
     // var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 100);
     var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 5000);
-    // camera.position.set(0, 0, 1000);
     var width = window.innerWidth; //窗口宽度
     var height = window.innerHeight; //窗口高度
     var k = width / height; //窗口宽高比
@@ -33,7 +23,7 @@ async function drawChart() {
     //创建相机对象
     var camera = new THREE.OrthographicCamera(-s * k, s * k, s, -s, 1, 1000);
 
-    // camera.position.set(0, 0, 1000);
+    camera.position.set(0, 0, 400);
     camera.lookAt(0, 0, 0);
     // 渲染器
     var renderer = new THREE.WebGLRenderer(
@@ -50,39 +40,7 @@ async function drawChart() {
     scene.background = new THREE.Color(0x152c5a);
     // scene.background = new THREE.Color(0xffffff);
     // 光源 
-    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-
-    var directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
-    // directionalLight.position.set(400, 200, 300);
-    // scene.add(directionalLight);
-    // // 平行光2
-    // var directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.6);
-    // directionalLight2.position.set(-400, -200, -300);
-    // scene.add(directionalLight2);
-    // //环境光
-    // var ambient = new THREE.AmbientLight(0xffffff, 0.6);
-    // scene.add(ambient);
-
-    function initLight(option) {
-        let params = {
-            x: -10, y: 0, z: 10, ...option
-        }
-        let ambientLight = new THREE.AmbientLight("#ffffff", 0.1);
-        scene.add(ambientLight)
-
-        let pointLight = new THREE.PointLight("#ffffff", 0.8);
-        pointLight.position.set(params.x, params.y, params.z);
-
-        //告诉平行光需要开启阴影投射
-        pointLight.castShadow = true;
-
-        scene.add(pointLight);
-    }
-    initLight()
-    // // 阴影
-    // renderer.shadowMap.enabled = true;
-    // light.castShadow = true;
-
+    initLight(scene)
     //---> 泛光开始
     var renderScene = new RenderPass(scene, camera);
     //Bloom通道创建
@@ -100,10 +58,11 @@ async function drawChart() {
 
     //---> 泛光结束
 
-    camera.position.set(0, 0, 15);
+    // camera.position.set(0, 0, 15);
     camera.lookAt(scene.position);
 
-    let { group, ring, lineCircleDash, point } = await getGroup();
+    let { group, lightRainTop1, lightRainTop2, lightRainTop3, lightRainTop4, ring, lineCircleDash, point } = await getGroup();
+
     scene.add(group);
     var controls = new TrackballControls(camera, renderer.domElement);
     controls.minDistance = 0;
@@ -124,9 +83,12 @@ async function drawChart() {
         angle -= 0.004;
         point.position.x = R * Math.sin(angle);
         point.position.y = R * Math.cos(angle);
+        tadpoleMove(lightRainTop1)
+        tadpoleMove(lightRainTop2)
+        tadpoleMove(lightRainTop3)
+        tadpoleMove(lightRainTop4)
 
         // group.rotation.z -= 0.01
-        // changeCommonUniforms(0.005);  // 飞线动画
         renderer.render(scene, camera);
         // composer.render();
     }

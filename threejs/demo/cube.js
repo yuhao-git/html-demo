@@ -1,6 +1,10 @@
 var cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
 
-var cubeMaterial = new THREE.MeshLambertMaterial({
+// var cubeMaterial = new THREE.MeshLambertMaterial({
+//   color: 0x00ffff
+// });
+
+var cubeMaterial = new THREE.MeshBasicMaterial({
   color: 0x00ffff
 });
 
@@ -11,6 +15,6 @@ cube.position.z = 2;
 cube.rotateZ(10)
 cube.rotateY(10)
 //告诉立方体需要投射阴影
-cube.castShadow = true;
+// cube.castShadow = true;
 
 export default cube
