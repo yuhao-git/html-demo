@@ -65,10 +65,10 @@ async function drawChart() {
     // import getGroup from './group.js'
 
     let { group, lightRain, ring, lineCircleDash, point } = await getGroup();
+    let angle = 0;
+    let R = 5.1;
     scene.add(group);
     function centerGroupAnimate() {
-        let angle = 0;
-        let R = 5.1;
         ring.rotation.z += 0.002
         lineCircleDash.rotation.z -= 0.002
         angle -= 0.004;
