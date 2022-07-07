@@ -20,6 +20,7 @@ import {
 import { Line2 } from '../../jsm/lines/Line2.js'
 import { LineGeometry } from '../../jsm/lines/LineGeometry.js'
 import { LineMaterial } from '../../jsm/lines/LineMaterial.js'
+import * as THREE from '../../../build/three.module.js';
 
 export {
   OrbitControls,
@@ -33,5 +34,6 @@ export {
   Geometry,
   Line2,
   LineGeometry,
-  LineMaterial
+  LineMaterial,
+  THREE
 }

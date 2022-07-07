@@ -1,3 +1,4 @@
+import {THREE} from './modules.js'
 let commonUniforms = {
   u_time: {
     value: 0.0

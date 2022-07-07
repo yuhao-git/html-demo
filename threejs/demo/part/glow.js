@@ -1,3 +1,4 @@
+import {THREE} from './modules.js'
 var innerfrag = [
   'uniform vec3	glowColor;',
   'uniform float	coeficient;',
@@ -27,7 +28,7 @@ var vertexShader = [
 
 ].join('\n');
 //大气层效果
-THREE.AeroSphere = {
+let aeroSphere = {
   uniforms: {
     coeficient: {
       type: "f",
@@ -69,7 +70,7 @@ THREE.AeroSphere = {
   ].join('\n')
 }
 //辉光效果Grow
-THREE.GlowSphere = {
+let glowSphere = {
   uniforms: {
     coeficient: {
       type: "f",
@@ -150,17 +151,17 @@ let glowPlane = {
 //球体 辉光 大气层
 export default function shad() {
   var material1 = new THREE.ShaderMaterial({
-    uniforms: THREE.AeroSphere.uniforms,
-    vertexShader: THREE.AeroSphere.vertexShader,
-    fragmentShader: THREE.AeroSphere.fragmentShader,
+    uniforms: aeroSphere.uniforms,
+    vertexShader: aeroSphere.vertexShader,
+    fragmentShader: aeroSphere.fragmentShader,
     blending: THREE.NormalBlending,
     transparent: true,
     depthWrite: false
   });
   var material2 = new THREE.ShaderMaterial({
-    uniforms: THREE.GlowSphere.uniforms,
-    vertexShader: THREE.GlowSphere.vertexShader,
-    fragmentShader: THREE.GlowSphere.fragmentShader,
+    uniforms: glowSphere.uniforms,
+    vertexShader: glowSphere.vertexShader,
+    fragmentShader: glowSphere.fragmentShader,
     blending: THREE.NormalBlending,
     transparent: true
   });

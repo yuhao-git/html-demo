@@ -1,3 +1,4 @@
+import {THREE} from './modules.js'
 var spriteMap = new THREE.TextureLoader().load('./img/circle.png');
 function getCirclePlane(position = { x: 0, y: 0, z: 0 }) {
     var material = new THREE.MeshBasicMaterial({

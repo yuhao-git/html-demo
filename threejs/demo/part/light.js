@@ -6,6 +6,7 @@ import {
   RenderPass,
   ShaderPass,
   UnrealBloomPass,
+  THREE
 } from "./modules.js"
 import cube from '../cube.js'
 import getGroup from '../group.js'

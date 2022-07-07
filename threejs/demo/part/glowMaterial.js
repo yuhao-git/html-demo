@@ -1,3 +1,4 @@
+import {THREE} from './modules.js'
 let glowMaterial = new THREE.ShaderMaterial({
   uniforms: {
     coeficient: {

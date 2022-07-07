@@ -1,4 +1,5 @@
 import getGradientMaterial from "./gradientMaterial.js"
+import {THREE} from './modules.js'
 // 立圆环
 function getRing(option) {
     let params = {

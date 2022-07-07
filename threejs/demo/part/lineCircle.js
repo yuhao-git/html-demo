@@ -1,5 +1,5 @@
 // 实线圆
-import {Line2,LineGeometry,LineMaterial} from './modules.js'
+import {Line2,LineGeometry,LineMaterial,THREE} from './modules.js'
 function getLineCircle(option) {
   let params = {
     r: 4.2,

@@ -1,3 +1,4 @@
+import {THREE} from './modules.js'
 // 从下往透明渐变材质
 function getGradientMaterial(option) {
     let params = {

@@ -1,4 +1,4 @@
-
+import {THREE} from './modules.js'
 
 var textureLoader = new THREE.TextureLoader();
 var texture = textureLoader.load("../../assets/img/point.png");

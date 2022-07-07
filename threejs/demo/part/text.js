@@ -1,6 +1,6 @@
 
 //http://gero3.github.io/facetype.js/ 字体转换
-
+import {THREE} from './modules.js'
 import { TextGeometry, FontLoader } from './modules.js';
 async function getText(option) {
     let params = {

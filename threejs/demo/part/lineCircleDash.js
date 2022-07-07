@@ -1,3 +1,4 @@
+import {THREE} from './modules.js'
 // 虚线圆
 function getLineCircleDash(option) {
   let params = {
