@@ -1,6 +1,7 @@
 
-<!DOCTYPE html>
-<html lang="en">
+	<!DOCTYPE html>
+	<html lang="en">
+
 	<head>
 		<title>three.js webgl - raycast - sprite</title>
 		<meta charset="utf-8">
@@ -10,31 +11,33 @@
 				background-color: #fff;
 				color: #333;
 			}
+
 			a {
 				color: #08f;
 			}
 		</style>
 	</head>
-<body>
-	<div id="info"><a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl raycast sprite<br></div>
 
-	<!-- Import maps polyfill -->
-	<!-- Remove this when import maps will be widely supported -->
-	<script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+	<body>
+		<div id="info"><a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - webgl raycast
+			sprite<br></div>
 
-	<script type="importmap">
-		{
+		<!-- Import maps polyfill -->
+		<!-- Remove this when import maps will be widely supported -->
+		<script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+
+		<script type="importmap">
+			{
 			"imports": {
 				"three": "../../build/three.module.js"
 			}
 		}
 	</script>
 
-	<script type="module">
-
-		import getGroup from './group.js'
+		<script type="module">
+			import getGroup from './group.js'
 		import * as THREE from 'three';
-
+		import { tadpoleMove } from './part/lightRain.js'
 		import { OrbitControls } from '../jsm/controls/OrbitControls.js';
 
 		let renderer, scene, camera;
@@ -45,7 +48,7 @@
 		const pointer = new THREE.Vector2();
 
 		init();
-		animate();
+		// animate();
 
 		async function init() {
 			// init renderer
@@ -94,21 +97,38 @@
 			sprite3.center.set( - 0.1, 0 );
 			sprite3.material.rotation = Math.PI / 3;
 			group2.add( sprite3 );
-			let { group:g, ring : r, lightRainTop1, lightRainTop2, lightRainTop3, lightRainTop4,lightRainBottom1, ring, lineCircleDash, point } = await getGroup();
+			let { group:g, ring : r, lightRain, ring, lineCircleDash, point } = await getGroup();
+			
+			// 需要用到的函数
 			scene.add(g);
+    
 
 			window.addEventListener( 'resize', onWindowResize );
 			document.addEventListener( 'pointermove', onPointerMove );
-
-		}
-
-		function animate() {
-
+			function animate() {
+				centerGroupAnimate()
 			renderer.render( scene, camera );
 			requestAnimationFrame( animate );
 
 		}
+		function centerGroupAnimate() {
+        let angle = 0;
+        let R = 5.1;
+        r.rotation.z += 0.002
+        lineCircleDash.rotation.z -= 0.002
+        angle -= 0.004;
+        point.position.x = R * Math.sin(angle);
+        point.position.y = R * Math.cos(angle);
+        lightRain.forEach(item => {
+            tadpoleMove(item)
+        })
+    }
+	animate() 
+		}
 
+		
+
+		
 		function onWindowResize() {
 
 			camera.aspect = window.innerWidth / window.innerHeight;
@@ -153,6 +173,7 @@
 
 		}
 
-	</script>
-</body>
-</html>
+		</script>
+	</body>
+
+	</html>

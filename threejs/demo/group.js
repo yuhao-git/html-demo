@@ -21,18 +21,18 @@ export default async function getGroup() {
     let ring = getRing({ z: 75.15, r: 3.2, height: 0.56 });
     let glow = shad();
 
-    let lightRainTop1 = getLightRain({ angle: -5, z: 1.3 })
-    let lightRainTop2 = getLightRain({ angle: -30, z: 1.3, r: 1.5 })
-    let lightRainTop3 = getLightRain({ angle: 12, z: 1.3, r: 1.5 })
+    let lightRainTop1 = getLightRain({ angle: -5, z: 1.3, })
+    let lightRainTop2 = getLightRain({ angle: -30, z: 1.3, r: 1.5, direction: "up" })
+    let lightRainTop3 = getLightRain({ angle: 12, z: 1.3, r: 1.5, direction: "up" })
     let lightRainTop4 = getLightRain({ angle: 5, z: 1.3, r: 1.5, })
 
-    let lightRainBottom1 = getLightRain({ angle: -4, z: -1.5, r: 2.4, bottom: -3.5 })
-    let lightRainBottom2 = getLightRain({ angle: -2.5, z: -1.5, r: 2.2, bottom: -3 })
-    let lightRainBottom3 = getLightRain({ angle: -1.9, z: -1.6, r: 2.3, bottom: -3 })
-    let lightRainBottom4 = getLightRain({ angle: -1.6, z: -1.5, r: 2.2, bottom: -3})
-    let lightRainBottom5 = getLightRain({ angle: 4, z: -1.5, r: 2.2, bottom: -3.5 })
+    let lightRainBottom1 = getLightRain({ angle: -4, z: -1.5, r: 2.4, bottom: -3.5, direction: "up" })
+    let lightRainBottom2 = getLightRain({ angle: -2.5, z: -1.5, r: 2.2, bottom: -3, })
+    let lightRainBottom3 = getLightRain({ angle: -1.9, z: -1.6, r: 2.3, bottom: -3, direction: "up" })
+    let lightRainBottom4 = getLightRain({ angle: -1.6, z: -1.5, r: 2.2, bottom: -3 })
+    let lightRainBottom5 = getLightRain({ angle: 4, z: -1.5, r: 2.2, bottom: -3.5, direction: "up" })
 
-    
+
 
     group.add(text);
     group.add(plane);
@@ -58,7 +58,7 @@ export default async function getGroup() {
     group.add(lightRainBottom3);
     group.add(lightRainBottom4);
     group.add(lightRainBottom5);
-    
+
 
     let lightRain = [
         lightRainTop1,

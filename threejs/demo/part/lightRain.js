@@ -1,7 +1,7 @@
 /**
  * 流动能量柱
  *  */
-import { THREE,Face3 ,Geometry} from './modules.js'
+import { THREE, Face3, Geometry } from './modules.js'
 // 材质
 const textureLoader = new THREE.TextureLoader();
 const mapA = textureLoader.load('./img/bg.png');
@@ -10,7 +10,7 @@ const mapC = textureLoader.load('./img/light-point-l.png');
 const bgHeight = 5;
 
 // 渐变柱状体
-function getAureole(radius = 2, height = 5, color = "#ffffff"){
+function getAureole(radius = 2, height = 5, color = "#ffffff") {
   let geo, mat;
   let segment = 64;
   //geo
@@ -100,11 +100,11 @@ function getBg(group, option) {
   bg.scale.set(0.4, params.height, 1.0);
   bg.name = "spriteBg"
   group.add(bg);
-  
+
 }
 
 // 添加拖尾
-function getTadpole(group, amount = 5) {
+function getTadpole(group, direction = "down", amount = 5) {
   const materialC = new THREE.SpriteMaterial({
     map: mapC,
     color: 0xffffff,
@@ -121,19 +121,25 @@ function getTadpole(group, amount = 5) {
     let isSmall = Math.random() > 0.3;
     const x = isSmall ? Math.random() * 0.22 - 0.1 + group.position.x : group.position.x;
     const y = group.position.y - 1;
-    const z = group.bottom + bgHeight - 1;
+    const z = group.bottom + bgHeight - 1 - Math.random();
     let material = isSmall ? materialB.clone() : materialC.clone();
+
     let scale = isSmall ? [0.08, 1.2, 1.0] : [0.4, 1.6, 1.0]
     const sprite = new THREE.Sprite(material);
     sprite.name = isSmall ? "small" : "big"
     sprite.position.set(x, y, z);
     sprite.scale.set(...scale);
-    sprite.speed = Math.random() * 0.018 + 0.005; // 下降速度
+    sprite.speed = Math.random() * 0.012 + 0.005; // 下降速度
+    sprite.direction = direction;
+    // 上升
+    if (direction == "up") {
+      sprite.material.rotation = Math.PI;
+    }
     group.add(sprite);
   }
 }
 
-// 移动  需要在render中调用
+// 移动动画  需要在render中调用
 export function tadpoleMove(group) {
   let bg = group.children.find((item) => {
     return item.name = 'spriteBg';
@@ -144,13 +150,24 @@ export function tadpoleMove(group) {
   // 光点的位置限制在背景的大小范围内
   for (let i = 0; i < tadpoles.length; i++) {
     const sprite = tadpoles[i];
-    sprite.position.z -= sprite.speed;
-    // sprite.material.opacity = sprite.position.z  / 2
-    if (sprite.position.z < group.bottom) {
-      let x = Math.random() * 0.22 - 0.1 + group.position.x
-      sprite.position.z = group.bottom + bgHeight - 1;
-      sprite.position.x = x;
+    if (sprite.direction == 'up') {
+      sprite.position.z += sprite.speed;
+      if (sprite.position.z > group.bottom + bgHeight - 1.5) {
+        let x = Math.random() * 0.22 - 0.1 + group.position.x
+        sprite.position.z = group.bottom ;
+        sprite.position.x = x;
+      }
     }
+    else {
+      sprite.position.z -= sprite.speed;
+      // sprite.material.opacity = (sprite.position.z + 20) / 20  // 透明度
+      if (sprite.position.z < group.bottom) {
+        let x = Math.random() * 0.22 - 0.1 + group.position.x
+        sprite.position.z = group.bottom + bgHeight - 1;
+        sprite.position.x = x;
+      }
+    }
+
   }
 }
 
@@ -160,6 +177,7 @@ function getLightRain(option) {
     r: 1.4,
     z: 1.4,
     angle: 4,
+    direction: "down", //上升或下降
     bottom: -0.6,  //流线消失位置
     ...option
   }
@@ -172,7 +190,7 @@ function getLightRain(option) {
   let z = params.z
   group.position.set(x, y, z)
   getBg(group)
-  getTadpole(group)
+  getTadpole(group, params.direction)
   return group
 }
 

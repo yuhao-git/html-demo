@@ -43,9 +43,7 @@ async function drawChart() {
 
     camera.lookAt(scene.position);
 
-    let { group, lightRain, ring, lineCircleDash, point } = await getGroup();
 
-    scene.add(group);
     // var controls = new TrackballControls(camera, renderer.domElement);
     // controls.minDistance = 0;
     // controls.maxDistance = 1000;
@@ -55,20 +53,30 @@ async function drawChart() {
         // controls.update();
         render()
     };
-    let angle = 0;
-    let R = 5.1;
-    function render() {
 
+    function render() {
+        centerGroupAnimate()
+        renderer.render(scene, camera);
+    }
+
+    // 需要用到的函数
+    // import { tadpoleMove } from './part/lightRain.js'
+    // import initLight from './part/pointLight.js'
+    // import getGroup from './group.js'
+
+    let { group, lightRain, ring, lineCircleDash, point } = await getGroup();
+    scene.add(group);
+    function centerGroupAnimate() {
+        let angle = 0;
+        let R = 5.1;
         ring.rotation.z += 0.002
         lineCircleDash.rotation.z -= 0.002
         angle -= 0.004;
         point.position.x = R * Math.sin(angle);
         point.position.y = R * Math.cos(angle);
-        lightRain.forEach(item=>{
+        lightRain.forEach(item => {
             tadpoleMove(item)
         })
-        
-        renderer.render(scene, camera);
     }
 
     animate();
