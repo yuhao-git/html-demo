@@ -10,7 +10,7 @@ var spriteMaterial = new THREE.SpriteMaterial({
   transparent: true,
   opacity: 1,
   blending: THREE.AdditiveBlending,//在使用此材质显示对象时要使用何种混合。加法
-  alphaTest: 0  // 不透明度低于此值，则不会渲染材质
+  alphaTest: 0.025  // 不透明度低于此值，则不会渲染材质
 });
 
 
@@ -24,7 +24,7 @@ var material = new THREE.MeshLambertMaterial({
 });
 var mesh = new THREE.Mesh(geometry, material);
 // 发光范围
-mesh.scale.set(1.5, 0.8, 1);
+mesh.scale.set(2, 2, 1);
 mesh.position.set(5.25, 0, -0.3)
 
 

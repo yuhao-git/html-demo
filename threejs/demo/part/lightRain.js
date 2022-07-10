@@ -109,13 +109,15 @@ function getTadpole(group, direction = "down", amount = 5) {
     map: mapC,
     color: 0xffffff,
     transparent: true,
-    fog: true
+    fog: true,
+    alphaTest: 0.2
   });
   const materialB = new THREE.SpriteMaterial({
     map: mapB,
     color: 0xffffff,
     transparent: true,
-    fog: true
+    fog: true,
+    alphaTest: 0.1
   });
   for (let a = 0; a < amount; a++) {
     let isSmall = Math.random() > 0.3;

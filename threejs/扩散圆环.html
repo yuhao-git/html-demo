@@ -1,0 +1,204 @@
+
+  <!DOCTYPE html>
+
+  <html>
+
+  <head>
+    <title>光圈扩散</title>
+    <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+    </style>
+  </head>
+
+  <body>
+
+    <div id="Stats-output"></div>
+    <div id="WebGL-output"></div>
+    <script type="importmap">
+      {
+				"imports": {
+					"three": "../build/three.module.js"
+				}
+			}
+		</script>
+    <script type="module">
+      import * as THREE from 'three';
+            import {
+			OrbitControls
+		} from './jsm/controls/OrbitControls.js';
+        import Stats from './jsm/libs/stats.module.js';
+        import { GUI } from './jsm/libs/lil-gui.module.min.js';
+        var scene, camera, renderer, cylinderMesh, stats, controls, clock;
+
+    function initScene() {
+      scene = new THREE.Scene();
+      //用一张图加载为纹理作为场景背景
+    //   scene.background = new THREE.TextureLoader().load("../assets/textures/starry-deep-outer-space-galaxy.jpg");
+      scene.background = "#000";
+    }
+
+    function initCamera() {
+      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.set(20, 30, 50);
+      camera.lookAt(new THREE.Vector3(0, 0, 0));
+    }
+
+    function initLight() {
+      //添加环境光
+      var ambientLight = new THREE.AmbientLight(0x0c0c0c);
+      scene.add(ambientLight);
+
+      //添加聚光灯
+      var spotLight = new THREE.SpotLight(0xffffff);
+      spotLight.position.set(-40, 60, -10);
+      spotLight.castShadow = true;
+      scene.add(spotLight);
+    }
+
+    function initModel() {
+
+      //创建圆柱   
+    // radiusTop — 圆柱的顶部半径，默认值是1。
+    // radiusBottom — 圆柱的底部半径，默认值是1。
+    // height — 圆柱的高度，默认值是1。
+    // radialSegments — 圆柱侧面周围的分段数，默认为8。
+    // heightSegments — 圆柱侧面沿着其高度的分段数，默认值为1。
+    // openEnded — 一个Boolean值，指明该圆锥的底面是开放的还是封顶的。默认值为false，即其底面默认是封顶的。
+    // thetaStart — 第一个分段的起始角度，默认为0。（three o'clock position）
+    // thetaLength — 圆柱底面圆扇区的中心角，通常被称为“θ”（西塔）。默认值是2*Pi，这使其成为一个完整的圆柱。
+      let geometry = new THREE.CylinderGeometry(4, 4, 4, 64,1, false, );
+
+      //加载纹理
+      let texture = new THREE.TextureLoader().load('../assets/img/point.png');
+
+      texture.wrapS = texture.wrapT = THREE.RepeatWrapping; //每个都重复
+      texture.repeat.set(1, 1);
+      texture.needsUpdate = true;
+
+      let materials = [
+        //圆柱侧面材质，使用纹理贴图
+        new THREE.MeshBasicMaterial({
+          map: texture,
+        //   opacity:0.5,
+        //   color: "#ffffff",
+          // alphaTest:"0.5",
+          side: THREE.DoubleSide,
+          transparent: true,
+
+        }),
+        //圆柱顶材质
+        new THREE.MeshBasicMaterial({
+          transparent: true,
+          opacity: 0,
+          color: "red",
+          side: THREE.DoubleSide
+        }),
+        //圆柱底材质
+        new THREE.MeshBasicMaterial({
+          transparent: true,
+          opacity: 0,
+        color: "yellow",
+          side: THREE.DoubleSide
+        }),
+      ];
+      cylinderMesh = new THREE.Mesh(geometry, materials);
+
+      scene.add(cylinderMesh);
+
+      
+    initPlane()
+
+    }
+
+    //创建底面
+    function initPlane() {
+      const planeGeometry = new THREE.PlaneGeometry(50, 50, 1, 1); //创建一个平面几何对象
+
+      //材质
+      const planeMaterial = new THREE.MeshLambertMaterial({
+        color: 0x080631,
+        transparent: true,
+        opacity: 0.8
+      });
+      const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+
+
+      //设置平面位置
+      plane.rotation.x = -0.5 * Math.PI;
+      plane.position.set(0, -2, 0);
+
+      //平面添加到场景中
+      scene.add(plane);
+    }
+
+    //初始化渲染器
+    function initRender() {
+      renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true
+      });
+      renderer.setClearColor(0x111111, 1); //设置背景颜色
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      //renderer.shadowMap.enabled = true; //显示阴影
+      document.getElementById("WebGL-output").appendChild(renderer.domElement);
+    }
+    //初始化轨道控制器
+    function initControls() {
+      clock = new THREE.Clock(); //创建THREE.Clock对象，用于计算上次调用经过的时间
+      controls = new OrbitControls(camera, renderer.domElement);
+      //controls.autoRotate = true; //是否自动旋转
+    }
+
+    let cylinderRadius = 0;
+    let cylinderOpacity = 1;
+    //圆柱光圈扩散动画
+    function cylinderAnimate() {
+      cylinderRadius += 0.01;
+      cylinderOpacity -= 0.003;
+      if (cylinderRadius > 4) {
+        cylinderRadius = 0;
+        cylinderOpacity = 1;
+      }
+      if (cylinderMesh) {
+        cylinderMesh.scale.set(1 + cylinderRadius, 1, 1 + cylinderRadius); //圆柱半径增大
+        // cylinderMesh.material[0].opacity = cylinderOpacity; //圆柱可见度减小
+      }
+    }
+
+    //性能监控
+    function initStats() {
+      stats = new Stats();
+      stats.setMode(0); //0: fps, 1: ms
+      document.getElementById("Stats-output").appendChild(stats.domElement);
+    }
+
+    function render() {
+
+      cylinderAnimate(); //圆柱光圈扩散更新
+      stats.update();
+      const delta = clock.getDelta(); //获取自上次调用的时间差
+      controls.update(delta) //控制器更新
+      requestAnimationFrame(render);
+      renderer.render(scene, camera);
+    }
+
+    //页面初始化
+    function init() {
+      initScene();
+      initCamera();
+      initLight();
+      initModel();
+      initRender();
+      initStats();
+      initControls();
+      render();
+    }
+
+    window.onload = init;
+    </script>
+  </body>
+
+  </html>
