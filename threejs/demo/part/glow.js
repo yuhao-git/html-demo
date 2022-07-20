@@ -185,6 +185,6 @@ export default function shad() {
   const circle = new THREE.Mesh(geometry, material3);
   circle.position.z = -0.3;
 
-  return circle;
+  return mesh;
 }
 
