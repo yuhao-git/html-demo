@@ -25,11 +25,11 @@ import Stats from '../jsm/libs/stats.module.js';
 // 环形文字
 import getTexture from "./demo/canvasTexture.js"
 // 圆环
-import getLine from "./glow/lineCircle.js"
+import circlePlane from "./line/circlePlane.js"
+
 
 let stats = new Stats(); // 性能监控器，用来查看Three.js渲染帧率
 document.body.appendChild(stats.dom);
-//---> 变量定义开始
 const BLOOM_SCENE = 2;
 const bloomLayer = new THREE.Layers();
 bloomLayer.set(BLOOM_SCENE);
@@ -42,8 +42,9 @@ const params = {
 };
 
 const materials = {};
-let renderer, scene, camera, controls, bloomComposer, finalComposer, mouse, raycaster,bloomPass,renderScene;
+let renderer, scene, camera, controls, bloomComposer, finalComposer, mouse, raycaster, bloomPass, renderScene;
 
+let sun, earth;
 
 function initBloom() {
   renderScene = new RenderPass(scene, camera);
@@ -85,8 +86,7 @@ function initBloom() {
   finalPass.needsSwap = true;
   finalComposer.addPass(renderScene);
   finalComposer.addPass(finalPass);
-  // 交互选中
-  window.addEventListener('pointerdown', onPointerDown);
+
 }
 
 // 鼠标按下，射线拾取物体 
@@ -102,42 +102,53 @@ function onPointerDown(event) {
   }
 }
 
-// 监听窗口重绘
-window.onresize = function () {
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-  camera.aspect = width / height;
-  camera.updateProjectionMatrix();
-  renderer.setSize(width, height);
-  bloomComposer.setSize(width, height);
-  finalComposer.setSize(width, height);
-  // render();
-};
 
 // 添加模型
 function addObj() {
   scene.traverse(disposeMaterial);
   scene.children.length = 0;
-  const geometry = new THREE.BoxGeometry(1, 1, 1);
-  for (let i = 0; i < 100; i++) {
-    const color = new THREE.Color();
-    color.setHSL(Math.random(), 0.7, Math.random() * 0.2 + 0.05);
-    const material = new THREE.MeshBasicMaterial({
-      color: color
-    });
-    const sphere = new THREE.Mesh(geometry, material);
-    sphere.position.x = Math.random() * 10 - 5;
-    sphere.position.y = Math.random() * 10 - 5;
-    sphere.position.z = Math.random() * 10 - 5;
-    sphere.position.normalize().multiplyScalar(Math.random() * 4.0 + 2.0);
-    sphere.scale.setScalar(Math.random() * Math.random() + 0.5);
-    scene.add(sphere);
-    if (Math.random() < 0.25) {
-      sphere.layers.enable(BLOOM_SCENE);
-    }
-  }
-  // render();
+  const geometry = new THREE.SphereGeometry(1, 10, 10);
+  // for (let i = 0; i < 10; i++) {
+  //   const color = new THREE.Color();
+  //   color.setHSL(Math.random(), 0.7, Math.random() * 0.2 + 0.05);
+
+  //   const material = new THREE.MeshBasicMaterial({
+  //     color: color
+  //   });
+  //   const sphere = new THREE.Mesh(geometry, material);
+  //   sphere.position.x = Math.random() * 10 - 5;
+  //   sphere.position.y = Math.random() * 10 - 5;
+  //   sphere.position.z = Math.random() * 10 - 5;
+  //   sphere.position.normalize().multiplyScalar(Math.random() * 4.0 + 2.0);
+  //   sphere.scale.setScalar(Math.random() * Math.random() + 0.5);
+  //   scene.add(sphere);
+  //   if (Math.random() < 0.25) {
+  //     sphere.layers.enable(BLOOM_SCENE);
+  //   }
+  // }
+  const material = new THREE.MeshBasicMaterial({
+    color: 0xfff000,
+    wireframe: true
+  });
+  // 太阳
+  sun = new THREE.Mesh(geometry, material);
+  sun.layers.enable(BLOOM_SCENE);
+  scene.add(sun);
+
+  // 地球
+  const eMaterial = new THREE.MeshBasicMaterial({
+    color: 'blue'
+  });
+  earth = new THREE.Mesh(geometry, eMaterial);
+  earth.position.x = 5;
+  earth.position.y = 0;
+  earth.position.z = 0;
+  earth.scale.setScalar(0.4);
+  scene.add(earth);
+
+  // scene.add(circlePlane)
 }
+
 
 // 销毁
 function disposeMaterial(obj) {
@@ -147,7 +158,6 @@ function disposeMaterial(obj) {
 }
 
 function render() {
-
   // render scene with bloom
   scene.traverse(darkenNonBloomed);
   bloomComposer.render();
@@ -158,7 +168,7 @@ function render() {
   requestAnimationFrame(render);
 }
 
-// 置黑
+// 材质置黑
 function darkenNonBloomed(obj) {
   const darkMaterial = new THREE.MeshBasicMaterial({
     color: 'black'
@@ -169,6 +179,7 @@ function darkenNonBloomed(obj) {
   }
 }
 
+// 恢复原本材质
 function restoreMaterial(obj) {
   if (materials[obj.uuid]) {
     obj.material = materials[obj.uuid];
@@ -200,9 +211,7 @@ function initScene() {
   controls.minDistance = 1;
   controls.maxDistance = 1000;
   // controls.addEventListener('change', render);
-
   scene.background = new THREE.Color("#000");
-
   scene.add(new THREE.AmbientLight(0x404040));
 }
 
@@ -222,13 +231,13 @@ function addGui() {
 
   });
 
-  gui.add(params, 'bloomStrength', 0.0, 3.0).onChange(function (value) {
+  gui.add(params, 'bloomStrength', 0.0, 10.0).onChange(function (value) {
 
     bloomPass.strength = Number(value);
 
   });
 
-  gui.add(params, 'bloomRadius', 0.0, 1.0).step(0.01).onChange(function (value) {
+  gui.add(params, 'bloomRadius', 0.0, 10.0).step(0.01).onChange(function (value) {
 
     bloomPass.radius = Number(value);
 
@@ -236,13 +245,45 @@ function addGui() {
 
 }
 
-function main() {
-  initScene()
-  initBloom()
-  addObj();
+// 监听窗口重绘
+window.onresize = function () {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+  renderer.setSize(width, height);
+  bloomComposer.setSize(width, height);
+  finalComposer.setSize(width, height);
+  // render();
+};
 
+function main() {
+  // 初始化场景：相机、控制器等
+  initScene()
+  // 泛光
+  initBloom()
+  // 添加场景内物体
+  addObj();
+  // 添加控制器
   addGui()
+  // 动画
   render();
+  // 交互选中
+  window.addEventListener('pointerdown', onPointerDown);
+
+  addTestObj()
+}
+
+
+function addTestObj() {
+  const geometry = new THREE.TorusGeometry(5,0.05,72,72);
+  const material = new THREE.MeshBasicMaterial({ color: 0xffff00,wireframe: false });
+  const torus = new THREE.Mesh(geometry, material);
+  torus.rotation.x = Math.PI / 2;
+  scene.add(torus);
 }
 
 main()
+
+
+

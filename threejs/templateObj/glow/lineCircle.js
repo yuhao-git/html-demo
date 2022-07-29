@@ -12,7 +12,7 @@ function getLineCircle(option) {
   // 计算点的位置
   const pointsArray = new Array()
   var R = params.r; //圆弧半径
-  var N = 100; //分段数量
+  var N = 720; //分段数量
   for (let i = 0; i < N; i++) {
     var angle = 2 * Math.PI / N * i;
     var x = R * Math.sin(angle);
@@ -42,8 +42,9 @@ function getLineCircle(option) {
     transparent: true,
   })
   material.resolution.set(window.innerWidth, window.innerHeight)
-  var line = new Line2(geometry, material)
-  line.computeLineDistances()
+  // var line = new Line2(geometry, material)
+  // line.computeLineDistances()
+  var line = new THREE.LineLoop( geometry, material );
   return line
 }
 

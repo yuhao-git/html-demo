@@ -1,0 +1,116 @@
+<script src="../../plugins/ys/ys.min.js"></script>
+<script src="../../plugins/threeLibrary/three.min.js"></script>
+<script src="../../plugins/threeLibrary/js/controls/OrbitControls.js"></script>
+<script src="../../plugins/createJs/tween.min.js"></script>
+<script src="../../plugins/threeLibrary/js/libs/stats.min.js"></script>
+<script src="../../plugins/ysThree/ysThree-1.0.1.js"></script>
+ 
+<script>
+    const el = document.getElementById('box')
+ 
+    const app = new YsThree(el,{
+        gridHelper:true,//网格参考线
+        axes:true,//坐标辅助
+        clearColor:'#000'//画布颜色
+    })
+    const camera = app.camera
+    const renderer = app.renderer
+    const scene = app.scene
+    const controls = app.initOrbitControls()
+    const clock = new THREE.Clock()
+ 
+    //add light
+    const directionalLight = new THREE.DirectionalLight( '#fff' )
+    directionalLight.position.set( 30, 30, 30 ).normalize()
+    scene.add( directionalLight )
+    const ambientLight = new THREE.AmbientLight('#fff',0.3) // obj 唯一 id
+    scene.add(ambientLight)
+ 
+    /*  **** **** ****   ****/
+ 
+ 
+    app.initStatus(Stats)
+    var vertexShader=[
+        'varying vec3 vColor;',
+        'varying vec3	vVertexNormal;',
+        "varying vec2 vUv;",
+        'varying float v_pz; ',
+        'void main(){',
+        '   v_pz = position.y; ',   //获取顶点位置的y
+        '	vVertexNormal	= normal;', //顶点法向量---内置  http://www.yanhuangxueyuan.com/threejs/docs/index.html#api/zh/renderers/webgl/WebGLProgram
+        '   vColor = color;',  //顶点颜色
+        '	gl_Position	= projectionMatrix * modelViewMatrix * vec4(position, 1.0);',//顶点位置
+        '}'
+    ].join('\n')
+    var fragmentShader= [
+        'uniform float	boxH;',        //立方体高度，uniform传入
+        'varying vec3	vVertexNormal;',  //顶点法向量，由顶点着色器传入--插值
+        'varying vec3 vColor;',       //顶点颜色，由顶点着色器传入--插值
+        "varying vec2 vUv;",         //纹理坐标，顶点着色器传入
+        'varying float v_pz; ',      //y的值，顶点着色器传入
+        'float plot ( float pct){',//pct是box的高度，v_pz是y的值
+        'return  smoothstep( pct-8.0, pct, v_pz) -',  //（smoothstep(edge1,edge2,x)）smoothstep函数定义从0到1之间由edge1和edge2上下边界，x为输入值，返回插值
+        'smoothstep( pct, pct+0.02, v_pz);',   //不在0-1范围内的数会被归一化到0和1内，越界会被设为0/1
+        '}',
+        'void main(){',
+        'float f1 = plot(boxH);',    //以当前盒子的高度（光效），和y的值计算出颜色
+        'vec4 b1 = mix(vec4(1.0,1.0,1.0,1.0),vec4(f1,f1,f1,1.0),0.8);',
+        'gl_FragColor = mix(vec4(vColor,1.0),b1,f1);',//混合两种颜色
+        'gl_FragColor = vec4(gl_FragColor.r,gl_FragColor.g,gl_FragColor.b,0.9);',//重新设置片元颜色
+        '}'
+    ].join('\n')
+ 
+    const  ShaderBar = {
+        uniforms: {
+            boxH: { value: -10.0 },
+        },
+        vertexShader: vertexShader,
+        fragmentShader: fragmentShader
+    }
+    const material = new THREE.ShaderMaterial({
+        uniforms: ShaderBar.uniforms,
+        vertexShader: ShaderBar.vertexShader,
+        fragmentShader: ShaderBar.fragmentShader,
+         vertexColors: ShaderBar,  //暂时未理解该处作用
+    });
+    material.needsUpdate = true
+ 
+    function addCube() {
+        for (let i = 0 ;i<100;i++){
+            const h =  Math.random()*6 + 5
+            const  cubeGeo = new THREE.BoxBufferGeometry(1, h, 1);
+            cubeGeo.setAttribute('color', new THREE.BufferAttribute(new Float32Array(24 * 3), 3)); // setAttribute 以前是.addAttribute
+            // 相当于在 shader中创建了 attribute vec4 position
+            const colors1 = cubeGeo.attributes.color;
+            for (let i = 0; i < 24; i+=2) {
+                let r = Math.random()*0.8,g=Math.random()*0.7,b=Math.random()*0.5;
+                colors1.setXYZ(i, r, g, b);
+                colors1.setXYZ(i+1,r, g, b);
+            }
+            const k = 2;
+            colors1.setXYZ(k * 4 + 0, .0, 1.0, 1.0);
+            colors1.setXYZ(k * 4 + 1, .0, 1.0, 1.0);
+            colors1.setXYZ(k * 4 + 2, .0, 1.0, 1.0);
+            colors1.setXYZ(k * 4 + 3, .0, 1.0, 1.0);
+            const cube = new THREE.Mesh( cubeGeo,material)
+ 
+ 
+            cube.position.set(Math.random()*100 - 50,h / 2,Math.random()*100 - 50)
+            scene.add(cube)
+        }
+    }
+    addCube()
+    /*  **** **** ****   ****/
+    function render() {
+        controls.update(clock.getDelta())
+        renderer.render( scene,camera)
+        TWEEN.update()
+        app.staus.update()
+        ShaderBar.uniforms.boxH.value =  ShaderBar.uniforms.boxH.value + 0.1
+        if( ShaderBar.uniforms.boxH.value > 30){
+            ShaderBar.uniforms.boxH.value =  -10.0
+        }
+        requestAnimationFrame(render)
+    }
+    render()
+</script>
