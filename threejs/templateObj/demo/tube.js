@@ -2,7 +2,7 @@ var happy = new THREE.TextureLoader().load('../../assets/img/happy.png');
 import { getTextToCanvas } from "../utils/index.js"
 const points = []
 //随机生成点
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 2; i++) {
     const randomX = -20 + Math.round(Math.random() * 50)
     const randomY = -15 + Math.round(Math.random() * 40)
     const randomZ = -20 + Math.round(Math.random() * 40)

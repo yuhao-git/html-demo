@@ -17,7 +17,7 @@ async function drawChart() {
         1,
         1000
     );
-    camera.position.set( 2, 2, 100);
+    camera.position.set( 2, 70, 1);
     camera.lookAt( scene.position );
 
     // 渲染器
@@ -49,11 +49,10 @@ async function drawChart() {
     }
     
     let text = getTexture()
-    // scene.add(text)
-    // scene.add(getRing())
-    // scene.add(line)
-    // scene.add(tube)
-    scene.add(png)
+    scene.add(text)
+    scene.add(getRing())
+    scene.add(line)
+    scene.add(tube)
     
     
     animate();

@@ -7,8 +7,11 @@ import { UnrealBloomPass } from '../jsm/postprocessing/UnrealBloomPass.js';
 import initLight from './part/pointLight.js'
 import * as THREE from '../../build/three.module.js';
 import { tadpoleMove } from './part/lightRain.js'
+import Stats from '../jsm/libs/stats.module.js';
 
 async function drawChart() {
+    let stats = new Stats();
+	document.body.appendChild( stats.dom );
     // 场景
     var scene = new THREE.Scene();
     // 相机
@@ -56,6 +59,7 @@ async function drawChart() {
 
     function render() {
         centerGroupAnimate()
+        stats.update();
         renderer.render(scene, camera);
     }
 

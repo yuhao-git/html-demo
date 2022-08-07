@@ -60,7 +60,11 @@ function getRing(option) {
     };
 
     let happy = new THREE.TextureLoader().load('../../assets/img/happy.png');
-    happy.mapping = 10
+    happy.repeat.set(0.1, 0.1);
+    happy.offset.set(0.5,0.5)
+    happy.rotation = Math.PI / 1.7
+    
+    console.log(happy)
     
     let texture = new THREE.CanvasTexture(getTextToCanvas());
     // texture.wrapS =  THREE.RepeatWrapping; //横向重复
