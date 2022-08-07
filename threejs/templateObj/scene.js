@@ -4,6 +4,7 @@ import getRing from "./demo/ring.js"
 import getTexture from "./demo/canvasTexture.js"
 import line from "./demo/line.js"
 import tube from "./demo/tube.js"
+import png from "./demo/png.js"
 // import texture from "./demo/texture.js"
 
 async function drawChart() {
@@ -48,10 +49,11 @@ async function drawChart() {
     }
     
     let text = getTexture()
-    scene.add(text)
-    scene.add(getRing())
-    scene.add(line)
-    scene.add(tube)
+    // scene.add(text)
+    // scene.add(getRing())
+    // scene.add(line)
+    // scene.add(tube)
+    scene.add(png)
     
     
     animate();

@@ -1,0 +1,11 @@
+// tsconifg.json
+{
+  "include": [
+    "modules/**/*.ts",
+    "modules/**/*.d.ts",
+    "modules/**/*.tsx",
+    "modules/**/*.vue",
+    "./auto-imports.d.ts",
+    "./components.d.ts"
+  ]
+}

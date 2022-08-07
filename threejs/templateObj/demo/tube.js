@@ -19,8 +19,8 @@ const geometry = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points), //�
 
 
 // 获取第n个位置的坐标
-let l = new THREE.CatmullRomCurve3(points);
-console.log(l.getPoint(200))
+// let l = new THREE.CatmullRomCurve3(points);
+// console.log(l.getPoint(200))
 
 let texture = getTextToCanvas()
 
