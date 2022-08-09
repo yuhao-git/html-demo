@@ -1,3 +1,4 @@
+import { tuple } from "naive-ui/lib/carousel/src/interface";
 import { createRouter, createWebHashHistory, createWebHistory, RouteRecordRaw } from "vue-router";
 
 
@@ -42,23 +43,14 @@ const router = createRouter({
 
 
 
+function add(name: string): void
+function add(name: string, age: number): string
 
-let arr:Array<string|number> ;
-let arr2:(number|string|object)[] ;
-
-arr = [11,2,2,3]
-arr2 = [{name:"小王"}]
-console.log(arr, arr2)
-
-
-interface intr {
-  name:  string,
-  age: number
+function add(name: any, age?: any) {
+  console.log(name)
+  return name
 }
 
-let arr3:intr[] = []
 
-arr3 = []
-console.log(arr3)
 
 export default router;
