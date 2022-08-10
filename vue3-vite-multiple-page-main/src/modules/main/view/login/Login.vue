@@ -1,8 +1,27 @@
 <script setup lang="ts">
-const me = "老7";
+import { reactive, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router'
+
+type user = {
+  name: string,
+  id: string,
+  sex?: string,
+  age?: number
+}
+let router = useRouter()
+let route = useRoute()
+let userMsg: user = {
+  name: "tom",
+  id: "01"
+}
+let state = reactive({
+  userMsg
+})
+let user = ref(userMsg)
+
+
 </script>
 <template>
-  <div>我是登录页{{ me }}</div>
-  <img alt="Vue logo" src="@/assets/logo.png" />
-  <router-link to="/home">Go to Home</router-link>
+  
 </template>
+

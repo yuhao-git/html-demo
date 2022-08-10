@@ -3,6 +3,11 @@ import vue from "@vitejs/plugin-vue";
 import { resolve, join } from "path";
 import { readdirSync } from "fs";
 
+// 自动引入 
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
+
 import viteCompression from "vite-plugin-compression";
 
 const project_pages = {};
@@ -43,6 +48,17 @@ export default defineConfig(({ mode }) => {
         algorithm: "gzip",
         ext: ".gz",
       }),
+      AutoImport({
+        imports: [
+          'vue',
+          {
+            'naive-ui': ['useDialog', 'useMessage', 'useNotification', 'useLoadingBar'],
+          },
+        ],
+      }),
+      Components({
+        resolvers: [NaiveUiResolver()]
+      })
     ],
     resolve: {
       extensions: [".js", ".ts", ".vue", ".json"],

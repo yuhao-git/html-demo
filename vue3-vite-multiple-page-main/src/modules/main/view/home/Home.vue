@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { h, ref } from "vue";
-import { RouterLink } from "vue-router";
+import { RouterLink, useRouter } from "vue-router";
 
 import { NIcon, NSpace, NMenu, NLayout, NLayoutSider } from "naive-ui";
 import { BookOutline as BookIcon } from "@vicons/ionicons5";
@@ -69,9 +69,19 @@ const menuOptions = [
     icon: renderIcon(BookIcon),
   },
 ];
+
+
+let router = useRouter()
+
+function backToLogin():void{
+  router.push('/login')
+}
 </script>
 
 <template>
+  <n-button strong secondary @click="backToLogin">
+    login
+  </n-button>
   <n-space vertical>
     <n-layout>
       <n-layout has-sider>

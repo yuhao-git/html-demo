@@ -1,4 +1,3 @@
-import { tuple } from "naive-ui/lib/carousel/src/interface";
 import { createRouter, createWebHashHistory, createWebHistory, RouteRecordRaw } from "vue-router";
 
 
@@ -42,14 +41,6 @@ const router = createRouter({
 });
 
 
-
-function add(name: string): void
-function add(name: string, age: number): string
-
-function add(name: any, age?: any) {
-  console.log(name)
-  return name
-}
 
 
 
