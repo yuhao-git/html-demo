@@ -1,10 +1,7 @@
 <template>
     <div class="nav-container">
-        <n-button strong secondary @click="jumpPage('/home')">
-            home
-        </n-button>
         <n-button strong secondary @click="jumpPage('/login')">
-            login
+            登录
         </n-button>
     </div>
 </template>

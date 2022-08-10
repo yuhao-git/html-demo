@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import HeadeNav from '../../components/HeadeNav.vue';
 import { h, ref } from "vue";
 import { RouterLink, useRouter } from "vue-router";
 
@@ -79,9 +80,7 @@ function backToLogin():void{
 </script>
 
 <template>
-  <n-button strong secondary @click="backToLogin">
-    login
-  </n-button>
+  <heade-nav></heade-nav>
   <n-space vertical>
     <n-layout>
       <n-layout has-sider>
