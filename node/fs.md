@@ -153,3 +153,28 @@ fs.access('package.json',(err)=>{
 
 ```
 
+/*
+ * fs文件夹操作
+ */
+
+const fs =require('fs')
+//新增文件夹
+// fs.mkdir('logs',(err)=>{
+//     if(err) throw err
+//     console.log("文件创建成功");
+// })
+
+//修改文件夹名称
+// fs.rename('./logs','./log',()=>{
+//     console.log("修改文件名称成功");
+// })
+
+//删除文件夹
+// fs.rmdir('./log',()=>{
+//     console.log("删除文件夹成功");
+// })
+
+//读取文件夹
+fs.readdir('./logs',(err,result)=>{
+    console.log(result);
+})
