@@ -23,8 +23,8 @@ function jumpPage(url: string): void {
   // console.log(formRef.value)
   // console.log(model)
   // console.log(name.value)
-  name.value = 'sds'
-  // router.push(url)
+  // name.value = 'sds'
+  router.push(url)
 }
 
 
@@ -37,7 +37,6 @@ let rules = {}
     <div class="container">
       <div class="banner">
         <p class="description">后台管理系统</p>
-        {{name}}
       </div>
       <div class="login-form">
         <p class="title">欢迎您!</p>
