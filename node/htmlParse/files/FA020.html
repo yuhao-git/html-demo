@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>转入未确认款</title>
+    <meta http-equiv="Content-Type" content="text/html";>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi,width=device-width,initial-scale=1,user-scalable=0">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/fund-ui-form.css" />
+    <link rel="stylesheet" href="./css/weui.min.css" />
+    <link rel="stylesheet" href="./css/yinhai.css?sd=d">
+    <script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
+    <script src="js/layer/layer.js"></script>
+    <script src="js/yinhai.js?dd=1234"></script>
+    <script src="js/net.js?dd=1234"></script>
+    <script type="text/javascript" src="./js/dist/photoswipe.js"></script>
+    <link rel="stylesheet" href="./js/dist/photoswipe.css"/>
+    <script type="text/javascript" src="js/pinchzoom.js"></script>
+    <script type="text/javascript" src="./js/dist/photoswipe-ui-default.min.js"></script>
+    </head>
+    <body ontouchstart>
+     <div class="page">
+         <div class="flowTitle" >业务名称：<span id="flowname"></span></div>
+
+         <div class="rectangle">
+             <div class="title customTitle">业务信息</div>
+             <div class="weui-cells weui-cells_form ">
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">受理人姓名：</div>
+                     <div class="weui-cell__hd" id="slrxm"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">笔数：</div>
+                     <div class="weui-cell__hd" id="bishu"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">发生额</div>
+                     <div class="weui-cell__hd" id="fse"></div>
+                 </div>
+             </div>
+        </div>
+
+        <div class="rectangle">
+             <div class="title customTitle">信息明细</div>
+             <div class="weui-cells weui-cells_form ">
+                 <div class="rectangle" id="dataList">
+
+                 </div>
+             </div>
+         </div>
+
+
+         <div class="rectangle">
+             <div class="title customTitle">审核</div>
+             <div class="weui-cells weui-cells_form ">
+                 <div class="weui-cell" id="spbz_xx">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">上一环节审批人意见</div>
+                     <div class="weui-cell__hd" id="spbz"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">所处环节</div>
+                     <div class="weui-cell__hd" id="linkname"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">当前状态</div>
+                     <div class="weui-cell__hd" id="status"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">审批意见</div>
+                     <div class="weui-cell__hd" id="opinion">
+                         <textarea class="weui-textarea" placeholder="请填写审批意见"></textarea>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+     <div  class="page" style="padding-top: 26px">
+         <div class="rectangle" >
+             <div class="weui-cell title customTitle">
+                 <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">业务办理记录</div>
+                 <div class="weui-cell__ft">
+                     <a>
+                         <img class="expand_icon" isExpand="false" style="height: 20px; transform: rotate(90deg);"
+                              src="css/images/icon-back-act.png"
+                              onclick="fnShowDetailList(this,'handleRecords')"/>
+                     </a>
+                 </div>
+             </div>
+         </div>
+         <div class="handleRecords"  id="handleRecords"></div>
+     </div>
+
+     <div  class="page" style="padding-top: 26px">
+         <div class="rectangle" >
+             <div class="weui-cell title customTitle">
+                 <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">档案列表</div>
+                 <div class="weui-cell__ft">
+                     <a>
+                         <img class="expand_icon" isExpand="false" style="height: 20px; transform: rotate(90deg);"
+                              src="css/images/icon-back-act.png"
+                              onclick="fnShowDetailList(this,'dalist')"/>
+                     </a>
+                 </div>
+             </div>
+         </div>
+         <div class="dalist"  id="dalist"></div>
+     </div>
+     <div class="box mar-all" >
+         <div class="box-f1 mar-all">
+             <a id="btn_refuse" onclick="subApp('0')" class="fund_ui_btn weui-btn_warn">不通过</a>
+         </div>
+         <div class="box-f1 mar-all">
+            <a id="btn_agree" onclick="subApp('1')" class="fund_ui_btn fund_ui_btn_primary">通过</a>
+         </div>
+     </div>
+
+         <script type="text/javascript">
+            var item={};//当前流程信息上一个页面传过来
+            onViewOpen=function(){
+                item= getFlowData();//yinhai.js
+                fetchData();
+                openHandleRecordsWin(item);
+                getDalist(item);
+            };
+
+             function subApp(ispass) {
+                item.opinion = $("#opinion").children("textarea").val();
+                if(ispass=='0' && item.opinion == ""){
+                    $.dialog({title:"提示",content:"请填写审核意见"},function(index) {
+                    });
+                    return;
+                }
+                submitFlow(item,ispass);//yinhai.js
+            }
+            function fetchData(){
+                $("#flowname").text(item.flowname);
+                var params = {"method":"approval.getDetails","busno":item.busno,"flowcode":item.flowcode,"linkcode":item.linkcode};
+                $.doSubmit("",params,function(data){
+                    if(data.spbz == null){
+                        $("#spbz_xx").hide();
+                    }
+                    initInfo(data);
+                    Base.setValue(data);//回填表单值
+                },function(data){
+                    $.toast("无法办理该笔业务");
+                    $.closeWin();
+                });
+            };
+            //页面销毁
+            onViewClose=function(){
+                md.execScript({name:"root",frameName:"tab0",script:"getWillFlow('1')"});
+            };
+
+
+
+            function initInfo(data) {
+                var dataLists = data.list;
+                var len = dataLists.length;
+                if (len > 0) {
+                    var html="";
+                    html+="<div class='weui-cell title customTitle'>"
+                        +"<div class='weui-cell__bd' style='margin-right: 10px;min-width: 45px'>转入明细</div>"
+                        +"<div class='weui-cell__ft' id='showInfo' style='display: none'>"
+                        +" <a style='font-size: 12px' href='javascript:showDetail("+len+")' >展开</a>"
+                        +"</div>"
+                        +"<div class='weui-cell__ft' id='hideInfo'>"
+                        +" <a style='font-size: 12px' href='javascript:hideDetail("+len+")' >收回</a>"
+                        +"</div>"
+                        +"</div>";
+                    for(var i=0;i<len;i++){
+                         var info = dataLists[i];
+                         var str = "popWin" + (i + 1);
+                         if (info.dfkhh == null || typeof(info.dfkhh) == "undefined") {
+                            info.dfkhh = "";
+                         }
+                         if (info.dflhh == null || typeof(info.dflhh) == "undefined"){
+                            info.dflhh = "";
+                         }
+                          if (info.dfzh == null|| typeof(info.dfzh) == "undefined"){
+                            info.dfzh = "";
+                         }
+               
+                        html+="<div class='weui-cells weui-cells_form ' id=\""+str+"\">"
+                           +"<div class='weui-cell'>"
+                            +"  <div class='weui-cell__hd' style='color:red;' >"+'第'+(i+1)+'条数据明细'+"</div> "
+                            +"</div>"
+                            +"<div class='weui-cell'>"
+                            +"  <div class='weui-cell__bd'>转入原因</div>"
+                            +"  <div class='weui-cell__hd' >"+info.zryy+"</div> "
+                            +"</div>"
+                            +"<div class='weui-cell'>"
+                            +"  <div class='weui-cell__bd'>交易日期</div>"
+                            +"  <div class='weui-cell__hd' >"+info.jyrq+"</div> "
+                            +"</div>"
+                            +"<div class='weui-cell'>"
+                            +"  <div class='weui-cell__bd'> 中心账户名称 </div>"
+                            +"  <div class='weui-cell__hd' >"+info.zxzhmc+"</div>"
+                            +"</div>"
+                            +"<div class='weui-cell'>"
+                            +"  <div class='weui-cell__bd'> 中心账号 </div>"
+                            +"  <div class='weui-cell__hd' >"+info.zxzh+"</div>"
+                            +"</div>"
+                            +"<div class='weui-cell'>"
+                            +"  <div class='weui-cell__bd'> 对方账户名称 </div>"
+                            +"  <div class='weui-cell__hd' >"+info.dfzhmc+"</div>"
+                            +"</div>"
+                            +"<div class='weui-cell'>"
+                            +"  <div class='weui-cell__bd'> 对方账号 </div>"
+                            +"  <div class='weui-cell__hd' >"+info.dfzh+"</div>"
+                            +"</div>"
+                            +"<div class='weui-cell'>"
+                            +"  <div class='weui-cell__bd'> 对方开户行 </div>"
+                            +"  <div class='weui-cell__hd' >"+info.dfkhh+"</div>"
+                            +"</div>"
+                            +"<div class='weui-cell'>"
+                            +"  <div class='weui-cell__bd'> 对方联行号 </div>"
+                            +"  <div class='weui-cell__hd' >"+info.dflhh+"</div>"
+                            +"</div>"
+                            +"</div>";
+                    }
+                    $("#dataList").html(html);
+                }
+            }
+
+            function showDetail(len) {
+                $("#hideInfo").show();
+                $("#showInfo").hide();
+                if (len > 0) {
+                    for (var i = 0; i < len; i++) {
+                        var index = i + 1;
+                        if (index > 1) {
+                            var str = 'popWin' + index;
+                            $("#"+str).show();
+                        }
+                    }
+                }
+            }
+
+            function hideDetail(len) {
+                $("#hideInfo").hide();
+                $("#showInfo").show();
+                if (len > 0) {
+                    for (var i = 0; i < len; i++) {
+                        var index = i + 1;
+                        if (index > 1) {
+                            var str = 'popWin' + index;
+                            $("#"+str).hide();
+                        }
+                    }
+                }
+            }
+
+
+         </script>
+    </body>
+</html>

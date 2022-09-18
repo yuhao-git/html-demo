@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>业务详情</title>
+    <meta http-equiv="Content-Type" content="text/html";>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi,width=device-width,initial-scale=1,user-scalable=0">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/fund-ui-form.css" />
+    <link rel="stylesheet" href="./css/weui.min.css" />
+    <link rel="stylesheet" href="./css/yinhai.css?sd=d">
+    <script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
+    <script src="js/layer/layer.js"></script>
+    <script src="js/yinhai.js?dd=1234"></script>
+    <script src="js/net.js?dd=1234"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta content="telephone=no,email=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="./statics/mdui/css/mdui.min.css">
+    <link rel="stylesheet" href="./statics/mdui/css/navi.css">
+    <script type="text/javascript" src="./statics/common/js/header.js"></script>
+</head>
+<body class="md-box md-ver">
+<div class="md-header" id="header">
+    <div class="md-box md-f1 md-ac mh-wrap" style="height: 1.5rem;padding-top: 0.8rem">
+        <a class=" mdui-icon mdui-icon-left-nav mdui-btn-nav mdui-left-nav" style="top:0.8rem" onclick="md.closeWin()"></a>
+        <span class="md-box md-f1 md-ac md-pc mh-title fs-34" id="title">页面详情</span>
+        <a class=" mdui-icon mdui-btn-nav mdui-right-nav"></a>
+    </div>
+</div>
+<div class="md-box md-f1" id="md_content">
+    <div class="page">
+        <div class="rectangle">
+            <div class="weui-cell title customTitle">业务信息</div>
+            <div class="weui-cells weui-cells_form ">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd" style="color:red">*</div>
+                    <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">手续费类型：</div>
+                    <div class="weui-cell__hd" id="sxflx"></div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__hd" style="color:red">*</div>
+                    <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">银行行别：</div>
+                    <div class="weui-cell__hd" id="yhhbmc"></div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__hd" style="color:red">*</div>
+                    <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">季度：</div>
+                    <div class="weui-cell__hd" id="season"></div>
+                </div>
+            </div>
+        </div>
+        <div class="rectangle">
+            <div class="weui-cell title customTitle">扣分信息</div>
+            <div class="weui-cells weui-cells_form ">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">计提金额(元)：</div>
+                    <div class="weui-cell__hd" id="sxfze"></div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">考核得分：</div>
+                    <div class="weui-cell__hd" id="sjfs"></div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">支付金额(元)：</div>
+                    <div class="weui-cell__hd" id="sjzfje"></div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">可返还扣分：</div>
+                    <div class="weui-cell__hd" id="zkfs"></div>
+                </div>
+                <div class="weui-cell__ft">
+                    <a style="font-size: 12px" href="javascript:showDetailWin(1)" >可返还扣分详情</a>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">待返还金额(元)：</div>
+                    <div class="weui-cell__hd" id="zkje"></div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">不返还扣分：</div>
+                    <div class="weui-cell__hd" id="bfhfs"></div>
+                </div>
+                <div class="weui-cell__ft">
+                    <a style="font-size: 12px" href="javascript:showDetailWin(0)" >不返还扣分详情</a>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">核销金额(元)：</div>
+                    <div class="weui-cell__hd" id="bfhje"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="./statics/common/js/zepto.js" type="text/javascript"></script>
+<script src="./statics/common/js/mdlife.js" type="text/javascript"></script>
+<script src="./statics/common/js/common.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var item = {};//当前流程信息上一个页面传过来
+    var kfList= []; //扣分明细列表
+    onViewOpen = function () {
+        item = getFlowData();//yinhai.js
+        fetchData();
+    };
+
+    function subApp(ispass) {
+        submitFlow(item, ispass);//yinhai.js
+    }
+
+    function fetchData() {
+        Base.setValue(item.data);//回填表单值
+    };
+    function showDetailWin(index){
+        $.val("flow_record",item);
+        if (index == 1) {
+            md.openWin({
+                name: 'FA038_scoreDetails1',
+                url: './FA038_scoreDetails1.html',
+                slidBackEnabled:true,
+                bgColor:"transparent",
+                reload:true
+            });
+        }else{
+            md.openWin({
+                name: 'FA038_scoreDetails0',
+                url: './FA038_scoreDetails0.html',
+                slidBackEnabled:true,
+                bgColor:"transparent",
+                reload:true
+            });
+        }
+
+    }
+
+</script>
+</body>
+</html>

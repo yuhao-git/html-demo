@@ -1,0 +1,223 @@
+{
+  "data2": [
+    {
+      "key": "bgqxingming",
+      "name": "姓名",
+      "value": ""
+    },
+    {
+      "key": "bgqzjlxmc",
+      "name": "证件类型",
+      "value": ""
+    },
+    {
+      "key": "bgqzjhm",
+      "name": "证件号码",
+      "value": ""
+    },
+    {
+      "key": "bgqrysfmc",
+      "name": "人员身份",
+      "value": ""
+    },
+    {
+      "key": "bgqxingbiemc",
+      "name": "性别",
+      "value": ""
+    },
+    {
+      "key": "bgqcsrq",
+      "name": "出生日期",
+      "value": ""
+    },
+    {
+      "key": "bgqgddhhm",
+      "name": "固定电话号码",
+      "value": ""
+    },
+    {
+      "key": "bgqminzumc",
+      "name": "民族",
+      "value": ""
+    },
+    {
+      "key": "bgqguojimc",
+      "name": "国籍",
+      "value": ""
+    },
+    {
+      "key": "bgqzhiyemc",
+      "name": "职业",
+      "value": ""
+    },
+    {
+      "key": "bgqzhichenmc",
+      "name": "职称",
+      "value": ""
+    },
+    {
+      "key": "bgqzhiwumc",
+      "name": "职务",
+      "value": ""
+    },
+    {
+      "key": "bgqxuelimc",
+      "name": "学历",
+      "value": ""
+    },
+    {
+      "key": "bgqyzbm",
+      "name": "邮政编码",
+      "value": ""
+    },
+    {
+      "key": "bgqjtysr",
+      "name": "家庭月收入",
+      "value": ""
+    },
+    {
+      "key": "bgqjtzz",
+      "name": "家庭住址",
+      "value": ""
+    },
+    {
+      "key": "bgqsbbh",
+      "name": "社保编号",
+      "value": ""
+    },
+    {
+      "key": "bgqqq",
+      "name": "QQ",
+      "value": ""
+    },
+    {
+      "key": "bgqwxzh",
+      "name": "微信账号",
+      "value": ""
+    }
+  ],
+  "data3": [
+    {
+      "key": "xingming",
+      "name": "姓名",
+      "value": ""
+    },
+    {
+      "key": "zjlxmc",
+      "name": "证件类型",
+      "value": ""
+    },
+    {
+      "key": "zjhm",
+      "name": "证件号码",
+      "value": ""
+    },
+    {
+      "key": "rysfmc",
+      "name": "人员身份",
+      "value": ""
+    },
+    {
+      "key": "xingbiemc",
+      "name": "性别",
+      "value": ""
+    },
+    {
+      "key": "csrq",
+      "name": "出生日期",
+      "value": ""
+    },
+    {
+      "key": "gddhhm",
+      "name": "固定电话号码",
+      "value": ""
+    },
+    {
+      "key": "hyzkmc",
+      "name": "婚姻状况",
+      "value": ""
+    },
+    {
+      "key": "minzumc",
+      "name": "民族",
+      "value": ""
+    },
+    {
+      "key": "guojimc",
+      "name": "国籍",
+      "value": ""
+    },
+    {
+      "key": "zhiyemc",
+      "name": "职业",
+      "value": ""
+    },
+    {
+      "key": "zhichenmc",
+      "name": "职称",
+      "value": ""
+    },
+    {
+      "key": "zhiwumc",
+      "name": "职务",
+      "value": ""
+    },
+    {
+      "key": "xuelimc",
+      "name": "学历",
+      "value": ""
+    },
+    {
+      "key": "yzbm",
+      "name": "邮政编码",
+      "value": ""
+    },
+    {
+      "key": "jtysr",
+      "name": "家庭月收入",
+      "value": ""
+    },
+    {
+      "key": "jtzz",
+      "name": "家庭住址",
+      "value": ""
+    },
+    {
+      "key": "sbbh",
+      "name": "社保编号",
+      "value": ""
+    },
+    {
+      "key": "qq",
+      "name": "QQ",
+      "value": ""
+    },
+    {
+      "key": "wxzh",
+      "name": "微信账号",
+      "value": ""
+    }
+  ],
+  "data4": [
+    {
+      "key": "spbz",
+      "name": "上一环节审批人意见",
+      "value": ""
+    },
+    {
+      "key": "linkname",
+      "name": "所处环节",
+      "value": ""
+    },
+    {
+      "key": "status",
+      "name": "当前状态",
+      "value": ""
+    },
+    {
+      "key": "opinion",
+      "name": "审批意见",
+      "value": ""
+    }
+  ]
+}

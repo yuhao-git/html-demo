@@ -1,0 +1,158 @@
+{
+  "data1": [
+    {
+      "key": "blgrzh",
+      "name": "个人账号",
+      "value": ""
+    },
+    {
+      "key": "bldwzh",
+      "name": "单位账号",
+      "value": ""
+    },
+    {
+      "key": "bldwmc",
+      "name": "单位名称",
+      "value": ""
+    },
+    {
+      "key": "blxingming",
+      "name": "个人姓名",
+      "value": ""
+    },
+    {
+      "key": "blzjlx",
+      "name": "证件类型",
+      "value": ""
+    },
+    {
+      "key": "blzjhm",
+      "name": "证件号码",
+      "value": ""
+    },
+    {
+      "key": "bljzny",
+      "name": "缴至年月",
+      "value": ""
+    },
+    {
+      "key": "blgrzhzt",
+      "name": "账户状态",
+      "value": ""
+    },
+    {
+      "key": "blgrzhye",
+      "name": "账户余额",
+      "value": ""
+    },
+    {
+      "key": "blkyje",
+      "name": "可用余额",
+      "value": ""
+    },
+    {
+      "key": "blzfye",
+      "name": "止付余额",
+      "value": ""
+    },
+    {
+      "key": "bldjje",
+      "name": "冻结余额",
+      "value": ""
+    },
+    {
+      "key": "",
+      "name": "",
+      "value": ""
+    }
+  ],
+  "data2": [
+    {
+      "key": "bbgrzh",
+      "name": "个人账号",
+      "value": ""
+    },
+    {
+      "key": "bbdwzh",
+      "name": "单位账号",
+      "value": ""
+    },
+    {
+      "key": "bbdwmc",
+      "name": "单位名称",
+      "value": ""
+    },
+    {
+      "key": "bbxingming",
+      "name": "个人姓名",
+      "value": ""
+    },
+    {
+      "key": "bbzjlx",
+      "name": "证件类型",
+      "value": ""
+    },
+    {
+      "key": "bbzjhm",
+      "name": "证件号码",
+      "value": ""
+    },
+    {
+      "key": "bbjzny",
+      "name": "缴至年月",
+      "value": ""
+    },
+    {
+      "key": "bbgrzhzt",
+      "name": "账户状态",
+      "value": ""
+    },
+    {
+      "key": "bbgrzhye",
+      "name": "账户余额",
+      "value": ""
+    },
+    {
+      "key": "bbkyje",
+      "name": "可用余额",
+      "value": ""
+    },
+    {
+      "key": "bbzfye",
+      "name": "止付余额",
+      "value": ""
+    },
+    {
+      "key": "bbdjje",
+      "name": "冻结余额",
+      "value": ""
+    },
+    {
+      "key": "",
+      "name": "",
+      "value": ""
+    }
+  ],
+  "data3": [
+    {
+      "key": "spbz",
+      "name": "上一环节审批人意见",
+      "value": ""
+    },
+    {
+      "key": "linkname",
+      "name": "所处环节",
+      "value": ""
+    },
+    {
+      "key": "status",
+      "name": "当前状态",
+      "value": ""
+    },
+    {
+      "key": "opinion",
+      "name": "审批意见",
+      "value": ""
+    }
+  ]
+}

@@ -42,6 +42,7 @@ export default class City extends React.Component {
     this.renderer.forceContextLoss();
     this.renderer.dispose();
     this.scene.clear();
+    console.log(this.renderer.info)  
   }
 
   initThree = () => {

@@ -3,21 +3,33 @@
 </template>
 
 <script lang='ts' setup>
-import { ref, reactive, toRefs, onBeforeMount, onMounted, watchEffect, computed } from "vue";
+import {
+  ref,
+  reactive, 
+  toRefs,
+  onBeforeMount,
+  onMounted,
+  watchEffect,
+  computed,
+  onBeforeUnmount,
+} from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { initThree } from "./city.js";
+// import { initThree, dispose } from "./city.js";
 
 /**
  * 数据部分
  */
 const data = reactive({});
-onBeforeMount(() => {});
+onBeforeMount(() => {}); 
 onMounted(() => {
-  initThree();
+  // initThree(); 
 });
 defineExpose({
   ...toRefs(data),
 });
+onBeforeUnmount(() => { 
+  // dispose(); 
+}); 
 </script>
 <style  lang='less'>
 #container {

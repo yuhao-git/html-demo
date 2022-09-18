@@ -1,0 +1,41 @@
+{
+  "data1": [
+    {
+      "key": "slrxm",
+      "name": "受理人姓名",
+      "value": ""
+    },
+    {
+      "key": "bishu",
+      "name": "笔数",
+      "value": ""
+    },
+    {
+      "key": "fse",
+      "name": "发生额",
+      "value": ""
+    }
+  ],
+  "data4": [
+    {
+      "key": "spbz",
+      "name": "上一环节审批人意见",
+      "value": ""
+    },
+    {
+      "key": "linkname",
+      "name": "所处环节",
+      "value": ""
+    },
+    {
+      "key": "status",
+      "name": "当前状态",
+      "value": ""
+    },
+    {
+      "key": "opinion",
+      "name": "审批意见",
+      "value": ""
+    }
+  ]
+}

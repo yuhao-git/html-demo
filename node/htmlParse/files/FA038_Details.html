@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>审批详情</title>
+    <meta http-equiv="Content-Type" content="text/html" ;>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi,width=device-width,initial-scale=1,user-scalable=0">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/fund-ui-form.css"/>
+    <link rel="stylesheet" href="./css/weui.min.css"/>
+    <link rel="stylesheet" href="./css/yinhai.css?sd=d">
+    <script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
+    <script src="js/layer/layer.js"></script>
+    <script src="js/yinhai.js?dd=1234"></script>
+    <script src="js/net.js?dd=1234"></script>
+</head>
+<body ontouchstart>
+<div class="page">
+    <div class="flowTitle">业务名称：<span id="flowname"></span></div>
+    <div class="rectangle">
+        <div class="weui-cell title customTitle">业务信息</div>
+        <div class="weui-cells weui-cells_form ">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">手续费类型：</div>
+                <div class="weui-cell__hd" id="sxflx"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">银行行别：</div>
+                <div class="weui-cell__hd" id="yhhb"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">季度：</div>
+                <div class="weui-cell__hd" id="jd"></div>
+            </div>
+        </div>
+    </div>
+    <div class="rectangle">
+        <div class="weui-cell title customTitle">付款账户信息</div>
+        <div class="weui-cells weui-cells_form ">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">付款账户名称：</div>
+                <div class="weui-cell__hd" id="fkzhmc"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">付款账户：</div>
+                <div class="weui-cell__hd" id="fkzh"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">付款账户开户行：</div>
+                <div class="weui-cell__hd" id="fkzhkhh"></div>
+            </div>
+        </div>
+    </div>
+    <div class="rectangle">
+        <div class="weui-cell title customTitle">收款账户信息</div>
+        <div class="weui-cells weui-cells_form ">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">收款账户名称：</div>
+                <div class="weui-cell__hd" id="skzhmc"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">收款账户：</div>
+                <div class="weui-cell__hd" id="skzh"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">收款账户开户行：</div>
+                <div class="weui-cell__hd" id="skzhkhh"></div>
+            </div>
+        </div>
+    </div>
+    <div class="rectangle">
+        <div class="weui-cell title customTitle">扣分明细</div>
+        <div class="weui-cells weui-cells_form ">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">时间：</div>
+                <div class="weui-cell__hd" id="sj"></div>
+                <div class="weui-cell__bd">银行行别：</div>
+                <div class="weui-cell__hd" id="yhhb1"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">总分合计：</div>
+                <div class="weui-cell__hd" id="zfhj"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">得分合计：</div>
+                <div class="weui-cell__hd" id="dfhj'"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">扣分合计：</div>
+                <div class="weui-cell__hd" id="kfhj"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">分数项名称：</div>
+                <div class="weui-cell__hd" id="fsxmc"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">总分：</div>
+                <div class="weui-cell__hd" id="zf"></div>
+                <div class="weui-cell__bd">得分：</div>
+                <div class="weui-cell__hd" id="df"></div>
+                <div class="weui-cell__bd">扣分：</div>
+                <div class="weui-cell__hd" id="kf"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">返还标志：</div>
+                <div class="weui-cell__hd" id="fhbz"></div>
+                <div class="weui-cell__bd">扣除金额：</div>
+                <div class="weui-cell__hd" id="kcje"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="rectangle">
+        <div class="title customTitle">审核</div>
+        <div class="weui-cells weui-cells_form ">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">所处环节</div>
+                <div class="weui-cell__hd" id="linkname"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">当前状态</div>
+                <div class="weui-cell__hd" id="status"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">审批意见</div>
+                <div class="weui-cell__hd" id="opinion">
+                    <textarea class="weui-textarea" placeholder="请填写审批意见"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="box mar-all">
+    <div class="box-f1 mar-all">
+        <a onclick="subApp('0')" class="fund_ui_btn fund_ui_btn_primary">不通过</a>
+    </div>
+    <div class="box-f1 mar-all">
+        <a onclick="subApp('1')" class="fund_ui_btn fund_ui_btn_primary">通过</a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var item = {};//当前流程信息上一个页面传过来
+    onViewOpen = function () {
+        item = getFlowData();//yinhai.js
+        fetchData();
+    };
+
+    function subApp(ispass) {
+        submitFlow(item, ispass);//yinhai.js
+    }
+
+    function fetchData() {
+        var params = {"method": "approval.getDetails", "busno": item.busno, "flowcode": item.flowcode,"linkcode":item.linkcode};
+        $.doSubmit("", params, function (data) {
+            // initLoanHeader(data);
+            Base.setValue(data);//回填表单值
+        }, function (data) {
+            $.toast("无法办理该笔业务");
+            $.closeWin();
+        });
+    };
+
+    function showDetailWin() {
+    }
+
+    $("button").click(function () {
+        item.ispass = $(this).val();
+        if (item.isface == 1) {
+            $.certFace(doSave);//芝麻认证刷脸通过才能办理业务
+        } else {
+            doSave();
+        }
+    });
+
+    function result() {
+        var ispass = $('input:radio[name="radio1"]:checked').val();
+        if (ispass == '0') {
+            $("#backreason").show();
+        } else {
+            $("#backreason").hide();
+        }
+    }
+
+    function doSave() {
+        var ispass = $('input:radio[name="radio1"]:checked').val();
+        var thyy = $("#reasonOption option:selected").val();
+        var busno = item.busno;
+        var taskno = item.taskno;
+        var flowcode = item.flowcode;
+        var module = item.module;
+        var linkcode = item.linkcode;
+        var linkname = item.linkname;
+        var isface = item.isface;
+        var opinion = $("#opinion").text();
+        var params = {
+            "method": "office.getProcess",
+            "isface": isface,
+            "ispass": ispass,
+            "busno": busno,
+            "taskno": taskno,
+            "flowcode": flowcode,
+            "module": module,
+            "linkcode": linkcode,
+            "linkname": linkname,
+            "opinion": opinion
+        };
+        $.doSubmit("", params, function (data) {
+            md.confirm({
+                title: '业务办理成功',
+                msg: '',
+                buttons: ['确定']
+            }, function (ret) {
+                $.closeCurrWin();
+            });
+            $.execScript("root", "getAllTdRecord()", "tab0");
+            $.closeCurrWin();
+        }, function (data) {
+            $.toast(data.resmsg);
+            $.closeWin();
+        })
+    }
+</script>
+</body>
+</html>

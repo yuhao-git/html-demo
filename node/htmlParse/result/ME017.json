@@ -1,0 +1,36 @@
+{
+  "data1": [
+    {
+      "key": "fcyy",
+      "name": "封存原因",
+      "value": ""
+    },
+    {
+      "key": "ywbz",
+      "name": "备注",
+      "value": ""
+    }
+  ],
+  "data2": [
+    {
+      "key": "spbz",
+      "name": "上一环节审批人意见",
+      "value": ""
+    },
+    {
+      "key": "linkname",
+      "name": "所处环节",
+      "value": ""
+    },
+    {
+      "key": "status",
+      "name": "当前状态",
+      "value": ""
+    },
+    {
+      "key": "opinion",
+      "name": "审批意见",
+      "value": ""
+    }
+  ]
+}

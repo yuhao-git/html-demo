@@ -1,0 +1,165 @@
+{
+  "data1": [
+    {
+      "key": "dwzjlx",
+      "name": "单位证件类型",
+      "value": ""
+    },
+    {
+      "key": "dwzjhm",
+      "name": "单位证件号码",
+      "value": ""
+    },
+    {
+      "key": "dwmc",
+      "name": "单位名称",
+      "value": ""
+    },
+    {
+      "key": "dwdz",
+      "name": "单位地址",
+      "value": ""
+    },
+    {
+      "key": "qtbh1",
+      "name": "资金来源",
+      "value": ""
+    },
+    {
+      "key": "dwlsgx",
+      "name": "单位隶属关系",
+      "value": ""
+    },
+    {
+      "key": "dwjjlx",
+      "name": "单位经济类型",
+      "value": ""
+    },
+    {
+      "key": "dwsshy",
+      "name": "单位所属行业",
+      "value": ""
+    },
+    {
+      "key": "dwxz",
+      "name": "单位性质",
+      "value": ""
+    },
+    {
+      "key": "dwfxr",
+      "name": "单位发薪日",
+      "value": ""
+    },
+    {
+      "key": "jbrxm",
+      "name": "经办人姓名",
+      "value": ""
+    },
+    {
+      "key": "jbrzjlx",
+      "name": "经办人证件类型",
+      "value": ""
+    },
+    {
+      "key": "jbrzjhm",
+      "name": "经办人证件号码",
+      "value": ""
+    },
+    {
+      "key": "jbrsjhm",
+      "name": "经办人手机号码",
+      "value": ""
+    },
+    {
+      "key": "jbrgddhhm",
+      "name": "经办人固定电话号码",
+      "value": ""
+    },
+    {
+      "key": "dwfrdbxm",
+      "name": "法人代表姓名",
+      "value": ""
+    },
+    {
+      "key": "dwfrdbzjlx",
+      "name": "法人代表证件类型",
+      "value": ""
+    },
+    {
+      "key": "dwfrdbzjhm",
+      "name": "法人代表证件号码",
+      "value": ""
+    },
+    {
+      "key": "dwfrdblxdh",
+      "name": "法人代表联系电话",
+      "value": ""
+    },
+    {
+      "key": "dwxzqh",
+      "name": "单位行政区划",
+      "value": ""
+    },
+    {
+      "key": "",
+      "name": "",
+      "value": ""
+    }
+  ],
+  "data2": [
+    {
+      "key": "dwskzhmc",
+      "name": "单位收款账户名称",
+      "value": ""
+    },
+    {
+      "key": "dwskzhyh",
+      "name": "单位收款账户行别",
+      "value": ""
+    },
+    {
+      "key": "dwskzh",
+      "name": "单位收款账号",
+      "value": ""
+    }
+  ],
+  "data5": [
+    {
+      "key": "dwfkzhmc",
+      "name": "单位付款账户名称",
+      "value": ""
+    },
+    {
+      "key": "dwfkzhyh",
+      "name": "单位付款账户行别",
+      "value": ""
+    },
+    {
+      "key": "dwfkzh",
+      "name": "单位付款账号",
+      "value": ""
+    }
+  ],
+  "data6": [
+    {
+      "key": "spbz",
+      "name": "上一环节审批人意见",
+      "value": ""
+    },
+    {
+      "key": "linkname",
+      "name": "所处环节",
+      "value": ""
+    },
+    {
+      "key": "status",
+      "name": "当前状态",
+      "value": ""
+    },
+    {
+      "key": "opinion",
+      "name": "审批意见",
+      "value": ""
+    }
+  ]
+}

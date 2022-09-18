@@ -50,6 +50,7 @@ defineExpose({
   ...toRefs(data),
 });
 </script>
+
 <style scoped lang='less'>
 .chart {
   height: 100%;

@@ -1,0 +1,107 @@
+{
+  "data1": [
+    {
+      "key": "sxflx",
+      "name": "手续费类型",
+      "value": ""
+    },
+    {
+      "key": "yhhb",
+      "name": "银行行别",
+      "value": ""
+    },
+    {
+      "key": "jd",
+      "name": "季度",
+      "value": ""
+    }
+  ],
+  "data2": [
+    {
+      "key": "fkzhmc",
+      "name": "付款账户名称",
+      "value": ""
+    },
+    {
+      "key": "fkzh",
+      "name": "付款账户",
+      "value": ""
+    },
+    {
+      "key": "fkzhkhh",
+      "name": "付款账户开户行",
+      "value": ""
+    }
+  ],
+  "data3": [
+    {
+      "key": "skzhmc",
+      "name": "收款账户名称",
+      "value": ""
+    },
+    {
+      "key": "skzh",
+      "name": "收款账户",
+      "value": ""
+    },
+    {
+      "key": "skzhkhh",
+      "name": "收款账户开户行",
+      "value": ""
+    }
+  ],
+  "data4": [
+    {
+      "key": "yhhb1",
+      "name": "银行行别",
+      "value": ""
+    },
+    {
+      "key": "zfhj",
+      "name": "总分合计",
+      "value": ""
+    },
+    {
+      "key": "dfhj'",
+      "name": "得分合计",
+      "value": ""
+    },
+    {
+      "key": "kfhj",
+      "name": "扣分合计",
+      "value": ""
+    },
+    {
+      "key": "fsxmc",
+      "name": "分数项名称",
+      "value": ""
+    },
+    {
+      "key": "kf",
+      "name": "扣分",
+      "value": ""
+    },
+    {
+      "key": "kcje",
+      "name": "扣除金额",
+      "value": ""
+    }
+  ],
+  "data5": [
+    {
+      "key": "linkname",
+      "name": "所处环节",
+      "value": ""
+    },
+    {
+      "key": "status",
+      "name": "当前状态",
+      "value": ""
+    },
+    {
+      "key": "opinion",
+      "name": "审批意见",
+      "value": ""
+    }
+  ]
+}

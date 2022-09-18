@@ -1,0 +1,71 @@
+{
+  "data2": [
+    {
+      "key": "sfyqx",
+      "name": "是否有期限",
+      "value": ""
+    },
+    {
+      "key": "qssj",
+      "name": "起始时间",
+      "value": ""
+    },
+    {
+      "key": "dqsj",
+      "name": "到期时间",
+      "value": ""
+    },
+    {
+      "key": "jssj",
+      "name": "结束时间",
+      "value": ""
+    },
+    {
+      "key": "xzlx",
+      "name": "限制类型",
+      "value": ""
+    },
+    {
+      "key": "busno",
+      "name": "业务登记号",
+      "value": ""
+    },
+    {
+      "key": "xzyy",
+      "name": "限制原因",
+      "value": ""
+    },
+    {
+      "key": "jbryj",
+      "name": "经办人意见",
+      "value": ""
+    },
+    {
+      "key": "bzxx",
+      "name": "备注信息",
+      "value": ""
+    }
+  ],
+  "data3": [
+    {
+      "key": "spbz",
+      "name": "上一环节审批人意见",
+      "value": ""
+    },
+    {
+      "key": "linkname",
+      "name": "所处环节",
+      "value": ""
+    },
+    {
+      "key": "status",
+      "name": "当前状态",
+      "value": ""
+    },
+    {
+      "key": "opinion",
+      "name": "审批意见",
+      "value": ""
+    }
+  ]
+}

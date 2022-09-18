@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>楼盘协议延期</title>
+    <meta http-equiv="Content-Type" content="text/html";>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi,width=device-width,initial-scale=1,user-scalable=0">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/fund-ui-form.css" />
+    <link rel="stylesheet" href="./css/weui.min.css" />
+    <link rel="stylesheet" href="./css/yinhai.css?sd=d">
+    <script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
+    <script src="js/layer/layer.js"></script>
+    <script src="js/yinhai.js?dd=1234"></script>
+    <script src="js/net.js?dd=1234"></script>
+    <script type="text/javascript" src="./js/dist/photoswipe.js"></script>
+    <link rel="stylesheet" href="./js/dist/photoswipe.css"/>
+    <script type="text/javascript" src="js/pinchzoom.js"></script>
+    <script type="text/javascript" src="./js/dist/photoswipe-ui-default.min.js"></script>
+</head>
+<body ontouchstart>
+<div class="page">
+    <div class="flowTitle" >业务名称：<span id="flowname"></span></div>
+
+    <div class="rectangle" >
+        <div class="weui-cell title customTitle">
+            <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">楼盘基本信息</div>
+            <div class="weui-cell__ft">
+                <a>
+                    <img id="icon1" class="expand_icon" isExpand="true" style="height: 20px; transform: rotate(-90deg);"
+                         src="css/images/icon-back-act.png"
+                         onclick="fnShowDetail(this,0)"/>
+                </a>
+            </div>
+        </div>
+        <div class="weui-cells weui-cells_form" id="dwxx_form">
+            <div class="weui-cell">
+                <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">楼盘名称</div>
+                <div class="weui-cell__hd" id="lpmc"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">楼盘地址</div>
+                <div class="weui-cell__hd" id="lpdz"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">开发方式</div>
+                <div class="weui-cell__hd" id="kffs"></div>
+            </div>
+            <div class="weui-cell">    
+                <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">土地性质</div>
+                <div class="weui-cell__hd" id="tdxz"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">建房类型</div>
+                <div class="weui-cell__hd" id="jflx"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">可贷年限(年)</div>
+                <div class="weui-cell__hd" id="kdnx"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">产权年限(年)</div>
+                <div class="weui-cell__hd" id="cqnx"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">联系人姓名</div>
+                <div class="weui-cell__hd" id="lxrxm"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">联系电话（手机）</div>
+                <div class="weui-cell__hd" id="sjhm"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">联系电话（座机）</div>
+                <div class="weui-cell__hd" id="gddhhm"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">楼盘所属区域</div>
+                <div class="weui-cell__hd" id="slfzx"></div>
+            </div>
+            
+            
+            <div class="weui-cell">
+                <a href="javascript:$('#icon1').click()" style="width: 100%;text-align: center;font-size: 12px">收起</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="rectangle">
+            <div class="title customTitle">延期信息</div>
+            <div class="weui-cells weui-cells_form ">
+                <div class="weui-cell" id="grxx_form">
+                    <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">协议编号</div>
+                    <div class="weui-cell__hd" id="xybh"></div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">原协议到期日期</div>
+                    <div class="weui-cell__hd" id="xyqxz"></div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">原剩余协议期数(月)</div>
+                    <div class="weui-cell__hd" id="syqs"></div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__hd" style="color:red">*</div>
+                    <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">协议延期期数(月)</div>
+                    <div class="weui-cell__hd" id="xyyqqs"></div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">新协议到期日</div>
+                    <div class="weui-cell__hd" id="xxyqxz"></div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">新剩余协议期数(月)</div>
+                    <div class="weui-cell__hd" id="xxysyqs "></div>
+                </div>
+                 <div class="weui-cell">
+                    <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">备注信息</div>
+                    <div class="weui-cell__hd" id="bzxx"></div>
+                </div>
+            </div>
+        </div>
+
+
+    
+    <div class="rectangle">
+        <div class="title customTitle">审核</div>
+        <div class="weui-cells weui-cells_form ">
+            <div class="weui-cell" id="spbz_xx">
+                <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">上一环节审批人意见</div>
+                <div class="weui-cell__hd" id="spbz"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">所处环节</div>
+                <div class="weui-cell__hd" id="linkname"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">当前状态</div>
+                <div class="weui-cell__hd" id="status"></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">审批意见</div>
+                <div class="weui-cell__hd" id="opinion">
+                    <textarea class="weui-textarea" placeholder="请填写审批意见"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div  class="page" style="padding-top: 26px">
+    <div class="rectangle" >
+        <div class="weui-cell title customTitle">
+            <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">业务办理记录</div>
+            <div class="weui-cell__ft">
+                <a>
+                    <img class="expand_icon" isExpand="false" style="height: 20px; transform: rotate(90deg);"
+                         src="css/images/icon-back-act.png"
+                         onclick="fnShowDetailList(this,'handleRecords')"/>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="handleRecords"  id="handleRecords"></div>
+</div>
+
+<div  class="page" style="padding-top: 26px">
+    <div class="rectangle" >
+        <div class="weui-cell title customTitle">
+            <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">档案列表</div>
+            <div class="weui-cell__ft">
+                <a>
+                    <img class="expand_icon" isExpand="false" style="height: 20px; transform: rotate(90deg);"
+                         src="css/images/icon-back-act.png"
+                         onclick="fnShowDetailList(this,'dalist')"/>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="dalist"  id="dalist"></div>
+</div>
+<div class="box mar-all" >
+    <div class="box-f1 mar-all">
+        <a id="btn_refuse" onclick="subApp('0')" class="fund_ui_btn weui-btn_warn">不通过</a>
+    </div>
+    <div class="box-f1 mar-all">
+        <a id="btn_agree" onclick="subApp('1')" class="fund_ui_btn fund_ui_btn_primary">通过</a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var item={};//当前流程信息上一个页面传过来
+    onViewOpen=function(){
+        item= getFlowData();//yinhai.js
+        fetchData();
+                openHandleRecordsWin(item);
+                getDalist(item);
+    };
+
+    function subApp(ispass) {
+        item.opinion = $("#opinion").children("textarea").val();
+        if(ispass=='0' && item.opinion == ""){
+            $.dialog({title:"提示",content:"请填写审核意见"},function(index) {
+            })
+            return;
+        }
+        submitFlow(item,ispass);//yinhai.js
+    }
+    function fetchData(){
+        $("#flowname").text(item.flowname);
+        var params = {"method":"approval.getDetails","busno":item.busno,"flowcode":item.flowcode,"linkcode":item.linkcode};
+        $.doSubmit("",params,function(data){
+            if(data.spbz == null){
+                $("#spbz_xx").hide();
+            }
+            Base.setData(data);//回填表单值
+        },function(data){
+            $.toast("无法办理该笔业务");
+            $.closeWin();
+        });
+    }
+    //展开详情
+    function fnShowDetail(elment,index) {
+        //获取自定义属性 isExpand 判断展开或是收起状态
+        if ($(elment).attr("isExpand") == "true") { //展开状态=》收起
+            $(elment).css("transform", "rotate(90deg)") //箭头朝下
+            $(elment).attr("isExpand", "false") //自定义的isExpand属性 置为false
+            if(index == 0){ //基本信息的表单隐藏
+                $("#dwxx_form").hide();
+            }else if(index == 1){
+                $("#fddbrxx").hide();
+            }else if(index == 2){
+                $("#jbrxx").hide();
+            }
+        } else {
+            $(elment).css("transform", "rotate(-90deg)") //图片旋转-箭头朝上
+            $(elment).attr("isExpand", "true"); //展开
+            if(index == 0){ //基本信息显示
+                $("#dwxx_form").show();
+            }else if(index == 1){
+                $("#fddbrxx").show();
+            }else if(index == 2){
+                $("#jbrxx").show();
+            }
+        }
+    }
+    //页面销毁
+    onViewClose=function(){
+        md.execScript({name:"root",frameName:"tab0",script:"getWillFlow('1')"});
+    };
+</script>
+</body>
+</html>

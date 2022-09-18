@@ -29,6 +29,8 @@ let state = {
   mouse: new THREE.Vector2()
 }
 
+
+
 export function initThree() {
   var container, controls, stats;
   var camera, scene, renderer, labelRenderer, light, cityMeshes = [], interactableMeshes = [];
@@ -212,6 +214,7 @@ export function initThree() {
     // }
   }
 
+
   /**
    * 鼠标进入
    * @param {*} event 
@@ -236,3 +239,23 @@ export function initThree() {
   renderer.domElement.addEventListener('click', handleMouseClick, false);
   renderer.domElement.addEventListener('pointermove', handleMouseEnter, false);
 }
+
+export function dispose() {
+  state.renderer.forceContextLoss();
+  state.renderer.dispose();
+  state.scene.clear();
+
+  // console.log(state.renderer.info) 
+  state = {
+    scene: null,
+    renderer: null,
+    labelRenderer: null,
+    city: null,
+    billboardLabel: null,
+    cityGroup: new THREE.Group,
+  }
+  
+
+
+}
+

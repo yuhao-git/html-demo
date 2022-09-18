@@ -1,0 +1,135 @@
+{
+  "data1": [
+    {
+      "key": "dwmc",
+      "name": "单位名称",
+      "value": ""
+    },
+    {
+      "key": "tyshxydm",
+      "name": "统一社会信用代码",
+      "value": ""
+    },
+    {
+      "key": "zzjgdm",
+      "name": "组织机构代码",
+      "value": ""
+    },
+    {
+      "key": "dwdz",
+      "name": "单位地址",
+      "value": ""
+    },
+    {
+      "key": "dwxzqh",
+      "name": "单位行政区划",
+      "value": ""
+    },
+    {
+      "key": "yyqxq",
+      "name": "营业期限起",
+      "value": ""
+    },
+    {
+      "key": "yyqxz",
+      "name": "营业期限止",
+      "value": ""
+    },
+    {
+      "key": "zzdj",
+      "name": "资质等级",
+      "value": ""
+    },
+    {
+      "key": "zzzsbh",
+      "name": "资质证书编号",
+      "value": ""
+    },
+    {
+      "key": "djzt",
+      "name": "登记状态",
+      "value": ""
+    },
+    {
+      "key": "dwlsgx",
+      "name": "单位隶属关系",
+      "value": ""
+    },
+    {
+      "key": "dwjjlx",
+      "name": "单位经济类型",
+      "value": ""
+    },
+    {
+      "key": "dwsshy",
+      "name": "单位所属行业",
+      "value": ""
+    },
+    {
+      "key": "dwxz",
+      "name": "单位性质",
+      "value": ""
+    },
+    {
+      "key": "",
+      "name": "",
+      "value": ""
+    }
+  ],
+  "data2": [
+    {
+      "key": "dwfrdbxm",
+      "name": "单位法人代表姓名",
+      "value": ""
+    },
+    {
+      "key": "dwfrdbzjlx",
+      "name": "单位法人代表证件类型",
+      "value": ""
+    },
+    {
+      "key": "dwfrdbzjhm",
+      "name": "单位法人代表证件号码",
+      "value": ""
+    },
+    {
+      "key": "dwfrdblxdh",
+      "name": "单位法人代表联系电话",
+      "value": ""
+    }
+  ],
+  "data3": [
+    {
+      "key": "gzlxr",
+      "name": "授权经办人姓名",
+      "value": ""
+    },
+    {
+      "key": "gzlxrdh",
+      "name": "授权经办人联系电话",
+      "value": ""
+    }
+  ],
+  "data9": [
+    {
+      "key": "spbz",
+      "name": "上一环节审批人意见",
+      "value": ""
+    },
+    {
+      "key": "linkname",
+      "name": "所处环节",
+      "value": ""
+    },
+    {
+      "key": "status",
+      "name": "当前状态",
+      "value": ""
+    },
+    {
+      "key": "opinion",
+      "name": "审批意见",
+      "value": ""
+    }
+  ]
+}

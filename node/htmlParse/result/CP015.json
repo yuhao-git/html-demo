@@ -1,0 +1,118 @@
+{
+  "data1": [
+    {
+      "key": "grkhh",
+      "name": "个人客户号",
+      "value": ""
+    },
+    {
+      "key": "xingming",
+      "name": "个人姓名",
+      "value": ""
+    },
+    {
+      "key": "zjlx",
+      "name": "证件类型",
+      "value": ""
+    },
+    {
+      "key": "zjhm",
+      "name": "证件号码",
+      "value": ""
+    }
+  ],
+  "data2": [
+    {
+      "key": "m_grkhh",
+      "name": "个人客户号",
+      "value": ""
+    },
+    {
+      "key": "m_grzh",
+      "name": "个人账号",
+      "value": ""
+    },
+    {
+      "key": "m_xingming",
+      "name": "姓名",
+      "value": ""
+    },
+    {
+      "key": "m_zjlx",
+      "name": "证件类型",
+      "value": ""
+    },
+    {
+      "key": "m_zjhm",
+      "name": "证件号码",
+      "value": ""
+    },
+    {
+      "key": "m_sjhm",
+      "name": "手机号码",
+      "value": ""
+    },
+    {
+      "key": "m_minzu",
+      "name": "民族",
+      "value": ""
+    },
+    {
+      "key": "m_zhiye",
+      "name": "职业",
+      "value": ""
+    },
+    {
+      "key": "m_zhiwu",
+      "name": "职务",
+      "value": ""
+    },
+    {
+      "key": "m_zhichen",
+      "name": "职称",
+      "value": ""
+    },
+    {
+      "key": "m_xueli",
+      "name": "学历",
+      "value": ""
+    },
+    {
+      "key": "m_yzbm",
+      "name": "邮政编码",
+      "value": ""
+    },
+    {
+      "key": "bzxx",
+      "name": "备注",
+      "value": ""
+    },
+    {
+      "key": "",
+      "name": "",
+      "value": ""
+    }
+  ],
+  "data3": [
+    {
+      "key": "spbz",
+      "name": "上一环节审批人意见",
+      "value": ""
+    },
+    {
+      "key": "linkname",
+      "name": "所处环节",
+      "value": ""
+    },
+    {
+      "key": "status",
+      "name": "当前状态",
+      "value": ""
+    },
+    {
+      "key": "opinion",
+      "name": "审批意见",
+      "value": ""
+    }
+  ]
+}
