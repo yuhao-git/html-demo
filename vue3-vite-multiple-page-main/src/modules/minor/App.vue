@@ -1,15 +1,72 @@
-<template>我是minor模块</template>
+<template>
+  <div id="container"></div>
+</template>
 
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  height: 100%;
+<script lang='ts' setup>
+import {
+  ref,
+  reactive, 
+  toRefs,
+  onBeforeMount,
+  onMounted,
+  watchEffect,
+  computed,
+  onBeforeUnmount,
+} from "vue";
+import { useRoute, useRouter } from "vue-router";
+// import { initThree, dispose } from "./city.js";
+
+/**
+ * 数据部分
+ */
+const data = reactive({});
+onBeforeMount(() => {}); 
+onMounted(() => {
+  // initThree(); 
+});
+defineExpose({
+  ...toRefs(data),
+});
+onBeforeUnmount(() => { 
+  // dispose(); 
+}); 
+</script>
+<style  lang='less'>
+#container {
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100vw;
+  border: 1px solid;
 }
-.test {
-  color: @test-color;
+
+#loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: #582424;
+  background: -webkit-linear-gradient(to right, #97444f, #582424);
+  background: linear-gradient(to right, #97444f, #582424);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 64px;
+  color: #ffffff;
+  text-shadow: 0 1px 0 hsl(174, 5%, 80%), 0 2px 0 hsl(174, 5%, 75%), 0 3px 0 hsl(174, 5%, 70%),
+    0 4px 0 hsl(174, 5%, 66%), 0 5px 0 hsl(174, 5%, 64%), 0 6px 0 hsl(174, 5%, 62%),
+    0 7px 0 hsl(174, 5%, 61%), 0 8px 0 hsl(174, 5%, 60%), 0 0 5px rgba(0, 0, 0, 0.05),
+    0 1px 3px rgba(0, 0, 0, 0.2), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.2),
+    0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.3);
+}
+
+.billboard {
+  min-width: 100px;
+  padding: 24px;
+  margin-left: 120px;
+  font-size: 16px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+  color: #ffffff;
 }
 </style>

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import HeadeNav from '../../components/HeadeNav.vue';
+import { menuRoutes } from "../../router/index";
+import HeadeNav from "../../components/HeadeNav.vue";
 import { h, ref } from "vue";
-import { RouterLink, useRouter } from "vue-router";
+import { RouterLink, useRouter, useRoute } from "vue-router";
 
 import { NIcon, NSpace, NMenu, NLayout, NLayoutSider } from "naive-ui";
 import { BookOutline as BookIcon } from "@vicons/ionicons5";
@@ -11,87 +12,71 @@ function renderIcon(icon: any) {
 }
 
 const inverted = ref(false);
-const menuOptions = [
-  {
+
+const menuOptions = menuRoutes.map((item: any, index: number) => {
+  return {
     label: () =>
       h(
         RouterLink,
         {
           to: {
-            name: "VirtualTable",
+            name: item.name,
             params: {
               lang: "zh-CN",
             },
           },
         },
-        { default: () => "VirtualTable" }
+        { default: () => item.meta?.title || "默认标题" }
       ),
-    key: "hear-the-wind-sing",
+    key: item.name + index,
     icon: renderIcon(BookIcon),
-  },
-  {
-    label: () =>
-      h(
-        RouterLink,
-        {
-          to: {
-            name: "Test",
-            params: {
-              lang: "zh-CN",
-            },
-          },
-        },
-        { default: () => "1973年的弹珠玩具" }
-      ),
-    key: "pinball-1973",
-    icon: renderIcon(BookIcon),
-  },
-  {
-    label: "寻羊冒险记",
-    key: "a-wild-sheep-chase",
-    disabled: true,
-    icon: renderIcon(BookIcon),
-  },
-  {
-    label: () =>
-      h(
-        RouterLink,
-        {
-          to: {
-            name: "VueUse",
-            params: {
-              lang: "zh-CN",
-            },
-          },
-        },
-        { default: () => "舞，舞，舞" }
-      ),
-    key: "dance-dance-dance",
-    icon: renderIcon(BookIcon),
-  },
-];
+  };
+});
 
+let router = useRouter();
+let route = useRoute();
+// setInterval(() => {
+//   if (route.path == "/watch") {
+//     router.push("/grid");
+//   } else {
+//     router.push("/watch");
+//   }
+// }, 2000);
 
-let router = useRouter()
-
-function backToLogin():void{
-  router.push('/login')
+function backToLogin(): void {
+  router.push("/login");
 }
 </script>
 
 <template>
   <heade-nav></heade-nav>
-  <n-space vertical>
-    <n-layout>
+  <n-space vertical
+           class="container">
+    <n-layout bordered>
       <n-layout has-sider>
-        <n-layout-sider bordered show-trigger collapse-mode="width" :collapsed-width="64" :width="240"
-          :native-scrollbar="false" :inverted="inverted">
-          <n-menu :inverted="inverted" :collapsed-width="64" :collapsed-icon-size="22" :options="menuOptions" />
+        <n-layout-sider bordered
+                        show-trigger
+                        collapse-mode="width"
+                        :collapsed-width="64"
+                        :width="240"
+                        :native-scrollbar="false"
+                        :inverted="inverted">
+          <n-menu :inverted="inverted"
+                  :collapsed-width="64"
+                  :collapsed-icon-size="22"
+                  :options="menuOptions" />
         </n-layout-sider>
-        <n-layout>
+        <n-layout class="fit">
           <router-view />
         </n-layout>
       </n-layout>
     </n-layout>
   </n-space>
 </template>
+
+
+<style scoped lang="less">
+.fit {
+  height: calc(100vh - 62px);
+}
+</style>

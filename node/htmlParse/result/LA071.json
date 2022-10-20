@@ -1,0 +1,91 @@
+{
+  "data1": [
+    {
+      "key": "lpmc",
+      "name": "项目名称",
+      "value": ""
+    },
+    {
+      "key": "lpdz",
+      "name": "项目地址",
+      "value": ""
+    },
+    {
+      "key": "dwmc",
+      "name": "开发商名称",
+      "value": ""
+    },
+    {
+      "key": "lpzt",
+      "name": "项目状态",
+      "value": ""
+    },
+    {
+      "key": "jflx",
+      "name": "购房类型",
+      "value": ""
+    },
+    {
+      "key": "slsj",
+      "name": "准入时间",
+      "value": ""
+    },
+    {
+      "key": "lpssqy",
+      "name": "项目所属区域",
+      "value": ""
+    },
+    {
+      "key": "xmxz",
+      "name": "项目性质",
+      "value": ""
+    },
+    {
+      "key": "gzslb",
+      "name": "告知书类型",
+      "value": ""
+    },
+    {
+      "key": "sfqygzs",
+      "name": "是否签约公转商",
+      "value": ""
+    },
+    {
+      "key": "sbfwds",
+      "name": "申报房屋栋数",
+      "value": ""
+    },
+    {
+      "key": "sfdygzs",
+      "name": "是否打印告知书",
+      "value": ""
+    },
+    {
+      "key": "",
+      "name": "",
+      "value": ""
+    }
+  ],
+  "data8": [
+    {
+      "key": "spbz",
+      "name": "上一环节审批人意见",
+      "value": ""
+    },
+    {
+      "key": "linkname",
+      "name": "所处环节",
+      "value": ""
+    },
+    {
+      "key": "status",
+      "name": "当前状态",
+      "value": ""
+    },
+    {
+      "key": "opinion",
+      "name": "审批意见",
+      "value": ""
+    }
+  ]
+}

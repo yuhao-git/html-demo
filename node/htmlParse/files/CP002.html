@@ -1,0 +1,385 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>职工信息变更</title>
+    <meta http-equiv="Content-Type" content="text/html";>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi,width=device-width,initial-scale=1,user-scalable=0">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/fund-ui-form.css" />
+    <link rel="stylesheet" href="./css/weui.min.css" />
+    <link rel="stylesheet" href="./css/yinhai.css?sd=d">
+    <script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
+    <script src="js/layer/layer.js"></script>
+    <script src="js/yinhai.js?dd=1234"></script>
+    <script src="js/net.js?dd=1234"></script>
+        <script type="text/javascript" src="./js/dist/photoswipe.js"></script>
+        <link rel="stylesheet" href="./js/dist/photoswipe.css"/>
+        <script type="text/javascript" src="js/pinchzoom.js"></script>
+        <script type="text/javascript" src="./js/dist/photoswipe-ui-default.min.js"></script>
+    </head>
+    <body ontouchstart>
+     <div class="page">
+         <div class="flowTitle" >业务名称：<span id="flowname"></span></div>
+         <div class="rectangle" id="flowheader">
+
+         </div>
+         <div class="rectangle">
+             <div class="title customTitle">变更前个人基础信息</div>
+             <div class="weui-cells weui-cells_form">
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">姓名：</div>
+                     <div class="weui-cell__hd" id="bgqxingming"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">证件类型：</div>
+                     <div class="weui-cell__hd" id="bgqzjlxmc"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">证件号码：</div>
+                     <div class="weui-cell__hd" id="bgqzjhm"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">人员身份：</div>
+                     <div class="weui-cell__hd" id="bgqrysfmc"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">性别：</div>
+                     <div class="weui-cell__hd" id="bgqxingbiemc"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">出生日期：</div>
+                     <div class="weui-cell__hd" id="bgqcsrq"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">固定电话号码：</div>
+                     <div class="weui-cell__hd" id="bgqgddhhm"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">民族：</div>
+                     <div class="weui-cell__hd" id="bgqminzumc"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">国籍：</div>
+                     <div class="weui-cell__hd" id="bgqguojimc"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">职业：</div>
+                     <div class="weui-cell__hd" id="bgqzhiyemc"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">职称：</div>
+                     <div class="weui-cell__hd" id="bgqzhichenmc"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">职务：</div>
+                     <div class="weui-cell__hd" id="bgqzhiwumc"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">学历：</div>
+                     <div class="weui-cell__hd" id="bgqxuelimc"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">邮政编码：</div>
+                     <div class="weui-cell__hd" id="bgqyzbm"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">家庭月收入：</div>
+                     <div class="weui-cell__hd" id="bgqjtysr"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">家庭住址：</div>
+                     <div class="weui-cell__hd" id="bgqjtzz"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">社保编号：</div>
+                     <div class="weui-cell__hd" id="bgqsbbh"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">QQ：</div>
+                     <div class="weui-cell__hd" id="bgqqq"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">微信账号：</div>
+                     <div class="weui-cell__hd" id="bgqwxzh"></div>
+                 </div>
+             </div>
+         </div>
+         <div class="rectangle">
+             <div class="title customTitle">变更后个人基础信息</div>
+             <div class="weui-cells weui-cells_form bghInfo">
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">姓名：</div>
+                     <div class="weui-cell__hd" id="xingming"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">证件类型：</div>
+                     <div class="weui-cell__hd" id="zjlxmc"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">证件号码：</div>
+                     <div class="weui-cell__hd" id="zjhm"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">人员身份：</div>
+                     <div class="weui-cell__hd" id="rysfmc"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">性别：</div>
+                     <div class="weui-cell__hd" id="xingbiemc"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">出生日期：</div>
+                     <div class="weui-cell__hd" id="csrq"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">固定电话号码：</div>
+                     <div class="weui-cell__hd" id="gddhhm"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">婚姻状况：</div>
+                     <div class="weui-cell__hd" id="hyzkmc"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">民族：</div>
+                     <div class="weui-cell__hd" id="minzumc"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">国籍：</div>
+                     <div class="weui-cell__hd" id="guojimc"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">职业：</div>
+                     <div class="weui-cell__hd" id="zhiyemc"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">职称：</div>
+                     <div class="weui-cell__hd" id="zhichenmc"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">职务：</div>
+                     <div class="weui-cell__hd" id="zhiwumc"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">学历：</div>
+                     <div class="weui-cell__hd" id="xuelimc"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">邮政编码：</div>
+                     <div class="weui-cell__hd" id="yzbm"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">家庭月收入：</div>
+                     <div class="weui-cell__hd" id="jtysr"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">家庭住址：</div>
+                     <div class="weui-cell__hd" id="jtzz"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">社保编号：</div>
+                     <div class="weui-cell__hd" id="sbbh"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">QQ：</div>
+                     <div class="weui-cell__hd" id="qq"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">微信账号：</div>
+                     <div class="weui-cell__hd" id="wxzh"></div>
+                 </div>
+             </div>
+         </div>
+         <div class="rectangle">
+             <div class="title customTitle">审核</div>
+             <div class="weui-cells weui-cells_form ">
+                 <div class="weui-cell" id="spbz_xx">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">上一环节审批人意见</div>
+                     <div class="weui-cell__hd" id="spbz"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">所处环节</div>
+                     <div class="weui-cell__hd" id="linkname"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">当前状态</div>
+                     <div class="weui-cell__hd" id="status"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">审批意见</div>
+                     <div class="weui-cell__hd" id="opinion">
+                         <textarea class="weui-textarea" placeholder="请填写审批意见"></textarea>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+     <div  class="page" style="padding-top: 26px">
+         <div class="rectangle" >
+             <div class="weui-cell title customTitle">
+                 <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">业务办理记录</div>
+                 <div class="weui-cell__ft">
+                     <a>
+                         <img class="expand_icon" isExpand="false" style="height: 20px; transform: rotate(90deg);"
+                              src="css/images/icon-back-act.png"
+                              onclick="fnShowDetailList(this,'handleRecords')"/>
+                     </a>
+                 </div>
+             </div>
+         </div>
+         <div class="handleRecords"  id="handleRecords"></div>
+     </div>
+
+     <div  class="page" style="padding-top: 26px">
+         <div class="rectangle" >
+             <div class="weui-cell title customTitle">
+                 <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">档案列表</div>
+                 <div class="weui-cell__ft">
+                     <a>
+                         <img class="expand_icon" isExpand="false" style="height: 20px; transform: rotate(90deg);"
+                              src="css/images/icon-back-act.png"
+                              onclick="fnShowDetailList(this,'dalist')"/>
+                     </a>
+                 </div>
+             </div>
+         </div>
+         <div class="dalist"  id="dalist"></div>
+     </div>
+     <div class="box mar-all" >
+         <div class="box-f1 mar-all">
+             <a id="btn_refuse" onclick="subApp('0')" class="fund_ui_btn weui-btn_warn">不通过</a>
+         </div>
+         <div class="box-f1 mar-all">
+            <a id="btn_agree" onclick="subApp('1')" class="fund_ui_btn fund_ui_btn_primary">通过</a>
+         </div>
+     </div>
+
+         <script type="text/javascript">
+            var item={};//当前流程信息上一个页面传过来
+            onViewOpen=function(){
+                item= getFlowData();//yinhai.js
+                fetchData();
+                openHandleRecordsWin(item);
+                getDalist(item);
+            };
+
+             function subApp(ispass) {
+                item.opinion = $("#opinion").children("textarea").val();
+                if(ispass=='0' && item.opinion == ""){
+                    $.dialog({title:"提示",content:"请填写审核意见"},function(index) {
+                    })
+                    return;
+                }
+                submitFlow(item,ispass);//yinhai.js
+            }
+            function fetchData(){
+                $("#flowname").text(item.flowname);
+                var params = {"method":"approval.getDetails","busno":item.busno,"flowcode":item.flowcode,"linkcode":item.linkcode};
+                $.doSubmit("",params,function(data){
+                    if(data.spbz == null){
+                        $("#spbz_xx").hide();
+                    }
+                    if(data.ywqx == "0"){
+                        $("#jssj").hide();
+                        $("#xzys").hide();
+                    }
+                    initPerHeader(data);
+                    initView(data.hmdly);
+                    Base.setValue(data);//回填表单值
+                    loadColor(data);
+                },function(data){
+                    $.toast("无法办理该笔业务");
+                    $.closeWin();
+                });
+            };
+            function initView(xxly) {
+                if(xxly=="05"){
+                    $("#ly_xx").hide();//黑名单来源 隐藏
+                    $("#djh_xx").hide();//业务登记号 隐藏
+                    $("#lhcj_xx").show(); //联合惩戒信息 显示
+                }else if(xxly="06"){
+                    $("#ly_xx").show();
+                    $("#djh_xx").hide();
+                    $("#lhcj_xx").hide();
+                }else{
+                    $("#ly_xx").show();
+                    $("#djh_xx").show();
+                    $("#lhcj_xx").hide();
+                }
+            }
+
+            //页面销毁
+            onViewClose=function(){
+                md.execScript({name:"root",frameName:"tab0",script:"getWillFlow('1')"});
+            };
+
+            function loadColor(data) {
+                if (data.xingming != data.bgqxingming) {
+                    $("#xingming").attr("style", "color:red!important;");
+                }
+                if (data.zjlxmc != data.bgqzjlxmc) {
+                    $("#zjlxmc").attr("style", "color:red!important;");
+                }
+                if (data.zjhm != data.bgqzjhm) {
+                    $("#zjhm").attr("style", "color:red!important;");
+                }
+                if (data.rysfmc != data.bgqrysfmc) {
+                    $("#rysfmc").attr("style", "color:red!important;");
+                }
+                if (data.xingbiemc != data.bgqxingbiemc) {
+                    $("#xingbiemc").attr("style", "color:red!important;");
+                }
+                if (data.csrq != data.bgqcsrq) {
+                    $("#csrq").attr("style", "color:red!important;");
+                }
+                if (data.gddhhm != data.bgqgddhhm) {
+                    $("#gddhhm").attr("style", "color:red!important;");
+                }
+                if (data.hyzkmc != data.bgqhyzkmc) {
+                    $("#hyzkmc").attr("style", "color:red!important;");
+                }
+                if (data.minzumc != data.bgqminzumc) {
+                    $("#minzumc").attr("style", "color:red!important;");
+                }
+                if (data.guojimc != data.bgqguojimc) {
+                    $("#guojimc").attr("style", "color:red!important;");
+                }
+                if (data.zhiyemc != data.bgqzhiyemc) {
+                    $("#zhiyemc").attr("style", "color:red!important;");
+                }
+                if (data.zhichenmc != data.bgqzhichenmc) {
+                    $("#zhichenmc").attr("style", "color:red!important;");
+                }
+                if (data.zhiwumc != data.bgqzhiwumc) {
+                    $("#zhiwumc").attr("style", "color:red!important;");
+                }
+                if (data.xuelimc != data.bgqxuelimc) {
+                    $("#xuelimc").attr("style", "color:red!important;");
+                }
+                if (data.yzbm != data.bgqyzbm) {
+                    $("#yzbm").attr("style", "color:red!important;");
+                }
+                if (data.jtysr != data.bgqjtysr) {
+                    $("#jtysr").attr("style", "color:red!important;");
+                }
+                if (data.sbbh != data.bgqsbbh) {
+                    $("#sbbh").attr("style", "color:red!important;");
+                }
+                if (data.jtzz != data.bgqjtzz) {
+                    $("#jtzz").attr("style", "color:red!important;");
+                }
+                if (data.qq != data.bgqqq) {
+                    $("#qq").attr("style", "color:red!important;");
+                }
+                if (data.wxzh != data.bgqwxzh) {
+                    $("#wxzh").attr("style", "color:red!important;");
+                }
+            }
+         </script>
+    </body>
+</html>

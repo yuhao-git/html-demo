@@ -1,0 +1,136 @@
+{
+  "data2": [
+    {
+      "key": "djlx_desc",
+      "name": "冻结类型",
+      "value": ""
+    },
+    {
+      "key": "djfs_desc",
+      "name": "冻结方式",
+      "value": ""
+    },
+    {
+      "key": "djje",
+      "name": "冻结金额（元）",
+      "value": ""
+    },
+    {
+      "key": "djnx",
+      "name": "冻结月数（月）",
+      "value": ""
+    },
+    {
+      "key": "ywqx_desc",
+      "name": "有无期限",
+      "value": ""
+    },
+    {
+      "key": "qssj",
+      "name": "起始时间",
+      "value": ""
+    },
+    {
+      "key": "jssj",
+      "name": "结束时间",
+      "value": ""
+    },
+    {
+      "key": "ajlx_desc",
+      "name": "案件类型",
+      "value": ""
+    },
+    {
+      "key": "ajzy",
+      "name": "案件摘要",
+      "value": ""
+    },
+    {
+      "key": "sqbm",
+      "name": "申请部门",
+      "value": ""
+    },
+    {
+      "key": "zxwsbh",
+      "name": "执行文书编号",
+      "value": ""
+    },
+    {
+      "key": "qsrq",
+      "name": "法签收日期",
+      "value": ""
+    },
+    {
+      "key": "zxwsmc",
+      "name": "执行文书名称",
+      "value": ""
+    },
+    {
+      "key": "zxryxm",
+      "name": "执行人员姓名一",
+      "value": ""
+    },
+    {
+      "key": "zxryzjhm",
+      "name": "执法证号一",
+      "value": ""
+    },
+    {
+      "key": "lxdh",
+      "name": "联系电话一",
+      "value": ""
+    },
+    {
+      "key": "zxryxm2",
+      "name": "执行人员姓名二",
+      "value": ""
+    },
+    {
+      "key": "zxryzjhm2",
+      "name": "执法证号二",
+      "value": ""
+    },
+    {
+      "key": "lxdh2",
+      "name": "联系电话二",
+      "value": ""
+    },
+    {
+      "key": "qswjmc",
+      "name": "签收文件名称",
+      "value": ""
+    },
+    {
+      "key": "qswjbh",
+      "name": "签收文书编号",
+      "value": ""
+    },
+    {
+      "key": "bzxx",
+      "name": "备注信息",
+      "value": ""
+    }
+  ],
+  "data3": [
+    {
+      "key": "spbz",
+      "name": "上一环节审批人意见",
+      "value": ""
+    },
+    {
+      "key": "linkname",
+      "name": "所处环节",
+      "value": ""
+    },
+    {
+      "key": "status",
+      "name": "当前状态",
+      "value": ""
+    },
+    {
+      "key": "opinion",
+      "name": "审批意见",
+      "value": ""
+    }
+  ]
+}

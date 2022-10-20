@@ -1,0 +1,56 @@
+{
+  "data1": [
+    {
+      "key": "sxflx",
+      "name": "手续费类型",
+      "value": ""
+    },
+    {
+      "key": "yhhbmc",
+      "name": "银行行别",
+      "value": ""
+    },
+    {
+      "key": "season",
+      "name": "季度",
+      "value": ""
+    }
+  ],
+  "data2": [
+    {
+      "key": "sxfze",
+      "name": "计提金额(元)",
+      "value": ""
+    },
+    {
+      "key": "sjfs",
+      "name": "考核得分",
+      "value": ""
+    },
+    {
+      "key": "sjzfje",
+      "name": "支付金额(元)",
+      "value": ""
+    },
+    {
+      "key": "zkfs",
+      "name": "可返还扣分",
+      "value": ""
+    },
+    {
+      "key": "zkje",
+      "name": "待返还金额(元)",
+      "value": ""
+    },
+    {
+      "key": "bfhfs",
+      "name": "不返还扣分",
+      "value": ""
+    },
+    {
+      "key": "bfhje",
+      "name": "核销金额(元)",
+      "value": ""
+    }
+  ]
+}

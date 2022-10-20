@@ -1,0 +1,56 @@
+{
+  "data2": [
+    {
+      "key": "bgqdwjcbl",
+      "name": "调整前单位比例（%）",
+      "value": ""
+    },
+    {
+      "key": "dwjcbl",
+      "name": "调整后单位比例（%）\r\n                     ",
+      "value": ""
+    },
+    {
+      "key": "bgqgrjcbl",
+      "name": "调整前个人比例（%）",
+      "value": ""
+    },
+    {
+      "key": "grjcbl",
+      "name": "调整后个人比例（%）\r\n                     ",
+      "value": ""
+    },
+    {
+      "key": "ywbz",
+      "name": "调整原因",
+      "value": ""
+    }
+  ],
+  "data3": [
+    {
+      "key": "spbz",
+      "name": "上一环节审批人意见",
+      "value": ""
+    },
+    {
+      "key": "linkname",
+      "name": "所处环节",
+      "value": ""
+    },
+    {
+      "key": "status",
+      "name": "当前状态",
+      "value": ""
+    },
+    {
+      "key": "",
+      "name": "\r\n                         ",
+      "value": ""
+    },
+    {
+      "key": "",
+      "name": "",
+      "value": ""
+    }
+  ]
+}

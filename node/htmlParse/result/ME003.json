@@ -1,0 +1,56 @@
+{
+  "data2": [
+    {
+      "key": "xhyy",
+      "name": "注销原因",
+      "value": ""
+    },
+    {
+      "key": "pzzxbm",
+      "name": "批准注销部门 ",
+      "value": ""
+    },
+    {
+      "key": "pzzxsj",
+      "name": "批准注销时间 ",
+      "value": ""
+    },
+    {
+      "key": "pzwsbh",
+      "name": "批准文书编号 ",
+      "value": ""
+    },
+    {
+      "key": "shyy",
+      "name": "审核原因",
+      "value": ""
+    },
+    {
+      "key": "ywbz",
+      "name": "备注",
+      "value": ""
+    }
+  ],
+  "data3": [
+    {
+      "key": "spbz",
+      "name": "上一环节审批人意见",
+      "value": ""
+    },
+    {
+      "key": "linkname",
+      "name": "所处环节",
+      "value": ""
+    },
+    {
+      "key": "status",
+      "name": "当前状态",
+      "value": ""
+    },
+    {
+      "key": "opinion",
+      "name": "审批意见",
+      "value": ""
+    }
+  ]
+}

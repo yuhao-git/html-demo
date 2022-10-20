@@ -1,0 +1,63 @@
+{
+  "data2": [
+    {
+      "key": "skdw",
+      "name": "收款单位",
+      "value": ""
+    },
+    {
+      "key": "skzh",
+      "name": "收款账号",
+      "value": ""
+    },
+    {
+      "key": "skzhkhh",
+      "name": "收款开户银行",
+      "value": ""
+    }
+  ],
+  "data3": [
+    {
+      "key": "dbyy",
+      "name": "调拨原因",
+      "value": ""
+    },
+    {
+      "key": "dbfs",
+      "name": "调拨方式",
+      "value": ""
+    },
+    {
+      "key": "jyje",
+      "name": "交易金额",
+      "value": ""
+    },
+    {
+      "key": "bzxx",
+      "name": "备注信息",
+      "value": ""
+    }
+  ],
+  "data4": [
+    {
+      "key": "spbz",
+      "name": "上一环节审批人意见",
+      "value": ""
+    },
+    {
+      "key": "linkname",
+      "name": "所处环节",
+      "value": ""
+    },
+    {
+      "key": "status",
+      "name": "当前状态",
+      "value": ""
+    },
+    {
+      "key": "opinion",
+      "name": "审批意见",
+      "value": ""
+    }
+  ]
+}

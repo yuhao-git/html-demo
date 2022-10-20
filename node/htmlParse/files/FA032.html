@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>上缴财政</title>
+    <meta http-equiv="Content-Type" content="text/html";>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi,width=device-width,initial-scale=1,user-scalable=0">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/fund-ui-form.css" />
+    <link rel="stylesheet" href="./css/weui.min.css" />
+    <link rel="stylesheet" href="./css/yinhai.css?sd=d">
+    <script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
+    <script src="js/layer/layer.js"></script>
+    <script src="js/yinhai.js?dd=1234"></script>
+    <script src="js/net.js?dd=1234"></script>
+    <script type="text/javascript" src="./js/dist/photoswipe.js"></script>
+    <link rel="stylesheet" href="./js/dist/photoswipe.css"/>
+    <script type="text/javascript" src="js/pinchzoom.js"></script>
+    <script type="text/javascript" src="./js/dist/photoswipe-ui-default.min.js"></script>
+    </head>
+    <body ontouchstart>
+     <div class="page">
+         <div class="flowTitle" >业务名称：<span id="flowname"></span></div>
+
+         <div class="rectangle">
+             <div class="weui-cell title customTitle">
+                 <div class="weui-cell__bd tq" style="margin-right: 10px;min-width: 45px">支付信息</div>
+             </div>
+             <div class="weui-cells weui-cells_form ">
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">交易金额：</div>
+                     <div class="weui-cell__hd" id="fszje"></div>
+                 </div>
+                 <div class="weui-cell" id="jylx_xx" style="display: none">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">是否线上支付：</div>
+                     <div class="weui-cell__hd" id="jylxdesc"></div>
+                 </div>
+                 <div class="weui-cell" style="display: none">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">交易类型：</div>
+                     <div class="weui-cell__hd" id="jylx"></div>
+                 </div>
+             </div>
+         </div>
+         <div class="rectangle" id="busListInfo">
+             <div class="title customTitle">收付款明细</div>
+         </div>
+
+         <div class="rectangle">
+             <div class="title customTitle">审核</div>
+             <div class="weui-cells weui-cells_form ">
+                 <div class="weui-cell" id="spbz_xx">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">上一环节审批人意见</div>
+                     <div class="weui-cell__hd" id="spbz"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">所处环节</div>
+                     <div class="weui-cell__hd" id="linkname"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">当前状态</div>
+                     <div class="weui-cell__hd" id="status"></div>
+                 </div>
+                 <div class="weui-cell">
+                     <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">审批意见</div>
+                     <div class="weui-cell__hd" id="opinion">
+                         <textarea class="weui-textarea" placeholder="请填写审批意见"></textarea>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+     <div  class="page" style="padding-top: 26px">
+         <div class="rectangle" >
+             <div class="weui-cell title customTitle">
+                 <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">业务办理记录</div>
+                 <div class="weui-cell__ft">
+                     <a>
+                         <img class="expand_icon" isExpand="false" style="height: 20px; transform: rotate(90deg);"
+                              src="css/images/icon-back-act.png"
+                              onclick="fnShowDetailList(this,'handleRecords')"/>
+                     </a>
+                 </div>
+             </div>
+         </div>
+         <div class="handleRecords"  id="handleRecords"></div>
+     </div>
+
+    <!-- <div  class="page" style="padding-top: 26px">
+         <div class="rectangle" >
+             <div class="weui-cell title customTitle">
+                 <div class="weui-cell__bd" style="margin-right: 10px;min-width: 45px">档案列表</div>
+                 <div class="weui-cell__ft">
+                     <a>
+                         <img class="expand_icon" isExpand="false" style="height: 20px; transform: rotate(90deg);"
+                              src="css/images/icon-back-act.png"
+                              onclick="fnShowDetailList(this,'dalist')"/>
+                     </a>
+                 </div>
+             </div>
+         </div>
+         <div class="dalist"  id="dalist"></div>
+     </div>-->
+     <div class="box mar-all" >
+         <div class="box-f1 mar-all">
+             <a id="btn_refuse" onclick="subApp('0')" class="fund_ui_btn weui-btn_warn">不通过</a>
+         </div>
+         <div class="box-f1 mar-all">
+            <a id="btn_agree" onclick="subApp('1')" class="fund_ui_btn fund_ui_btn_primary">通过</a>
+         </div>
+     </div>
+
+
+    </body>
+</html>
+<script type="text/javascript">
+    var item={};//当前流程信息上一个页面传过来
+    onViewOpen=function(){
+        item= getFlowData();//yinhai.js
+        fetchData();
+        openHandleRecordsWin(item);
+        getDalist(item);
+    };
+    //页面销毁
+    onViewClose=function(){
+        md.execScript({name:"root",frameName:"tab0",script:"getWillFlow('1')"});
+    };
+
+    function subApp(ispass) {
+        item.opinion = $("#opinion").children("textarea").val();
+        if(ispass=='0' && item.opinion == ""){
+            $.dialog({title:"提示",content:"请填写审核意见"},function(index) {
+            })
+            return;
+        }
+        //扭转条件交易类型值获取
+        item.jylx = $("#jylx").val();
+        submitFlow(item,ispass);//yinhai.js
+    }
+    function fetchData(){
+        $("#flowname").text(item.flowname);
+        var params = {"method":"approval.getDetails","busno":item.busno,"flowcode":item.flowcode,"linkcode":item.linkcode};
+        $.doSubmit("",params,function(data){
+            if(data.spbz == null){
+                $("#spbz_xx").hide();
+            }
+            if (data.jylxdesc == null || data.jylxdesc == "") {
+                $("#jylx_xx").hide();
+            }else{
+                $("#jylx_xx").show();
+            }
+            renderList(data.busList);
+            // initLoanHeader(data);
+            Base.setValue(data);//回填表单值
+            $("#jylx").val(data.jylx);
+        },function(data){
+            $.toast("无法办理该笔业务");
+            $.closeWin();
+        });
+    };
+
+    function renderList(data){
+        $("#busListInfo").empty();
+        if(data.length<1)
+            return;
+        for(let i=0;i<data.length;i++){
+            $("#busListInfo").append(" <div class=\"weui-cells weui-cells_form \">\n" +
+                "                 <div class=\"weui-cell\">\n" +
+                "                     <div class=\"weui-cell__bd\" style=\"margin-right: 10px;min-width: 45px\">发生额（元）：</div>\n" +
+                "                     <div class=\"weui-cell__hd\" id=\"fsje\">"+data[i].fsje+"</div>\n" +
+                "                 </div>\n" +
+                "                 <div class=\"weui-cell\">\n" +
+                "                     <div class=\"weui-cell__bd\" style=\"margin-right: 10px;min-width: 45px\">资金用途：</div>\n" +
+                "                     <div class=\"weui-cell__hd\" id=\"zjyt\">"+data[i].zjyt+"</div>\n" +
+                "                 </div>\n" +
+                "                 <div class=\"weui-cell"+(' btn'+i)+"\" style=\"display: none\">\n" +
+                "                     <div class=\"weui-cell__bd\" style=\"margin-right: 10px;min-width: 45px\">划拨方式：</div>\n" +
+                "                     <div class=\"weui-cell__hd\" id=\"hbfs\">"+data[i].hbfsdesc+"</div>\n" +
+                "                 </div>\n" +
+                "                 <div class=\"weui-cell"+(' btn'+i)+"\" style=\"display: none\">\n" +
+                "                     <div class=\"weui-cell__bd\" style=\"margin-right: 10px;min-width: 45px\">上缴年度：</div>\n" +
+                "                     <div class=\"weui-cell__hd\" id=\"nd\">"+data[i].sjnd+"</div>\n" +
+                "                 </div>\n" +
+                "                 <div class=\"weui-cell\">\n" +
+                "                     <div class=\"weui-cell__bd\" style=\"margin-right: 10px;min-width: 45px\">付款账户：</div>\n" +
+                "                     <div class=\"weui-cell__hd\" id=\"fkzh\">"+data[i].fkzh+"</div>\n" +
+                "                 </div>\n" +
+                "                 <div class=\"weui-cell\">\n" +
+                "                     <div class=\"weui-cell__bd\" style=\"margin-right: 10px;min-width: 45px\">付款账户名称：</div>\n" +
+                "                     <div class=\"weui-cell__hd\" id=\"fkzhmc\">"+data[i].fkzhmc+"</div>\n" +
+                "                 </div>\n" +
+                "                 <div class=\"weui-cell"+(' btn'+i)+"\" style=\"display: none\">\n" +
+                "                     <div class=\"weui-cell__bd\" style=\"margin-right: 10px;min-width: 45px\">收款账户：</div>\n" +
+                "                     <div class=\"weui-cell__hd\" id=\"skzh\">"+data[i].skzh+"</div>\n" +
+                "                 </div>\n" +
+                "                 <div class=\"weui-cell"+(' btn'+i)+"\" style=\"display: none\">\n" +
+                "                     <div class=\"weui-cell__bd\" style=\"margin-right: 10px;min-width: 45px\">收款账户名称：</div>\n" +
+                "                     <div class=\"weui-cell__hd\" id=\"skzhmc\">"+data[i].skzhmc+"</div>\n" +
+                "                 </div>\n" +
+                "                 <div class=\"weui-cell"+(' btn'+i)+"\" style=\"display: none\">\n" +
+                "                     <div class=\"weui-cell__bd\" style=\"margin-right: 10px;min-width: 45px\">上缴原因：</div>\n" +
+                "                     <div class=\"weui-cell__hd\" id=\"sjyy\">"+data[i].bzxx+"</div>\n" +
+                "                 </div>\n" +
+                "                 <div class=\"weui-cell\">\n" +
+                "                     <a id=\""+('btn'+i)+"\" href=\"javascript:hideOrShow("+i+")\" style=\"width: 100%;text-align: center;font-size: 12px\">展开</a>\n" +
+                "                 </div>\n" +
+                "             </div>");
+        }
+    }
+
+    function hideOrShow(index){
+        let btnIdOrClass="btn"+index;
+        if("展开"==$("#"+btnIdOrClass).text()) {
+            $("." + btnIdOrClass).show();
+            $("#"+btnIdOrClass).text("收起");
+        }else {
+            $("." + btnIdOrClass).hide();
+            $("#"+btnIdOrClass).text("展开");
+        }
+    }
+</script>

@@ -1,0 +1,123 @@
+{
+  "data1": [
+    {
+      "key": "lpmc",
+      "name": "楼盘名称",
+      "value": ""
+    },
+    {
+      "key": "lpdz",
+      "name": "楼盘地址",
+      "value": ""
+    },
+    {
+      "key": "kffs",
+      "name": "开发方式",
+      "value": ""
+    },
+    {
+      "key": "tdxz",
+      "name": "土地性质",
+      "value": ""
+    },
+    {
+      "key": "jflx",
+      "name": "建房类型",
+      "value": ""
+    },
+    {
+      "key": "kdnx",
+      "name": "可贷年限(年)",
+      "value": ""
+    },
+    {
+      "key": "cqnx",
+      "name": "产权年限(年)",
+      "value": ""
+    },
+    {
+      "key": "lxrxm",
+      "name": "联系人姓名",
+      "value": ""
+    },
+    {
+      "key": "sjhm",
+      "name": "联系电话（手机）",
+      "value": ""
+    },
+    {
+      "key": "gddhhm",
+      "name": "联系电话（座机）",
+      "value": ""
+    },
+    {
+      "key": "slfzx",
+      "name": "楼盘所属区域",
+      "value": ""
+    },
+    {
+      "key": "",
+      "name": "",
+      "value": ""
+    }
+  ],
+  "data2": [
+    {
+      "key": "hznx",
+      "name": "原合作年限（年）",
+      "value": ""
+    },
+    {
+      "key": "hzdqr",
+      "name": "原合作到期日",
+      "value": ""
+    },
+    {
+      "key": "syhznx",
+      "name": "原剩余合作年限",
+      "value": ""
+    },
+    {
+      "key": "xhznx",
+      "name": "新合作年限（年）",
+      "value": ""
+    },
+    {
+      "key": "xhzdqr",
+      "name": "新合作到期日",
+      "value": ""
+    },
+    {
+      "key": "xsyhznx",
+      "name": "新剩余合作年限",
+      "value": ""
+    },
+    {
+      "key": "bzxx",
+      "name": "备注信息",
+      "value": ""
+    }
+  ],
+  "data3": [
+    {
+      "key": "spbz",
+      "name": "上一环节审批人意见",
+      "value": ""
+    },
+    {
+      "key": "linkname",
+      "name": "所处环节",
+      "value": ""
+    },
+    {
+      "key": "status",
+      "name": "当前状态",
+      "value": ""
+    },
+    {
+      "key": "opinion",
+      "name": "审批意见",
+      "value": ""
+    }
+  ]
+}

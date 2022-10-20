@@ -1,0 +1,158 @@
+{
+  "data1": [
+    {
+      "key": "grkhh",
+      "name": "个人账户",
+      "value": ""
+    },
+    {
+      "key": "xingming",
+      "name": "个人姓名",
+      "value": ""
+    },
+    {
+      "key": "zjlx",
+      "name": "证件类型",
+      "value": ""
+    },
+    {
+      "key": "zjhm",
+      "name": "证件号码",
+      "value": ""
+    },
+    {
+      "key": "dklx",
+      "name": "贷款类型",
+      "value": ""
+    },
+    {
+      "key": "dkjylx",
+      "name": "交易类型",
+      "value": ""
+    },
+    {
+      "key": "dkdblx",
+      "name": "担保方式",
+      "value": ""
+    },
+    {
+      "key": "dkqs",
+      "name": "贷款期限",
+      "value": ""
+    },
+    {
+      "key": "dkhkfs_desc",
+      "name": "还款方式",
+      "value": ""
+    },
+    {
+      "key": "fwzj",
+      "name": "房屋总价(元)",
+      "value": ""
+    },
+    {
+      "key": "gfsfk",
+      "name": "首付金额(元)",
+      "value": ""
+    },
+    {
+      "key": "hkzh",
+      "name": "还款账号",
+      "value": ""
+    },
+    {
+      "key": "hkqx",
+      "name": "还款期限(月)",
+      "value": ""
+    },
+    {
+      "key": "sydkqs",
+      "name": "剩余期数(月)",
+      "value": ""
+    },
+    {
+      "key": "dkffe",
+      "name": "公贷金额(元)",
+      "value": ""
+    },
+    {
+      "key": "dkye",
+      "name": "公贷余额(元)",
+      "value": ""
+    },
+    {
+      "key": "",
+      "name": "",
+      "value": ""
+    }
+  ],
+  "data2": [
+    {
+      "key": "ywdjh",
+      "name": "业务登记号",
+      "value": ""
+    },
+    {
+      "key": "xyhm",
+      "name": "协议号码",
+      "value": ""
+    },
+    {
+      "key": "dkzh",
+      "name": "贷款账号",
+      "value": ""
+    },
+    {
+      "key": "ydhkr",
+      "name": "约定还款日",
+      "value": ""
+    },
+    {
+      "key": "chpl",
+      "name": "冲还频率",
+      "value": ""
+    },
+    {
+      "key": "qssj",
+      "name": "起始时间",
+      "value": ""
+    },
+    {
+      "key": "jssj",
+      "name": "结束时间",
+      "value": ""
+    },
+    {
+      "key": "chdywlx",
+      "name": "冲还贷业务类型",
+      "value": ""
+    },
+    {
+      "key": "",
+      "name": "",
+      "value": ""
+    }
+  ],
+  "data4": [
+    {
+      "key": "spbz",
+      "name": "上一环节审批人意见",
+      "value": ""
+    },
+    {
+      "key": "linkname",
+      "name": "所处环节",
+      "value": ""
+    },
+    {
+      "key": "status",
+      "name": "当前状态",
+      "value": ""
+    },
+    {
+      "key": "opinion",
+      "name": "审批意见",
+      "value": ""
+    }
+  ]
+}

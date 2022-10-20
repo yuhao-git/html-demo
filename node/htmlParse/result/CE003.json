@@ -1,0 +1,66 @@
+{
+  "data1": [
+    {
+      "key": "fsywlx",
+      "name": "附属业务类型",
+      "value": ""
+    },
+    {
+      "key": "lxdh",
+      "name": "委托收款方式",
+      "value": ""
+    },
+    {
+      "key": "fkyhhb",
+      "name": "委托收款账户行别",
+      "value": ""
+    },
+    {
+      "key": "fkzhmc",
+      "name": "委托收款账户名称",
+      "value": ""
+    },
+    {
+      "key": "fkzh",
+      "name": "委托收款账号",
+      "value": ""
+    },
+    {
+      "key": "zsbh",
+      "name": "委托收款日期",
+      "value": ""
+    },
+    {
+      "key": "sfxyh",
+      "name": "三方协议号",
+      "value": ""
+    },
+    {
+      "key": "",
+      "name": "",
+      "value": ""
+    }
+  ],
+  "data2": [
+    {
+      "key": "spbz",
+      "name": "上一环节审批人意见",
+      "value": ""
+    },
+    {
+      "key": "linkname",
+      "name": "所处环节",
+      "value": ""
+    },
+    {
+      "key": "status",
+      "name": "当前状态",
+      "value": ""
+    },
+    {
+      "key": "opinion",
+      "name": "审批意见",
+      "value": ""
+    }
+  ]
+}
