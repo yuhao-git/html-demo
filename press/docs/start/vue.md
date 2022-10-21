@@ -103,3 +103,15 @@ export default {
 ```
 {{ $frontmatter.title }}
 ```
+
+
+```
+# .scss and .sass
+npm install -D sass
+
+# .less
+npm install -D less
+
+# .styl and .stylus
+npm install -D stylus
+```

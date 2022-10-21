@@ -6,7 +6,9 @@
   "dependencies": {
     "vitepress": "^1.0.0-alpha.19"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "sass": "^1.55.0"
+  },
   "scripts": {
     "dev": "vitepress dev docs",
     "build": "vitepress build docs",
