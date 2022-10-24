@@ -14,15 +14,26 @@ module.exports = {
   },
   themeConfig: {
     logo: '../images/logo.png',
-    nav: [{ text: 'vitepress', link: '/start/markdownExtensions.md', activeMatch: '/start/markdownExtensions.md' },
-    {
-      text: '嵌套链接', items: [
-        {
-          text: 'Twitter',
-          link: 'https://twitter.com/vite_js'
-        },
-      ]
-    }],
+    nav: [
+      {
+        text: 'vitepress',
+        link: '/start/markdownExtensions.md',
+        activeMatch: '/start/markdownExtensions.md'
+      },
+      // {
+      //   text: '嵌套链接', items: [
+      //     {
+      //       text: 'Twitter',
+      //       link: 'https://twitter.com/vite_js'
+      //     },
+      //   ]
+      // }
+      {
+        text: 'typescript',
+        link: '/typescript/index.md',
+        activeMatch: '/typescript/index.md'
+      },
+    ],
     sidebar: {
       '/start/': [
         {
@@ -40,6 +51,22 @@ module.exports = {
             {
               text: '全局计算属性',
               link: '../start/computed'
+            },
+          ]
+        }
+      ],
+      '/typescript/': [
+        {
+          text: "typescript in vue",
+          collapsible: true,
+          items: [          
+            {
+              text: 'typescript',
+              link: '/typescript/index.md'
+            },
+            {
+              text: '换肤',
+              link: '/typescript/theme.md'
             },
           ]
         }
