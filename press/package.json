@@ -4,9 +4,12 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "element-plus": "^2.2.19",
     "vitepress": "^1.0.0-alpha.19"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "sass": "^1.55.0"
+  },
   "scripts": {
     "dev": "vitepress dev docs",
     "build": "vitepress build docs",

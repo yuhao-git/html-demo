@@ -24,9 +24,8 @@
 
 ## 图片实例
 
-![图片][img]
+![图片](../images/image.png)
 
-[img]: ./image.png
 
 ### 基本
 ```
