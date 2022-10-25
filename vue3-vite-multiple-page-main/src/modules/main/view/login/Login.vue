@@ -107,6 +107,6 @@ let rules = {}
 .description {
   font-size: 18px;
   font-weight: bold;
-  color: @primary-color;
+  // color: @primary-color;
 }
 </style>

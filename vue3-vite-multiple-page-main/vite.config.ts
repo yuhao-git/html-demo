@@ -71,7 +71,12 @@ export default defineConfig(({ mode }) => {
     css: {
       preprocessorOptions: {
         less: {
-          additionalData: '@import "@/assets/style/main.less";',
+          // additionalData: '@import "@/assets/style/main.less";',
+          modifyVars: {
+            // 按需配置，可配置多个
+            '@color': '#fff',
+          },
+          javascriptEnabled: true,
         },
       },
     },

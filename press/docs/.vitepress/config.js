@@ -59,14 +59,18 @@ module.exports = {
         {
           text: "typescript in vue",
           collapsible: true,
-          items: [          
+          items: [
             {
               text: 'typescript',
               link: '/typescript/index.md'
             },
             {
-              text: '换肤',
+              text: 'css换肤',
               link: '/typescript/theme.md'
+            },
+            {
+              text: 'less换肤',
+              link: '/typescript/themeLess.md'
             },
           ]
         }
@@ -104,3 +108,4 @@ module.exports = {
 
   }
 }
+
