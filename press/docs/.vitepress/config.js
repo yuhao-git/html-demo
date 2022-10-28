@@ -29,9 +29,9 @@ module.exports = {
       //   ]
       // }
       {
-        text: 'typescript',
-        link: '/typescript/index.md',
-        activeMatch: '/typescript/index.md'
+        text: 'vue3',
+        link: '/vue3/index.md',
+        activeMatch: '/vue3/index.md'
       },
     ],
     sidebar: {
@@ -55,22 +55,22 @@ module.exports = {
           ]
         }
       ],
-      '/typescript/': [
+      '/vue3/': [
         {
           text: "typescript in vue",
           collapsible: true,
           items: [
             {
-              text: 'typescript',
-              link: '/typescript/index.md'
+              text: 'vue3',
+              link: '/vue3/index.md'
             },
             {
               text: 'css换肤',
-              link: '/typescript/theme.md'
+              link: '/vue3/theme.md'
             },
             {
               text: 'less换肤',
-              link: '/typescript/themeLess.md'
+              link: '/vue3/themeLess.md'
             },
           ]
         }

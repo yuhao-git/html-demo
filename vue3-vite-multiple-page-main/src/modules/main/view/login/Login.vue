@@ -10,20 +10,10 @@ let model = reactive({
   password: ""
 })
 
-let state = ref({
-  name: "shdjsjh"
-})
-
-let name = ref("name--==")
-
 let formRef = ref(null)
 
 //使用 ref 使用 mode.value 访问 、 reactive 则不用 value 层
 function jumpPage(url: string): void {
-  // console.log(formRef.value)
-  // console.log(model)
-  // console.log(name.value)
-  // name.value = 'sds'
   router.push(url)
 }
 
@@ -64,7 +54,7 @@ let rules = {}
 }
 
 .box {
-  height: 100%;
+  height: 100vh;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -73,7 +63,7 @@ let rules = {}
 }
 
 .container {
-  background-color: #fff;
+  // background-color: #fff;
   padding: 50px;
   display: flex;
   height: 800px;
