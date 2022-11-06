@@ -3,11 +3,13 @@ import {
   createWebHashHistory
 } from "vue-router";
 
-
+import login from '../views/login/index.vue'
 
 const routes = [
-  { path: "/login", component: () => import('../views/login/index.vue') },
+  { path: "/", redirect: "/login" },
+  { path: "/login", component: login },
   { path: "/404", component: () => import('../views/error/404.vue') },
+  { path: "/:pathMatch(.*)", redirect: "/404" },
 ]
 
 
