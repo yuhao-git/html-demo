@@ -1,13 +1,3 @@
-<template>
-  <header class="navbar" > 
-      <el-switch inline-prompt  v-model="theme" :active-icon="sun" :inactive-icon="moon"  @change="changeTheme"/>
-  </header>
-  <div>
-    <div class="text-9xl">左侧图片</div>
-    <div>表单</div>
-  </div>
-</template>
-
 <script lang='ts' setup>
 import { ref, reactive, toRefs, onBeforeMount, onMounted, watchEffect, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -28,13 +18,33 @@ function changeTheme(value: boolean) {
 
 </script>
 
-
+<template>
+  <div class="login-container">
+    <header class="navbar" > 
+        <el-switch inline-prompt  v-model="theme" :active-icon="sun" :inactive-icon="moon"  @change="changeTheme"/>
+    </header>
+    <div class="flex justify-center items-center">
+      <div class="flex-grow justify-center border-4 border-light-blue-500">左侧图片</div>
+      <div class="form-wrapper justify-center border-4 border-red-500">表单</div>
+    </div>
+ </div>
+</template>
 
 <style scoped lang='less'>
-.navbar {
+.login-container{
+  height: 100%;
+  .navbar {
   position: absolute;
   right: 16px;
   top: 10px;
+}
+}
+
+.flex{
+  height: 100%;
+  .form-wrapper{
+    width: 500px;
+  }
 }
 </style>
 
