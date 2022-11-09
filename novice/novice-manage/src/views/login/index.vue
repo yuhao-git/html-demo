@@ -4,7 +4,7 @@ import { useRoute, useRouter } from 'vue-router';
 import sun from '@/assets/svg/sun.svg'
 import moon from '@/assets/svg/moon.svg'
 import { User, Lock } from '@element-plus/icons-vue'
-import think from '@/assets/svg/think.svg'
+import PasswordForm from './components/PasswordForm.vue'
 const router = useRouter()
 
 let theme = ref(true)
@@ -30,27 +30,25 @@ function login(): void {
         <el-switch inline-prompt  v-model="theme" :active-icon="sun" :inactive-icon="moon"  @change="changeTheme"/>
     </header>
 
-    <div class="h-full grid grid-cols-2  gap-40 justify-center items-center">
-      <div class="form-wrapper w-20 p-10 col-start-2">
+    <div class="h-full grid  lg:grid-cols-2 lg:gap-40 justify-center items-center">
+      <div class="flex justify-end">
+        <div class="bg"></div>
+      </div>
+      <div class="form-wrapper w-20 p-10 lg:col-start-2 ">
         <h1 class="mb-1">NOVICE</h1>
         <p class="text-xs mb-6 text-gray-500">后台管理系统</p>
-        <el-form>
-          <el-form-item >
-            <el-input class="shadow-md h-10 border-0" v-model="user.username" :prefix-icon="User" placeholder="账号" />
-          </el-form-item>
-          <el-form-item >
-            <el-input class="shadow-md h-10 border-0" v-model="user.password" :prefix-icon="Lock" placeholder="密码" />
-          </el-form-item>
-          <el-button  type="primary" class="w-full shadow-lg" @click="login"> 登录 </el-button>
-        </el-form>
+        <password-form class="mb-6"></password-form>
+        <div class="flex">  <el-button class="w-1/3">手机登录</el-button> <el-button class="w-1/3">二维码登录</el-button> <el-button class="w-1/3">立即注册</el-button> </div>
+        <el-divider content-position="center">第三方登录</el-divider>
+        
       </div>
     </div>
+
  </div>
 </template>
 
 <style scoped lang='less'>
 .login-container {
-  background: url('@/assets/svg/think.svg') no-repeat 20% center / 900px 700px;
 
   .navbar {
     position: absolute;
@@ -61,7 +59,14 @@ function login(): void {
 
 .form-wrapper {
   width: 420px;
+}
 
+@media (min-width: 1024px) {
+  .bg {
+    height: 500px;
+    width: 650px;
+    background: url('@/assets/svg/data-rafiki.svg') no-repeat center center / cover;
+  }
 }
 </style>
 
