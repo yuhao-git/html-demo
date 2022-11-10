@@ -1,4 +1,5 @@
 <script lang='ts' setup>
+<<<<<<< Updated upstream
 import { ref, reactive, toRefs, onBeforeMount, onMounted, watchEffect, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import sun from '@/assets/svg/sun.svg'
@@ -8,14 +9,33 @@ import PasswordForm from './components/PasswordForm.vue'
 const router = useRouter()
 
 let theme = ref(true)
+=======
+import {
+  ref,
+  reactive,
+  toRefs,
+  onBeforeMount,
+  onMounted,
+  watchEffect,
+  computed,
+} from "vue";
+import { useRoute, useRouter } from "vue-router";
+import sun from "@/assets/svg/sun.svg";
+import moon from "@/assets/svg/moon.svg";
+
+const router = useRouter();
+
+let theme = ref(true);
+>>>>>>> Stashed changes
 
 function changeTheme(value: boolean) {
-  let html = document.querySelector('html')
-  let scheme: string = value ? 'light' : 'dark';
+  let html = document.querySelector("html");
+  let scheme: string = value ? "light" : "dark";
   if (html) {
-    html.style.setProperty("color-scheme", scheme)
+    html.style.setProperty("color-scheme", scheme);
   }
 }
+<<<<<<< Updated upstream
 
 let user = reactive({ username: "", password: "" })
 
@@ -28,6 +48,18 @@ function login(): void {
   <div class="login-container pl-10 pr-10 h-full">
     <header class="navbar" > 
         <el-switch inline-prompt  v-model="theme" :active-icon="sun" :inactive-icon="moon"  @change="changeTheme"/>
+=======
+</script>
+
+<template>
+  <div class="login-container">
+    <header class="navbar">
+      <el-switch inline-prompt
+                 v-model="theme"
+                 :active-icon="sun"
+                 :inactive-icon="moon"
+                 @change="changeTheme" />
+>>>>>>> Stashed changes
     </header>
 
     <div class="h-full grid  lg:grid-cols-2 lg:gap-40 justify-center items-center">
@@ -43,18 +75,27 @@ function login(): void {
         
       </div>
     </div>
+<<<<<<< Updated upstream
 
  </div>
+=======
+  </div>
+>>>>>>> Stashed changes
 </template>
 
 <style scoped lang='less'>
 .login-container {
+<<<<<<< Updated upstream
 
+=======
+  height: 100%;
+>>>>>>> Stashed changes
   .navbar {
     position: absolute;
     right: 16px;
     top: 10px;
   }
+<<<<<<< Updated upstream
 }
 
 .form-wrapper {
@@ -66,6 +107,14 @@ function login(): void {
     height: 500px;
     width: 650px;
     background: url('@/assets/svg/data-rafiki.svg') no-repeat center center / cover;
+=======
+}
+
+.flex {
+  height: 100%;
+  .form-wrapper {
+    width: 500px;
+>>>>>>> Stashed changes
   }
 }
 </style>
