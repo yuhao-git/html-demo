@@ -16,7 +16,7 @@ const router = useRouter();
 let user = reactive({ username: "", password: "" });
 let rememberpsw = ref(true);
 function login(): void {
-  router.push("/card");
+  router.push("/dashboard");
 }
 </script>
 
@@ -32,6 +32,7 @@ function login(): void {
       <el-input class=" h-10 border-0"
                 v-model="user.password"
                 :prefix-icon="Lock"
+                type="password"
                 placeholder="密码" />
     </el-form-item>
     <div class="mb-2 flex justify-between items-center">

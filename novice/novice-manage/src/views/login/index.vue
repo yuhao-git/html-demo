@@ -42,13 +42,12 @@ function login(): void {
                  @change="changeTheme" />
     </header>
 
-    <div class="lg:bg-gray-50 lg:rounded-2xl lg:shadow-2xl lg:w-5/6 lg:h-4/5 h-full grid  lg:grid-cols-2 lg:gap-10 justify-center items-center">
+    <div class="container lg:bg-gray-50 lg:rounded-2xl lg:shadow-2xl lg:w-5/6 lg:h-4/5 h-full grid lg:grid-cols-2 lg:gap-10 justify-center items-center">
       <div class="hidden lg:flex justify-end">
-        <!-- <h1>NOVICE</h1> -->
         <div class="bg"></div>
       </div>
       <div class="lg:col-start-2 flex justify-center">
-        <div class="form-wrapper p-10 lg:shadow-lg bg-white lg:rounded-md">
+        <div class="form-wrapper p-10 lg:shadow-lg bg-white lg:rounded-lg">
           <h1 class="mb-1">欢迎!</h1>
           <p class="text-xs mb-6 text-gray-500">后台管理系统</p>
           <password-form class="mb-6"></password-form>
@@ -89,6 +88,7 @@ function login(): void {
 @media (min-width: 1024px) {
   .login-container {
     background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+    overflow: auto;
   }
   .bg {
     height: 600px;
@@ -96,6 +96,11 @@ function login(): void {
     max-width: 500px;
     background: url("@/assets/svg/data-rafiki.svg") no-repeat center center /
       cover;
+  }
+  .container{
+    max-width: 1400px;
+    max-height: 800px;
+    min-height: 560px;
   }
 }
 </style>
