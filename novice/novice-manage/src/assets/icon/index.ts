@@ -7,7 +7,7 @@ const hasViewBox = /(viewBox="[^>+].*?")/g
 const clearReturn = /(\r)|(\n)/g
 
 // 查找svg文件
-function svgFind(e: any) {
+function svgFind(e: any): Array<any> {
   const arr = []
   const dirents = readdirSync(e, { withFileTypes: true })
   for (const dirent of dirents) {
@@ -15,6 +15,7 @@ function svgFind(e: any) {
     else {
       const svg = readFileSync(e + dirent.name)
         .toString()
+        .replace(/fill=".*?"/, '')
         .replace(clearReturn, '')
         .replace(svgTitle, ($1: any, $2: any) => {
           let width = 0,

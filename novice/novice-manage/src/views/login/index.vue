@@ -1,15 +1,4 @@
 <script lang='ts' setup>
-<<<<<<< Updated upstream
-import { ref, reactive, toRefs, onBeforeMount, onMounted, watchEffect, computed } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import sun from '@/assets/svg/sun.svg'
-import moon from '@/assets/svg/moon.svg'
-import { User, Lock } from '@element-plus/icons-vue'
-import PasswordForm from './components/PasswordForm.vue'
-const router = useRouter()
-
-let theme = ref(true)
-=======
 import {
   ref,
   reactive,
@@ -22,11 +11,11 @@ import {
 import { useRoute, useRouter } from "vue-router";
 import sun from "@/assets/svg/sun.svg";
 import moon from "@/assets/svg/moon.svg";
-
+import { User, Lock } from "@element-plus/icons-vue";
+import PasswordForm from "./components/PasswordForm.vue";
 const router = useRouter();
 
 let theme = ref(true);
->>>>>>> Stashed changes
 
 function changeTheme(value: boolean) {
   let html = document.querySelector("html");
@@ -35,86 +24,78 @@ function changeTheme(value: boolean) {
     html.style.setProperty("color-scheme", scheme);
   }
 }
-<<<<<<< Updated upstream
 
-let user = reactive({ username: "", password: "" })
+let user = reactive({ username: "", password: "" });
 
 function login(): void {
-  router.push("/404")
+  router.push("/404");
 }
 </script>
 
 <template>
-  <div class="login-container pl-10 pr-10 h-full">
-    <header class="navbar" > 
-        <el-switch inline-prompt  v-model="theme" :active-icon="sun" :inactive-icon="moon"  @change="changeTheme"/>
-=======
-</script>
-
-<template>
-  <div class="login-container">
+  <div class="login-container pl-10 pr-10 h-full flex justify-center items-center">
     <header class="navbar">
       <el-switch inline-prompt
                  v-model="theme"
                  :active-icon="sun"
                  :inactive-icon="moon"
                  @change="changeTheme" />
->>>>>>> Stashed changes
     </header>
 
-    <div class="h-full grid  lg:grid-cols-2 lg:gap-40 justify-center items-center">
-      <div class="flex justify-end">
+    <div class="lg:bg-gray-50 lg:rounded-2xl lg:shadow-2xl lg:w-5/6 lg:h-4/5 h-full grid  lg:grid-cols-2 lg:gap-10 justify-center items-center">
+      <div class="hidden lg:flex justify-end">
+        <!-- <h1>NOVICE</h1> -->
         <div class="bg"></div>
       </div>
-      <div class="form-wrapper w-20 p-10 lg:col-start-2 ">
-        <h1 class="mb-1">NOVICE</h1>
-        <p class="text-xs mb-6 text-gray-500">后台管理系统</p>
-        <password-form class="mb-6"></password-form>
-        <div class="flex">  <el-button class="w-1/3">手机登录</el-button> <el-button class="w-1/3">二维码登录</el-button> <el-button class="w-1/3">立即注册</el-button> </div>
-        <el-divider content-position="center">第三方登录</el-divider>
-        
+      <div class="lg:col-start-2 flex justify-center">
+        <div class="form-wrapper p-10 lg:shadow-lg bg-white lg:rounded-md">
+          <h1 class="mb-1">欢迎!</h1>
+          <p class="text-xs mb-6 text-gray-500">后台管理系统</p>
+          <password-form class="mb-6"></password-form>
+          <div class="flex">
+            <el-button class="w-1/3">手机登录</el-button>
+            <el-button class="w-1/3">二维码登录</el-button>
+            <el-button class="w-1/3">立即注册</el-button>
+          </div>
+          <el-divider content-position="center"> <span class="text-gray-400 text-xs">第三方登录</span> </el-divider>
+          <div class="flex justify-center text-gray-400 ">
+            <svg-icon class="hover:text-blue-600 mr-10"
+                      iconClass="QQ"></svg-icon>
+            <svg-icon class="hover:text-blue-600 mr-10"
+                      iconClass="wechat"></svg-icon>
+            <svg-icon class="hover:text-blue-600"
+                      iconClass="alipay"></svg-icon>
+          </div>
+        </div>
       </div>
     </div>
-<<<<<<< Updated upstream
 
- </div>
-=======
   </div>
->>>>>>> Stashed changes
 </template>
 
 <style scoped lang='less'>
 .login-container {
-<<<<<<< Updated upstream
-
-=======
-  height: 100%;
->>>>>>> Stashed changes
   .navbar {
     position: absolute;
     right: 16px;
     top: 10px;
   }
-<<<<<<< Updated upstream
 }
 
 .form-wrapper {
-  width: 420px;
+  width: 360px;
 }
 
 @media (min-width: 1024px) {
+  .login-container {
+    background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+  }
   .bg {
-    height: 500px;
-    width: 650px;
-    background: url('@/assets/svg/data-rafiki.svg') no-repeat center center / cover;
-=======
-}
-
-.flex {
-  height: 100%;
-  .form-wrapper {
-    width: 500px;
->>>>>>> Stashed changes
+    height: 600px;
+    width: 100%;
+    max-width: 500px;
+    background: url("@/assets/svg/data-rafiki.svg") no-repeat center center /
+      cover;
   }
 }
 </style>
