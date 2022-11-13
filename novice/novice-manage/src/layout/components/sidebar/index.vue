@@ -4,11 +4,11 @@
       <!-- @open="handleOpen"
         @close="handleClose" -->
         <el-menu-item index="4">
-          <el-icon></el-icon>
+          <el-icon><user /></el-icon>
           <span>首页</span>
         </el-menu-item>
         <el-menu-item index="4">
-          <el-icon></el-icon>
+          <el-icon><location /></el-icon>
           <span>卡片设计</span>
         </el-menu-item>
       </el-menu>
