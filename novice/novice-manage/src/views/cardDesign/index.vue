@@ -16,6 +16,7 @@ import {
 import { useRouter } from "vue-router";
 const router = useRouter();
 function goBack() {
+  console.log('---')
   router.back();
 }
 </script>
