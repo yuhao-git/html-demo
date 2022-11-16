@@ -16,8 +16,7 @@ import {
 import { useRouter } from "vue-router";
 const router = useRouter();
 function goBack() {
-  console.log('---')
-  router.back();
+  router.push('/dashboard');
 }
 </script>
 <style scoped lang='less'>

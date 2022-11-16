@@ -1,9 +1,12 @@
 <template>
 <div class="h-full">
   <div class="h-full menu-container">
-    <span class="p-4">LOGO</span>
-    <el-menu :router="true">
-        <el-menu-item v-for="item in menu" :key="item.key" :index="item.path">
+    <el-image
+      class = "logo"
+      :src="logo"></el-image>
+      <p class="text-center ">NOVICE</p>
+    <el-menu :router="true" :default-active="activeMenu">
+         <el-menu-item v-for="item in menu" :key="item.key" :index="item.path">
           <svg-icon :iconClass="item.icon"></svg-icon>
           <span class="ml-1">{{ item.label }}</span>
         </el-menu-item>
@@ -14,8 +17,18 @@
 
 <script lang='ts' setup>
 import { menu } from './menu'
-import { ref } from 'vue'
-let activeMenu = ref("")
+import { ref, watch } from 'vue'
+import { useRouter } from "vue-router";
+import logo from '@/assets/png/logo.png'
+let activeMenu = ref(menu[0].path)
+
+const router = useRouter();
+
+// 监听路由变化
+watch(() => router.currentRoute.value.path, (v) => {
+  console.log(v)
+})
+
 </script>
 
 <style lang="less" scoped>
@@ -30,7 +43,7 @@ let activeMenu = ref("")
 
   .el-menu-item {
     height: 50px;
-    margin: 10px;
+    margin: 5px 10px;
     border-radius: 5px;
     user-select: none;
   }
@@ -40,5 +53,14 @@ let activeMenu = ref("")
     color: #fff;
     box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
   }
+}
+
+.logo{
+  height: 50px;
+  width: 50px;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
+  margin-top: 20px;
 }
 </style>

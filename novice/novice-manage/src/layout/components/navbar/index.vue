@@ -1,7 +1,6 @@
 <template>
   <div class="shadow-sm flex items-center  w-full justify-between pl-4 pr-4">
     <div class="flex items-center">
-      <a class="mr-4">&lt</a>
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>promotion list</el-breadcrumb-item>
         <el-breadcrumb-item>promotion detail</el-breadcrumb-item>
@@ -30,7 +29,7 @@ let theme = ref(false)
 
 const router = useRouter()
 function goBack() {
-  router.back()
+  router.replace("/login")
 }
 
 // 用户名
