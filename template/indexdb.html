@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>indexDB</title>
+  </head>
+  <body>
+
+
+    <br>
+    <br>
+    <button id='add'>add</button>
+    <br>
+    <br>
+    <input type="text" placeholder="请输入主键id删除" id="inputId">
+    <button id='deletes'>delete</button>
+    <br>
+    <br>
+    <button id='clear'>clear仓库</button>
+    <br>
+    <br>
+    <input type="text" placeholder="根据主键进行查找" id="inputGetId">
+    <button id='get'>get</button>
+    <br>
+    <br>
+    <input type="text" placeholder="根据主键进行修改" id="inputPutId">
+    <button id='put'>put</button>
+    <br>
+    <br>
+    <input type="text" placeholder="根据索引值进行查找" id="inputGetIndex"><button
+      id='getIndex'>getIndex</button>
+    <br>
+    <br>
+    <button id='getCursor'>getCursor</button>
+    <br>
+    <br>
+    <button id='indexAndCursor'>indexAndCursor（可传入条件进行筛选）</button>
+    <br>
+    <br>
+    <button id='getKeys'>getKeys（可传入条件进行筛选）</button>
+    <br>
+    <br>
+    <button id='getIndexs'>getIndexs</button>
+    <script>
+    //indexDB是浏览器本地数据库,用于存储大量数据,存储格式为json
+    window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+    let db;
+
+    //1. 打开创建数据库:
+    function openDB(name, version = 1) {
+        if (!window.indexedDB) {
+            alert('您的浏览器不支持indexDB');
+            return;
+        }
+        var indexDBRequest = window.indexedDB.open(name, version);
+        indexDBRequest.onerror = function (e) {
+            console.log('Open Error!');
+        }
+        indexDBRequest.onsuccess = function (e) {
+            db = indexDBRequest.result;//这里才是 indexedDB对象
+            console.log('创建/打开数据库成功。db:%o', db);
+            // add()
+        }
+        // 注意: 只能请求>=当前数据库版本号的版本
+        //  大于当前版本号, 则触发 onupgradeneeded,
+        //  小于当前版本号，则触发 onerror
+        indexDBRequest.onupgradeneeded = function (e) {
+            console.log('DB version change to ' + version);
+            db = indexDBRequest.result;
+            //4. 有了数据库后我们自然希望创建一个表用来存储数据，但indexedDB中没有表的概念，而是叫 objectStore ，一个数据库中可以包含多个objectStore，objectStore是一个灵活的数据结构，可以存放多种类型数据。也就是说一个objectStore相当于一张表，里面存储的每条数据和一个键相关联。
+            if (!db.objectStoreNames.contains('persons')) {
+                //keyPath	对象，eg: {keyPath: ‘id’}
+                // keyGenerator	任意值 eg: {autoincrement: true}
+                /*
+                    自动生成主键：
+                    var objectStore = db.createObjectStore(
+                      'students',
+                      { autoIncrement: true }
+                    );
+                */
+                var store = db.createObjectStore('persons', {keyPath: 'id'});
+                //删除objectStore
+                // db.deleteObjectStore('storeName');
+                //10. 创建索引
+                // 在indexedDB中有两种索引，一种是自增长的int值，一种是keyPath：自己指定索引列
+                store.createIndex('nameIndex', 'name', {unique: true});
+                store.createIndex('ageIndex', 'age', {unique: false});
+                //store中有三列数据:id | name | age
+                console.log('第一次创建数据库或者更新数据库。db:%o', db);
+            }
+        }
+    }
+
+    openDB("aiwa_db")
+
+
+    //2、保存数据到objectStore
+    function addData(storeName, data) {
+        //创建事务
+        var transaction = db.transaction([storeName], 'readwrite');
+        //访问事务中的objectStore
+        var store = transaction.objectStore(storeName);
+        var addRequest
+        //data为数组
+        if (Array.isArray(data)) {
+            data.forEach(async (item, index) => {
+                await store.add(item);//保存数据
+            });
+
+        } else {
+            addRequest = store.add(data);
+            addRequest.onsuccess = function (event) {
+                console.log('save data done...', store);
+            };
+
+            addRequest.onerror = function (event) {
+                console.log('数据写入失败', store);
+            }
+        }
+
+
+    }
+
+    add.onclick = () => {
+        let obj = {id: Math.round(Math.random() * 100), name: '张三' + Math.round(Math.random() * 100), age: 26}
+        addData('persons', obj);
+        console.log(obj)
+    }
+
+    //3. 根据主键删除数据
+    function deleteDataByKey(storeName, key) {
+        var transaction = db.transaction([storeName], 'readwrite');
+        var store = transaction.objectStore(storeName);
+        var deleteRequest = store.delete(key);
+        deleteRequest.onsuccess = function (e) {
+            console.log('delete data done...', store);
+        }
+        deleteRequest.onerror = function (e) {
+            console.log('delete data failed...', store);
+        }
+    }
+
+    deletes.onclick = function () {
+        deleteDataByKey('persons', inputId.value ? Number(inputId.value) : 0);
+    };
+
+    //4、clear仓库
+    function clearObjectStore(storeName) {
+        var transaction = db.transaction([storeName], 'readwrite');
+        var store = transaction.objectStore(storeName);
+        store.clear();
+        console.log('clear data done...');
+    }
+
+    clear.onclick = function () {
+        clearObjectStore('persons');
+    };
+
+    //5、查找数据
+    function getDataByKey(storeName, key) {
+        var transaction = db.transaction([storeName], 'readwrite');
+        var store = transaction.objectStore(storeName);
+        var dataRequest = store.get(key);
+        //异步的
+        dataRequest.onsuccess = function (e) {
+            var data = e.target.result;
+            console.log(data);
+        }
+    }
+
+    get.onclick = function () {
+        getDataByKey('persons', inputGetId.value ? Number(inputGetId.value) : 0);
+    };
+    //6、修改数据 inputPutId.value
+    function putDataByKey(storeName, data){
+        let transaction = db.transaction([storeName], "readwrite");
+        let store = transaction.objectStore(storeName)
+        store.put(data)
+    }
+    put.onclick = function(){
+        let obj = {id: inputPutId.value ? Number(inputPutId.value) : 0  , name: '张三' + Math.round(Math.random() * 100), age:  Math.round(Math.random() * 100)}
+        putDataByKey('persons', obj);
+        console.log(obj)
+    }
+
+    // 7、获取索引值对应的数据
+    function getDataByIndex(storeName,indexName, value){
+        var transaction = db.transaction([storeName],'readwrite');
+        var store = transaction.objectStore(storeName);
+        var index = store.index(indexName);//获取索引
+        var request = index.get(value);
+        request.onsuccess = function(e){
+            var data = e.target.result;
+            console.log(data?data:"索引对应的值不存在");
+        }
+    }
+    getIndex.onclick = function(){
+        getDataByIndex('persons','nameIndex',inputGetIndex.value);
+    };
+
+    //8. 根据游标获取数据
+    function fetchStoreByCursor(storeName){
+        var transaction = db.transaction([storeName],'readwrite');
+        var store = transaction.objectStore(storeName);
+        var cursorRequest = store.openCursor();
+        cursorRequest.onsuccess = function(e){
+            var cursor = e.target.result;
+            if(cursor){
+                var currentData = cursor.value;
+                console.log(currentData);
+                cursor.continue();
+            }
+        }
+    }
+    getCursor.onclick = function(){
+        fetchStoreByCursor('persons');
+    };
+
+
+    //9. 游标与index结合
+    //获取age为26的persons
+    // index.openCursor()/index.openKeyCursor() 方法在不传递参数的时候会获取objectStore所有记录，像上面例子一样我们可以对搜索进行筛选
+    // 可以使用 IDBKeyRange 限制游标中值的范围，把它作为第一个参数传给 openCursor() 或是 openKeyCursor()
+    //
+    // IDBKeyRange.only(value):只获取指定数据
+    // IDBKeyRange.lowerBound(value,isOpen)：获取最小是value的数据，第二个参数用来指示是否排除value值本身，也就是数学中的是否是开区间
+    // IDBKeyRange.upperBound(value,isOpen)：和上面类似，用于获取最大值是value的数据
+    // IDBKeyRange.bound(value1,value2,isOpen1,isOpen2)
+    function getMultipleData(storeName, indexName){
+        var transaction=db.transaction([storeName]);
+        var store=transaction.objectStore(storeName);
+        var index = store.index(indexName);
+        //传入索引限制条件
+        var request=index.openCursor(IDBKeyRange.only(26))
+        request.onsuccess=function(e){
+            var cursor=e.target.result;
+            if(cursor){
+                var person=cursor.value;
+                console.log(person);
+                cursor.continue();
+            }
+        }
+    }
+    indexAndCursor.onclick = function(){
+        getMultipleData('persons','ageIndex');
+    };
+
+
+
+    // 10、获取主键处于某一范围的值(不会对data进行deepClone)
+    function getKeysByKeyRange(storeName){
+        var transaction=db.transaction([storeName]);
+        var store=transaction.objectStore(storeName);
+        // var keyRange = IDBKeyRange.bound(0, 100,false,false); // [0,3]keyRange
+        var request = store.getAllKeys();
+        request.onsuccess=function(e){
+            var cursor=e.target.result;
+            console.log('getKeys...',cursor)
+        }
+    }
+    getKeys.onclick = function(){
+        getKeysByKeyRange('persons');
+    };
+    // 11、获取index处于某一范围的值(不会对data进行deepClone)
+    function getIndexsByCondition(storeName,indexName){
+        var transaction=db.transaction([storeName]);
+        var store=transaction.objectStore(storeName);
+        var index = store.index(indexName);
+        var request = index.openKeyCursor(IDBKeyRange.bound(0,100,false, false ));
+        request.onsuccess = function(event) {
+            var cursor = event.target.result;
+            if(cursor) {
+                // console.log(cursor)  //非数据项
+                console.log('cursor.key',cursor.key,'cursor.primaryKey',cursor.primaryKey)
+                cursor.continue();
+            } else {
+                console.log('All last names displayed.');
+            }
+        };
+    }
+    getIndexs.onclick = function(){
+        getIndexsByCondition('persons','ageIndex');
+    };
+</script>
+  </body>
+</html>

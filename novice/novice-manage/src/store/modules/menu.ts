@@ -3,12 +3,12 @@ import { store } from "@/store";
 
 export const useUserStore = defineStore({
   id: "menu",
-  state: (): () => ({
+  state: () => ({
     // 选中菜单
-    activeMenu:"",
+    activeMenu: "",
   }),
   actions: {
-    setActiveMenuId(menu){
+    setActiveMenuId(menu: string) {
       this.activeMenu = menu
     }
   },
