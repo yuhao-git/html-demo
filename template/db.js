@@ -1,25 +1,9 @@
 /**
  * indexDB缓存图片
  */
-
-//  putElephantInDb = function (blob) {
-//   var transaction = db.transaction(["elephants"], "readwrite");
-//   var put = transaction.objectStore("elephants").put(blob, "image");
-//   transaction.objectStore("elephants").get("image").onsuccess = function (event) {
-//     var imgFile = event.target.result;
-//     var URL = window.URL || window.webkitURL;
-//     var imgURL = URL.createObjectURL(new Blob([imgFile]));
-//     var imgElephant = document.createElement('img')
-//     imgElephant.setAttribute("src", imgURL);
-//     URL.revokeObjectURL(imgURL);
-//     imgElephant.remove()
-//   };
-// };
-
 // IndexedDB
-var indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.OIndexedDB || window.msIndexedDB,
-  IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.OIDBTransaction || window.msIDBTransaction,
-  dbVersion = 1.0;
+let indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.OIndexedDB || window.msIndexedDB,
+  IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.OIDBTransaction || window.msIDBTransaction;
 
 let dbName = 'hfoffice_db' // 数据库名称
 let tableName = 'elephant' // 表名称
@@ -111,46 +95,25 @@ async function putDataByKey(data, storeName = tableName) {
 
 
 // 获取图片文件
-function getImageFile(url = "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg") {
+function getImageFile(url = "https://img01.yzcdn.cn/vant/cat.jpeg") {
   return new Promise((resolve, reject) => {
     var xhr = new XMLHttpRequest(), blob;
-    xhr.open("GET", url, false);
+    xhr.open("GET", url);
     xhr.responseType = "blob";
     // xhr.responseType = 'arraybuffer';
     xhr.addEventListener("load", function () {
       if (xhr.status === 200) {
         let blob = xhr.response;
-        
         resolve(blob)
-
-        blob = new Blob([blob])
-        var reader = new window.FileReader();
-        reader.readAsDataURL(blob);
-
-        console.log(blob)
-
       }
     }, false);
     xhr.send();
-
-    // let imgElephant = document.createElement('img')
-    // imgElephant.setAttribute("src", url)
-    // imgElephant.onload = function (e) {
-    //   console.log(e.target)
-    //   let dom = e.target
-    //   let blob = new Blob([dom])
-    //   console.log(blob)
-    // }
-
-
   })
 }
 
-getImageFile().then((data) => {
-  addData({ id: "2", value: data })
-})
-
-
+// getImageFile().then((data) => {
+//   addData({ id: "2", value: data })
+// })
 
 // 使用示例
 // addData({ id: "2", value: "小飞棍" })
@@ -158,15 +121,60 @@ getImageFile().then((data) => {
 // deleteDataByKey('2')
 // getDataByKey("2").then(data => {
 //   var imgFile = data.value;
-//   // console.log(data.value)
-
-//   var URL = window.URL || window.webkitURL;
-//   var imgURL = URL.createObjectURL(new Blob([imgFile]));
-
-//   console.log(imgURL)
-//   var imgElephant = document.createElement('img')
-//   imgElephant.setAttribute("src", imgURL)
-//   URL.revokeObjectURL(imgURL);
-//   document.body.appendChild(imgElephant)
+//   var imgURL = window.URL.createObjectURL(new Blob([imgFile]));
+//   appendImgToDom(imgURL)
 // })
 // clearObjectStore()
+
+
+function appendImgToDom(imgURL) {
+  // var imgElephant = document.createElement('img')
+  var imgElephant = document.querySelector('img')
+  imgElephant.setAttribute("src", imgURL)
+  // document.body.appendChild(imgElephant)
+  imgElephant.onload = function () {
+    URL.revokeObjectURL(imgURL);
+  }
+}
+
+// 图片缓存到本地
+async function getImage(id, url) {
+  let data = await getDataByKey(id)
+  let imgFile = ""
+  // 未缓存
+  if (!data) {
+    let value = await getImageFile(url)
+    addData({ id, value })
+    imgFile = value
+  }
+  // 已缓存
+  else {
+    imgFile = await data.value
+  }
+  let blobUrl = window.URL.createObjectURL(new Blob([imgFile]));
+  return blobUrl
+}
+
+let data = [{
+  id: "1",
+  url: "https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg"
+},
+{
+  id: "2",
+  url: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
+},
+{
+  id: "3",
+  url: "https://img01.yzcdn.cn/vant/cat.jpeg"
+},
+]
+// https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg
+// https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg
+// https://img01.yzcdn.cn/vant/cat.jpeg
+async function main(index = 0) {
+  let url = await getImage(data[index].id, data[index].url)
+  appendImgToDom(url)
+}
+
+main()
+
