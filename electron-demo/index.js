@@ -12,5 +12,5 @@ app.on('ready', () => {
     const mainWindow = new BrowserWindow()
 
     //窗口加载html文件
-    mainWindow.loadFile('./src/main.html')
+    mainWindow.loadFile('./src/index.html')
 })

@@ -9,7 +9,7 @@ import { defineComponent, computed } from "vue";
 export default defineComponent({
   name: "SvgIcon",
   props: {
-    iconClass: {
+    name: {
       type: String,
       required: true,
     },
@@ -27,7 +27,7 @@ export default defineComponent({
       }
     });
     const iconName = computed(() => {
-      return `#icon-${props.iconClass}`;
+      return `#icon-${props.name}`;
     });
     return {
       svgClass,
@@ -36,7 +36,7 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="css">
+<style lang="css" scoped>
 .svg-icon {
   width: 1.2em;
   height: 1.2em;

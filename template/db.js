@@ -104,6 +104,7 @@ function getImageFile(url = "https://img01.yzcdn.cn/vant/cat.jpeg") {
     xhr.addEventListener("load", function () {
       if (xhr.status === 200) {
         let blob = xhr.response;
+        console.log(xhr)
         resolve(blob)
       }
     }, false);

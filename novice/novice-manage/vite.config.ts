@@ -20,6 +20,7 @@ const alias: Record<string, string> = {
 
 
 export default defineConfig({
+  base: './',
   resolve: {
     alias
   },

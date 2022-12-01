@@ -1,11 +1,11 @@
 import { defineStore } from "pinia";
 import { store } from "@/store";
 
-export const useUserStore = defineStore({
+export const useMenuStore = defineStore({
   id: "menu",
   state: () => ({
-    // 选中菜单
-    activeMenu: "",
+    activeMenu: "",   // 选中菜单
+    collapsed: false, // 折叠
   }),
   actions: {
     setActiveMenuId(menu: string) {
@@ -19,6 +19,6 @@ export const useUserStore = defineStore({
   // },
 });
 
-export function useUserStoreHook() {
-  return useUserStore(store);
+export function useMenuStoreHook() {
+  return useMenuStore(store);
 }
