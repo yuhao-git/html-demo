@@ -14,22 +14,23 @@
           <ArrowLeftBold v-else />
         </el-icon>
       </el-tag>
-
-      <div class="test "
-           :class="[collapsed?'collapsed-width':'expend-width']"></div>
+      <!-- <div class="test "
+           :class="[collapsed?'collapsed-width':'expend-width']"></div> -->
       <el-menu :router="true"
                :default-active="activeMenu"
                :collapse="collapsed">
-        <el-menu-item v-for="item in menu"
-                      :key="item.key"
-                      :index="item.path"
-                      :class="[collapsed?'collapsed-width':'expend-width']">
+      <transition name="el-zoom-in-center" 
+                      v-for="item in menu"
+                      :key="item.key">
+        <el-menu-item 
+                      :index="item.path">
           <svg-icon :name="item.icon"
                     className="svg-icon"></svg-icon>
           <template #title>
             <span class="ml-2">{{ item.label }}</span>
           </template>
         </el-menu-item>
+      </transition>
       </el-menu>
     </div>
   </div>
@@ -43,8 +44,8 @@ import { storeToRefs } from "pinia";
 import { ArrowLeftBold, ArrowRightBold } from "@element-plus/icons-vue";
 
 import logo from "@/assets/png/logo.png";
-
 import { useMenuStoreHook } from "@/store/modules/menu";
+let flag = ref(true)
 
 const menuStoreHook = useMenuStoreHook();
 
@@ -77,7 +78,6 @@ watch(
     margin: 0 0 5px 0;
     border-radius: 5px;
     user-select: none;
-    transition: 0.3s;
   }
 
   .el-menu-item.is-active {
@@ -87,12 +87,7 @@ watch(
   }
 }
 
-.test {
-  border: 2px solid;
-  margin: 10px 0;
-  height: 10px;
-  transition: 0.3s;
-}
+
 .collapsed-width {
   width: 64px;
 }

@@ -21,8 +21,8 @@ export default defineComponent({
 
 <template>
   <div class="h-full flex">
-    <aside class="h-full flex-none aside duration-300 w-60 overflow-x-hidden overflow-y-auto ease-in-out">
-      <!-- :class="[collapsed?'aside-collapsed':'w-60']"> -->
+    <aside class="h-full flex-none aside  overflow-x-hidden overflow-y-auto "
+      :class="[collapsed  ?  'aside-collapsed'  :  'aside-expend']">
       <sidebar></sidebar>
     </aside>
     <main class="h-full w-full ">
@@ -39,10 +39,17 @@ export default defineComponent({
 .aside {
   position: relative;
   z-index: 2;
+  transition: 0.3s ease-in-out;
 }
 
 .aside-collapsed {
   width: 80px;
+  // min-width: 80px;
+}
+
+.aside-expend{
+  // min-width: 224px;
+  width: 224px;
 }
 
 .main-content {
