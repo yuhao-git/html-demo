@@ -15,14 +15,19 @@ export default defineComponent({
       collapsed,
     };
   },
+  methods: {
+    changeCollapsed() {
+      this.collapsed = !this.collapsed;
+    },
+  },
 });
 </script>
 
 
 <template>
-  <div class="h-full flex">
-    <aside class="h-full flex-none aside  overflow-x-hidden overflow-y-auto "
-      :class="[collapsed  ?  'aside-collapsed'  :  'aside-expend']">
+  <div class="h-full flex relative">
+    <aside class="h-full flex-none aside overflow-visible"
+           :class="[collapsed  ?  'aside-collapsed'  :  'aside-expend']">
       <sidebar></sidebar>
     </aside>
     <main class="h-full w-full ">
@@ -44,11 +49,9 @@ export default defineComponent({
 
 .aside-collapsed {
   width: 80px;
-  // min-width: 80px;
 }
 
-.aside-expend{
-  // min-width: 224px;
+.aside-expend {
   width: 224px;
 }
 
@@ -56,5 +59,9 @@ export default defineComponent({
   height: calc(100% - 48px);
   position: relative;
   z-index: 1;
+}
+
+.collapse-icon {
+  right: 0;
 }
 </style>

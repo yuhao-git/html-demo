@@ -1,36 +1,32 @@
 <template>
-  <div class="h-full">
-    <div class="h-full menu-container  p-2">
-      <!-- <el-image class="logo"
+  <div class="h-full aside-container">
+    <div class="h-full menu-container p-2">
+      <el-image class="logo"
                 :src="logo"></el-image>
-      <p class="text-center ">NOVICE</p> -->
-
-      <el-tag @click="collapsed = !collapsed"
+      <p class="text-center ">NOVICE</p>
+      <el-tag @click="changeCollapsed"
               color="#fff"
-              class="cursor-pointer select-none shadow-md my-2 p-0"
+              class="collapse-btn  cursor-pointer select-none shadow-md my-2 p-0 absolute z-10 "
               round>
         <el-icon>
           <ArrowRightBold v-if="collapsed" />
           <ArrowLeftBold v-else />
         </el-icon>
       </el-tag>
-      <!-- <div class="test "
-           :class="[collapsed?'collapsed-width':'expend-width']"></div> -->
       <el-menu :router="true"
+               popper-effect="light"
                :default-active="activeMenu"
                :collapse="collapsed">
-      <transition name="el-zoom-in-center" 
+        <el-menu-item :index="item.path"
                       v-for="item in menu"
+                      @click="menuStoreHook.setActiveMenuId(item.path)"
                       :key="item.key">
-        <el-menu-item 
-                      :index="item.path">
           <svg-icon :name="item.icon"
                     className="svg-icon"></svg-icon>
           <template #title>
             <span class="ml-2">{{ item.label }}</span>
           </template>
         </el-menu-item>
-      </transition>
       </el-menu>
     </div>
   </div>
@@ -38,19 +34,20 @@
 
 <script lang='ts' setup>
 import { menu } from "./menu";
-import { ref, toRef, watch } from "vue";
+import { nextTick, ref, toRef, watch } from "vue";
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import { ArrowLeftBold, ArrowRightBold } from "@element-plus/icons-vue";
 
 import logo from "@/assets/png/logo.png";
 import { useMenuStoreHook } from "@/store/modules/menu";
-let flag = ref(true)
+let flag = ref(true);
 
 const menuStoreHook = useMenuStoreHook();
 
-let activeMenu = ref(menu[0].path);
-let { collapsed } = storeToRefs(menuStoreHook);
+
+let { collapsed, activeMenu } = storeToRefs(menuStoreHook);
+menuStoreHook.setActiveMenuId(menu[0].path);
 
 const router = useRouter();
 
@@ -58,9 +55,13 @@ const router = useRouter();
 watch(
   () => router.currentRoute.value.path,
   (v) => {
-    console.log(v);
+    // console.log(v);
   }
 );
+
+function changeCollapsed() {
+  collapsed.value = !collapsed.value;
+}
 </script>
 
 <style lang="less" scoped>
@@ -74,26 +75,8 @@ watch(
   }
 
   .el-menu-item {
-    height: 50px;
-    margin: 0 0 5px 0;
-    border-radius: 5px;
     user-select: none;
   }
-
-  .el-menu-item.is-active {
-    background-color: var(--el-color-primary);
-    color: #fff;
-    box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
-  }
-}
-
-
-.collapsed-width {
-  width: 64px;
-}
-
-.expend-width {
-  width: 224px;
 }
 
 .logo {
@@ -108,5 +91,17 @@ watch(
 .svg-icon {
   flex: none;
   width: 24px;
+}
+
+.collapse-btn {
+  right: -15px;
+  top: 100px;
+  display: none;
+}
+
+.aside-container {
+  &:hover .collapse-btn {
+    display: inline-flex;
+  }
 }
 </style>

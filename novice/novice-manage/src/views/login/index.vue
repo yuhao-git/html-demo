@@ -60,11 +60,11 @@ function login(): void {
           <el-divider content-position="center"> <span class="text-gray-400 text-xs">第三方登录</span> </el-divider>
           <div class="flex justify-center text-gray-400 ">
             <svg-icon class="hover:text-blue-600 mr-10"
-                      iconClass="QQ"></svg-icon>
+                      name="QQ"></svg-icon>
             <svg-icon class="hover:text-blue-600 mr-10"
-                      iconClass="wechat"></svg-icon>
+                      name="wechat"></svg-icon>
             <svg-icon class="hover:text-blue-600"
-                      iconClass="alipay"></svg-icon>
+                      name="alipay"></svg-icon>
           </div>
         </div>
       </div>

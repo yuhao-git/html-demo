@@ -5,7 +5,7 @@ export const useMenuStore = defineStore({
   id: "menu",
   state: () => ({
     activeMenu: "",   // 选中菜单
-    collapsed: false, // 折叠
+    collapsed: true, // 折叠
   }),
   actions: {
     setActiveMenuId(menu: string) {
