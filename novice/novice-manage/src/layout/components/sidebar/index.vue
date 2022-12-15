@@ -62,6 +62,8 @@ watch(
 function changeCollapsed() {
   collapsed.value = !collapsed.value;
 }
+
+
 </script>
 
 <style lang="less" scoped>

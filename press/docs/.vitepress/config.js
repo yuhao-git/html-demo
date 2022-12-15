@@ -33,6 +33,11 @@ module.exports = {
         link: '/vue3/index.md',
         activeMatch: '/vue3/index.md'
       },
+      {
+        text: 'novice',
+        link: '/novice/config.md',
+        activeMatch: '/novice/config.md'
+      },
     ],
     sidebar: {
       '/start/': [
@@ -71,6 +76,18 @@ module.exports = {
             {
               text: 'less换肤',
               link: '/vue3/themeLess.md'
+            },
+          ]
+        }
+      ],
+      '/novice/': [
+        {
+          text: "novice-manage",
+          collapsible: true,
+          items: [
+            {
+              text: 'vite.config',
+              link: '/novice/config.md'
             },
           ]
         }

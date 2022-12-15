@@ -1,35 +1,36 @@
 <template>
   <div class="shadow-sm flex items-center  w-full justify-between pl-4 pr-4">
     <div class="flex items-center">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item>promotion list</el-breadcrumb-item>
-        <el-breadcrumb-item>promotion detail</el-breadcrumb-item>
-      </el-breadcrumb>
+      <breadcrumb name="breadcrumb" />
     </div>
     <div>
-      
-    <el-button class="mr-4" @click="goBack" type="primary" link> {{username}} - 退出登录</el-button>
-    <el-switch inline-prompt
+
+      <el-button class="mr-4"
+                 @click="goBack"
+                 type="primary"
+                 link> {{username}} </el-button>
+
+      <el-switch inline-prompt
                  v-model="theme"
                  :active-icon="sun"
                  :inactive-icon="moon"
                  @change="changeTheme" />
-  </div>
+    </div>
   </div>
 </template>
 
 <script lang='ts' setup>
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 import moon from "@/assets/svg/moon.svg";
 import sun from "@/assets/svg/sun.svg";
-import { ref, computed } from 'vue'
+import { ref, computed } from "vue";
 import { useUserStoreHook } from "@/store/modules/user";
+import breadcrumb from "./breadcrumb.vue";
+let theme = ref(false);
 
-let theme = ref(false)
-
-const router = useRouter()
+const router = useRouter();
 function goBack() {
-  router.replace("/login")
+  router.replace("/login");
 }
 
 // 用户名
@@ -41,10 +42,8 @@ function goBack() {
 // store.$patch((state) => {
 // })
 
-
- // 替换数据
+// 替换数据
 // store.$state = { counter: 666, name: '张三' }
-
 
 /** 用户名 */
 const username = computed(() => {
@@ -58,10 +57,4 @@ function changeTheme(value: boolean) {
     html.style.setProperty("color-scheme", scheme);
   }
 }
-
-
-
 </script>
-<style scoped lang='less'>
-
-</style>
