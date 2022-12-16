@@ -13,23 +13,21 @@ import sun from "@/assets/svg/sun.svg";
 import moon from "@/assets/svg/moon.svg";
 import { User, Lock } from "@element-plus/icons-vue";
 import PasswordForm from "./components/PasswordForm.vue";
+import { useThemeStoreHook } from "@/store/modules/theme";
+import { storeToRefs } from "pinia";
+
 const router = useRouter();
-
-let theme = ref(true);
-
-function changeTheme(value: boolean) {
-  let html = document.querySelector("html");
-  let scheme: string = value ? "light" : "dark";
-  if (html) {
-    html.style.setProperty("color-scheme", scheme);
-  }
-}
-
 
 let user = reactive({ username: "", password: "" });
 
 function login(): void {
   router.push("/404");
+}
+
+const themeStore = useThemeStoreHook();
+let { isLight } = storeToRefs(themeStore);
+function changeTheme(value: boolean) {
+  themeStore.changeTheme(value);
 }
 </script>
 
@@ -37,7 +35,7 @@ function login(): void {
   <div class="login-container pl-10 pr-10 h-full flex justify-center items-center">
     <header class="navbar">
       <el-switch inline-prompt
-                 v-model="theme"
+                 v-model="isLight"
                  :active-icon="sun"
                  :inactive-icon="moon"
                  @change="changeTheme" />
@@ -98,7 +96,7 @@ function login(): void {
     background: url("@/assets/svg/data-rafiki.svg") no-repeat center center /
       cover;
   }
-  .container{
+  .container {
     max-width: 1400px;
     max-height: 800px;
     min-height: 560px;

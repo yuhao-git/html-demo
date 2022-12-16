@@ -1,17 +1,27 @@
 <template>
   <div class="shadow-sm flex items-center  w-full justify-between pl-4 pr-4">
     <div class="flex items-center">
-      <breadcrumb name="breadcrumb" />
+      <!-- <breadcrumb /> -->
     </div>
     <div>
-
-      <el-button class="mr-4"
-                 @click="goBack"
-                 type="primary"
-                 link> {{username}} </el-button>
-
+      <el-popover placement="bottom"
+                  :width="200"
+                  trigger="hover">
+        <template #reference>
+          <el-button class="mr-4"
+                     type="primary"
+                     link>
+            <el-icon class="mr-1"
+                     size="20">
+              <Avatar />
+            </el-icon>
+            <span>{{username}}</span>
+          </el-button>
+        </template>
+        <userInfo />
+      </el-popover>
       <el-switch inline-prompt
-                 v-model="theme"
+                 v-model="isLight"
                  :active-icon="sun"
                  :inactive-icon="moon"
                  @change="changeTheme" />
@@ -25,8 +35,11 @@ import moon from "@/assets/svg/moon.svg";
 import sun from "@/assets/svg/sun.svg";
 import { ref, computed } from "vue";
 import { useUserStoreHook } from "@/store/modules/user";
-import breadcrumb from "./breadcrumb.vue";
-let theme = ref(false);
+import { useThemeStoreHook } from "@/store/modules/theme";
+import { storeToRefs } from "pinia";
+
+// import breadcrumb from "./breadcrumb.vue";
+import userInfo from "./userInfo.vue";
 
 const router = useRouter();
 function goBack() {
@@ -34,9 +47,15 @@ function goBack() {
 }
 
 // 用户名
-// import { storeToRefs } from 'pinia';
-// const store = useUserStoreHook();
-// const { username } = storeToRefs(store);
+const userStore = useUserStoreHook();
+const { username } = storeToRefs(userStore);
+
+// 主题
+const themeStore = useThemeStoreHook();
+let { isLight } = storeToRefs(themeStore);
+function changeTheme(value: boolean) {
+  themeStore.changeTheme(value);
+}
 
 // 重置数据
 // store.$patch((state) => {
@@ -44,17 +63,4 @@ function goBack() {
 
 // 替换数据
 // store.$state = { counter: 666, name: '张三' }
-
-/** 用户名 */
-const username = computed(() => {
-  return useUserStoreHook()?.username;
-});
-
-function changeTheme(value: boolean) {
-  let html = document.querySelector("html");
-  let scheme: string = value ? "light" : "dark";
-  if (html) {
-    html.style.setProperty("color-scheme", scheme);
-  }
-}
 </script>

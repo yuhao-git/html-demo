@@ -35,7 +35,14 @@ export default defineComponent({
         <navbar></navbar>
       </header>
       <section class="main-content bg-gray-100 p-4">
-        <router-view></router-view>
+        <router-view v-slot="{ Component }">
+          <transition name="fade-transform"
+                      mode="out-in">
+            <keep-alive :include="[]">
+              <component :is="Component" />
+            </keep-alive>
+          </transition>
+        </router-view>
       </section>
     </main>
   </div>
@@ -59,9 +66,44 @@ export default defineComponent({
   height: calc(100% - 48px);
   position: relative;
   z-index: 1;
+  overflow-x: hidden;
 }
 
 .collapse-icon {
   right: 0;
+}
+
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  transition: all 0.3s;
+}
+
+.fade-transform-enter-from {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.fade-transform-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+/* breadcrumb transition */
+.breadcrumb-enter-active {
+  transition: all 0.3s;
+}
+
+.breadcrumb-leave-active {
+  transition: all 0.2s;
+}
+
+.breadcrumb-enter-from,
+.breadcrumb-leave-active {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.breadcrumb-leave-active {
+  position: absolute;
 }
 </style>

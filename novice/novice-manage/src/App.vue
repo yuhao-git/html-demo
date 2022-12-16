@@ -1,7 +1,6 @@
 <template>
   <router-view v-slot="{ Component }">
-    <transition name="fade-transform"
-                mode="out-in">
+    <transition mode="out-in">
       <keep-alive :exclude="isCached">
         <component :is="Component" />
       </keep-alive>
@@ -11,5 +10,6 @@
 
 <script setup>
 let isCached = [];
+
 </script>
 

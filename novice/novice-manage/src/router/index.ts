@@ -1,27 +1,27 @@
-import {
-  createRouter,
-  createWebHashHistory
-} from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
+import NProgress from "@/utils/progress";
+// 自动引入 ./modules下的路由
+const routes: any[] = [];
 
-import login from '../views/login/index.vue'
-import layout from "../layout/index.vue"
-const routes = [
-  { path: "/", redirect: "/login" },
-  { path: "/login", component: login },
-  { path: "/404", component: () => import('../views/error/404.vue') },
-  { path: "/:pathMatch(.*)", redirect: "/404" },
-  {
-    path: "/", component: layout, children: [
-      { path: "/card", component: () => import('@/views/cardDesign/index.vue') },
-      { path: "/dashboard", component: () => import('@/views/dashboard/index.vue') },
-    ]
-  },
-]
+const modules: Record<string, any> = import.meta.glob(["./modules/**/*.ts"], {
+  eager: true,
+});
 
+Object.keys(modules).forEach((key) => {
+  routes.push(...modules[key].default);
+});
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
-})
+  routes,
+});
 
-export default router
+router.beforeEach(() => {
+  NProgress.start();
+});
+
+router.afterEach(() => {
+  NProgress.done();
+});
+
+export default router;

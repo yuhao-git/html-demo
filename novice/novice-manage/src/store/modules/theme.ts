@@ -4,17 +4,25 @@
 import { store } from "@/store";
 import { defineStore } from "pinia";
 
-
 export const useThemeStore = defineStore({
+  id: "theme",
   state: () => ({
-    theme: ""
+    isLight: true,
   }),
-  getters: {
+  actions: {
+    changeTheme(value: boolean) {
+      this.isLight = value;
+      let html = document.querySelector("html");
+      let scheme: string = this.isLight ? "light" : "dark";
+      html?.style.setProperty("color-scheme", scheme);
 
-  }
-})
-
+      this.isLight
+        ? html?.classList.remove("dark")
+        : html?.classList.add("dark");
+    },
+  },
+});
 
 export function useThemeStoreHook() {
-  return themeStore(store);
+  return useThemeStore(store);
 }
