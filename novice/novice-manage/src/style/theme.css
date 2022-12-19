@@ -1,0 +1,16 @@
+:root {
+  --login-form-bg: #fff;
+  --login-bg: linear-gradient(to right, #6a11cb 0%, #2575fc 10%);
+  --split-border-color: #f0f2f5;
+  --main-bg-color: #f0f2f5;
+  --collapse-btn-bg: #fff;
+}
+
+.dark {
+  --login-form-bg: #222;
+  /* --login-bg: linear-gradient(180deg, #333 0%, #000 100%); */
+  --login-bg: #333;
+  --split-border-color: #333;
+  --main-bg-color: #121212;
+  --collapse-btn-bg: #333;
+}

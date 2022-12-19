@@ -23,7 +23,6 @@ export default defineComponent({
 });
 </script>
 
-
 <template>
   <div class="h-full flex relative">
     <aside class="h-full flex-none aside overflow-visible"
@@ -31,10 +30,10 @@ export default defineComponent({
       <sidebar></sidebar>
     </aside>
     <main class="h-full w-full ">
-      <header class="h-12 w-full bordedr-4 flex">
+      <header class="header h-12 w-full bordedr-4 flex">
         <navbar></navbar>
       </header>
-      <section class="main-content bg-gray-100 p-4">
+      <section class="main-content  p-4">
         <router-view v-slot="{ Component }">
           <transition name="fade-transform"
                       mode="out-in">
@@ -47,11 +46,17 @@ export default defineComponent({
     </main>
   </div>
 </template>
+
 <style lang="less" scoped>
 .aside {
   position: relative;
   z-index: 2;
-  transition: 0.3s ease-in-out;
+  transition: width 0.3s ease-in-out;
+  border-right: 1px solid var(--split-border-color);
+}
+
+.header {
+  border-bottom: 1px solid var(--split-border-color);
 }
 
 .aside-collapsed {
@@ -67,6 +72,7 @@ export default defineComponent({
   position: relative;
   z-index: 1;
   overflow-x: hidden;
+  background-color: var(--main-bg-color);
 }
 
 .collapse-icon {

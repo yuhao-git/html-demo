@@ -9,15 +9,25 @@ import {
   computed,
 } from "vue";
 import { useRoute, useRouter } from "vue-router";
-
+import { useUserStoreHook } from "@/store/modules/user.ts";
 import { User, Lock } from "@element-plus/icons-vue";
+import { storeToRefs } from "pinia";
 const router = useRouter();
 
 let user = reactive({ username: "", password: "" });
+
+let userStore = useUserStoreHook();
+let { username } = storeToRefs(userStore);
+
 let rememberpsw = ref(true);
 function login(): void {
+  username.value = user.username;
   router.push("/dashboard");
 }
+
+onMounted(() => {
+  user.username = username.value;
+});
 </script>
 
 <template>

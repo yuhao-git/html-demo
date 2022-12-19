@@ -5,7 +5,6 @@
                 :src="logo"></el-image>
       <p class="text-center ">NOVICE</p>
       <el-tag @click="changeCollapsed"
-              color="#fff"
               class="collapse-btn  cursor-pointer select-none shadow-md my-2 p-0 absolute z-10 "
               round>
         <el-icon>
@@ -13,21 +12,19 @@
           <ArrowLeftBold v-else />
         </el-icon>
       </el-tag>
-      <el-menu :router="true"
-               popper-effect="light"
-               :default-active="activeMenu"
-               :collapse="collapsed">
-        <el-menu-item :index="item.path"
-                      v-for="item in menu"
-                      @click="menuStoreHook.setActiveMenuId(item.path)"
-                      :key="item.key">
-          <svg-icon :name="item.icon"
-                    className="svg-icon"></svg-icon>
-          <template #title>
-            <span class="ml-2">{{ item.label }}</span>
-          </template>
-        </el-menu-item>
-      </el-menu>
+
+      <el-scrollbar class="menu-box">
+        <el-menu :router="true"
+                 popper-effect="light"
+                 :default-active="activeMenu"
+                 :collapse="collapsed">
+          <sidebarItem :index="item.path"
+                        v-for="item in menu"
+                        @click="menuStoreHook.setActiveMenuId(item.path)"
+                        :key="item.key"
+                        :menuItem="item"></sidebarItem>
+        </el-menu>
+      </el-scrollbar>
     </div>
   </div>
 </template>
@@ -38,13 +35,13 @@ import { nextTick, ref, toRef, watch } from "vue";
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import { ArrowLeftBold, ArrowRightBold } from "@element-plus/icons-vue";
+import sidebarItem from "./sidebarItem.vue";
 
 import logo from "@/assets/png/logo.png";
 import { useMenuStoreHook } from "@/store/modules/menu";
 let flag = ref(true);
 
 const menuStoreHook = useMenuStoreHook();
-
 
 let { collapsed, activeMenu } = storeToRefs(menuStoreHook);
 menuStoreHook.setActiveMenuId(menu[0].path);
@@ -62,15 +59,17 @@ watch(
 function changeCollapsed() {
   collapsed.value = !collapsed.value;
 }
-
-
 </script>
 
 <style lang="less" scoped>
 .menu-container {
   box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
 }
-
+.menu-box {
+  height: calc(100% - 80px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 :deep(.menu-container) {
   .el-menu {
     border: none;
@@ -87,18 +86,13 @@ function changeCollapsed() {
   position: relative;
   left: 50%;
   transform: translate(-50%);
-  margin-top: 20px;
-}
-
-.svg-icon {
-  flex: none;
-  width: 24px;
 }
 
 .collapse-btn {
   right: -15px;
   top: 100px;
   display: none;
+  background-color: var(--collapse-btn-bg);
 }
 
 .aside-container {

@@ -41,12 +41,12 @@ function changeTheme(value: boolean) {
                  @change="changeTheme" />
     </header>
 
-    <div class="container lg:bg-gray-50 lg:rounded-2xl lg:shadow-2xl lg:w-5/6 lg:h-4/5 h-full grid lg:grid-cols-2 lg:gap-10 justify-center items-center">
+    <div class="container  lg:rounded-2xl lg:shadow-2xl lg:w-5/6 lg:h-4/5 h-full grid lg:grid-cols-2 lg:gap-10 justify-center items-center">
       <div class="hidden lg:flex justify-end">
         <div class="bg"></div>
       </div>
       <div class="lg:col-start-2 flex justify-center">
-        <div class="form-wrapper p-10 lg:shadow-lg bg-white lg:rounded-lg">
+        <div class="form-wrapper p-10 shadow-lg rounded-lg">
           <h1 class="mb-1">欢迎!</h1>
           <p class="text-xs mb-6 text-gray-500">后台管理系统</p>
           <password-form class="mb-6"></password-form>
@@ -82,11 +82,12 @@ function changeTheme(value: boolean) {
 
 .form-wrapper {
   width: 360px;
+  background-color: var(--login-form-bg);
 }
 
 @media (min-width: 1024px) {
   .login-container {
-    background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+    background: var(--login-bg);
     overflow: auto;
   }
   .bg {
@@ -97,6 +98,7 @@ function changeTheme(value: boolean) {
       cover;
   }
   .container {
+    background-color: var(--login-form-bg);
     max-width: 1400px;
     max-height: 800px;
     min-height: 560px;
