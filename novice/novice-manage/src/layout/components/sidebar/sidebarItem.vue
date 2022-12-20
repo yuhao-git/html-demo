@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, reactive, computed } from "vue";
+import { reactive, computed } from "vue";
 import { useMenuStoreHook } from "@/store/modules/menu";
 const menuStoreHook = useMenuStoreHook();
 

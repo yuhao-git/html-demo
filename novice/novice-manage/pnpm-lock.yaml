@@ -20,6 +20,7 @@ specifiers:
   vue: ^3.2.41
   vue-router: ^4.1.6
   vue-tsc: ^1.0.9
+  vuedraggable: ^2.24.3
 
 dependencies:
   '@element-plus/icons-vue': registry.npmmirror.com/@element-plus/icons-vue/2.0.10_vue@3.2.45
@@ -31,6 +32,7 @@ dependencies:
   pinia: registry.npmmirror.com/pinia/2.0.28_prq2uz4lho2pwp6irk4cfkrxwu
   vue: registry.npmmirror.com/vue/3.2.45
   vue-router: registry.npmmirror.com/vue-router/4.1.6_vue@3.2.45
+  vuedraggable: registry.npmmirror.com/vuedraggable/2.24.3
 
 devDependencies:
   '@vitejs/plugin-vue': registry.npmmirror.com/@vitejs/plugin-vue/3.2.0_vite@3.2.5+vue@3.2.45
@@ -1743,6 +1745,12 @@ packages:
     dev: false
     optional: true
 
+  registry.npmmirror.com/sortablejs/1.10.2:
+    resolution: {integrity: sha512-YkPGufevysvfwn5rfdlGyrGjt7/CRHwvRPogD/lC+TnvcN29jDpCifKP+rBqf+LRldfXSTh+0CGLcSg0VIxq3A==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/sortablejs/-/sortablejs-1.10.2.tgz}
+    name: sortablejs
+    version: 1.10.2
+    dev: false
+
   registry.npmmirror.com/source-map-js/1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/source-map-js/-/source-map-js-1.0.2.tgz}
     name: source-map-js
@@ -2072,6 +2080,14 @@ packages:
       '@vue/runtime-dom': registry.npmmirror.com/@vue/runtime-dom/3.2.45
       '@vue/server-renderer': registry.npmmirror.com/@vue/server-renderer/3.2.45_vue@3.2.45
       '@vue/shared': registry.npmmirror.com/@vue/shared/3.2.45
+    dev: false
+
+  registry.npmmirror.com/vuedraggable/2.24.3:
+    resolution: {integrity: sha512-6/HDXi92GzB+Hcs9fC6PAAozK1RLt1ewPTLjK0anTYguXLAeySDmcnqE8IC0xa7shvSzRjQXq3/+dsZ7ETGF3g==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vuedraggable/-/vuedraggable-2.24.3.tgz}
+    name: vuedraggable
+    version: 2.24.3
+    dependencies:
+      sortablejs: registry.npmmirror.com/sortablejs/1.10.2
     dev: false
 
   registry.npmmirror.com/webpack-sources/3.2.3:
