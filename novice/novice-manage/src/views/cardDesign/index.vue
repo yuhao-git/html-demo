@@ -1,52 +1,34 @@
 <template>
-  <el-row>
-    <el-col v-for="(o, index) in 2"
-            :key="o"
-            :span="8"
-            :offset="index > 0 ? 2 : 0">
-      <el-card :body-style="{ padding: '0px' }">
-        <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-             class="image" />
-        <div style="padding: 14px">
-          <span>Yummy hamburger</span>
-          <div class="bottom">
-            <time class="time">{{ currentDate }}</time>
-            <el-button text
-                       class="button">Operating</el-button>
-          </div>
-        </div>
-      </el-card>
-    </el-col>
-  </el-row>
+  <div>
+    <draggable v-model="myArray"
+               group="people"
+               @start="drag=true"
+               @end="drag=false"
+               item-key="id">
+      <template #item="{element}">
+        <div class="w-2 ">{{element.name}}</div>
+      </template>
+    </draggable>
+  </div>
 </template>
+ 
+<script lang="ts">
+import { defineComponent, reactive, toRefs } from "vue";
+import draggable from "vuedraggable";
 
-<script lang="ts" setup>
-import { ref } from "vue";
 
-const currentDate = ref(new Date());
+export default defineComponent({
+  components: { draggable },
+  setup() {
+    const data = reactive({
+      drag: false,
+      myArray: [
+        { id: 1, name: "Jenny" },
+        { id: 2, name: "kevin" },
+        { id: 3, name: "lili" },
+      ],
+    });
+    return { ...toRefs(data) };
+  },
+});
 </script>
-
-<style>
-.time {
-  font-size: 12px;
-  color: #999;
-}
-
-.bottom {
-  margin-top: 13px;
-  line-height: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.button {
-  padding: 0;
-  min-height: auto;
-}
-
-.image {
-  width: 100%;
-  display: block;
-}
-</style>
