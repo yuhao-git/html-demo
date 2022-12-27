@@ -19,6 +19,7 @@ export const useThemeStore = defineStore({
       this.isLight
         ? html?.classList.remove("dark")
         : html?.classList.add("dark");
+
     },
   },
 });
