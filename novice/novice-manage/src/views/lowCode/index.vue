@@ -1,49 +1,59 @@
 <template>
   <section>
-    <el-button>hhh</el-button>
-    <component v-for="(component,index) in componentList"
-               :key="index"
-               :propsValue="component.propsValue"
-               :is="onGetComponent(component)">
-      <div v-html="component.slot"></div>
-    </component>
-    <component :is="'el-button'"></component>
-    <el-button type="primary"
-               @click="onAdd">添加</el-button>
+    <draggable v-model="componentList"
+               group="people"
+               @start="drag=true"
+               @end="drag=false"
+               item-key="id">
+      <template #item="{element}">
+        <component :propsValue="element.propsValue"
+                   :is="onGetComponent(element)">
+          {{element.option.text}}
+        </component>
+      </template>
+    </draggable>
+    <el-button v-for="(item) in uiList"
+               :key="item"
+               @click="onAdd(item)">{{item}}</el-button>
     <el-button type="primary"
                @click="onSave">保存</el-button>
+
   </section>
 </template>
 
 <script>
-import { reactive, toRefs, onMounted, defineAsyncComponent } from "vue";
+import { reactive, toRefs, defineAsyncComponent } from "vue";
 import { getUuid } from "@/modules/utils.ts";
+import draggable from "vuedraggable";
+import uiList from "./part/uiList";
+
 export default {
   id: getUuid(),
   name: "lowCode",
-  components: {},
+  components: { draggable },
   setup() {
     const state = reactive({
       componentList: [],
+      drag: false,
     });
-    onMounted(() => {});
     return {
       ...toRefs(state),
       defineAsyncComponent,
+      uiList,
     };
   },
   methods: {
-    // 切换组件
-    onAdd() {
+    // 添加按钮
+    onAdd(type) {
+      // 生成JSON配置文件，用于生成vue文件和解析
       this.componentList.push({
-        name: "el-button",
+        name: type,
         isCustom: false, // 是否自定义
         propsValue: {
           value: "啦啦啦",
         },
-        slot: "确认",
         option: {
-          text: "按钮",
+          text: type + this.componentList.length,
         },
       });
     },
