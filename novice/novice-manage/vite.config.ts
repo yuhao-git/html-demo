@@ -1,9 +1,9 @@
 // vite.config.ts
 import vue from "@vitejs/plugin-vue";
 import { defineConfig, loadEnv } from "vite";
-import AutoImport from "unplugin-auto-import/vite";
-import Components from "unplugin-vue-components/vite";
-import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
+// import AutoImport from "unplugin-auto-import/vite";   // 自动引入组件拖慢首次访问加载速度
+// import Components from "unplugin-vue-components/vite";
+// import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import { resolve } from "path";
 import svgLoader from "vite-svg-loader";
 import { createSvg } from "./src/assets/icon/index.ts";
@@ -34,12 +34,12 @@ export default defineConfig(({ command, mode }) => {
       vue(),
       createSvg("./src/assets/icon/svg/"),
       svgLoader(),
-      AutoImport({
-        resolvers: [ElementPlusResolver()],
-      }),
-      Components({
-        resolvers: [ElementPlusResolver()],
-      }),
+      // AutoImport({
+      //   resolvers: [ElementPlusResolver()],
+      // }),
+      // Components({
+      //   resolvers: [ElementPlusResolver()],
+      // }),
     ],
     define: {
       PORT: config.port,

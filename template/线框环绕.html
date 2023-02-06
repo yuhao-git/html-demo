@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>线框环绕</title>
+    <style>
+    html,body{
+        margin: 0;
+        padding: 0;
+        background-color: #333;
+    }
+    .box{
+      width: 320px;
+      height: 180px;
+      /* border: 1px solid #fff; */
+      border-radius: 4px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+    }
+    .box::before,.box::after {
+          content: "";
+          position: absolute;
+          top: -4px;
+          left: -4px;
+          right: -4px;
+          bottom: -4px;
+          border: 2px solid #b7d5f6;
+          border-radius: 4px;
+          animation: clippath 6s infinite linear;
+          box-shadow: 0 0 10px rgba(255,255,255, 1);
+    }
+    .box::after{
+      animation: clippath 6s infinite linear -3s;
+    }
+    @keyframes clippath {
+        0%,
+        100% {
+          clip-path: inset(0 0 95% 0);
+        }
+        25% {
+          clip-path: inset(0 95% 0 0);
+        }
+        50% {
+          clip-path: inset(95% 0 0 0);
+        }
+        75% {
+          clip-path: inset(0 0 0 95%);
+        }
+    }
+  </style>
+  </head>
+  <body>
+    <div class="box"></div>
+  </body>
+</html>

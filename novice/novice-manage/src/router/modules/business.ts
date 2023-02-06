@@ -13,6 +13,10 @@ const routes = [
         path: "/dashboard",
         component: () => import("@/views/dashboard/index.vue"),
       },
+      {
+        path: "/lowcode",
+        component: () => import("@/views/lowCode/index.vue"),
+      },
     ],
   },
 ];

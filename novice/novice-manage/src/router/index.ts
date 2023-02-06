@@ -16,6 +16,7 @@ const router = createRouter({
   routes,
 });
 
+// 跳转进度条
 router.beforeEach(() => {
   NProgress.start();
 });

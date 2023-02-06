@@ -12,6 +12,11 @@ const menu = [
     icon: "card",
     label: "卡片设计",
   },
+  {
+    path: "/lowcode",
+    icon: "card",
+    label: "低代码",
+  },
 ];
 
 (function setGUID(nemu: Array<menuItem>) {

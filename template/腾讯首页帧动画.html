@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>animate</title>
+    <script type="text/javascript"
+      src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        *,
+        :after,
+        :before {
+            box-sizing: border-box;
+        }
+
+        .ani {
+            width: 23px;
+            position: relative;
+            height: 28px;
+        }
+
+        .btn {
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .like {
+            display: inline-block;
+
+            border-radius: 50px;
+        }
+
+        .btn .ani::before {
+            content: '';
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 23px;
+            height: 28px;
+            
+            background-image: url('../assets/img/steps_praised.png');
+            background-position: left;
+            background-repeat: no-repeat;
+            background-size: 483px 28px;
+        }
+
+        .like .ani::before {
+            animation: likeBlast 0.65s 1 steps(20);
+            background-position: right;
+        }
+
+        @keyframes likeBlast {
+            0% {
+                background-position: left;
+            }
+
+            100% {
+                background-position: right;
+            }
+        }
+
+
+        .icon {
+            width: 60px;
+            height: 60px;
+            background: url('../assets/img/ani-storage.png');
+            background-position: top;
+            background-repeat: no-repeat;
+            background-size: 60px 1500px;
+            cursor: pointer;
+            margin-top: 50px;
+        }
+
+
+
+        /* .icon:hover {
+            animation: in 0.5s 1 steps(24);
+            background-position: bottom;
+        } */
+
+        @keyframes in {
+            0% {
+                background-position: top;
+            }
+            100% {
+                background-position: bottom;
+            }
+        }
+
+        @keyframes out {
+            0% {
+                background-position: bottom;
+            }
+            100% {
+                background-position: top;
+            }
+        }
+
+
+        .anis {
+            animation: in 0.5s 1 steps(24) forwards;
+        }
+
+        .moveanis {
+            animation: out 0.5s 1 steps(24) forwards;
+        }
+    </style>
+  </head>
+
+  <body>
+    <div class="btn">
+      <div class="ani"></div>
+    </div>
+    <p>鼠标点击</p>
+    <div class="icon">
+    </div>
+    <p>鼠标经过</p>
+  </body>
+  <script>
+// https://cloud.tencent.com/developer/article/1902973
+    $(function () {
+      // 点击
+        $('.btn').click(function () {
+            $(this).toggleClass('like')
+        })
+      // 经过
+        $('.icon').hover(function () {
+            $(this).removeClass('moveanis').addClass('anis')
+        }, function () {
+            $(this).removeClass('anis').addClass('moveanis')
+        })
+    })
+
+</script>
+</html>

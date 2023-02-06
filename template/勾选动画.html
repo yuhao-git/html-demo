@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tick</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+      body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100vh;
+    flex-direction: column;
+
+}
+h2{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 36px;
+    margin-top: 40px;
+    color: #333;
+    opacity: 0;
+}
+input[type="checkbox"]:checked ~ h2{    /*延迟1.2s,用0.6s播放名为title的动画，并且在动画播放完周停留在最后一格*/
+    animation: .6s title ease-in-out;
+    animation-delay: 1.2s;
+    animation-fill-mode: forwards;
+}
+.circle{
+    stroke-dasharray: 1194; /*圆的周长： 2*190*3.14*/
+    stroke-dashoffset: 1194; 
+ 
+}
+input[type="checkbox"]:checked + svg .circle{
+    animation: circle 1s ease-in-out;   /*当勾选checkbox时，用1s的时间播放名为circle的动画*/
+    animation-fill-mode:forwards;
+}
+.tick{
+    stroke-dasharray:350 ;
+    stroke-dashoffset: 350;
+}
+input[type="checkbox"]:checked + svg .tick{
+    animation: tick .8s ease-in-out;
+    animation-fill-mode:forwards;
+    animation-delay: .95s;
+}
+
+@keyframes circle{  /*逆时针显示*/
+    from{
+        stroke-dashoffset: 1194;
+    }
+    to{
+        stroke-dashoffset:2388 ;    /*若为0，则顺时针*/
+    }
+}
+@keyframes tick{
+    from{
+        stroke-dashoffset: 350;
+    }
+    to{
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes title{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+    </style>
+  </head>
+  <body>
+    <input type="checkbox">
+    <svg width="400" height="400">
+      <circle fill="none" stroke="#68E534" stroke-width="20" cx="200" cy="200"
+        r="190" stroke-linecap="round" class="circle" transform="rotate(-90 200
+        200)"/>
+        <polyline fill="none" stroke="#68E534" stroke-width="24" points="88,214
+          173,284 304,138" stroke-linecap="round" stroke-linejoin="round"
+          class="tick"/>
+        </svg>
+        <h2>Payment Success</h2>
+      </body>
+    </html>
