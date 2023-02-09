@@ -45,5 +45,5 @@ app.config.globalProperties.$getUuid = getUuid
 
 // 使用
 // import { getCurrentInstance } from "vue";
-// const { proxy } = getCurrentInstance();
+// const { proxy } = getCurrentInstance();  // proxy => vue2中的this
 // proxy.$getUuid

@@ -14,8 +14,8 @@ export const useThemeStore = defineStore({
       this.isLight = value;
       let html = document.querySelector("html");
       let scheme: string = this.isLight ? "light" : "dark";
+      localStorage.setItem('theme', this.isLight)
       html?.style.setProperty("color-scheme", scheme);
-
       this.isLight
         ? html?.classList.remove("dark")
         : html?.classList.add("dark");

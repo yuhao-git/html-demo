@@ -4,6 +4,7 @@ const routes = [
   {
     path: "/",
     component: layout,
+    redirect: "/dashboard",
     children: [
       {
         path: "/card",
@@ -15,7 +16,7 @@ const routes = [
       },
       {
         path: "/lowcode",
-        component: () => import("@/views/lowCode/index.vue"),
+        component: () => import("@/views/lowCode/edit/index.vue"),
       },
     ],
   },

@@ -5,7 +5,6 @@
 
 <script>
 import { reactive, toRefs, onMounted } from "vue";
-console.log('??')
 export default {
   name: "",
   setup() {

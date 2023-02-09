@@ -8,8 +8,17 @@
   </router-view>
 </template>
 
-<script setup>
-let isCached = [];
+<script setup lang="ts">
+import { onBeforeMount } from "vue";
+import { storeToRefs } from "pinia";
+import { useThemeStoreHook } from "@/store/modules/theme";
 
+let isCached: string[] = [];
+let themeStore = useThemeStoreHook();
+let { isLight } = storeToRefs(themeStore);
+
+onBeforeMount(() => {
+  isLight.value = localStorage.getItem("theme");
+});
 </script>
 
