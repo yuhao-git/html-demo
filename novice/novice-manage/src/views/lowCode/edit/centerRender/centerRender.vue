@@ -1,19 +1,15 @@
 <template>
   <section>
     <!-- {{tempData}} -->
-    <draggable v-model="tempData"
-               group="people"
-               @start="drag=true"
-               @end="drag=false"
+    <draggable :list="dataSource"
+               group="component"
                item-key="id">
       <template #item="{element}">
         <component :is="onGetComponent(element)">
           {{element.option.text}}
           <!-- v-on="element.eventMap"
                    v-bind="element.bindMap" -->
-          <template v-if="element.children && element.children.length > 0">
-            <center-render :dataSource="element.children"></center-render>
-          </template>
+          <center-render :dataSource="element.children"></center-render>
         </component>
       </template>
     </draggable>

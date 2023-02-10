@@ -5,7 +5,7 @@
       <nested-draggable :tasks="list" />
     </div>
 
-    <rawDisplayer class="col-3" :value="list" title="List" />
+    <!-- <rawDisplayer class="col-3" :value="list" title="List" /> -->
   </div>
 </template>
 

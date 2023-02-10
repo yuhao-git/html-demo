@@ -3,7 +3,7 @@
     class="dragArea"
     tag="ul"
     :list="tasks"
-    :group="{ name: 'g1' }"
+    :group="'g1'"
     item-key="name"
   >
     <template #item="{ element }">
@@ -33,5 +33,8 @@ export default {
 .dragArea {
   min-height: 50px;
   outline: 1px dashed;
+}
+li{
+  margin-left: 10px;
 }
 </style>
