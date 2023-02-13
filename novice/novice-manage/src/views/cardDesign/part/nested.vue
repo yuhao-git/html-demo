@@ -1,11 +1,10 @@
 <template>
-  <draggable
-    class="dragArea"
-    tag="ul"
-    :list="tasks"
-    :group="'g1'"
-    item-key="name"
-  >
+  <draggable class="drag-area "
+             tag="ul"
+             :list="tasks"
+             :group="'g1'"
+             v-bind="dragOptions"
+             item-key="name">
     <template #item="{ element }">
       <li>
         <p>{{ element.name }}</p>
@@ -20,21 +19,33 @@ export default {
   props: {
     tasks: {
       required: true,
-      type: Array
-    }
+      type: Array,
+    },
+  },
+  computed: {
+    dragOptions() {
+      return {
+        animation: 200,
+        group: "description",
+        disabled: false,
+        ghostClass: "ghost",
+      };
+    },
   },
   components: {
-    draggable
+    draggable,
   },
-  name: "nested-draggable"
+  name: "nested-draggable",
 };
 </script>
 <style scoped>
-.dragArea {
+.drag-area {
   min-height: 50px;
   outline: 1px dashed;
+  display: flex;
 }
-li{
+li {
   margin-left: 10px;
 }
+
 </style>

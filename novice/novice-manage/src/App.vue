@@ -15,10 +15,10 @@ import { useThemeStoreHook } from "@/store/modules/theme";
 
 let isCached: string[] = [];
 let themeStore = useThemeStoreHook();
-let { isLight } = storeToRefs(themeStore);
 
 onBeforeMount(() => {
-  isLight.value = localStorage.getItem("theme");
+  let isLight = localStorage.getItem("theme") == "dark" ? false : true;
+  themeStore.changeTheme(isLight)
 });
 </script>
 

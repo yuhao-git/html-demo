@@ -136,13 +136,6 @@ export default {
       return param.name;
     },
   },
-  watch: {
-    componentList: {
-      handler(newValue) {
-        console.log(newValue);
-      },
-      deep: true,
-    },
-  },
+  watch: {},
 };
 </script>
