@@ -1,19 +1,20 @@
 <template>
-  <section>
-    <!-- {{tempData}} -->
-    <draggable :list="dataSource"
-               group="component"
-               item-key="id">
-      <template #item="{element}">
+  <draggable :list="dataSource"
+             group="component"
+             class="flex flex-wrap content-start"
+             animation="300"
+             item-key="id">
+    <template #item="{element}">
+      <div class="m-1">
         <component :is="onGetComponent(element)">
           {{element.option.text}}
           <!-- v-on="element.eventMap"
                    v-bind="element.bindMap" -->
           <center-render :dataSource="element.children"></center-render>
         </component>
-      </template>
-    </draggable>
-  </section>
+      </div>
+    </template>
+  </draggable>
 </template>
 
 <script>
@@ -66,3 +67,6 @@ export default {
   },
 };
 </script>
+
+<style lang="less" scoped>
+</style>

@@ -1,12 +1,12 @@
 <template>
-  <draggable class="drag-area "
+  <draggable class="drag-area"
              tag="ul"
              :list="tasks"
              :group="'g1'"
              v-bind="dragOptions"
              item-key="name">
     <template #item="{ element }">
-      <li>
+      <li class="li">
         <p>{{ element.name }}</p>
         <nested-draggable :tasks="element.tasks" />
       </li>
@@ -25,7 +25,7 @@ export default {
   computed: {
     dragOptions() {
       return {
-        animation: 200,
+        animation: 300,
         group: "description",
         disabled: false,
         ghostClass: "ghost",
@@ -40,12 +40,14 @@ export default {
 </script>
 <style scoped>
 .drag-area {
-  min-height: 50px;
-  outline: 1px dashed;
+  min-height: 20px;
   display: flex;
+  outline: 1px dashed;
+  flex: none;
 }
-li {
-  margin-left: 10px;
+.li {
+  margin: 10px;
+  outline: 1px solid;
+  height: fit-content;
 }
-
 </style>

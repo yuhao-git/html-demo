@@ -77,7 +77,7 @@ const Components = [
   // "ElSteps",
   // "ElStep",
   // "ElSwitch",
-  // "ElTable",
+  "ElTable",
   // "ElTableColumn",
   // "ElTableV2",
   // "ElTabs",
