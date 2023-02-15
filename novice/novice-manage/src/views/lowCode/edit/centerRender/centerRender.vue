@@ -1,12 +1,14 @@
 <template>
   <draggable :list="dataSource"
              group="component"
+             class="container"
              animation="300"
              item-key="id">
-    <template #item="{element}">
+    <template #item="{ element }">
       <div class="m-1 ">
+        <div>{{ element.option.text }}</div>
         <component :is="onGetComponent(element)">
-          {{element.option.text}}
+          <!-- {{element.option.text}} -->
           <!-- v-on="element.eventMap"
                    v-bind="element.bindMap" -->
           <center-render :dataSource="element.children"></center-render>
@@ -66,3 +68,11 @@ export default {
   },
 };
 </script>
+
+<style>
+.container {
+  min-height: 30px;
+  min-width: 40px;
+  border-color: red;
+}
+</style>

@@ -2,7 +2,7 @@ export default class Model {
   constructor(canvas, option) {
     //传参 画布
     this.puppleArr = new Array(); //泡泡数组
-    this.puppleNum = 1000; //泡泡个数
+    this.puppleNum = 500; //泡泡个数
     this.canvas = canvas; //获取画布元素
     this.context = canvas.getContext("2d"); //获取用于在画布上绘图的环境
     this.isDisposed = false; // 是否已经销毁对象
