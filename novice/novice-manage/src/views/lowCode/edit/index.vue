@@ -1,16 +1,18 @@
 <template>
   <layout>
     <template #component>
-      <el-button v-for="(item) in uiList"
-                 :key="item"
-                 @click="onAdd(item)">{{item}}</el-button>
+      <componentSelect @addComponent="onAdd"></componentSelect>
     </template>
     <template #center>
       <div class="flex p-2 border border-dashed rounded mb-2 dark:border-emerald-800">
         <el-button @click="onClear">清除</el-button>
       </div>
-      <center-render class="h-full"
-                     v-model:dataSource="componentList" />
+      <div class="center-render">
+        <el-scrollbar height="100%">
+          <center-render class="h-full border border-dashed dark:border-emerald-800 rounded"
+                         v-model:dataSource="componentList" />
+        </el-scrollbar>
+      </div>
     </template>
     <template #option>
       <attributeSetter :dataSource="componentList" />
@@ -19,16 +21,16 @@
 </template>
 
 <script>
-import { reactive, toRefs, defineAsyncComponent } from "vue";
-import centerRender from "./centerRender/centerRender.vue";
 import layout from "./layout.vue";
-import attributeSetter from "./attributeSetter/index.vue";
 import { getUuid } from "@/modules/utils.ts";
-import uiList from "./modules/uiList";
+import attributeSetter from "./attributeSetter/index.vue";
+import centerRender from "./centerRender/centerRender.vue";
+import componentSelect from "./componentSelect/componentSelect.vue";
+import { reactive, toRefs } from "vue";
 
 export default {
   name: "lowCode",
-  components: { centerRender, layout, attributeSetter },
+  components: { layout, centerRender, attributeSetter, componentSelect },
   data() {
     return {
       componentList: [],
@@ -40,15 +42,14 @@ export default {
     });
     return {
       ...toRefs(state),
-      defineAsyncComponent,
-      uiList,
     };
   },
   methods: {
     // 添加
-    onAdd(type) {
-      // 生成JSON配置文件，用于生成vue文件和解析
-      this.componentList.push({
+    onAdd(param) {
+      let type = param.value;
+
+      let option = {
         id: getUuid(),
         name: type,
         isCustom: false, // 是否自定义
@@ -57,23 +58,20 @@ export default {
         option: {
           text: type + this.componentList.length,
         },
-      });
+      };
+
+      this.componentList.push(option);
+      
     },
     onClear() {
       this.componentList = [];
     },
-    // 异步添加组件
-    onGetComponent(param) {
-      // 按需引入自定义组件
-      if (param.isCustom) {
-        return defineAsyncComponent(() =>
-          import(`../../components/lowCode/${param.name}.vue`)
-        );
-      }
-      // 全局注册的组件
-      return param.name;
-    },
   },
-  watch: {},
 };
 </script>
+
+<style scoped>
+.center-render {
+  height: calc(100% - 60px);
+}
+</style>

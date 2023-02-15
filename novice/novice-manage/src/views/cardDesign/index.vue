@@ -7,8 +7,16 @@
       <nested-draggable :tasks="list1"
                         class="top-container" />
     </div>
-    <el-button @click="before">前序</el-button>
-    <el-button @click="after">后续</el-button>
+    <section class="flex content-start">
+      <div class="w-1/2">
+        前序遍历
+        <JsonView :dataSource="PreOrderTraversal"></JsonView>
+      </div>
+      <div class="w-1/2">
+        后续遍历
+        <JsonView :dataSource="PostOrderTraversal"></JsonView>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -48,26 +56,24 @@ export default {
         },
       ],
       list1: [],
+      PreOrderTraversal: [],
+      PostOrderTraversal: [],
     };
   },
   methods: {
     before() {
-      let length = 0;
-      let arr = [];
+      this.PreOrderTraversal = [];
       this.treeBefore(this.list, (data) => {
-        length++;
         let { tasks, ...v } = data;
-        arr.push(v);
+        this.PreOrderTraversal.push(v);
       });
-      console.log(arr);
     },
     after() {
-      let arr = [];
+      this.PostOrderTraversal = [];
       this.treeAfter(this.list, (data) => {
         let { tasks, ...v } = data;
-        arr.push(v);
+        this.PostOrderTraversal.push(v);
       });
-      console.log(arr);
     },
     // 前序
     treeBefore(node, func) {
@@ -84,6 +90,15 @@ export default {
         func(item);
         this.treeAfter(item.tasks, func);
       });
+    },
+  },
+  watch: {
+    list: {
+      handler() {
+        this.before();
+        this.after();
+      },
+      deep: true,
     },
   },
 };

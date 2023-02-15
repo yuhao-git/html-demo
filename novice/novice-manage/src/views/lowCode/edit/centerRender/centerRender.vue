@@ -1,11 +1,10 @@
 <template>
   <draggable :list="dataSource"
              group="component"
-             class="flex flex-wrap content-start"
              animation="300"
              item-key="id">
     <template #item="{element}">
-      <div class="m-1">
+      <div class="m-1 ">
         <component :is="onGetComponent(element)">
           {{element.option.text}}
           <!-- v-on="element.eventMap"
@@ -56,17 +55,14 @@ export default {
     // 异步添加组件
     onGetComponent(param) {
       // 按需引入自定义组件
-      if (param.isCustom) {
-        return defineAsyncComponent(() =>
-          import(`../../components/lowCode/${param.name}.vue`)
-        );
-      }
+      // if (param.isCustom) {
+      //   return defineAsyncComponent(() =>
+      //     import(`../../../../components/lowCode/${param.name}.vue`)
+      //   );
+      // }
       // 全局注册的组件
       return param.name;
     },
   },
 };
 </script>
-
-<style lang="less" scoped>
-</style>
