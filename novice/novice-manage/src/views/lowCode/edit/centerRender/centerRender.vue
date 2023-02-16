@@ -6,12 +6,12 @@
              item-key="id">
     <template #item="{ element }">
       <div class="m-1 ">
-        <div>{{ element.option.text }}</div>
-        <component :is="onGetComponent(element)">
-          <!-- {{element.option.text}} -->
-          <!-- v-on="element.eventMap"
-                   v-bind="element.bindMap" -->
-          <center-render :dataSource="element.children"></center-render>
+        <div>{{ element && element.label }}</div>
+        <!-- 所有信息使用dataSource传递，各个组件中单独处理 -->
+        <component :is="onGetComponent(element)"
+                   :dataSource="element">
+          <!-- 递归，无限嵌套 -->
+          <!-- <center-render :dataSource="element.children"></center-render> -->
         </component>
       </div>
     </template>
@@ -42,16 +42,6 @@ export default {
     return {
       ...toRefs(state),
     };
-  },
-  computed: {
-    tempData: {
-      get() {
-        return this.props.dataSource;
-      },
-      set(value) {
-        this.$emit("update:dataSource", value);
-      },
-    },
   },
   methods: {
     // 异步添加组件

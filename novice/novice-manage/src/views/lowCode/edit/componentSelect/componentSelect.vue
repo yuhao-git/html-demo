@@ -25,7 +25,7 @@ let list = ref([
     children: [
       {
         label: "按钮",
-        value: "el-button",
+        value: "NButton",
       },
     ],
   },

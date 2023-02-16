@@ -47,22 +47,21 @@ export default {
   methods: {
     // 添加
     onAdd(param) {
-      let type = param.value;
-
-      let option = {
+      // 基础配置
+      let defaultOption = {
         id: getUuid(),
-        name: type,
-        isCustom: false, // 是否自定义
+        name: param.value,
+        label: param.label,
         children: [],
-        propsValue: {},
         option: {
-          text: type + this.componentList.length,
+          text: param.label,
         },
+        action: {},
       };
 
-      this.componentList.push(option);
-      
+      this.componentList.push(defaultOption);
     },
+    // 清除
     onClear() {
       this.componentList = [];
     },
