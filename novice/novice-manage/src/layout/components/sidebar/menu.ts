@@ -17,6 +17,11 @@ const menu = [
     icon: "card",
     label: "低代码",
   },
+  {
+    path: "/threejs",
+    icon: "card",
+    label: "三维",
+  },
 ];
 
 (function setGUID(nemu: Array<menuItem>) {

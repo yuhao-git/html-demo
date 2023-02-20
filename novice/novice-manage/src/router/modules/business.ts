@@ -18,6 +18,10 @@ const routes = [
         path: "/lowcode",
         component: () => import("@/views/lowCode/edit/index.vue"),
       },
+      {
+        path: "/threejs",
+        component: () => import("@/views/threejs/index.vue"),
+      },
     ],
   },
 ];
