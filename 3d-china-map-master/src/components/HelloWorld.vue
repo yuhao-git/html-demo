@@ -53,6 +53,6 @@ a {
 .hello{
   height: 100%;
   width: 100%;
-  background: #000;
+  background: #0c2138;
 }
 </style>

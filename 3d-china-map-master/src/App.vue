@@ -1,22 +1,32 @@
 <template>
   <div id="app">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    123
+    <HelloWorld />
+    <!-- <chart2d /> -->
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import HelloWorld from "./components/HelloWorld.vue";
+// import chart2d from './components/charts2d/index.vue'
 export default {
-  name: 'App',
+  name: "App",
   components: {
     HelloWorld
+    // chart2d
   }
-}
+};
 </script>
 
 <style>
+html,
+body {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

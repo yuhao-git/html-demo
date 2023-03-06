@@ -1,11 +1,4 @@
-/*
- * @Description: 3d地图 
- * @Author: qinxp 
- * @Date: 2022-01-11 17:02:52 
- * @Last Modified by: qinxp
- * @Last Modified time: 2022-01-18 16:32:04
- */
- <template>
+<template>
     <div ref="box" class="china-chart">
         <div id="provinceInfo"></div>
     </div>
@@ -47,7 +40,7 @@ export default {
                 }
             );
             this.mapObj.init();
-            this.mapObj.setTag(this.tagData)
+            // this.mapObj.setTag(this.tagData)
         },
         tagClick(v) {
             this.$emit('tagClick', v)
