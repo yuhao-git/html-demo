@@ -15,7 +15,7 @@ import { CSMHelper } from 'three/examples/jsm/csm/CSMHelper.js';
 import mapUrl from './textures/map.png'
 import mdUrl from './textures/md.png'
 import tag from './textures/tag.png'
-
+import { cloneDeep } from 'lodash'
 // 墨卡托投影转换
 const projection = d3.geoMercator().center([120.136078, 33.383912]).scale(500).translate([0, 0]);
 // 地图材质颜色
@@ -189,10 +189,11 @@ export default class lineMap {
             // 定一个省份3D对象
             const province = new THREE.Object3D();
             // 每个的 坐标 数组
-            const coordinates = elem.geometry.coordinates;
+            const coordinates = cloneDeep(elem.geometry.coordinates);
             // const color = COLOR_ARR[index % COLOR_ARR.length]
             // const mapTexture = cubeTexture
             // 循环坐标数组
+
             coordinates.forEach(multiPolygon => {
                 multiPolygon.forEach((polygon) => {
                     const shape = new THREE.Shape();
@@ -211,14 +212,6 @@ export default class lineMap {
                         bevelThickness: 0.1
                     };
                     const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
-                    // let uvs = new Float32Array([
-                    //     0, 1,
-                    //     1, 1,
-                    //     1, 0,
-                    //     0, 0
-                    // ])
-                    // geometry.attributes.uv = new THREE.BufferAttribute(uvs,2)
-
                     const material = new THREE.MeshBasicMaterial({
                         // clearcoat: 3.0,
                         // metalness: 1,
@@ -245,12 +238,22 @@ export default class lineMap {
                     province.add(mesh);
                 })
             })
+
             // 将geo的属性放到省份模型中
             province.properties = elem.properties;
-            if (elem.properties.centorid) {
-                const [x, y] = projection(elem.properties.centorid);
-                province.properties._centroid = [x, y];
-            }
+
+            // if (elem.properties.centorid) {
+            //     const [x, y] = projection(elem.properties.centorid);
+            //     province.properties._centroid = [x, y];
+            // }
+            // 分割线
+            province.add(
+                this.setLines(
+                    elem.properties.name,
+                    cloneDeep(elem.geometry.coordinates),
+                    '#FFFFFF'
+                )
+            );
 
             _this.map.add(province);
 
@@ -264,9 +267,9 @@ export default class lineMap {
         // console.log(box.getCenter(center));
         // console.log(box);
         // mapTexture.repeat.set(1 / size.x, 1 / size.y);
-        mapTexture.repeat.set(0.025, 0.025);
+        mapTexture.repeat.set(0.05, 0.05);
         // mapTexture.offset.set(box.min.x / size.x, box.min.y / size.y);
-        mapTexture.offset.set( 0.5, 0.55);
+        mapTexture.offset.set(0.5, 0.35);
 
         // 销毁贴图
         // cubeTexture.dispose();
@@ -276,6 +279,37 @@ export default class lineMap {
         //     console.log(e)
         // });
 
+    }
+    setLines(name, pointsArr, color) {
+        const group = new THREE.Group(); //多个轮廓线
+        const material = new THREE.LineBasicMaterial({
+            color: color,
+            linewidth: 1,
+        });
+
+        pointsArr.forEach((polygon) => {
+            const pointsArr = [];
+            polygon[0].forEach((elem) => {
+                let [x, y] = projection(elem);
+                pointsArr.push(
+                    new THREE.Vector3(
+                        x * 1,
+                        - y * 1,
+                        1.15
+                    )
+                );
+            });
+            group.add(this.setLoopLines(name, pointsArr, color, material));
+        });
+        // group
+        return group;
+    }
+    setLoopLines(name, pointsArr, color, material) {
+        var curve = new THREE.CatmullRomCurve3(pointsArr);
+        var vectorArray = curve.getPoints(200);
+        const geometry = new THREE.BufferGeometry().setFromPoints(vectorArray);
+        const line = new THREE.LineLoop(geometry, material);
+        return line;
     }
     // 绘制标注
     setTag(_data = []) {
@@ -293,13 +327,14 @@ export default class lineMap {
                 const { value } = d
                 // 添加标点
                 const sprite1 = new THREE.Sprite(spriteMaterial);
-
                 if (value && value.length !== 0) {
                     let [x, y] = projection(value)
-                    sprite1.position.set(x, -y + 2, 6);
+                    // sprite1.position.set(x, -y + 2, 6);
+                    sprite1.position.set(x, -y + 2, 2);
                 }
                 sprite1._data = d
-                sprite1.scale.set(2 * scale, 3 * scale, 8 * scale);
+                // sprite1.scale.set(2 * scale, 3 * scale, 8 * scale);
+                sprite1.scale.set(scale, scale, scale);
 
                 this.group.add(sprite1)
             })
@@ -307,7 +342,8 @@ export default class lineMap {
         }
         function setScale(scale = 1) {
             this.group.children.forEach(s => {
-                s.scale.set(2 * scale, 3 * scale, 8 * scale);
+                // s.scale.set(2 * scale, 3 * scale, 8 * scale);
+                s.scale.set(scale, 1.3 * scale, scale);
             })
         }
         this.scene.add(this.group)
@@ -328,7 +364,7 @@ export default class lineMap {
             this.raycaster.setFromCamera(this.mouse, this.camera);
         }
         this.renderer.render(this.scene, this.camera);
-        console.log('render info', this.renderer.info)
+        // console.log('render info', this.renderer.info)
         // TWEEN.update()
     }
     setRaycaster() {

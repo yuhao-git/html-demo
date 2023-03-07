@@ -40,7 +40,7 @@ export default {
                 }
             );
             this.mapObj.init();
-            // this.mapObj.setTag(this.tagData)
+            this.mapObj.setTag(this.tagData)
         },
         tagClick(v) {
             this.$emit('tagClick', v)
