@@ -54,7 +54,6 @@ export default class lineMap {
         } = options
         this.tagClick = tagClick
     }
-
     init() {
         this.provinceInfo = this.provinceInfo || document.getElementById('provinceInfo');
         this.group = new THREE.Object3D(); // 标注
@@ -67,10 +66,10 @@ export default class lineMap {
         }
         this.renderer.shadowMap.enabled = true; // 开启阴影
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-        this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        // this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
         this.renderer.toneMappingExposure = 1.25;
         this.renderer.outputEncoding = THREE.sRGBEncoding;
-        // this.renderer.outputEncoding = THREE.sHSVEncoding;
+        this.renderer.outputEncoding = THREE.sHSVEncoding;
         this.renderer.setPixelRatio(window.devicePixelRatio);
         // 清除背景色，透明背景
         this.renderer.setClearColor(0xffffff, 0);
@@ -103,7 +102,7 @@ export default class lineMap {
         this.csmHelper.visible = false;
         this.scene.add(this.csmHelper);
         this.setController(); // 设置控制
-        this.setLight(); // 设置灯光
+        // this.setLight(); // 设置灯光
         this.setRaycaster();
         // this.setPlayGround()
         this.animate();
@@ -112,16 +111,16 @@ export default class lineMap {
         this.loadMapData();
         this.setResize(); // 绑定浏览器缩放事件
     }
-
     setResize() {
         window.addEventListener('resize', this.resizeEventHandle.bind(this))
     }
-
+    // 
     resizeEventHandle() {
         this.width = this.container.offsetWidth
         this.height = this.container.offsetHeight
         this.renderer.setSize(this.width, this.height);
     }
+    // 加载地图数据
     loadMapData() {
         let _this = this;
         let jsonData = require('./json/yancheng.json')
@@ -156,17 +155,16 @@ export default class lineMap {
         });
         _this.initMap(map);
     }
-
-    loadFont() { //加载中文字体
+    // 加载中文字体
+    loadFont() { 
         var loader = new THREE.FontLoader();
         var _this = this;
         loader.load('fonts/chinese.json', function (response) {
             _this.font = response;
             _this.loadMapData();
         });
-
     }
-
+    // 文字
     createText(text, position) {
         var shapes = this.font.generateShapes(text, 1);
         var geometry = new THREE.ShapeBufferGeometry(shapes);
@@ -175,7 +173,7 @@ export default class lineMap {
         textMesh.position.set(position.x, position.y, position.z);
         this.scene.add(textMesh);
     }
-
+    // 地图
     initMap(chinaJson) {
         // 建一个空对象存放对象
         this.map = new THREE.Object3D();
@@ -280,6 +278,7 @@ export default class lineMap {
         // });
 
     }
+    // 分割线
     setLines(name, pointsArr, color) {
         const group = new THREE.Group(); //多个轮廓线
         const material = new THREE.LineBasicMaterial({
@@ -367,6 +366,7 @@ export default class lineMap {
         // console.log('render info', this.renderer.info)
         // TWEEN.update()
     }
+    // 鼠标事件
     setRaycaster() {
         this.raycaster = new THREE.Raycaster();
         this.mouse = new THREE.Vector2();
@@ -430,34 +430,30 @@ export default class lineMap {
     setPlayGround() {
         let textureLoader = new THREE.TextureLoader();
         let mapTexture = textureLoader.load(mapUrl)
-        const groundMaterial = new THREE.MeshStandardMaterial({
-            color: 0x031837,
-            specular: 0xffffff,
-            metalness: 0,
-            roughness: 1,
-            // opacity: 0.2,
-            // opacity: 0.2,
-            transparent: true,
+        const groundMaterial = new THREE.MeshLambertMaterial({
+            // color: 0x002566,
+            // specular: 0xffffff,
+            // metalness: 0,
+            // roughness: 1,
+            // opacity: 1,
+            // transparent: true,
             map: mapTexture
         });
         const ground = new THREE.Mesh(new THREE.PlaneGeometry(20, 20, 2, 1), groundMaterial);
         // ground.rotation.x = - Math.PI / 2;
-        ground.position.z = 1.2
-        // ground.castShadow = true;
+        ground.position.z = 0
+        ground.castShadow = true;
         ground.receiveShadow = true;
-
         this.scene.add(ground);
     }
+    // 光照
     setLight() {
         let ambientLight = new THREE.AmbientLight(0xffffff, 0.2); // 环境光
-
         const light = new THREE.DirectionalLight(0xffffff, 0.5); // 平行光
         light.position.set(20, -50, 20);
-
         light.castShadow = true;
         light.shadow.mapSize.width = 1024;
         light.shadow.mapSize.height = 1024;
-
 
         // 半球光
         let hemiLight = new THREE.HemisphereLight('#80edff', '#75baff', 0.3)
@@ -467,11 +463,9 @@ export default class lineMap {
 
         const pointLight = new THREE.PointLight(0xffffff, 0.5)
         pointLight.position.set(20, -50, 50);
-
         pointLight.castShadow = true;
         pointLight.shadow.mapSize.width = 1024;
         pointLight.shadow.mapSize.height = 1024;
-
 
         const pointLight2 = new THREE.PointLight(0xffffff, 0.5)
         pointLight2.position.set(50, -50, 20);
@@ -492,6 +486,7 @@ export default class lineMap {
         this.scene.add(pointLight3);
 
     }
+    // 控制器
     setController() {
         this.controller = new OrbitControls(this.camera, this.renderer.domElement);
         this.controller.update();
@@ -507,7 +502,6 @@ export default class lineMap {
         requestAnimationFrame(this.animate.bind(this));
         if (this.raycaster) {
             this.raycaster.setFromCamera(this.mouse, this.camera);
-
             // calculate objects intersecting the picking ray
             var intersects = this.raycaster.intersectObjects(this.scene.children, true);
             if (this.activeInstersect && this.activeInstersect.length > 0) { // 将上一次选中的恢复颜色
@@ -534,7 +528,7 @@ export default class lineMap {
         this.camera.updateMatrixWorld();
         this.csm.update();
         this.controller.update();
-        // csmHelper.update();
+        // this.csmHelper.update();
         if (!this.renderer) {
             this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         }

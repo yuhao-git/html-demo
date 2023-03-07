@@ -64,12 +64,13 @@
       mesh.castShadow = true; // 对象是否渲染到阴影贴图中，默认值为false
       mesh.position.set(0, 3, 0); // 设置物体位置
       scene.add(mesh); // 添加到场景中
-
+      let texture = new THREE.TextureLoader().load("./map.png");
       // 创建平面
       const planeGeometry = new THREE.PlaneGeometry(300, 300); // 生成平面几何
       const planeMaterial = new THREE.MeshLambertMaterial({
         // 生成材质
-        color: 0xcccccc,
+        color: 0xffffff,
+        map:texture
       });
       const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial); // 生成平面网格
       planeMesh.receiveShadow = true; // 设置平面网格为接受阴影的投影面
