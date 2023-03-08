@@ -26,13 +26,14 @@ export default {
   height: 506.25px;
   width: 900px;
   position: absolute;
-  background-color: #fff;
+  // background-color: #00f;
   top: 20%;
   left: 10%;
+  border: 1px solid;
 }
 
 .fade-enter-active {
-  animation: bounce-in 0.5s ease-out;
+  animation: bounce-in 0.5s ease-in-out;
 }
 
 .fade-leave-active {
@@ -45,10 +46,12 @@ export default {
     opacity: 0.8;
   }
   20% {
+    background: #fff;
     transform: scale(1, 0.01);
   }
   50% {
-    transform: scale(1, 1);
+    background: transparent;
+    transform: scale(1, 1.2);
   }
   100% {
     transform: scale(1);
