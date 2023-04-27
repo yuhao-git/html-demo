@@ -1,0 +1,11 @@
+Model Information:
+* title:	Camaro LS-DC™️
+* source:	https://sketchfab.com/3d-models/camaro-ls-dctm-e9c677d1c6a3454ebb4746a160129386
+* author:	SDC PERFORMANCE™️ (https://sketchfab.com/3Duae)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Camaro LS-DC™️" (https://sketchfab.com/3d-models/camaro-ls-dctm-e9c677d1c6a3454ebb4746a160129386) by SDC PERFORMANCE™️ (https://sketchfab.com/3Duae) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

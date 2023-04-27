@@ -7,12 +7,12 @@
 
 <script>
 import HelloWorld from "./components/HelloWorld.vue";
-// import chart2d from './components/charts2d/index.vue'
+import chart2d from './components/charts2d/index.vue'
 export default {
   name: "App",
   components: {
-    HelloWorld
-    // chart2d
+    HelloWorld,
+    chart2d
   }
 };
 </script>
@@ -35,5 +35,6 @@ body {
   color: #2c3e50;
   width: 100vw;
   height: 100vh;
+  background: #2c3e50;
 }
 </style>
