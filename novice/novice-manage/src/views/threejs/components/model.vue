@@ -1,6 +1,6 @@
 <template>
   <div ref="container"
-       class="h-full w-full border border-solid rounded "></div>
+       class="h-full w-full"></div>
 </template>
 
 <script setup>

@@ -101,9 +101,12 @@
 				scene.add( mesh );
 
 				const loader = new GLTFLoader();
-          // "./models/camaro_ls-dctm/scene.gltf"
-          // "models/gltf/Xbot.glb"
-				loader.load(  "./models/camaro_ls-dctm/scene.gltf", function ( gltf ) {
+					// let path = "shiba/scene.gltf"
+					let path = "light_saber/scene.gltf"
+					// let path = "gltf/Xbot.glb"
+					// let path = "camaro_ls-dctm/scene.gltf"
+					// let path = "terem/scene.gltf"
+				loader.load( 'models/' + path, function ( gltf ) {
 					model = gltf.scene;
 					scene.add( model );
 
@@ -173,7 +176,7 @@
 				camera.position.set( - 1, 2, 3 );
 
 				const controls = new OrbitControls( camera, renderer.domElement );
-				controls.enablePan = false;
+				controls.enablePan = true;
 				controls.enableZoom = true;
 				controls.target.set( 0, 1, 0 );
 				controls.update();

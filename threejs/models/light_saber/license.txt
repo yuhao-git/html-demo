@@ -1,0 +1,11 @@
+Model Information:
+* title:	Light Saber
+* source:	https://sketchfab.com/3d-models/light-saber-367786862a534d449c18c3ea85f7b90e
+* author:	Oleksandr Zymohliad (https://sketchfab.com/oleksandr_zymohliad)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Light Saber" (https://sketchfab.com/3d-models/light-saber-367786862a534d449c18c3ea85f7b90e) by Oleksandr Zymohliad (https://sketchfab.com/oleksandr_zymohliad) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
