@@ -22,6 +22,11 @@ const menu = [
     icon: "card",
     label: "三维",
   },
+  {
+    path: "/component",
+    icon: "card",
+    label: "组件",
+  }
 ];
 
 (function setGUID(nemu: Array<menuItem>) {

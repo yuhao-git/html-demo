@@ -34,7 +34,7 @@ export default defineConfig(({ command, mode }) => {
       vue(),
       createSvg("./src/assets/icon/svg/"),
       svgLoader(),
-      // AutoImport({
+      // AutoImport({ 
       //   resolvers: [ElementPlusResolver()],
       // }),
       // Components({

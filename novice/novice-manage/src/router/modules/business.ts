@@ -22,6 +22,10 @@ const routes = [
         path: "/threejs",
         component: () => import("@/views/threejs/index.vue"),
       },
+      {
+        path: "/component",
+        component: () => import("@/views/useComponent/index.vue"),
+      },
     ],
   },
 ];

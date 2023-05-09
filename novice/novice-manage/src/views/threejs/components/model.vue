@@ -13,6 +13,7 @@ import {
   watchEffect,
   computed,
   nextTick,
+  onBeforeUnmount,
 } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -28,9 +29,11 @@ let camera = null;
 function setEnvironmentParameter() {
   const width = container.value.clientWidth;
   const height = container.value.clientHeight;
+  // scene.background = new THREE.Color( 0xa0a0a0 );
+  scene.fog = new THREE.Fog(0xf0f2f5, 10, 50);
   // 引入摄像机
   camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-  camera.position.set(0, 0, 5);
+  camera.position.set(1.5, 0.5, 1.5);
   scene.add(camera);
   // 初始化渲染
   renderer.setSize(width, height);
@@ -40,36 +43,56 @@ function setEnvironmentParameter() {
 }
 
 function setLight() {
-  const Lights = [
-    { name: "AmbientLight", obj: new THREE.AmbientLight(0xffffff, 1) },
-    {
-      name: "DirectionalLight_top",
-      obj: new THREE.DirectionalLight(0xffffff, 3),
-      position: [0, 15, 0],
-    },
-    {
-      name: "DirectionalLight_bottom",
-      obj: new THREE.DirectionalLight(0x1b1b1b, 3),
-      position: [0, -200, 0],
-    },
-    {
-      name: "DirectionalLight_right1",
-      obj: new THREE.DirectionalLight(0xffffff, 1.5),
-      position: [0, -5, 20],
-    },
-    {
-      name: "DirectionalLight_right2",
-      obj: new THREE.DirectionalLight(0xffffff, 1.5),
-      position: [0, -5, -20],
-    },
-  ];
+  // const Lights = [
+  // { name: "AmbientLight", obj: new THREE.AmbientLight(0xffffff, 1) },
+  // {
+  //   name: "DirectionalLight_top",
+  //   obj: new THREE.DirectionalLight(0xffffff, 3),
+  //   position: [0, 15, 0],
+  // },
+  // {
+  //   name: "DirectionalLight_bottom",
+  //   obj: new THREE.DirectionalLight(0x1b1b1b, 3),
+  //   position: [0, -200, 0],
+  // },
+  // {
+  //   name: "DirectionalLight_right1",
+  //   obj: new THREE.DirectionalLight(0xffffff, 1.5),
+  //   position: [0, -5, 20],
+  // },
+  // {
+  //   name: "DirectionalLight_right2",
+  //   obj: new THREE.DirectionalLight(0xffffff, 1.5),
+  //   position: [0, -5, -20],
+  // },
+  // {
+  //   name: "HemisphereLight_1",
+  //   obj: new THREE.HemisphereLight(0xffffff, 0xffffff),
+  //   position: [0, 20, 0],
+  // },
+  // ];
 
-  Lights.map((item) => {
-    item.obj.name = item.name;
-    item.position && item.obj.position.set(...item.position);
-    item.Helper = new THREE.PointLightHelper(item.obj);
-    scene.add(item.obj);
-  });
+  const dirLight = new THREE.DirectionalLight(0xffffff);
+  dirLight.position.set(3, 10, 10);
+  dirLight.castShadow = true;
+  dirLight.shadow.camera.top = 2;
+  dirLight.shadow.camera.bottom = -2;
+  dirLight.shadow.camera.left = -2;
+  dirLight.shadow.camera.right = 2;
+  dirLight.shadow.camera.near = 0.1;
+  dirLight.shadow.camera.far = 40;
+  scene.add(dirLight);
+
+  const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444);
+  hemiLight.position.set(0, 20, 0);
+  scene.add(hemiLight);
+
+  // Lights.map((item) => {
+  //   item.obj.name = item.name;
+  //   item.position && item.obj.position.set(...item.position);
+  //   item.Helper = new THREE.PointLightHelper(item.obj);
+  //   scene.add(item.obj);
+  // });
 }
 
 function render() {
@@ -86,9 +109,10 @@ function importModel() {
   // scene.add(cube);
 
   loader.load(
-    "/models/sorceress/scene.gltf",
+    "/models/shiba/scene.gltf",
     function (gltf) {
-      scene.add(gltf.scene);
+      let model = gltf.scene;
+      scene.add(model);
     },
     undefined,
     function (error) {
@@ -97,19 +121,65 @@ function importModel() {
   );
 }
 
+function addMesh() {
+  const mesh = new THREE.Mesh(
+    new THREE.PlaneGeometry(100, 100),
+    new THREE.MeshPhongMaterial({ color: 0xf0f2f5, depthWrite: false })
+  );
+  mesh.rotation.x = -Math.PI / 2;
+  mesh.receiveShadow = true;
+  scene.add(mesh);
+}
+
 onMounted(() => {
   setEnvironmentParameter();
   importModel();
   setLight();
+  addMesh();
   const controls = new OrbitControls(camera, container.value);
   controls.enableDamping = true;
   controls.update();
   container.value.appendChild(renderer.domElement);
   render();
+  // 页面更新变化，渲染页面
+  window.addEventListener("resize", resize);
 });
 
-// 页面更新变化，渲染页面
-window.addEventListener("resize", () => {
+function disposeTree(obj) {
+  while (obj.children.length > 0) {
+    disposeTree(obj.children[0]);
+    obj.remove(obj.children[0]);
+  }
+  if (obj.geometry) obj.geometry.dispose();
+  if (obj.material) {
+    if (obj.material.length > 1) {
+      obj.material.forEach((item) => {
+        if (item.map?.dispose) {
+          item.map.dispose();
+          item.map = null;
+        }
+        item.dispose();
+        item = null;
+      });
+    } else {
+      if (obj.material.map?.dispose) {
+        obj.material.map?.dispose();
+        obj.material.map = null;
+      }
+      obj.material.dispose();
+    }
+  }
+  if (obj.dispose) {
+    obj.dispose();
+  }
+  obj = null;
+}
+
+onBeforeUnmount(() => {
+  disposeTree(scene);
+  window.removeEventListener("resize", resize);
+});
+function resize() {
   const width = container.value.clientWidth;
   const height = container.value.clientHeight;
   // 更新摄像头
@@ -120,7 +190,7 @@ window.addEventListener("resize", () => {
   renderer.setSize(width, height);
   // 设置渲染器像素比
   renderer.setPixelRatio(window.devicePixelRatio);
-});
+}
 </script>
 
 <style scoped lang='less'>
