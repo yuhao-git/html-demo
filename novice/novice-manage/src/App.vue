@@ -1,4 +1,5 @@
 <template>
+  <div id="teleport"></div>
   <router-view v-slot="{ Component }">
     <transition mode="out-in">
       <keep-alive :exclude="isCached">
@@ -18,7 +19,12 @@ let themeStore = useThemeStoreHook();
 
 onBeforeMount(() => {
   let isLight = localStorage.getItem("theme") == "dark" ? false : true;
-  themeStore.changeTheme(isLight)
+  themeStore.changeTheme(isLight);
 });
 </script>
 
+<style scoped>
+#teleport {
+  position: absolute;
+}
+</style>

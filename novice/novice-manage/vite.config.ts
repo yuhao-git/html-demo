@@ -19,10 +19,9 @@ const alias: Record<string, string> = {
   "@": pathResolve("src"),
 };
 
-
 export default defineConfig(({ command, mode }) => {
   return {
-    base: "./",
+    base: loadEnv(mode, process.cwd()).VITE_APP_BASEPATH,
     resolve: {
       alias,
     },

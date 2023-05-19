@@ -27,6 +27,7 @@ export default defineComponent({
   <div class="h-full flex relative">
     <aside class="h-full flex-none aside overflow-visible"
            :class="[collapsed  ?  'aside-collapsed'  :  'aside-expend']">
+
       <sidebar></sidebar>
     </aside>
     <main class="h-full w-full ">
@@ -38,7 +39,8 @@ export default defineComponent({
           <transition name="fade-transform"
                       mode="out-in">
             <keep-alive :include="[]">
-              <component :is="Component" />
+              <component key="keep"
+                         :is="Component" />
             </keep-alive>
           </transition>
         </router-view>

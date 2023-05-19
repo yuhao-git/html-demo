@@ -26,6 +26,23 @@ const menu = [
     path: "/component",
     icon: "card",
     label: "组件",
+    children: [
+      {
+        path: "/component/tab",
+        icon: "card",
+        label: "tabs",
+      },
+      {
+        path: "/component/pop",
+        icon: "card",
+        label: "pop",
+      },
+      {
+        path: "/component/count",
+        icon: "card",
+        label: "count",
+      },
+    ]
   }
 ];
 

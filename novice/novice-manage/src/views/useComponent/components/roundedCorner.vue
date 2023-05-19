@@ -1,10 +1,10 @@
 <template>
   <div class="tab-list"
        ref="tabList">
-    <div v-for="item in state.list"
+    <div v-for="item in state.listData"
          @click="changeActiveItem(item)"
          :class="['tab-item']"
-         :key="item.key">
+         :key="item.index">
       {{ item.label }}
     </div>
     <div class="tab-selected">{{ state.activeItem.label }}</div>
@@ -21,22 +21,45 @@ import {
   onBeforeUnmount,
 } from "vue";
 
-interface listType {
-  label: string;
-  key: number;
-}
-const list: listType[] = [
-  { label: "标签1", key: 0 },
-  { label: "标签2", key: 1 },
-  { label: "标签3", key: 2 },
-  { label: "标签4", key: 3 },
-];
+const props = defineProps({
+  list: {
+    type: Array,
+    required: true,
+    default: () => [
+      { label: "标签1" },
+      { label: "标签2" },
+      { label: "标签3" },
+      { label: "标签4" },
+    ],
+  },
+  modelValue: {
+    type: Object,
+  },
+  activeItem: {
+    type: Object,
+  },
+});
+
+const emit = defineEmits(["change", "update:modelValue", "update:activeItem"]);
+
 const tabList = ref(null);
-const activeItem: listType = list[0];
-const state = reactive({ list, activeItem });
+const listData: any = props.list.map((item, index) => ({
+  ...item,
+  index: index,
+}));
+const activeItem: any = listData[0];
+const state = reactive({ activeItem, listData });
+
+onMounted(() => {
+  window.addEventListener("resize", resize);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", resize);
+});
 
 // 点击事件
-function changeActiveItem(item: listType): void {
+function changeActiveItem(item: any): void {
   state.activeItem = item;
 }
 
@@ -47,27 +70,42 @@ let width = ref("0");
 function resize(): void {
   nextTick(() => {
     left.value =
-      tabList.value?.children[state.activeItem.key].offsetLeft + "px";
+      tabList.value?.children[state.activeItem.index].offsetLeft + "px";
     width.value =
-      tabList.value?.children[state.activeItem.key].clientWidth + "px";
+      tabList.value?.children[state.activeItem.index].clientWidth + "px";
   });
 }
-
-onMounted(() => {
-  window.addEventListener("resize", resize);
-});
-
-onBeforeUnmount(() => {
-  window.removeEventListener("resize", resize);
-});
+// 用ref还能保留响应式。。。
+// reactive 只能做为某个属性才能保留响应，解构之后也会失去响应式
+const activeIndex = ref({});
 
 watch(
   () => state.activeItem,
   () => {
+    emit("update:modelValue", state.activeItem);
+    emit("update:activeItem", state.activeItem);
     resize();
+    activeIndex.value = state.activeItem;
   },
   { immediate: true }
 );
+
+watch(
+  () => props.list,
+  () => {
+    state.listData = props.list.map((item, index) => ({
+      ...item,
+      index: index,
+    }));
+
+    state.activeItem = state.listData[0] || {};
+  },
+  {
+    deep: true,
+  }
+);
+
+defineExpose({ state: state, activeIndex: activeIndex });
 </script>
 
 <style scoped lang='less'>

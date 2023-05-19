@@ -23,9 +23,18 @@ const routes = [
         component: () => import("@/views/threejs/index.vue"),
       },
       {
-        path: "/component",
-        component: () => import("@/views/useComponent/index.vue"),
+        path: "/component/tab",
+        component: () => import("@/views/useComponent/views/tab.vue"),
       },
+      {
+        path: "/component/pop",
+        component: () => import("@/views/useComponent/views/pop.vue"),
+      },
+      {
+        path: "/component/count",
+        component: () => import("@/views/useComponent/views/count.vue"),
+      },
+
     ],
   },
 ];

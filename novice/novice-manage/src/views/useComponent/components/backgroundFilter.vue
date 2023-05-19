@@ -2,12 +2,16 @@
   <div class="h-20 relative  border-b border-solid border-gray-200">
     <div class="navbar-wrapper absolute z-1 h-10 w-full"></div>
     <div class="h-20 flex items-center justify-center ">
-      被遮挡元素
+      <slot name="content"
+            v-bind="{name}"></slot>
     </div>
+
   </div>
 </template>
 
 <script setup>
+import { ref } from "vue";
+const name = ref("子组件数据");
 </script>
 <style scoped lang='less'>
 .navbar-wrapper {

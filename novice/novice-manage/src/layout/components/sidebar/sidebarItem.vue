@@ -25,10 +25,8 @@ let menuItemHasChildren = computed(() => {
       <svg-icon :name="menuItem.icon"
                 className="svg-icon"></svg-icon>
       <template #title>
-
         <span v-if="menuItem.label && menuItem.label.length < 10"
               class="ml-2">{{ menuItem.label }}</span>
-
         <el-tooltip v-else
                     placement="top"
                     :offset="-10">
@@ -51,7 +49,6 @@ let menuItemHasChildren = computed(() => {
                 className="svg-icon"></svg-icon>
       <span v-if="menuItem.label && menuItem.label.length < 10"
               class="ml-2">{{ menuItem.label }}</span>
-
         <el-tooltip v-else
                     placement="top"
                     :offset="-10">
