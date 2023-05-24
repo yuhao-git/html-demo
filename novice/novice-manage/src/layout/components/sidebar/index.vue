@@ -18,11 +18,11 @@
                  popper-effect="light"
                  :default-active="activeMenu"
                  :collapse="collapsed">
+          <!-- @click="menuStoreHook.setActiveMenuId(item.path)" -->
           <sidebarItem :index="item.path"
-                        v-for="item in menu"
-                        @click="menuStoreHook.setActiveMenuId(item.path)"
-                        :key="item.key"
-                        :menuItem="item"></sidebarItem>
+                       v-for="item in menu"
+                       :key="item.key"
+                       :menuItem="item"></sidebarItem>
         </el-menu>
       </el-scrollbar>
     </div>
@@ -31,22 +31,33 @@
 
 <script lang='ts' setup>
 import { menu } from "./menu";
-import { nextTick, ref, toRef, watch } from "vue";
+import { nextTick, onMounted, ref, toRef, watch } from "vue";
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import { ArrowLeftBold, ArrowRightBold } from "@element-plus/icons-vue";
 import sidebarItem from "./sidebarItem.vue";
-
+import { useStore } from "@/store/test";
 import logo from "@/assets/png/logo.png";
 import { useMenuStoreHook } from "@/store/modules/menu";
 let flag = ref(true);
+const router = useRouter();
+let { someState } = storeToRefs(useStore());
 
 const menuStoreHook = useMenuStoreHook();
 
 let { collapsed, activeMenu } = storeToRefs(menuStoreHook);
-menuStoreHook.setActiveMenuId(menu[0].path);
 
-const router = useRouter();
+// 设置初始值
+function setInitActiveMenuId(): void {
+  if (!activeMenu.value) {
+    menuStoreHook.setActiveMenuId(menu[0].path);
+    router.push(menu[0].path);
+  }
+}
+
+onMounted(() => {
+  setInitActiveMenuId();
+});
 
 // 监听路由变化
 watch(

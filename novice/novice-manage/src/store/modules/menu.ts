@@ -1,8 +1,9 @@
 import { defineStore } from "pinia";
 import { store } from "@/store";
 
-export const useMenuStore = defineStore({
+export const useMenuStoreHook = defineStore({
   id: "menu",
+  persist: true, // 开启持久化 依赖于 piniaPluginPersistedstate
   state: () => ({
     activeMenu: "",   // 选中菜单
     collapsed: false, // 折叠
@@ -12,13 +13,8 @@ export const useMenuStore = defineStore({
       this.activeMenu = menu
     }
   },
-  // getters: {
-  //   getAddAge: (state) => {
-  //     return state.age + 100;
-  //   },
-  // },
 });
 
-export function useMenuStoreHook() {
-  return useMenuStore(store);
-}
+// export function useMenuStoreHook() {
+//   return useMenuStore(store);
+// }

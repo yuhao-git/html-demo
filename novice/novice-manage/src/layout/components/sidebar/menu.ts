@@ -9,18 +9,18 @@ const menu = [
   },
   {
     path: "/card",
-    icon: "card",
-    label: "卡片设计",
+    icon: "alipay",
+    label: "遍历树",
   },
   {
     path: "/lowcode",
-    icon: "card",
+    icon: "QQ",
     label: "低代码",
   },
   {
     path: "/threejs",
-    icon: "card",
-    label: "三维",
+    icon: "sun",
+    label: "三维模型",
   },
   {
     path: "/component",

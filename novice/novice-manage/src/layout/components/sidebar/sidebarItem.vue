@@ -48,18 +48,18 @@ let menuItemHasChildren = computed(() => {
       <svg-icon :name="menuItem.icon"
                 className="svg-icon"></svg-icon>
       <span v-if="menuItem.label && menuItem.label.length < 10"
-              class="ml-2">{{ menuItem.label }}</span>
-        <el-tooltip v-else
-                    placement="top"
-                    :offset="-10">
-          <template #content>
-            <span>{{ menuItem.label }}</span>
-          </template>
-          <div ref="menuTextRef"
-               class="ellipsis">
-            <span class="ml-2 ellipsis ">{{ menuItem.label }}</span>
-          </div>
-        </el-tooltip>
+            class="ml-2">{{ menuItem.label }}</span>
+      <el-tooltip v-else
+                  placement="top"
+                  :offset="-10">
+        <template #content>
+          <span>{{ menuItem.label }}</span>
+        </template>
+        <div ref="menuTextRef"
+             class="ellipsis">
+          <span class="ml-2 ellipsis ">{{ menuItem.label }}</span>
+        </div>
+      </el-tooltip>
     </template>
     <sidebarItem v-for="child in menuItem.children"
                  :key="child.key"
