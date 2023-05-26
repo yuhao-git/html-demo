@@ -52,6 +52,8 @@ function setInitActiveMenuId(): void {
   if (!activeMenu.value) {
     menuStoreHook.setActiveMenuId(menu[0].path);
     router.push(menu[0].path);
+  } else{
+    router.push(activeMenu.value);
   }
 }
 
