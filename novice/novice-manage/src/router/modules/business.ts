@@ -34,7 +34,10 @@ const routes = [
         path: "/component/count",
         component: () => import("@/views/useComponent/views/count.vue"),
       },
-
+      {
+        path: "/component/preview",
+        component: () => import("@/views/useComponent/views/preview.vue"),
+      },
     ],
   },
 ];

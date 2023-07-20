@@ -42,6 +42,11 @@ const menu = [
         icon: "card",
         label: "count",
       },
+      {
+        path: "/component/preview",
+        icon: "card",
+        label: "preview",
+      },
     ]
   }
 ];
