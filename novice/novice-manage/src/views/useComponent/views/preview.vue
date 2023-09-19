@@ -1,10 +1,21 @@
 <template>
   <el-button type="primary" @click="exportExcel">导出excel</el-button>
+  <el-button  @click="toggleShow">显示</el-button>
+  <div> -- {{ isShow }} -- </div>
+  <keep-alive >
+    <show v-show="isShow" />
+  </keep-alive>
 </template>
 
 <script lang='ts' setup>
 import ExcelJS from 'exceljs';
-
+import show from './show.vue';
+import { ref } from 'vue';
+let isShow = ref(false);
+function toggleShow() {
+  // 测试v-show是否会触发 activated
+  isShow.value = !isShow.value
+}
 function exportExcel() {
   // 要导出的数据
   let dataList = [
@@ -43,6 +54,9 @@ function exportExcel() {
     document.body.removeChild(downloadElement) // 下载完成移除元素
     window.URL.revokeObjectURL(href) // 释放掉blob对象
   });
+
+
+
 }
 
 </script>

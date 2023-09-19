@@ -47,6 +47,12 @@ const menu = [
         icon: "card",
         label: "preview",
       },
+      {
+        path: "/component/ring",
+        icon: "card",
+        label: "ring",
+      }
+      
     ]
   }
 ];

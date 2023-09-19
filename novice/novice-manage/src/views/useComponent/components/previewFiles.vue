@@ -46,12 +46,15 @@ export default {
     })
 
     const toggleFullscreen = () => {
-      state.fullscreen = !state.fullscreen
+      // 切换全屏状态
+      state.fullscreen =!state.fullscreen
+      // 如果全屏状态为true，则设置鼠标指针坐标
       if (state.fullscreen) {
         state.panX = 0
         state.panY = 0
         document.documentElement.requestFullscreen()
       } else {
+        // 否则，退出全屏
         document.exitFullscreen()
       }
     }
@@ -85,15 +88,19 @@ export default {
     }
 
     const onTouchMove = (e) => {
+      // 阻止默认行为
       e.preventDefault()
+      // 如果只有一个触摸点，且没有拖拽
       if (e.touches.length === 1 && state.dragging) {
         // Single touch to drag
+        // 单指触摸移动
         state.panX += e.touches[0].pageX - state.lastX
         state.panY += e.touches[0].pageY - state.lastY
         state.lastX = e.touches[0].pageX
         state.lastY = e.touches[0].pageY
-      } else if (e.touches.length === 2 && state.lastPinchDist !== null && state.lastPinchScale !== null) {
+      } else if (e.touches.length === 2 && state.lastPinchDist!== null && state.lastPinchScale!== null) {
         // Multi-touch to pinch to zoom
+        // 多指触摸缩放
         const dist = Math.sqrt(
           (e.touches[1].pageX - e.touches[0].pageX) ** 2 +
           (e.touches[1].pageY - e.touches[0].pageY) ** 2

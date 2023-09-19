@@ -38,6 +38,11 @@ const routes = [
         path: "/component/preview",
         component: () => import("@/views/useComponent/views/preview.vue"),
       },
+      {
+        path: "/component/ring",
+        component: () => import("@/views/useComponent/views/ring.vue"),
+      },
+      
     ],
   },
 ];
