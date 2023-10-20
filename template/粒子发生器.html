@@ -2,25 +2,25 @@
 <!--浏览器获知文档类型为HTML5-->
 <html>
 
-<head>
-    <meta charset="utf-8" />
-    <!--编码格式-->
-    <title>粒子发生器</title>
-    <!--引入js-->
-    <!--注意js文件的名字-->
-    <style>
+    <head>
+        <meta charset="utf-8" />
+        <!--编码格式-->
+        <title>粒子发生器</title>
+        <!--引入js-->
+        <!--注意js文件的名字-->
+        <style>
         /*定义样式*/
         #cns1 {
             border: 1px solid red;
         }
     </style>
-</head>
+    </head>
 
-<body>
-    <canvas id="cns1" width="500px" height="500px"></canvas>
-    <!--canvas画布-->
-</body>
-<script>
+    <body>
+        <canvas id="cns1" width="500px" height="500px"></canvas>
+        <!--canvas画布-->
+    </body>
+    <script>
     var Model = function (canvas) {    //传参 画布
         var me = this;
         me.puppleArr = new Array();       //泡泡数组
@@ -35,16 +35,29 @@
         me.shake();   //泡泡发射（移动）
     }
     Model.prototype.genPupple = function () {    //使用 prototype 属性来向对象添加属性
+
+        var radius = 100; // 圆的半径
+        var centerX = this.canvas.width / 2; // 圆心的x坐标
+        var centerY = this.canvas.height / 2; // 圆心的y坐标
+
+        var angle = Math.random() * 2 * Math.PI; // 随机角度
+
+        var x = Math.cos(angle) * radius + centerX; // x坐标
+        var y = Math.sin(angle) * radius + centerY; // y坐标
+
         return {            //返回泡泡的各种属性
             radius: Math.random() * 10,//半径
-            v: Math.random() * 100, //速度
+            v: Math.random() * 10, //速度
             r: Math.random() * 255 | 0,      //|0是取整   random()是0~1之间的随机数
             g: Math.random() * 255 | 0,
             b: Math.random() * 255 | 0,   //r g b 三原色
             a: Math.random(),        //透明度
-            angle: Math.PI * Math.random() * 2,      //泡泡移动方向    
-            x: this.canvas.width / 2,          //泡泡位置坐标
-            y: this.canvas.height / 2,
+            angle:calculateAngleToCirclePoint(centerX,centerY,x,y),
+            // angle: Math.PI * Math.random() * 2,      //泡泡移动方向    
+            // x: this.canvas.width / 2,          //泡泡位置坐标
+            // y: this.canvas.height / 2,
+            x: x,
+            y: y,
         }
     }
     Model.prototype.shake = function () {          //使用 prototype 属性来向对象添加属性
@@ -61,8 +74,11 @@
                 ctx.fill();      //填充颜色
                 ctx.closePath();  //结束绘制
 
-                o.x += (o.v) * Math.cos(o.angle) * 0.03;        //泡泡位置移动
-                o.y += (o.v) * Math.sin(o.angle) * 0.03;
+                // o.x += (o.v) * Math.cos(o.angle) * 0.03;        //泡泡位置移动
+                // o.y += (o.v) * Math.sin(o.angle) * 0.03;
+                var pointPosition = movePointInDirection(o.x,o.y,o.angle,o.v)
+                o.x = pointPosition.x
+                o.y = pointPosition.y
                 o.a -= 0.01;        //透明度逐渐降低
                 if (o.a <= 0) {              //透明度降低至0时（肉眼看不见了），便重置泡泡的各种属性
                     me.puppleArr[i] = me.genPupple();
@@ -79,8 +95,56 @@
         var Game = new Pupple(document.querySelector("#cns1"));
     }
 
+    // 计算圆上一点P的切线向量
+    function calculateNormalVectorAngleOnCircle(radius, centerX, centerY, pointX, pointY) {
+        var dx = pointX - centerX;
+        var dy = pointY - centerY;
 
+        // 计算向量的长度
+        var length = Math.sqrt(dx * dx + dy * dy);
 
+        // 归一化向量
+        var normalizedX = dx / length;
+        var normalizedY = dy / length;
+
+        // 计算法线向量的角度（弧度）
+        var normalRadians = Math.atan2(normalizedY, normalizedX);
+
+        // 将弧度转换为度数
+        var normalDegrees = normalRadians * (180 / Math.PI);
+
+        return normalDegrees;
+        }
+
+    // 计算圆心到圆上一点的方向
+    function calculateAngleToCirclePoint(centerX, centerY, pointX, pointY) {
+        var dx = pointX - centerX;
+        var dy = pointY - centerY;
+
+        // 计算向量的角度（弧度）
+        var radians = Math.atan2(dy, dx);
+
+        // 将弧度转换为度数
+        var degrees = radians * (180 / Math.PI);
+
+        return degrees;
+    }
+
+    // 使点沿着圆心到圆上某点的方向每次增加一定距离进行移动
+    function movePointInDirection(startX, startY, directionAngle, distance) {
+    // 将角度转换为弧度
+    var radians = directionAngle * (Math.PI / 180);
+
+    // 计算扩散向量的分量
+    var dx = Math.cos(radians) * distance;
+    var dy = Math.sin(radians) * distance;
+
+    // 计算新的点的位置
+    var newX = startX + dx;
+    var newY = startY + dy;
+
+    return { x: newX, y: newY };
+    }
 
 </script>
 

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG Animation Example</title>
+  <style>
+      svg {
+          display: block;
+          width: 100%;
+          height: 100%;
+          background-color: #f0f0f0;
+      }
+  </style>
+</head>
+<body>
+  <svg dth="300px" height="175px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <!-- alternate -->
+    <style type="text/css" >
+      
+    .line1 {
+         stroke-dasharray: 340;
+         stroke-dashoffset: 40;
+         animation: dash 1.5s linear  infinite;
+    }
+    .line2 {
+         stroke-dasharray: 320;
+         stroke-dashoffset: 320;
+         animation: dash2 1.5s linear  infinite;
+    }
+    @keyframes dash {
+        from {
+           stroke-dashoffset: 360;
+        }
+        to {
+           stroke-dashoffset: 40;
+        }
+    }
+    @keyframes dash2 {
+        from {
+           stroke-dashoffset: 280;
+        }
+        to {
+           stroke-dashoffset: -40;
+        }
+    }
+    </style>
+    
+    <path fill="transparent" stroke="#000000" stroke-width="4" d="M10 80 Q 77.5 10, 145 80 T 280 80" class="path"></path>
+    <path fill="transparent" stroke="#FF2851" stroke-width="4" d="M10 80 Q 77.5 10, 145 80 T 280 80" class="line2"></path>
+    <path fill="transparent" stroke="#000000" stroke-width="4" d="M10 80 Q 77.5 10, 145 80 T 280 80" class="line1"></path>
+    </svg>
+</body>
+</html>
