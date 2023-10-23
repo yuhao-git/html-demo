@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="cta">
+      <span class="hover-underline-animation">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet fuga
+        corrupti provident reiciendis delectus nihil odit ratione ipsum! Illo id
+        quod repellendus saepe quisquam natus soluta dolor eos veniam beatae.
+      </span>
+    </div>
+
+    <style>
+    /* From www.lingdaima.com */
+    .cta {
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+
+    .cta span {
+      padding-bottom: 7px;
+      letter-spacing: 4px;
+      font-size: 10px;
+      padding-right: 15px;
+      text-transform: uppercase;
+    }
+
+    .hover-underline-animation {
+      position: relative;
+      color: black;
+      padding-bottom: 20px;
+    }
+
+    .hover-underline-animation:after {
+      content: "";
+      position: absolute;
+      border: 1px solid;
+      width: 100%;
+      transform: scaleX(0);
+      height: 1.5px;
+      bottom: 0;
+      left: 0;
+      background-color: #000000;
+      transform-origin: bottom right;
+      transition: transform 0.25s ease-out;
+    }
+
+    .cta:hover .hover-underline-animation:after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+    
+  </style>
+  </body>
+</html>
