@@ -1,18 +1,53 @@
 <template>
+  <div style="position:absolute;z-index:99;width:100%;padding:0 20px;left:0;">
+    <el-row :gutter="20">
+      <el-col :span="8">
+        <el-text>容器rotateX</el-text>
+        <el-input class="w-50 mb-2"
+                  v-model="state.rotateX"></el-input></el-col>
+      <el-col :span="8">
+        <el-text>元素rotateX</el-text>
+        <el-input class="w-50 mb-2"
+                  v-model="itemStyle.rotateX"></el-input></el-col>
+      <el-col :span="8">
+        <el-text>时间间隔</el-text>
+        <el-slider :max="5000"
+                   :min="10"
+                   @change="startAnimation"
+                   v-model="animationDuration" /></el-col>
+      <el-col :span="8">
+        <el-text>元素数量</el-text>
+        <el-slider :max="100"
+                   :min="2"
+                   v-model="listNum" />
+      </el-col>
+    </el-row>
+
+    <el-button @click="startAnimation">开始</el-button>
+    <el-button @click="pauseAnimation">暂停</el-button>
+    <el-button @click="setDirection('left')">向左</el-button>
+    <el-button @click="setDirection('right')">向右</el-button>
+    <el-switch v-model="isFaceToScreen"
+               class="ml-2"
+               inline-prompt
+               active-text="朝向屏幕"
+               inactive-text="朝向圆心"></el-switch>
+  </div>
+
   <div class="container">
-    {{animationCounter % list.length + 1}}
+    {{currentIndex + 1}}
     <div class="swiper"
-         @mouseenter="pause"
+         @mouseenter="pauseAnimation"
          @mouseleave="startAnimation"
          :style="state.swiperStyle">
       <div class="item"
-           v-for="(item,i) in list"
-           :style="{transform:`rotateY(${360 / list.length * i}deg)  translateZ(400px) `}"
+           v-for="(item,i) in state.list"
+           :style="{transform:` rotateY(${360 / state.list.length * i}deg)  translateZ(320px) `}"
            :key="i">
         <div @click="focusTarget(item,i)"
-             :style="{transform:`rotateY(${state.rotateY - 360 / list.length * i}deg) `}"
+             :style="getItemContentStyle(i)"
              class="item-content"
-             :class="{'highlight':animationCounter % list.length  == i}">{{item}}
+             :class="{'highlight': currentIndex == i}">{{item}}
         </div>
       </div>
     </div>
@@ -27,15 +62,37 @@ import {
   ref,
   onBeforeUnmount,
   nextTick,
+  computed,
+  watchEffect,
 } from "vue";
-let list = reactive([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+let listNum = ref(10);
+
 let animationCounter = ref(0);
-let animationCounterOld = ref(0);
 let swiperStyle = {};
-let state = reactive({ swiperStyle, rotateY: 0 });
+let state = reactive({
+  swiperStyle,
+  direction: "left",
+  rotateY: 0,
+  rotateX: 20,
+  list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+});
+
+let itemStyle = reactive({ rotateX: 20 });
 let timer = null;
-let animationDuration = ref("1000");
+let animationDuration = ref(1000);
 let animationDurationCss = ref(animationDuration.value + "ms");
+let isFaceToScreen = ref(true);
+
+watchEffect(() => {
+  state.list = Array.from({ length: listNum.value }, (_, i) => i + 1);
+});
+
+// 当前index
+const currentIndex = computed(
+  () =>
+    (state.list.length + (animationCounter.value % state.list.length)) %
+    state.list.length
+);
 
 onMounted(() => {
   startAnimation();
@@ -45,46 +102,74 @@ onBeforeUnmount(() => {
   stopAnimation();
 });
 
+function getItemContentStyle(i) {
+  let transform = `rotateY(${
+    state.rotateY - (360 / state.list.length) * i
+  }deg) rotateX(${itemStyle.rotateX}deg)`;
+  if (!isFaceToScreen.value) {
+    transform = `rotateX(${itemStyle.rotateX}deg)`;
+  }
+  return {
+    transform,
+  };
+}
+
+function setDirection(value) {
+  state.direction = value;
+  startAnimation();
+}
+
 // 点击指定元素后，将其旋转到最前方
 function focusTarget(param, i) {
-  animationCounter.value = i;
-  animation(i);
+  // 计算点击的元素与当前元素之间的差值
+  let diff = i - (animationCounter.value % state.list.length);
+  let index = animationCounter.value + diff;
+  // 处理list.length ->0和0->list.length 的情况
+  if (Math.abs(diff) > state.list.length / 2) {
+    if (diff > 0) {
+      index = index - state.list.length;
+    } else {
+      index = index + state.list.length;
+    }
+  }
+
+  animationCounter.value = index;
+  animation(animationCounter.value);
 }
 
 // 动画
 function animation(index) {
-  // 与上一个index 做比较
-  let difference = index - animationCounterOld.value;
-  // 旋转角度 = 上次的旋转角度 + 当前index与上次index的差值 * 360/list.length
-  let rotateOffset = state.rotateY + (difference * 360) / list.length;
   state.swiperStyle = {
-    transform: `rotateX(-20deg) rotateY(-${rotateOffset}deg)`,
+    transform: `rotateX(${-state.rotateX}deg) rotateY(${
+      -(index / state.list.length) * 360
+    }deg)`,
   };
-
-  state.rotateY = (index * 360) / list.length;
-
-  animationCounterOld.value = index;
+  state.rotateY = (index * 360) / state.list.length;
 }
 
 // 开始
 function startAnimation() {
+  if (timer) {
+    clearInterval(timer);
+  }
   timer = setInterval(() => {
-    animationCounter.value++;
+    if (state.direction == "left") {
+      animationCounter.value++;
+    } else {
+      animationCounter.value--;
+    }
     animation(animationCounter.value);
   }, animationDuration.value);
 }
-
+// 暂停
+function pauseAnimation() {
+  clearInterval(timer);
+  timer = null;
+}
 // 结束
 function stopAnimation() {
   animationCounter.value = 0;
-  startAnimation();
-  pause();
-}
-
-// 暂停
-function pause() {
-  clearInterval(timer);
-  timer = null;
+  pauseAnimation();
 }
 </script>
 <style scoped lang='less'>
@@ -99,7 +184,7 @@ function pause() {
   display: flex;
   justify-content: center;
   align-items: center;
-  perspective: 1400px;
+  perspective: 1200px;
 }
 
 .swiper {
@@ -108,18 +193,15 @@ function pause() {
   width: @swiper-width;
   transform-style: preserve-3d;
   cursor: pointer;
-  transform: rotateX(-10deg);
+  transform: rotateX(-20deg);
   transition: transform @animation-duration ease;
-  // border: 1px solid #333;
   .item {
     position: absolute;
     height: @swiper-height;
     width: @swiper-width;
-    top: 0;
-    left: 0;
+
     transform-style: preserve-3d;
     transition: transform @animation-duration ease;
-    // border: 1px solid #333;
   }
 }
 
@@ -141,6 +223,6 @@ function pause() {
 }
 
 .highlight {
-  scale: 2;
+  // scale: 2;
 }
 </style>
