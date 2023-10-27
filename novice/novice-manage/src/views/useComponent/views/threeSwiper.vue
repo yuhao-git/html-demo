@@ -3,12 +3,18 @@
     <el-row :gutter="20">
       <el-col :span="8">
         <el-text>容器rotateX</el-text>
-        <el-input class="w-50 mb-2"
-                  v-model="state.rotateX"></el-input></el-col>
+        <el-slider :max="360"
+                   :min="-360"
+                   @change="startAnimation"
+                   v-model="state.rotateX" />
+      </el-col>
       <el-col :span="8">
         <el-text>元素rotateX</el-text>
-        <el-input class="w-50 mb-2"
-                  v-model="itemStyle.rotateX"></el-input></el-col>
+        <el-slider :max="360"
+                   :min="-360"
+                   @change="startAnimation"
+                   v-model="itemStyle.rotateX" />
+      </el-col>
       <el-col :span="8">
         <el-text>时间间隔</el-text>
         <el-slider :max="5000"
@@ -21,6 +27,12 @@
                    :min="2"
                    v-model="listNum" />
       </el-col>
+      <el-col :span="8">
+        <el-text>半径</el-text>
+        <el-slider :max="1000"
+                   :min="2"
+                   v-model="radius" />
+      </el-col>
     </el-row>
 
     <el-button @click="startAnimation">开始</el-button>
@@ -32,6 +44,12 @@
                inline-prompt
                active-text="朝向屏幕"
                inactive-text="朝向圆心"></el-switch>
+
+    <el-switch v-model="isHighLight"
+               class="ml-2"
+               inline-prompt
+               active-text="高亮"
+               inactive-text="无高亮"></el-switch>
   </div>
 
   <div class="container">
@@ -42,12 +60,12 @@
          :style="state.swiperStyle">
       <div class="item"
            v-for="(item,i) in state.list"
-           :style="{transform:` rotateY(${360 / state.list.length * i}deg)  translateZ(320px) `}"
+           :style="{transform:` rotateY(${360 / state.list.length * i}deg)  translateZ(${radius}px) `}"
            :key="i">
         <div @click="focusTarget(item,i)"
              :style="getItemContentStyle(i)"
              class="item-content"
-             :class="{'highlight': currentIndex == i}">{{item}}
+             :class="{'highlight': isHighLight && currentIndex == i}">{{item}}
         </div>
       </div>
     </div>
@@ -66,6 +84,7 @@ import {
   watchEffect,
 } from "vue";
 let listNum = ref(10);
+let radius = ref(320);
 
 let animationCounter = ref(0);
 let swiperStyle = {};
@@ -82,6 +101,7 @@ let timer = null;
 let animationDuration = ref(1000);
 let animationDurationCss = ref(animationDuration.value + "ms");
 let isFaceToScreen = ref(true);
+let isHighLight = ref(true);
 
 watchEffect(() => {
   state.list = Array.from({ length: listNum.value }, (_, i) => i + 1);
@@ -181,6 +201,7 @@ function stopAnimation() {
   height: 100%;
   width: 100%;
   position: relative;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -223,6 +244,6 @@ function stopAnimation() {
 }
 
 .highlight {
-  // scale: 2;
+  scale: 2;
 }
 </style>
