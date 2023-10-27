@@ -51,8 +51,12 @@ const menu = [
         path: "/component/ring",
         icon: "card",
         label: "ring",
+      },
+      {
+        path: "/component/threeSwiper",
+        icon: "card",
+        label: "三维轮播",
       }
-      
     ]
   }
 ];

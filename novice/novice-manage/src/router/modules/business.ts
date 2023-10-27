@@ -42,7 +42,10 @@ const routes = [
         path: "/component/ring",
         component: () => import("@/views/useComponent/views/ring.vue"),
       },
-      
+      {
+        path: "/component/threeSwiper",
+        component: () => import("@/views/useComponent/views/threeSwiper.vue"),
+      },
     ],
   },
 ];

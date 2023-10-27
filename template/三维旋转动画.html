@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css3d</title>
+  </head>
+  <body>
+    <!-- css实现三维效果 -->
+    <div class="container">
+      <div class="wrap">
+        <!-- 显示所有面朝向屏幕：在div.item中嵌套一层，rotateY旋转角度与item相反即可 -->
+        <div class="item flex">1</div>
+        <div class="item flex">2</div>
+        <div class="item flex">3</div>
+        <div class="item flex">4</div>
+        <div class="item flex">5</div>
+        <div class="item flex">6</div>
+      </div>
+      <div class="center-box"></div>
+      <div class="plane flex">1</div>
+    </div>
+  </body>
+
+  <script>
+    let index = 0;
+    const wrap = document.querySelector('.wrap');
+    const plane = document.querySelector('.plane');
+    // js 控制旋转的角度和间隔时间
+    setInterval(()=>{
+      index++;
+      wrap.style.transform = `rotateX(-20deg) rotateY(-${index*60}deg)`
+      plane.innerHTML = `${index % 6 + 1}`;
+    },3000)
+  </script>
+  <style>
+  html,body{
+    background-color: #333;
+    overflow: hidden;
+  }
+  .container {
+    height: 80px;
+    width: 150px;
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    perspective: 1400px;
+    transform: translate(-50%,-50%);
+    transform-style: preserve-3d;
+  }
+
+  .wrap{
+    /* animation: rotate 3s steps(6) infinite ; */
+    /* animation: rotate 10s linear infinite ; */
+    /* animation-delay: 1s; */
+    transform: rotateX(-20deg);
+    transition: transform 1s ease;
+    transform-style: preserve-3d;
+  }
+
+  @keyframes rotate {
+    0%{
+      transform: rotateX(-20deg) rotateY(0deg);
+    }
+    100%{
+      transform: rotateX(-20deg) rotateY(-360deg);
+  }
+}
+.center-box{
+  position: absolute;
+  left: calc(-25px + 75px);
+  top: 50px;
+  height: 50px;
+  width: 50px;
+  background: #fff0ff;
+  border-radius: 50px;
+}
+.plane{
+  /* height: 800px;
+  width: 800px;
+  position: absolute;
+  left: calc(-400px + 75px);
+  top: -310px;
+  border-radius: 2px;
+  background: #000;
+  
+  transform: rotateX(70deg); */
+  position: absolute;
+  left: calc(-100px + 75px);
+  top: -100px;
+  height: 200px;
+  width: 200px;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  background: #333;
+  color: yellow;
+  animation: scale-animation 3s infinite;
+  transform-origin: center 175px;
+}
+
+@keyframes scale-animation {
+  0%{
+    transform:  scale(0) translateY(100px) ;
+    opacity:0;
+  }
+  20%{
+    transform:  scale(0) translateY(100px);
+    opacity:0;
+  }
+  50%{
+    transform:  scale(1) translateY(-100px);
+    opacity:1;
+  }
+  80%{
+    transform:  scale(1) translateY(-100px);
+    opacity:1;
+  }
+  100%{
+    /* transform:  scale(0) translateY(100px);
+    opacity: 0; */
+    transform:  scale(1.3) translateY(-100px);
+    opacity: 0;
+  }
+}
+.flex{
+  display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+  .item{
+    height: 80px;
+    width: 150px;
+    position: absolute;
+    background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+    border-radius: 3px;
+    
+    color: #fff;
+    /* backface-visibility: hidden; *隐藏背面* */
+    transform-style: preserve-3d;
+    cursor: pointer;
+    /* -webkit-box-reflect: below; 倒影 */
+  }
+  .item:hover{
+    background: red;
+  }
+
+  /* .item::after{
+    content: "";
+    color: #333;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+    border-radius: 3px;
+    transform: translateZ(-0.5px);
+  } */
+
+  .item:nth-of-type(1){
+    transform: rotateY(0deg)  translateZ(320px);
+  }
+  .item:nth-of-type(2){
+    transform: rotateY(60deg) translateZ(320px);
+  }
+  .item:nth-of-type(3){
+    transform: rotateY(120deg) translateZ(320px);
+  }
+  .item:nth-of-type(4){
+    transform: rotateY(180deg) translateZ(320px);
+  }
+  .item:nth-of-type(5){
+    transform: rotateY(240deg) translateZ(320px);
+  }
+  .item:nth-of-type(6){
+    transform: rotateY(300deg) translateZ(320px);
+  }
+</style>
+</html>

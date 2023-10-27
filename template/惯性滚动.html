@@ -52,6 +52,8 @@
             <img src="../assets/img/naughty.png" >
             <img src="../assets/img/naughty.png" >
             <img src="../assets/img/naughty.png" >
+            <img src="../assets/img/naughty.png" >
+            <img src="../assets/img/naughty.png" >
         </div>
     </div>
 
@@ -80,6 +82,7 @@
         let last = null;
         let diff = null;
         let rafId = null;
+        // 在容器上添加pointerdown事件
         container.addEventListener('pointerdown', function (e) {
             this.setPointerCapture(e.pointerId);
             isPointerDown = true;
@@ -107,6 +110,8 @@
         });
 
         // 惯性滚动
+        // 通过diff.x和diff.y计算出当前的旋转角度，然后通过计算出惯性滚动的角度，并赋值给rotate.x和rotate.y
+        // 然后通过requestAnimationFrame()函数不断调用raf()函数，实现惯性滚动
         function raf() {
             let { x, y } = diff;
             function step() {
