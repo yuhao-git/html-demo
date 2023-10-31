@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入字体图标 -->
+    <link rel="stylesheet" href="./font/iconfont.css">
+    <title>山羊の前端小窝</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            list-style: none;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+            background-image: linear-gradient(to top, #9795f0 0%, #fbc8d4 100%);
+        }
+
+        .shell {
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 130px 0;
+        }
+
+        .carousel {
+            position: relative;
+            width: 520px;
+            height: 500px;
+            padding-top: 150px;
+            perspective: 300px;
+        }
+
+        .arrows {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            position: absolute;
+            right: 15px;
+        }
+
+        .up,
+        .next {
+            margin: 5px 0;
+            padding: 5px;
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgb(255, 255, 255);
+            border-radius: 10px;
+            background-color: #ffffff61;
+            color: #fff;
+            transition: .3s;
+        }
+
+        .up:hover,
+        .next:hover {
+            background-color: #fff;
+            color: #9795f0;
+        }
+
+        .boxs {
+            width: 100%;
+            height: 210px;
+            position: absolute;
+            transform-style: preserve-3d;
+            transition: 1s;
+        }
+
+        .box {
+            position: absolute;
+            width: 520px;
+            height: 200px;
+            border: 2px solid white;
+            border-radius: 10px;
+            overflow: hidden;
+            opacity: .7;
+        }
+
+        .box img {
+            width: 100%;
+            transform: translateY(-50px);
+        }
+
+        .box.selected {
+            border-color: goldenrod;
+            border-width: 5px;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="shell">
+        <div class="carousel">
+            <ol class="boxs">
+                <li class="box">
+                    <img src="./img/01.jpg" alt="">
+                </li>
+                <li class="box">
+                    <img src="./img/01.jpg" alt="">
+                </li>
+                <li class="box">
+                    <img src="./img/01.jpg" alt="">
+                </li>
+                <li class="box">
+                    <img src="./img/01.jpg" alt="">
+                </li>
+                <li class="box">
+                    <img src="./img/01.jpg" alt="">
+                </li>
+                <li class="box">
+                    <img src="./img/01.jpg" alt="">
+                </li>
+                <li class="box">
+                    <img src="./img/01.jpg" alt="">
+                </li>
+                <li class="box">
+                    <img src="./img/01.jpg" alt="">
+                </li>
+                <li class="box">
+                    <img src="./img/01.jpg" alt="">
+                </li>
+                <li class="box">
+                    <img src="./img/01.jpg" alt="">
+                </li>
+                <li class="box">
+                    <img src="./img/01.jpg" alt="">
+                </li>
+                <li class="box">
+                    <img src="./img/01.jpg" alt="">
+                </li>
+                <li class="box">
+                    <img src="./img/01.jpg" alt="">
+                </li>
+                <li class="box">
+                    <img src="./img/01.jpg" alt="">
+                </li>
+                <li class="box">
+                    <img src="./img/01.jpg" alt="">
+                </li>
+                <li class="box">
+                    <img src="./img/01.jpg" alt="">
+                </li>
+                <li class="box">
+                    <img src="./img/01.jpg" alt="">
+                </li>
+                <li class="box">
+                    <img src="./img/01.jpg" alt="">
+                </li>
+                <li class="box">
+                    <img src="./img/01.jpg" alt="">
+                </li>
+                <li class="box">
+                    <img src="./img/01.jpg" alt="">
+                </li>
+                <li class="box">
+                    <img src="./img/01.jpg" alt="">
+                </li>
+                <li class="box">
+                    <img src="./img/01.jpg" alt="">
+                </li>
+                <li class="box">
+                    <img src="./img/01.jpg" alt="">
+                </li>
+            </ol>
+        </div>
+        <div class="arrows">
+            <button class="up"><i class="iconfont icon-shangjiantou"></i></button>
+            <button class="next"><i class="iconfont icon-xiajiantou"></i></button>
+        </div>
+    </div>
+
+</body>
+
+
+<script>
+
+    // 获取外层容器 
+    const shell = document.querySelector('.boxs');
+    // 获取所有子元素 
+    const cells = shell.querySelectorAll('.box');
+    // 获取容器宽度 
+    const cellWidth = shell.offsetWidth;
+    // 获取容器高度 
+    const cellHeight = shell.offsetHeight;
+    // 设置子元素大小为容器高度 
+    const cellSize = cellHeight;
+    // 子元素数量 
+    const cellCount = 23;
+    // 计算半径 
+    const radius = Math.round((cellSize / 1.8) / Math.tan(Math.PI / cellCount));
+    // 计算每个子元素的角度 
+    const theta = 360 / cellCount;
+    // 当前选中的子元素索引 
+    let selectedIndex = 0;
+    function rotateshell() {
+        // 计算旋转角度 
+        const angle = theta * selectedIndex * -1;
+        // 设置容器的旋转和平移效果 
+        shell.style.transform = 'translateZ(' + -radius + 'px) ' + 'rotateX(' + -angle + 'deg)';
+        // 计算当前选中的子元素索引 
+        const cellIndex = selectedIndex < 0 ? (cellCount - ((selectedIndex * -1) % cellCount)) : (selectedIndex % cellCount);
+        cells.forEach((cell, index) => {
+            if (cellIndex === index) {
+                // 添加选中样式 
+                cell.classList.add('selected');
+            } else {
+                // 移除选中样式 
+                cell.classList.remove('selected');
+            }
+        });
+    }
+    function selectPrev() {
+        // 选中上一个子元素 
+        selectedIndex--;
+        // 旋转容器 
+        rotateshell();
+    }
+    function selectNext() {
+        // 选中下一个子元素 
+        selectedIndex++;
+        // 旋转容器 
+        rotateshell();
+    }
+    // 获取上一个按钮 
+    const prevButton = document.querySelector('.up');
+    // 绑定点击事件 
+    prevButton.addEventListener('click', selectPrev);
+    // 获取下一个按钮 
+    const nextButton = document.querySelector('.next');
+    // 绑定点击事件 
+    nextButton.addEventListener('click', selectNext);
+    function initshell() {
+        cells.forEach((cell, i) => {
+            // 计算每个子元素的角度 
+            const cellAngle = theta * i;
+            // 设置每个子元素的旋转和平移效果 
+            cell.style.transform = 'rotateX(' + -cellAngle + 'deg) translateZ(' + radius + 'px)';
+        });
+        // 初始化旋转容器 
+        rotateshell();
+    }
+    // 调用初始化函数 
+    initshell();
+
+    
+
+</script>
+
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../Css/reset.css">
+    <link rel="stylesheet" href="../../Css/Icon/iconfont.css">
+    <style>
+        body{
+            background-color: rgb(51,51,51);
+        }
+        .auto{
+            position: relative;
+            top: 45px;
+            max-width: 1180px;
+            height: 550px;
+            margin: auto;
+            background-color: rgb(34,34,34);
+            border-radius: 30px;
+        }
+        .auto1{
+            width: 100%;
+            height: 510px;
+            margin: auto;
+            display: flex;
+            justify-content:center;
+            position: relative;
+            top: 20px;
+
+        }
+        .left{
+            margin: 25px;
+            width: 45%;
+            height: 420px;
+            background-color:  rgb(51,51,51);
+            border-radius: 30px;
+            position: relative;
+            transition: .5s;
+            top: 0;
+            overflow: hidden;
+            
+        }
+        .left:hover,.right:hover{
+            animation: 2s .5s tran;
+            background-color:rgb(67,78,102);
+            top: -5px;
+            box-shadow: 0px 7px 10px rgba(185, 185, 185, 0.2);
+        }
+        .left:hover .turn{
+            opacity: 1;
+        }
+        .left:hover img{
+            opacity: 0;
+            transform: rotatey(0deg);
+        }
+        .left img{
+            width: 100%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            animation: 1.5s move3;
+            transition: 1s;
+            z-index: 999;
+            
+        }
+        .turn{
+            width: 100%;
+            height: 420px;
+            perspective: 700px;
+            opacity: 0;
+            transition: 2s ;
+        }
+        .turn p{
+            padding: 3px;
+            color:thistle;
+            font-size: 20px;
+            font-weight: 800;
+            position: relative;
+            top: 170px;
+            text-align: center;
+            
+        }
+        .right{
+            margin: 25px;
+            width: 45%;
+            height: 420px;
+            background-color:  rgb(51,51,51);
+            border-radius: 30px;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            transition: .5s;
+            top: 0;
+            overflow: hidden;
+        }
+        .r11{
+            position: relative;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width: 55%;
+            height: 150px;
+           
+        }
+        .r11 img{
+            width: 100%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            animation: 1.5s move;
+            transition: 1s;
+        }
+        .r12{
+            position: relative;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width: 55%;
+            height: 150px;
+            animation: 1.5s move2;
+
+        }
+        .r12 img{
+            position: absolute;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            transition: 1s;
+        }
+        .turn2{
+            position: absolute;
+            width: 100%;
+            height: 420px;
+            perspective: 700px;
+            opacity: 0;
+            transition: 2s;
+        }
+        .turn2 p{
+            padding: 3px;
+            color:thistle;
+            font-size: 20px;
+            font-weight: 800;
+            position: relative;
+            top: 130px;
+            text-align: center;
+        }
+        .right:hover img{
+            opacity: 0;
+        }
+        .right:hover .turn2{
+            opacity: 1;
+        }
+        @keyframes move{
+            0%{
+                top: 600px;
+            }
+            100%{
+                top: 0;
+            }
+        }
+        @keyframes move2{
+            0%{
+                left: 300px;
+            }
+            100%{
+                left: 0;
+            }
+        }
+        @keyframes move3{
+            0%{
+                transform: rotateZ(360deg);
+                width: 10%;
+            }
+            100%{
+                transform: rotateZ(0deg);
+                width: 100%;
+            }
+        }
+        a{
+            text-decoration: none;
+            color: #fff;
+            width: 50px;
+            height: 50px;
+            background: rgb(51,51,51);
+            border-radius: 50%;
+            position:absolute;
+            bottom: 0;
+            right: 35px;
+            transition: .4s;
+        }
+        .iconfont{
+            line-height: 50px;
+            position: absolute;
+            left: 10px;
+            font-size: 30px;
+        }
+        a:hover{
+            background-color: #fff;
+            color: rgb(51,51,51);
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="auto">
+        <div class="auto1">
+            <div class="left">
+                 <img src="../../Img/10.png" >
+                 <div class="turn">
+                     <p>一起健身</p>
+                     <p>QQ：1256042384</p>
+                     <p>能走多远，能扛多重，在于你与谁同行</p>
+                 </div>
+            </div>
+            <div class="right">
+                <div class="r11">
+                   <img src="../../Img/14.png" alt="">
+                </div>
+                <div class="r12">
+                    <img src="../../Img/15.png" alt="">
+                </div>
+                <div class="turn2">
+                    <p>一起编程</p>
+                    <p>QQ：2147116576</p>
+                    <p>人生三大遗憾：</p>
+                    <p>不会选择</p>
+                    <p>不坚持选择</p>
+                    <p>不断选择</p>
+                </div>
+            </div>
+                <a href="../Zy.html"><i class="iconfont icon-back"></i></a>
+        </div>
+    </div>
+</body>
+</html>

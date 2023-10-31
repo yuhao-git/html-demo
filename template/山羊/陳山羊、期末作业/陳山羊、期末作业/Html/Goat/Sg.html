@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../Css/reset.css">
+    <link rel="stylesheet" href="../../Css/Topa.css">
+    <link rel="stylesheet" href="../../Css/Icon/iconfont.css">
+    <title>时光</title>
+    <style>
+        body{
+            background-color: rgb(98,115,156);
+            height: 1000px;
+            
+        }
+        a{
+            text-decoration: none;
+        }
+        .top{
+            max-width: 1180px;
+            height: 4500px;
+            /* background-color: #fff; */
+            position: relative;
+            top: 60px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .top1{
+            width: 100%;
+            height: 350px;
+            /* background-color: #000; */
+            margin: auto;
+            display: flex;
+            justify-content: space-around;
+        }
+        .left{
+            width: 40%;
+            height: 300px;
+            /* background-color: #fff; */
+            position: relative;
+            top: 25px;
+        }
+        .auto{
+            width: 15%;
+            height: 300px;
+            /* background-color: #fff; */
+            position: relative;
+            top: 25px;
+            display: flex;
+            flex-direction: column;
+        }
+        .auto p{
+            width: 120px;
+            height: 60px;
+            background: #000;
+            color:cornsilk;
+            line-height: 60px;
+            border-radius: 10px;
+            font-size: 20px;
+            text-align: center;
+            position: relative;
+            font-weight: 900;
+            margin: auto;
+        }
+        .right{
+            width: 40%;
+            height: 310px;
+            /* background-color: rgb(51, 51, 51); */
+            position: relative;
+            top: 25px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .top1:nth-child(2) .right,.top1:nth-child(4) .right,.top1:nth-child(6) .right,.top1:nth-child(8) .right,.top1:nth-child(10) .right,.top1:nth-child(12) .right{
+            order: 1;
+        }
+        .top1:nth-child(2) .auto,.top1:nth-child(4) .auto,.top1:nth-child(6) .auto,.top1:nth-child(8) .auto,.top1:nth-child(10) .auto,.top1:nth-child(12) .auto{
+            order: 2;
+        }
+        .top1:nth-child(2) .left,.top1:nth-child(4) .left,.top1:nth-child(6) .left,.top1:nth-child(8) .left,.top1:nth-child(10) .left,.top1:nth-child(12) .left{
+            order: 3;
+        }
+         .top img{
+             width: 100%;
+             border-radius: 20px;
+             /* filter: blur(10px); */
+             transition: .5s;
+         }
+         img:hover{
+            filter: blur(0px);
+         }
+        @media (max-width: 690px){
+            .left{
+                display: none;
+            }
+            .top1:nth-child(2) .right,.top1:nth-child(4) .right,.top1:nth-child(6) .right,.top1:nth-child(8) .right,.top1:nth-child(10) .right,.top1:nth-child(12) .right{
+            order: 2;
+        }
+        .top1:nth-child(2) .auto,.top1:nth-child(4) .auto,.top1:nth-child(6) .auto,.top1:nth-child(8) .auto,.top1:nth-child(10) .auto,.top1:nth-child(12) .auto{
+            order: 1;
+        }
+        .right{
+            width: 60%;
+        }
+        .xian{
+            display: none;
+        }
+        }
+        @media (max-width: 490px){
+            .auto{
+                width: 30%;
+            }
+            .right{
+                width: 50%;
+            }
+        }
+        .xian{
+            position: absolute;
+            width: 5px;
+            background-color: #000;
+            z-index: -999;
+            height: 4100px;
+            left: 0;
+            right: 0;
+            top: 490px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="xian"></div>
+    <div class="zd"></div>
+    <a class="zd1" href="#top">
+        <i class="iconfont icon-shang"></i>
+        <img src="../../Img/DiIH6f.gif" alt="回到顶部" width="60px">
+    </a>
+    <div class="topt" id="#top"></div>
+    <div class="topa">
+        <div class="topal">
+             <a href="../Zy.html" class="tal1">
+                 <h1>初见</h1>
+             </a>
+             <a href="../Goat/Fx.HTML" class="tal1">
+                 <h1>分享</h1>
+             </a>
+             <a href="#" class="tal1">
+                 <h1>时光</h1>
+             </a>
+        </div>
+        <div class="topaa">
+                <h2>Goat</h2>
+        </div>
+        <div class="topar">
+             <a href="../Goat/Sp.html" class="tar1">
+                 <h1>视频</h1>
+             </a>
+             <a href="../Goat/Gy.html" class="tar1">
+                 <h1>关于</h1>
+             </a>
+             <a href="../Goat/Sm.html" class="tar1">
+                 <h1>声明</h1>
+             </a>
+        </div>
+    </div>
+    <div class="top">
+        <div class="top1">
+            <div class="left"></div>
+            <div class="auto">
+                <p>2018/11/11</p>
+            </div>
+            <div class="right">
+                <img src="../../Img/11 (4).png" alt="">
+            </div>
+        </div>
+
+        <div class="top1">
+            <div class="left"></div>
+            <div class="auto">
+                <p>2018/12/31</p>
+            </div>
+            <div class="right">
+                <img src="../../Img/11 (11).png" alt="">
+            </div>
+        </div>
+
+        <div class="top1">
+            <div class="left"></div>
+            <div class="auto">
+                <p>2019/3/7</p>
+            </div>
+            <div class="right">
+                <img src="../../Img/11 (6).png" alt="">
+            </div>
+        </div>
+
+        <div class="top1">
+            <div class="left"></div>
+            <div class="auto">
+                <p>2019/10/27</p>
+            </div>
+            <div class="right">
+                <img src="../../Img/11 (5).png" alt="">
+            </div>
+        </div>
+
+        <div class="top1">
+            <div class="left"></div>
+            <div class="auto">
+                <p>2019/11/11</p>
+            </div>
+            <div class="right">
+                <img src="../../Img/11 (10).png" alt="">
+            </div>
+        </div>
+
+        <div class="top1">
+            <div class="left"></div>
+            <div class="auto">
+                <p>2019/12/31</p>
+            </div>
+            <div class="right">
+                <img src="../../Img/11 (1).png" alt="">
+            </div>
+        </div>
+
+        <div class="top1">
+            <div class="left"></div>
+            <div class="auto">
+                <p>2020/2/21</p>
+            </div>
+            <div class="right">
+                <img src="../../Img/11 (12).png" alt="">
+            </div>
+        </div>
+
+        <div class="top1">
+            <div class="left"></div>
+            <div class="auto">
+                <p>2020/4/9</p>
+            </div>
+            <div class="right">
+                <img src="../../Img/11 (9).png" alt="">
+            </div>
+        </div>
+
+        <div class="top1">
+            <div class="left"></div>
+            <div class="auto">
+                <p>2020/7/17</p>
+            </div>
+            <div class="right">
+                <img src="../../Img/11 (3).png" alt="">
+            </div>
+        </div>
+
+        <div class="top1">
+            <div class="left"></div>
+            <div class="auto">
+                <p>2020/7/24</p>
+            </div>
+            <div class="right">
+                <img src="../../Img/11 (8).png" alt="">
+            </div>
+        </div>
+
+        <div class="top1">
+            <div class="left"></div>
+            <div class="auto">
+                <p>2020/10/28</p>
+            </div>
+            <div class="right">
+                <img src="../../Img/11 (2).png" alt="">
+            </div>
+        </div>
+
+        <div class="top1">
+            <div class="left"></div>
+            <div class="auto">
+                <p>2018/11/13</p>
+            </div>
+            <div class="right">
+                <img src="../../Img/11 (7).png" alt="">
+            </div>
+        </div>
+
+        <div class="top1">
+            <div class="left"></div>
+            <div class="auto">
+                <p>2020/12/28</p>
+            </div>
+            <div class="right">
+                <img src="../../Img/11 (13).png" alt="">
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

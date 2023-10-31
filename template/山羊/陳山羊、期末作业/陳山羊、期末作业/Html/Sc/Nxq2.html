@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../css/reset.css">
+    <style>
+       body{
+           background-color: #000;
+           display: flex;
+           justify-content: center;
+       }
+       .auto{
+           width:500px;
+           height: 500px;
+           background: #fff;
+           border-radius: 50%;
+           position: relative;
+           top: 100px;
+           filter: contrast(10);
+       }
+       .a,.a1{
+           position: absolute;
+           top: 0;
+           left: 0;
+           bottom: 0;
+           right: 0;
+           margin: auto;
+           filter: blur(5px);
+           transform: translate(50% 50%);
+           border-radius: 50%;
+           padding: 10px;
+       }
+       .a{
+           background-color: rgb(0, 0, 0);
+           width: 150px;
+           height: 150px;
+       }
+       .a1{
+           left: -320px;
+           width: 130px;
+           height: 130px;
+           background: rgb(255, 5, 5);
+           animation: move 6s infinite ease-in-out;
+       }
+       @keyframes move{
+           0%,100%{
+               left: 340px;
+               width: 130px;
+               height: 130px;
+           }
+           4%,54%{
+               width: 130px;
+               height: 130px;
+           }
+           10%,60%{
+               width: 130px;
+               height: 130px;
+           }
+           20%,70%{
+               width: 130px;
+               height: 130px;
+           }
+           24%,80%{
+               width: 150px;
+               height: 110px;
+           }
+           41%{
+               width: 130px;
+               height: 130px;
+           }
+           50%{
+               left:-340px;
+               width: 130px;
+               height: 130px;
+           }
+       }
+    </style>
+</head>
+<body>
+    <div class="auto">
+        <div class="a"></div>
+        <a href="../Zy.html"><div class="a1"></div></a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        console.time("abs")
+        console.timeEnd("abs")
+    </script>
+    <style>
+        body{
+            background-color: #000;
+            perspective: 900px;
+        }
+        .auto{
+            width: 800px;
+            height: 400px;
+            /* background-color: #fff; */
+            position: relative;
+            margin: auto;
+            top: 180px;
+
+        }
+        .auto span{
+            text-transform: uppercase;
+            perspective: 300px;
+            transform: translateZ(300px) rotatex(30deg);
+            position: absolute;
+            line-height: 200px;
+            /* display:block; */
+            right: 0;
+            left: 0;
+            text-align: center;
+            font-size: 100px;
+            color: rgb(0, 0, 0);
+            -webkit-text-stroke: 1px rgb(116, 31, 119);
+            text-shadow:0 10px rgba(187, 255, 170, 0.2),0 -10px rgba(187, 170, 255, 0.2);
+            animation: move2 4s infinite ease-in-out;
+           
+        }
+        @keyframes move2{
+            0%,100%{
+                transform: translateZ(300px) rotatez(-20deg);
+                text-shadow:0 6px rgba(255, 255, 255, 0.2),0 -4px rgba(255, 255, 255, 0.274);
+            }
+            50%{
+                transform: translateZ(300px) rotatez(20deg);
+                text-shadow:0 -6px rgba(187, 255, 170, 0.2),0 4px rgba(37, 21, 100, 0.356);
+            }
+        }
+        .auto span::after{
+            text-transform: uppercase;
+            right: 0;
+            left: 0;
+            content: "sad-of-goat";
+            position: absolute;
+            left: 0;
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+            background-image:linear-gradient(to right,
+            rgb(201, 22, 156),rgb(189, 38, 189),rgb(179, 37, 37),rgb(156, 125, 230),
+            rgb(54, 27, 172),rgb(25, 177, 156),rgb(129, 190, 49),rgb(241, 212, 45)
+            );
+            clip-path: circle(10% at 0% 53%);
+            animation: move 2s infinite alternate ease-in-out;
+        }
+        @keyframes move{
+            0%{
+                clip-path: circle(15% at 0% 53%);
+            }
+            100%{
+                clip-path: circle(15% at 100% 53%);
+            }
+        }
+
+    </style>
+</head>
+<body>
+<a href="../Zy.html">
+    <div class="auto">
+        <span>sad-of-goat</span>
+        <div class="a"></div>
+    </div>
+</a>
+</body>
+</html>

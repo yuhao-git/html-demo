@@ -1,0 +1,219 @@
+body {
+  height: 5000px;
+  background-color: #b1b5be;
+}
+a {
+  text-decoration: none;
+}
+.t {
+  margin-top: 20px;
+  width: 100%;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background-color: #fff;
+}
+.t .t1 {
+  max-width: 1090px;
+  height: 60px;
+  margin: auto;
+  background-color: rgba(177, 181, 190, 0.5);
+  display: flex;
+  justify-content: space-evenly;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+.t .t1 .tl {
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  color: #5f5757;
+  z-index: 999;
+}
+.t .t1 .tl i {
+  font-size: 60px;
+}
+.t .t1 .tl a {
+  color: #536061;
+}
+.t .t1 .ta {
+  width: 60px;
+  height: 60px;
+  background-color: #fff;
+}
+.t .t1 .ta .tb {
+  display: flex;
+  position: static;
+  justify-content: space-around;
+  font: 22px "黑体";
+}
+.t .t1 .ta .tb li {
+  line-height: 60px;
+}
+.t .t1 .ta .tb li:hover a {
+  color: rgba(255, 255, 255, 0.9);
+}
+.t .t1 .tb a {
+  display: block;
+  color: #536061;
+  transition: 0.3s;
+}
+.t .t1 .tt {
+  width: 60px;
+  height: 60px;
+  /* position: relative; */
+}
+.t .t1 .tt li {
+  width: 30px;
+  height: 2.5px;
+  background-color: #000;
+  position: absolute;
+  transform-origin: 0 0;
+}
+.t .t1 .tt li:nth-child(1) {
+  top: 18px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.t .t1 .tt li:nth-child(2) {
+  top: 28px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  transition: 2s;
+}
+.t .t1 .tt li:nth-child(3) {
+  top: 38px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.t .t1 .tt:hover li:nth-child(1) {
+  transform: rotateZ(39deg);
+}
+.t .t1 .tt:hover li:nth-child(2) {
+  display: none;
+}
+.t .t1 .tt:hover li:nth-child(3) {
+  transform: rotateZ(-39deg);
+}
+.t .t1 .tr {
+  width: 60px;
+  height: 60px;
+  position: relative;
+  z-index: 999;
+}
+.t .t1 .tr .trone {
+  left: 17px;
+  top: 17px;
+  position: absolute;
+  transition: 0.4s;
+  color: #545d5e;
+}
+.t .t1 .tr .trone i {
+  font-size: 30px;
+}
+.t .t1 .tr .trtow {
+  color: #545d5e;
+  top: 20px;
+  left: 17px;
+  position: absolute;
+}
+.t .t1 .tr .trtow i {
+  font-size: 30px;
+  opacity: 0;
+  transition: 0.4s;
+}
+.t .t1 .tr:hover .trone {
+  opacity: 0;
+}
+.t .t1 .tr:hover .trtow i {
+  color: white;
+  opacity: 1;
+}
+.bgimg {
+  display: inline-flex;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 100;
+  margin: auto;
+  height: 500px;
+  flex: auto;
+  z-index: -999;
+  transition: 2s;
+}
+.bgimg .bgimgone {
+  margin: auto;
+  width: 780px;
+  height: 500px;
+  background-image: url(../img/2.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.bgimg span {
+  position: absolute;
+  text-align: center;
+  left: 0;
+  top: 30px;
+  right: 0;
+  color: #d1d1d1;
+  font: 40px "叶根友毛笔行书2.0版";
+  transition: 2s;
+  opacity: 0;
+}
+.no {
+  position: relative;
+  top: 850px;
+  width: 100%;
+}
+      .no .noone,
+      .no .notow,
+      .no .nothree,
+      .no .nofour {
+        height: 850px;
+        width: 100%;
+      }
+      .no .noone {
+        background-color: rgba(0, 0, 0, 0.6);
+      }
+      .no .notow {
+        background-color: rgba(255, 255, 255, 0.6);
+      }
+      .no .nothree {
+        background-color: rgba(0, 0, 0, 0.6);
+      }
+      .no .nofour {
+        background-color: rgba(255, 255, 255, 0.6);
+      }
+@media (max-width: 800px) {
+  .t .tl {
+    /* position: absolute; */
+    margin: auto;
+    order: 2;
+  }
+  .t .tt {
+    display: block;
+  }
+  .t .ta {
+    order: 1;
+    /* flex: none; */
+    width: 60px;
+    height: 60px;
+  }
+  .t .ta .tb {
+    flex-direction: column;
+  }
+  .t .tr {
+    order: 3;
+  }
+  .bgimg {
+    opacity: 0.8;
+  }
+  .bgimg span {
+    opacity: 1;
+  }
+}

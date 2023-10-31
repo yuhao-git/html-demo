@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body{
+				background-color: #000000;
+			}
+			.a{
+				width: 240px;
+				height: 180px;
+				position: relative;
+				top: 200px;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				margin: auto;
+				background-color: #fff;
+				filter:contrast(17);
+				border-radius: 20%;
+				transition: .5s;
+			}
+			.a1,.a2{
+				filter: blur(9px);
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				margin: auto;
+				width: 100px;
+				height: 100px;
+				border-radius: 50%;
+			}
+			.a1{
+				/*background-image: radial-gradient(#000,red 90px);*/
+				background-color: red;
+				
+			}
+			@keyframes move1{
+				0%{
+					left: 0;
+				}
+				33.33%{
+					left: -120px;
+				}
+				66.66%{
+					left: 120px;
+				}
+				to{
+					left: -120px;
+				}
+			}
+			.a2{
+				/*background-image: radial-gradient(#000,red 90px);*/
+				background-color: #000000;
+			}
+			@keyframes move2{
+				0%{
+					left: 0;
+				}
+				33.33%{
+					left: 120px;
+				}
+				66.66%{
+					left: -120px;
+				}
+				to{
+					left: 120px;
+				}
+			}
+			.a:hover .a1{
+				animation: move1 5s .3s infinite alternate ;
+			}
+			.a:hover .a2{
+				animation: move2 5s .3s infinite alternate ;
+			}
+			.a3{
+				position: absolute;
+                top:10px;
+                left: 180px;
+				width: 16px;
+				height: 16px;
+				border-radius: 50%;
+				background-color: #000;
+				filter: blur(5px)
+			}
+			.a:hover .a3{
+				display: none;
+			}
+			.a:hover{
+				animation: move3 3s infinite ;
+				height: 240px;
+				border-radius: 50%;
+				
+			}
+			@keyframes move3{
+				from{
+					transform: rotateZ(0);
+				}
+				to{
+					transform: rotateZ(360deg);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<a href="../Zy.html">
+		<div class="a">
+			<div class="a1"></div>
+			<div class="a2"></div>
+			<div class="a3"></div>
+	</a>
+	</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/reset.css">
+    <style>
+        body{
+            background-image: linear-gradient( rgb(0, 0, 0), rgb(45, 15, 180));
+            background-attachment: fixed;
+        }
+       .auto{
+           position: relative;
+           top: 240px;
+           margin: auto;
+           width: 200px;
+           height: 200px;
+           border:3px solid rgba(58, 27, 170, 0.76);
+           border-radius: 50%;
+       }
+       .a{
+           position: absolute;
+           top: 0;
+           bottom: 0;
+           left: 0;
+           right: 0;
+           width: 180px;
+           height: 180px;
+           margin: auto;
+           border-radius: 50%;
+           background: rgb(58, 27, 170);
+           overflow: hidden;
+       }
+       .a::before{
+           content: '';
+           width: 400px;
+           height: 400px;
+           border-radius: 40%;
+           background-color: rgba(255, 255, 255, 0.6);
+           display: block;
+           transform: translate(-28%,-80%);
+           animation: move 5s infinite linear;
+       }
+       @keyframes move{
+           0%{
+               transform:translate(-28%,-78%) rotateZ(0);
+           }
+           100%{
+               transform:translate(-28%,-78%) rotateZ(360deg);
+           }
+       }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="auto">
+        <a href="../Zy.html"><div class="a"></div></a>
+    </div>
+</body>
+</html>

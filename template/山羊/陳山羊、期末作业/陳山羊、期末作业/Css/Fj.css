@@ -1,0 +1,36 @@
+.fj {
+  width: 76.5%;
+  height: 100px;
+  background: #a4b0be;
+  position: absolute;
+  top: 640px;
+  display: flex;
+  background-image: url(../Img/未标题-1.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+@media (max-width: 800px) {
+  .fj {
+    background-image: url(../Img/111.jpeg);
+    background-size: contain;
+    background-color: rgb(56, 110, 177);
+  }
+}
+@media (max-width: 565px) {
+  .fj {
+    flex-direction: column;
+  }
+}
+@media (min-width: 1180px) {
+  .fj {
+    width: 902px;
+  }
+}
+
+@media (max-width: 450px) {
+  .fj {
+    top: 620px;
+  }
+}

@@ -46,6 +46,11 @@ const routes = [
         path: "/component/threeSwiper",
         component: () => import("@/views/useComponent/views/threeSwiper.vue"),
       },
+      {
+        path: "/component/socketTest",
+        component: () => import("@/views/useComponent/views/socketTest.vue"),
+      },
+
     ],
   },
 ];

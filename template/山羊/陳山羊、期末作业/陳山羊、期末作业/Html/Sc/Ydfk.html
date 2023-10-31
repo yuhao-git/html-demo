@@ -1,0 +1,237 @@
+<meta charset="utf-8">
+<title>runoob.com)</title>
+<style>
+	body {
+		background-color: #fd79a8;
+	}
+	
+	.a,
+	.b,
+	.c,
+	.d {
+		margin: 15px 15px;
+		width: 30px;
+		height: 30px;
+		font-size: 30px;
+		background-color: #fab1a0;
+		border: 0px solid rgba(0, 0, 0, .1);
+		transition: 1.5s;
+		border: 5px outset rgba(0, 10, 0, .1);
+		border-radius: 20px;
+		padding: 10px;
+		cursor: wait;
+	}
+	
+	.a:hover,
+	.b:hover,
+	.c:hover,
+	.d:hover {
+		transform: rotate(360deg);
+		border-radius: 50%;
+		transition: .9s;
+		color: #0086B3;
+		height: 50px;
+		width: 50px;
+		background-color: #ff7675;
+		border: 10px outset rgba(0, 10, 0, .1);
+		line-height: 210px;
+	}
+	
+	/*.a {
+		position: absolute;
+		left: 2.5%;
+		top: 2.5%;
+	}
+	
+	.b {
+		position: absolute;
+		left: 2.5%;
+		bottom: 2.5%;
+	}
+	
+	.c {
+		position: absolute;
+		right: 2.5%;
+		top: 2.5%;
+	}
+	
+	.d {
+		position: absolute;
+		right: 2.5%;
+		bottom: 2.5%;
+	}*/
+	
+	.a1,.b1,.c1,.d1{
+		margin: 15px 15px;
+		width: 40px;
+		height: 40px;
+		font-size: 30px;
+		background-color: #fab1a0;
+		border: 0px solid rgba(0, 0, 0, .1);
+		transition: 3s;
+		border: 5px outset rgba(0, 10, 0, .1);
+	}
+	.a1 {
+		position: absolute;
+		left: 16%;
+		top: 16%;
+	}
+	.a:hover~.a1{
+		transition: 1s;
+		top: 80%;
+		background-color: #fd79a8;
+		box-shadow: 0 0 10px #000000;
+	}
+	.a:hover~.b1{
+		transition: 1s;
+		left: 80%;
+		background-color: #fd79a8;
+		box-shadow: 0 0 10px #000000;
+	}
+	.a:hover~.c1{
+		transition: 1s;
+		right: 80%;
+		background-color: #fd79a8;
+		box-shadow: 0 0 10px #000000;
+	}
+	.a:hover~.d1{
+		transition: 1s;
+		bottom: 80%;
+		background-color: #fd79a8;
+		box-shadow: 0 0 10px #000000;
+	}
+	
+	.b1 {
+		position: absolute;
+		left: 16%;
+		bottom: 16%;
+		
+	}
+	.b:hover~.a1{
+		transition: 1.3s;
+		top: 80%;
+		left: 80%;
+		background-color: #fd79a8;
+		box-shadow: 0 0 20px #1e3799;
+	}
+	.b:hover~.b1{
+		transition: 1.3s;
+		left: 80%;
+		bottom: 80%;
+		background-color: #fd79a8;
+		box-shadow: 0 0 20px #1e3799;
+	}
+	.b:hover~.c1{
+		transition: 1.3s;
+		right: 80%;
+		top: 80%;
+		background-color: #fd79a8;
+		box-shadow: 0 0 20px #1e3799;
+	}
+	.b:hover~.d1{
+		transition: 1.3s;
+		bottom: 80%;
+		right: 80%;
+		background-color: #fd79a8;
+		box-shadow: 0 0 20px #1e3799;
+	}
+	
+	
+	.c1 {
+		position: absolute;
+		right: 16%;
+		top: 16%;
+	}
+	
+	.c:hover~.a1{
+		transition: .9s;
+		top: 80%;
+		background-color: #fd79a8;
+		box-shadow: 0 0 20px #78e08f;
+	}
+	.c:hover~.b1{
+		transition: .9s;
+		bottom: 80%;
+		background-color: #fd79a8;
+		box-shadow: 0 0 20px #78e08f;
+	}
+	.c:hover~.c1{
+		transition: .9s;
+		top: 80%;
+		background-color: #fd79a8;
+		box-shadow: 0 0 40px #78e08f;
+	}
+	.c:hover~.d1{
+		transition: .9s;
+		bottom: 80%;
+		background-color: #fd79a8;
+		box-shadow: 0 0 20px #78e08f;
+	}
+	.d1 {
+		position: absolute;
+		right: 16%;
+		bottom: 16%;
+		/*transition-timing-function: steps(7);*/
+	}
+	.d:hover~.a1{
+		transition: 1.3s;
+		left: 80%;
+		background-color: #fd79a8;
+		box-shadow: 0 0 20px #b71540;
+	}
+	.d:hover~.b1{
+		transition: 1.3s;
+		left: 80%;
+
+		background-color: #fd79a8;
+		box-shadow: 0 0 20px #b71540;
+	}
+	.d:hover~.c1{
+		transition: 1.3s;
+		top: 80%;
+		right: 80%;
+		background-color: #fd79a8;
+		box-shadow: 0 0 20px #b71540;
+	}
+	.d:hover~.d1{
+		transition: 1.3s;
+		bottom: 80%;
+		right: 80%;
+		background-color: #fd79a8;
+		box-shadow: 0 0 20px #b71540;
+	}
+	.ax{
+		width: 60px;
+		height: 60px;
+		background:  #fd79a8;
+		border-radius: 50%;
+		border: 9px rgb(0, 0, 0) solid;
+		position:absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+
+		margin: auto;
+		/* z-index: -999; */
+	}
+</style>
+</head>
+
+<body>
+
+	<!-- <a href="../Zy.html"> -->
+	<div class="a"></div>
+	<div class="b"></div>
+	<div class="c"></div>
+	<div class="d"></div>
+</a>
+	<div class="a1"><!--a1--></div>
+	<div class="b1"><!--b1--></div>
+	<div class="c1"><!--c1--></div>
+	<div class="d1"><!--d1--></div>
+
+	<!--<div style="height: 1000px;"></div>-->
+    <a href="../Zy.html"><div class="ax"></div></a>
+</body>
+
+</html>

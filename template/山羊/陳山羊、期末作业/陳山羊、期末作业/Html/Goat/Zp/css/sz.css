@@ -1,0 +1,127 @@
+a {
+  color: black;
+}
+.sz,
+.sz1,
+.sz2 {
+  width: 90%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  justify-content: space-between;
+}
+.sz {
+  top: 90px;
+}
+.sz1 {
+  top: 130px;
+}
+.sz2 {
+  top: 170px;
+}
+.asz1,
+.bsz1,
+.csz1,
+.dsz1 {
+  top: 0px;
+  position: relative;
+  /* top: 100px; */
+  width: 20%;
+  height: 200px;
+  background-color: #fff;
+  transition: 0.2s;
+}
+.asztop,
+.bsztop,
+.csztop,
+.dsztop {
+  background-repeat: repeat;
+  background-size: contain;
+  margin: 10% auto;
+  background-attachment: fixed;
+  width: 80%;
+  height: 90px;
+  background-color: #000;
+  background-image: url(../img/1.jpeg);
+}
+.aszauto,
+.bszauto,
+.cszauto,
+.dszauto {
+  margin: 10%;
+  font-size: 20px;
+}
+.aszbottom,
+.bszbottom,
+.cszbottom,
+.dszbottom {
+  font-size: 10px;
+  margin: 10%;
+}
+.asz1:hover,
+.bsz1:hover,
+.csz1:hover,
+.dsz1:hover {
+  top: -5px;
+  box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.6);
+}
+/* 用transform不行!! */
+@media (max-width: 420px) {
+  .asz1,
+  .bsz1,
+  .csz1,
+  .dsz1 {
+    height: 160px;
+  }
+  .sz {
+    top: 100px;
+  }
+  .sz1 {
+    top: 160px;
+  }
+  .sz2 {
+    top: 220px;
+  }
+  .aszbottom,
+  .bszbottom,
+  .cszbottom,
+  .dszbottom {
+    /* font-size: 7px; */
+    margin: 0;
+  }
+}
+@media (max-width: 385px) {
+  .asz1,
+  .bsz1,
+  .csz1,
+  .dsz1 {
+    width: 24%;
+  }
+  .sz,
+  .sz1,
+  .sz2 {
+    width: 95%;
+  }
+}
+@media (max-width: 305px) {
+  .aszbottom,
+  .bszbottom,
+  .cszbottom,
+  .dszbottom {
+    display: none;
+  }
+}
+@media (min-width: 1000px) {
+  .sz,
+  .sz1,
+  .sz2 {
+    width: 75%;
+  }
+  .asz1,
+  .bsz1,
+  .csz1,
+  .dsz1 {
+    width: 19%;
+  }
+}

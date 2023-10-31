@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>陈山羊</title>
+		<!-- 引入重置样式表 -->
+		<link rel="stylesheet" href="../../../Css/reset.css">
+		<link rel="stylesheet" href="iconfont.css" />
+		<title></title>
+		<style>
+			a{
+				text-decoration: none;
+			}
+				.top {
+				width: 100%;
+				height: 40px;
+				background-color: #333333;
+			}
+			
+			.top a {
+				line-height: 40px;
+				display: block;
+				color: #B0B0B0;
+				font-size: 12px;
+			}
+			
+			.top a:hover {
+				color: #FFFFFF
+			}
+			
+			.span {
+				color: #424242;
+				line-height: 40px;
+				padding: 0px 8px;
+				margin-top: -1px;
+			}
+			
+			.top1 {
+				width: 1220px;
+				height: 40px;
+				background-color: #333333;
+				margin: auto;
+			}
+			
+			.topleft,
+			.top li {
+				float: left;
+			}
+			
+			.topright a {
+				width: 120px;
+				text-align: center;
+				background-color: #424242;
+				height: 40px;
+			}
+			
+			.top1 .ewm {
+				/*display: none;*/
+				position: absolute;
+				width: 124px;
+				height: 0px;
+				overflow: hidden;
+				background-color: white;
+				margin: auto;
+				text-align: center;
+				box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+				margin-left: -40px;
+				transition: height .5s;
+				z-index: 9999;
+			}
+			
+			.app {
+				position: relative;
+			}
+			
+			.top1 .app::after {
+				position: absolute;
+				content: '';
+				display: block;
+				border: 10px transparent solid;
+				border-top: none;
+				border-bottom-color: white;
+				width: 0px;
+				height: 0px;
+				top: 30px;
+				left: 7px;
+				display: none;
+			}
+			
+			.app:hover::after {
+				display: block;
+			}
+			
+			.app:hover .ewm {
+				/*display:block;*/
+				height: 148px;
+			}
+			
+			.ewm p {
+				line-height: 4px;
+				color: #000000;
+				font-size: 15px;
+			}
+			
+			.ewm img {
+				width: 90px;
+				height: 90px;
+				margin: 17px 17px 0px 17px;
+			}
+			
+			.top1 .gwcbottom1 {
+				/*display: none;*/
+				width: 330px;
+				height: 0px;
+				overflow: hidden;
+				background-color: white;
+				text-align: center;
+				box-shadow: 1px 0 10px rgba(0, 0, 0, .1);
+				float: right;
+				position: absolute;
+				right: 0px;
+				transition: height .5s;
+				z-index: 9999;
+			}
+			
+			.app1:hover~.gwcbottom1 {
+				height: 100px;
+			}
+			
+			.gwcbottom1:hover {
+				height: 100px;
+			}
+			
+			.gwcbottom1 p {
+				line-height: 100px;
+				color: #000000;
+				font-size: 15px;
+			}
+			
+			.topright:hover a {
+				background-color: white;
+				color: #FF6700;
+			}
+			
+			.topright {
+				margin-left: 16px;
+				position: relative;
+			}
+			
+			.topauto,
+			.topright {
+				float: right;
+			}
+			
+			.auto {
+				width: 100%;
+				height: 100px;
+				margin: auto;
+				background-color: white;
+				position: relative;
+			}
+			
+			.auto1 {
+				width: 1220px;
+				height: 100px;
+				background-color: white;
+				/*background-color:white;*/
+				position: relative;
+				margin: auto;
+			}
+			
+			.autoleft {
+				float: left;
+				width: 55px;
+				height: 55px;
+				overflow: hidden;
+				margin-top: 22.5px;
+				position: relative;
+			}
+			
+			.autoleft a {
+				display: block;
+				width: 55px;
+				height: 55px;
+				background-color: #FF6700;
+				background-image: url(img/mi-logo.png);
+				background-position: center;
+				position: absolute;
+				transition: left 0.3s;
+				left: 0;
+			}
+			
+			.autoleft .mi {
+				display: block;
+				width: 55px;
+				height: 55px;
+				background-color: #FF6700;
+				background-image: url(img/mi-home.png);
+				background-position: center;
+				margin-left: -55px;
+				left: 0px;
+				transition: left 0.3s;
+			}
+			
+			.auto1 .autoleft:hover .zy {
+				left: 55px;
+			}
+			
+			.auto1 .autoleft:hover .mi {
+				left: 55px;
+			}
+			
+			.autoauto {
+				float: left;
+				width: 792px;
+				height: 100px;
+				background-color:white;
+				line-height: 100px;
+				margin-left: 7px;
+				padding-left: 58px;
+			}
+			
+			.autoauto li {
+				float: left;
+				font-size: 16px;
+			}
+			
+			.qbspfl {
+				visibility: hidden;
+				/*position: relative;*/
+			}
+			
+			.autoautobotton {
+				padding: 20px 0;
+				position: absolute;
+				width: 234px;
+				height: 420px;
+				background-color: rgba(0, 0, 0, .6);
+				left: 0;
+				z-index: 999;
+			}
+			
+			.autoauto .autoautobotton a {
+				margin: 0;
+				padding: 0 38px;
+				line-height: 42px;
+				height: 42px;
+				color: #fff;
+				font-size: 14px;
+			}
+			
+			.autoauto .autoautobotton a:hover {
+				background-color: #FF6700;
+				color: #FFFFFF;
+			}
+			
+			.autoautobotton i {
+				float: right;
+				font-size: 20px;
+			}
+			
+			.autoauto a {
+				display: block;
+				margin-left: 20px;
+			}
+			
+			.autoauto a:hover {
+				color: #FF6700;
+			}
+			
+			.autoauto .autobottom {
+				position: absolute;
+				width: 100%;
+				height: 0;
+				background-color: white;
+				top: 100px;
+				left: 0;
+				transition: height .3s;
+				z-index: 9999;
+			}
+			
+			.autoauto .xlk:hover~.autobottom,
+			.autobottom:hover {
+				height: 228px;
+				border-top: 1px solid rgb(224, 224, 224);
+				box-shadow: 0 5px 3px rgba(0, 0, 0, .2);
+			}
+			
+			.autoright {
+				float: left;
+				width: 300px;
+				height: 50px;
+				position: relative;
+				top: 25px;
+				right: -3px;
+				transition: border .2s;
+			}
+			
+			.autoright1 input {
+				width: 248px;
+				height: 50px;
+				padding: 0px 20px;
+				margin: 0px;
+				border: 0px;
+				float: left;
+				font-size: 15px;
+				outline: none;
+				box-sizing: border-box;
+				border: 1px rgb(244, 244, 244) solid;
+			}
+			
+			.autoright1 button {
+				float: left;
+				width: 52px;
+				height: 50px;
+				background-color: white;
+				padding: 0px;
+				margin: 0px;
+				border: none;
+				border: 1px rgb(244, 244, 244) solid;
+				transition: background-color .1s;
+				border-left: none;
+			}
+			
+			.autoright1 button i {
+				font-size: 23px;
+			}
+			
+			.autoright button:hover {
+				background-color: #FF6700;
+				color: white;
+				border: 1px #FF6700 solid;
+			}
+			
+			.autoright1 input:focus,
+			.autoright1 input:focus+button {
+				border-color: #FF6700;
+			}
+			
+			.botton {
+				width: 1220px;
+				height: 460px;
+				margin: auto;
+				position: relative;
+			}
+			
+			.botton1 ul li a {
+				position: absolute;
+			}
+			
+			.botton1 img {
+				width: 1220px;
+				height: 460px;
+			}
+			
+			.botton2 {
+				position: absolute;
+				bottom: 22px;
+				right: 35px;
+			}
+			
+			.botton2 a {
+				float: left;
+				border: 2px rgba(255, 255, 255, .4) solid;
+				border-radius: 50%;
+				margin: 0 6px;
+				width: 6px;
+				height: 6px;
+				background-color: rgba(0, 0, 0, .4);
+			}
+			
+			.botton2 a:hover {
+				border-color: rgba(0, 0, 0, .4);
+				background-color: rgba(255, 255, 255, .4);
+			}
+			
+			.botton3,
+			.botton4 {
+				width: 41px;
+				height: 69px;
+				/*background-color: #55A532;*/
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				margin: auto 0;
+				background-image: url(img/icon-slides.png);
+			}
+			
+			.botton3 {
+				left: 234px;
+				background-position: -84px 0;
+			}
+			
+			.botton4 {
+				right: 0px;
+				background-position: -125px 0;
+			}
+			
+			.botton3:hover {
+				background-position: 0px 0;
+			}
+			
+			.botton4:hover {
+				background-position: -43px 0;
+			}
+			
+			.bottonbotton {
+				width: 1220px;
+				height: 170px;
+				margin: 14px auto;
+				background-color: #fff;
+			}
+			
+			.bottonbottonleft {
+				width: 234px;
+				height: 170px;
+				background-color: #5f5750;
+				float: left;
+			}
+			
+			.bottonbottonleft li {
+				width: 70px;
+				height: 82px;
+				float: left;
+				padding: 0px 3px;
+				margin: auto;
+			}
+			
+			.bottonbottonleft a {
+				/*width: 64px;
+				height: 72px;*/
+				font-size: 12px;
+				color: #CFCCCA;
+				display: block;
+				text-align: center;
+			}
+			
+			.bottonbottonleft li::before {
+				content: '';
+				position: absolute;
+				width: 64px;
+				height: 1px;
+				margin-top: 2px;
+				margin-left: 5px;
+				background-color: #665e57;
+			}
+			
+			.bottonbottonleft li::after {
+				content: '';
+				position: absolute;
+				height: 70px;
+				width: 1px;
+				background-color: #665e57;
+                margin-top: -72px;
+				}
+				
+				.bottonbottonleft i {
+					font-size: 25px;
+					display: block;
+					margin-top: 26px;
+				}
+				.bottonbottonrigft {
+					float: left;
+				}
+				.bottonbottonrigft li {
+					float: left;
+					margin-left: 12.6px;
+				}
+				.bottonbottonrigft li img {
+					width: 316px;
+				}
+		</style>
+	</head>
+
+	<body>
+		<div class="top">
+			<div class="top1">
+				<ul class="topleft">
+
+					<li>
+						<a href="javascript:;">小米商城</a>
+					</li>
+					<li class="span">|</li>
+					<li>
+						<a href="javascript:;">MIUI</a>
+					</li>
+					<li class="span">|</li>
+					<li>
+						<a href="javascript:;">loT</a>
+					</li>
+					<li class="span">|</li>
+					<li>
+						<a href="javascript:;">云服务</a>
+					</li>
+					<li class="span">|</li>
+					<li>
+						<a href="javascript:;">金融</a>
+					</li>
+					<li class="span">|</li>
+					<li>
+						<a href="javascript:;">有品</a>
+					</li>
+					<li class="span">|</li>
+					<li>
+						<a href="javascript:;">小爱开放平台</a>
+					</li>
+					<li class="span">|</li>
+					<li>
+						<a href="javascript:;">企业团购</a>
+					</li>
+					<li class="span">|</li>
+					<li>
+						<a href="javascript:;">资质证照</a>
+					</li>
+					<li class="span">|</li>
+					<li>
+						<a href="javascript:;">协议规则</a>
+					</li>
+					<li class="span">|</li>
+					<li>
+						<a href="javascript:;" class="app">下载app
+							<div class="ewm">
+								<img src="img/download.png" />
+								<p>小米商城app</p>
+							</div>
+						</a>
+
+					</li>
+					<li class="span">|</li>
+					<li>
+						<a href="javascript:;">智能生活</a>
+					</li>
+					<li class="span">|</li>
+					<li>
+						<a href="javascript:;">Select Location</a>
+					</li>
+					<!--<li class="app-wrapper">-->
+				</ul>
+
+				<ul class="topright">
+					<li>
+						<a href="#" class="app1">
+							<i class="iconfont icon-gouwuche"></i> 购物车(0)
+						</a>
+						<div class="gwcbottom1">
+							<p>购物车中还没有商品，赶紧选购吧！</p>
+						</div>
+					</li>
+				</ul>
+
+				<ul class="topauto">
+					<li>
+						<a href="javascript:;">登入</a>
+					</li>
+					<li class="span">|</li>
+					<li>
+						<a href="javascript:;">注册</a>
+					</li>
+					<li class="span">|</li>
+					<li>
+						<a href="javascript:;">消息通知</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="auto">
+			<div class="auto1">
+				<div class="autoleft clearfix">
+					<a href="#" class="mi"></a>
+					<a href="#" class="zy"></a>
+                    
+				</div>
+				<a href="../../Zy.html"><p style="position: absolute; left: 100px; top: 30px; font-size: 30px; color: #FF6700;">山羊/主页</p></a>
+				<ul class="autoauto">
+					<li>
+						<a href="#" class="qbspfl">全部商品分类</a>
+						<div class="autoautobotton">
+							<div>
+								<a href="#">手机 电话卡<i class="iconfont">&#xe630;</i></a>
+							</div>
+							<div>
+								<a href="#">电视 盒子<i class="iconfont">&#xe630;</i></a>
+							</div>
+							<div>
+								<a href="#">笔记本 平板<i class="iconfont">&#xe630;</i></a>
+							</div>
+							<div>
+								<a href="#">家电 插线板<i class="iconfont">&#xe630;</i></a>
+							</div>
+							<div>
+								<a href="#">出行 穿戴<i class="iconfont">&#xe630;</i></a>
+							</div>
+							<div>
+								<a href="#">智能 路由器<i class="iconfont">&#xe630;</i></a>
+							</div>
+							<div>
+								<a href="#">电源 配件<i class="iconfont">&#xe630;</i></a>
+							</div>
+							<div>
+								<a href="#">健康 儿童<i class="iconfont">&#xe630;</i></a>
+							</div>
+							<div>
+								<a href="#">耳机 音响<i class="iconfont">&#xe630;</i></a>
+							</div>
+							<div>
+								<a href="#">生活 箱包<i class="iconfont">&#xe630;</i></a>
+							</div>
+						</div>
+
+					</li>
+					<li class="xlk">
+						<a href="#">小米手机</a>
+					</li>
+					<li class="xlk">
+						<a href="#">Redmi红米</a>
+					</li>
+					<li class="xlk">
+						<a href="#">电视</a>
+					</li>
+					<li class="xlk">
+						<a href="#">笔记本</a>
+					</li>
+					<li class="xlk">
+						<a href="#">家电</a>
+					</li>
+					<li class="xlk">
+						<a href="#">路由器</a>
+					</li>
+					<li class="xlk">
+						<a href="#">智能硬件</a>
+					</li>
+					<li>
+						<a href="#">服务</a>
+					</li>
+					<li>
+						<a href="#">社区</a>
+					</li>
+					<div class="autobottom"></div>
+				</ul>
+				<div class="autoright">
+					<font class="autoright1">
+						<input type="text" name="text" />
+						<button type="submit">
+						<i class="iconfont iconsousuo"></i>
+					</button>
+					</font>
+				</div>
+			</div>
+		</div>
+		<div class="botton">
+			<div class="botton1">
+				<ul>
+					<li>
+						<a href="#"><img src="img/1.jpg" /></a>
+					</li>
+					<li>
+						<a href="#"><img src="img/5.jpg" /></a>
+					</li>
+					<li>
+						<a href="#"><img src="img/4.jpg" /></a>
+					</li>
+					<li>
+						<a href="#"><img src="img/2.jpg" /></a>
+					</li>
+					<li>
+						<a href="#"><img src="img/3.jpg" /></a>
+					</li>
+				</ul>
+			</div>
+			<div class="botton2">
+				<a href="javascript:;"></a>
+				<a href="javascript:;"></a>
+				<a href="javascript:;"></a>
+				<a href="javascript:;"></a>
+				<a href="javascript:;"></a>
+			</div>
+			<a href="#" class="botton3"></a>
+			<a href="#" class="botton4"></a>
+		</div>
+		<div class="bottonbotton">
+			<div class="bottonbottonleft">
+				<ul>
+					<li>
+						<a href="javascript:;"><i class="iconfont icon-lining"></i>小米秒杀</a>
+					</li>
+					<li>
+						<a href="javascript:;"><i class="iconfont icon-naike"></i>企业团购</a>
+					</li>
+					<li>
+						<a href="javascript:;"><i class="iconfont icon-biaoma"></i>F码通道</a>
+					</li>
+					<li>
+						<a href="javascript:;"><i class="iconfont icon-adidasi"></i>米粉卡</a>
+					</li>
+					<li>
+						<a href="javascript:;"><i class="iconfont icon-adidasi-sanyecao"></i>以旧换新</a>
+					</li>
+					<li>
+						<a href="javascript:;"><i class="iconfont icon-kuangwei"></i>话费充值</a>
+					</li>
+				</ul>
+			</div>
+			<div class="bottonbottonrigft">
+				<ul>
+					<li>
+						<a href="#"><img src="img/6.jpg" /> </a>
+					</li>
+					<li>
+						<a href="#"><img src="img/7.jpg" /> </a>
+					</li>
+					<li>
+						<a href="#"><img src="img/8.jpg" /> </a>
+					</li>
+
+				</ul>
+			</div>
+		</div>
+		<div style="height: 1000px;"></div>
+	</body>
+
+</html>

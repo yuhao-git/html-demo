@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Rain Animation</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="cloud"></div>
+    </div>
+  </body>
+
+  <script>
+    function generateText() {
+  const letters = [];
+  const numbers = [];
+
+  const a = "a".charCodeAt(0);
+
+  for (let i = 0; i < 26; i++) {
+    letters.push(String.fromCharCode(a + i));
+
+    if (i < 9) {
+      numbers.push(i + 1);
+    }
+  };
+
+  return [...letters, ...numbers];
+};
+
+function randomText() {
+  const texts = generateText();
+  const text = texts[Math.floor(Math.random() * texts.length)];
+
+  return text;
+};
+
+function rainEffect() {
+  const cloudEle = document.querySelector(".cloud");
+  const textEle = document.createElement("div");
+  // const MAX_NUM = 10;
+
+  textEle.innerText = randomText();
+  textEle.classList.add("text");
+
+  // const randomVal = Math.floor(Math.random() * MAX_NUM);
+  // console.log(randomVal)
+  const left = Math.floor(Math.random() * 310);
+  const size = Math.random() * 1.5;
+  const duration = Math.random();
+  const styleSheets = {
+    left: `${left}px`,
+    fontSize: `${0.5 + size}em`,
+    animationDuration: `${1 + duration}s`,
+  };
+  Object.assign(textEle.style, styleSheets);
+  // textEle.style.setProperty("--random-y", `${290 - randomVal}px`);
+  // textEle.style.setProperty("--random-x", `${-randomVal}px`);
+
+  cloudEle.appendChild(textEle);
+  setTimeout(() => {
+    cloudEle.removeChild(textEle);
+  }, 2000);
+};
+
+setInterval(() => rainEffect(), 20);
+
+  </script>
+  <style>
+  /*google-fonts*/
+@import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --body-color: #181c1f;
+  --primary-color: #ffffff;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--body-color);
+}
+
+.container {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid rgba(255, 255, 255, .1);
+  -webkit-box-reflect: below 1px linear-gradient(transparent, transparent, transparent, transparent, #0005);
+}
+
+.cloud {
+  position: relative;
+  top: 50px;
+  z-index: 100;
+
+  /* 横向云朵 */
+  width: 320px;
+  height: 100px;
+  background-color: var(--primary-color);
+  border-radius: 100px;
+
+  /* drop-shadow函数将阴影效果应用于投影图像 */
+  filter: drop-shadow(0 0 30px var(--primary-color));
+}
+.cloud::before {
+  content: "";
+  /* 左侧小云朵 */
+  width: 110px;
+  height: 110px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  position: absolute;
+  top: -50px;
+  left: 40px;
+
+  /* 右侧大云朵 */
+  box-shadow: 90px 0 0 30px var(--primary-color);
+}
+
+.cloud .text {
+  position: absolute;
+  top: 40px;
+  height: 20px;
+  line-height: 20px;
+
+  text-transform: uppercase;
+  color: var(--primary-color);
+  /* 为文字添加阴影，看上去发光，增加视觉效果 */
+  text-shadow: 0 0 5px var(--primary-color), 0 0 15px var(--primary-color), 0 0 30px var(--primary-color);
+  transform-origin: bottom;
+  animation: animate 2s linear forwards;
+}
+
+@keyframes animate {
+  0% {
+    transform: translateX(0);
+  }
+
+  70% {
+    transform: translateY(290px);
+  }
+
+  100% {
+    transform: translateY(290px);
+    /* transform: translate(var(--random-x, 2px), var(--random-y, 290px)); */
+  }
+}
+
+</style>
+</html>

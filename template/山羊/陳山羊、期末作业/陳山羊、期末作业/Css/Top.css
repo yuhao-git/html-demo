@@ -1,0 +1,455 @@
+.topt {
+  max-width: 1180px;
+  height: 140px;
+  background-color: #2f3542;
+  margin: auto;
+  background-image: url(../Img/3.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.6;
+}
+.topb {
+  max-width: 1180px;
+  margin: 15px auto;
+  height: 1060px;
+  /* background-color: #5e7085; */
+  display: flex;
+  justify-content: space-between;
+}
+.topbl {
+  width: 20%;
+  height: 390px;
+  background-color: rgb(67, 78, 102);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.topbl > div {
+  width: 100%;
+  height: 39px;
+  transition: 0.4s;
+  /* background-color: #fff; */
+}
+.topbl > div a {
+  /* transition: 1s; */
+  display: block;
+  font-size: 25px;
+  font-weight: 900;
+  line-height: 39px;
+  text-align: center;
+  color: #c7c3c3;
+  font: 25px;
+}
+.topbl > div:hover {
+  background-color: #c7c3c3;
+}
+.topbl > div a:hover {
+  color: #050505;
+}
+
+.topba {
+  width: 53%;
+  height: 390px;
+  background-color: rgb(117, 130, 172);
+}
+.topbr {
+  position: sticky;
+  top: 80px;
+  width: 20%;
+  height: 530px;
+  background-color: #a4b0be;
+  z-index: 999;
+  background-image: url(../Img/微信图片_20210101104435.jpg);
+  background-size: cover;
+}
+.auto {
+  position: absolute;
+  top: 760px;
+  /* width: 100%; */
+  height: 530px;
+  /* background-color: rgba(255, 255, 255, 0.342); */
+  /* z-index: 899; */
+}
+.auto1 {
+  width: 76.5%;
+  height: 530px;
+  background-color: #a4b0be;
+}
+.autot {
+  width: 100%;
+  height: 60px;
+  background-color: #2f3542;
+}
+.autot1 {
+  float: right;
+  font-size: 30px;
+  color: #cecece;
+  margin: 14px;
+}
+.autot1 i {
+  font-size: 25px;
+}
+.autob {
+  width: 100%;
+  height: 470px;
+  /* background-color: rgba(104, 18, 18, 0.473); */
+}
+/* 。。。。。。。。 */
+.bz {
+  width: 100%;
+  height: 470px;
+  overflow: hidden;
+  display: flex;
+  flex: auto;
+}
+.bz li {
+  position: relative;
+  float: left;
+  width: 20%;
+  height: 320px;
+  background-size: cover;
+  transition: 0.4s;
+}
+.bz:hover li {
+  width: 16%;
+}
+.bz li:hover {
+  width: 300px;
+}
+/* 。。。。。。。 */
+.botton {
+  position: relative;
+  top: 100px;
+  max-width: 1180px;
+  height: 600px;
+  /* background: #000; */
+  margin: auto;
+}
+.botton2 {
+  width: 100%;
+  height: 100px;
+  margin-top: 50px;
+  background: #a4b0be;
+}
+/* .b1 {
+  position: relative;
+  top: 160px;
+  max-width: 1180px;
+  height: 700px;
+  background: #a4b0be;
+  margin: auto;
+} */
+.btow {
+  position: relative;
+  top: 30px;
+  max-width: 1180px;
+  height: 620px;
+  background: rgb(34, 34, 34);
+  margin: auto;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+.bq {
+  position: relative;
+  top: 150px;
+  width: 320px;
+  height: 330px;
+  /* background-color: #fff; */
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  border-radius: 38% 62% 63% 37%/ 41% 44% 56% 59%;
+}
+.bq:hover .qiu {
+  background-color: rgb(231, 229, 229);
+  opacity: 0.6;
+}
+.bq:hover .qiu::after {
+  background-color: rgb(231, 231, 231);
+  opacity: 0.7;
+}
+.bq:hover .qiu::before {
+  background-color: rgb(212, 212, 212);
+  opacity: 0.9;
+}
+.bq:hover .content a {
+  background-color: rgb(98, 115, 156);
+  color: #ffffff;
+  opacity: 0.8;
+}
+.bq:hover .content h1 {
+  color: rgba(0, 0, 0, 0.7);
+  font-weight: 900;
+}
+.content {
+  width: 220px;
+  height: 250px;
+  position: relative;
+  top: 70px;
+  word-wrap: break-word;
+  /* background-color: #fff; */
+  color: #fff;
+  text-align: center;
+}
+.content p {
+  font-size: 44px;
+  margin-bottom: 15px;
+  color: #cecece;
+  font-weight: 900;
+}
+.content h1 {
+  font-size: 21px;
+  margin-bottom: 25px;
+  color: #ffffff;
+  padding: 5px;
+  transition: 0.4s;
+}
+.content a {
+  border-radius: 38% 62% 63% 37%/ 41% 44% 56% 59%;
+  width: 55px;
+  height: 35px;
+  background-color: #cecece;
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 20px;
+  color: #000000;
+  padding: 5px;
+  transition: 0.4s;
+}
+
+.qiu {
+  transition: 0.4s;
+  position: absolute;
+  width: 320px;
+  height: 330px;
+  border: 3px solid #fff;
+  border-radius: 28% 62% 63% 37%/ 41% 44% 56% 59%;
+  animation: qiu 8s infinite linear;
+}
+.qiu::after {
+  transition: 0.4s;
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: -10px;
+  width: 320px;
+  height: 320px;
+  border: 3px solid #fff;
+  border-radius: 38% 62% 63% 37%/ 41% 44% 56% 59%;
+  animation: qiu 6s infinite linear;
+}
+.qiu::before {
+  transition: 0.4s;
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: -10px;
+  width: 320px;
+  height: 320px;
+  border: 3px solid #fff;
+  border-radius: 38% 62% 63% 37%/ 41% 44% 56% 59%;
+  animation: qiu 4s infinite linear;
+}
+.wz {
+  width: 50%;
+  height: 400px;
+  /* background-color: cornflowerblue; */
+  position: relative;
+  top: 170px;
+  font-size: 18px;
+  color: #cecece;
+}
+.wz h2 {
+  margin: 20px 0 20px 0;
+}
+.wz span {
+  float: right;
+}
+.dibu {
+  max-width: 1180px;
+  height: 200px;
+  background-color: rgb(67, 78, 102);
+  position: relative;
+  top: 100px;
+  color: #cecece;
+}
+.bqsy p {
+  font-size: 20px;
+  position: relative;
+  top: 50px;
+  text-align: center;
+}
+.bqsy span {
+  font-size: 20px;
+  position: relative;
+  display: block;
+  top: 70px;
+  text-align: center;
+}
+.bqsy i {
+  font-size: 40px;
+  position: relative;
+  display: block;
+  top: 90px;
+  text-align: center;
+}
+@keyframes qiu {
+  0% {
+    transform: rotateZ(0);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+@media (max-width: 450px) {
+  .auto {
+    top: 740px;
+  }
+}
+@media (min-width: 1180px) {
+  .topba {
+    order: 1;
+    background-image: url(../Img/4.png);
+    background-size: contain;
+  }
+  .topbl {
+    order: 2;
+  }
+  .topbr {
+    order: 3;
+  }
+  .auto1 {
+    width: 902px;
+  }
+  @keyframes move {
+    0% {
+      clip-path: circle(4% at 39% 55%);
+    }
+    50% {
+      clip-path: circle(4% at 65% 65%);
+    }
+    100% {
+      clip-path: circle(4% at 39% 55%);
+    }
+  }
+}
+@media (max-width: 590px) {
+  .topbl > div a {
+    font-size: 16px;
+  }
+  .bqsy p {
+    font-size: 16px;
+    position: relative;
+    top: 50px;
+    text-align: center;
+  }
+  .bqsy span {
+    font-size: 16px;
+    position: relative;
+    display: block;
+    top: 70px;
+    text-align: center;
+  }
+  .bqsy i {
+    font-size: 30px;
+    position: relative;
+    display: block;
+    top: 90px;
+    text-align: center;
+  }
+}
+@media (max-width: 590px) {
+  .bz:hover li {
+    width: 15%;
+  }
+  .bz li:hover {
+    width: 170px;
+  }
+}
+@media (max-width: 1180px) {
+  .auto {
+    width: 100%;
+  }
+}
+@media (max-width: 945px) {
+  .bq {
+    top: 180px;
+  }
+}
+@media (max-width: 800px) {
+  .btow {
+    height: 800px;
+  }
+  .bq {
+    top: 50px;
+  }
+  .wz {
+    width: 100%;
+    top: 50px;
+    padding: 10px;
+  }
+}
+@media (max-width: 645px) {
+  .qiu {
+    width: 280px;
+    height: 280px;
+  }
+  .qiu::after {
+    width: 280px;
+    height: 280px;
+  }
+  .qiu::before {
+    width: 280px;
+    height: 280px;
+  }
+  .content {
+    width: 220px;
+    height: 250px;
+    top: 48px;
+  }
+}
+@media (max-width: 580px) {
+  .btow {
+    height: 830px;
+  }
+  .bq {
+    height: 180px;
+    width: 180px;
+  }
+  .qiu {
+    width: 180px;
+    height: 180px;
+  }
+  .qiu::after {
+    width: 180px;
+    height: 180px;
+  }
+  .qiu::before {
+    width: 180px;
+    height: 180px;
+  }
+  .content {
+    width: 100px;
+    height: 130px;
+    top: 28px;
+  }
+  .content p {
+    font-size: 16px;
+    margin-bottom: 10px;
+    font-weight: 100;
+  }
+  .content h1 {
+    font-size: 12px;
+    margin-bottom: 12px;
+    padding: 5px;
+  }
+  .content a {
+    width: 55px;
+    height: 35px;
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,56 @@
+[Version]
+signature="$CHICAGO$"
+
+[DefaultInstall]
+CopyFiles = Scheme.Cur, Scheme.Txt
+AddReg    = Scheme.Reg
+
+[DestinationDirs]
+Scheme.Cur = 10,"%CUR_DIR%"
+Scheme.Txt = 10,"%CUR_DIR%"
+
+[Scheme.Reg]
+HKCU,"Control Panel\Cursors\Schemes","%SCHEME_NAME%",,"%10%\%CUR_DIR%\%pointer%,%10%\%CUR_DIR%\%help%,%10%\%CUR_DIR%\%work%,%10%\%CUR_DIR%\%busy%,%10%\%CUR_DIR%\%cross%,%10%\%CUR_DIR%\%Text%,%10%\%CUR_DIR%\%Hand%,%10%\%CUR_DIR%\%unavailable%,%10%\%CUR_DIR%\%Vert%,%10%\%CUR_DIR%\%Horz%,%10%\%CUR_DIR%\%Dgn1%,%10%\%CUR_DIR%\%Dgn2%,%10%\%CUR_DIR%\%move%,%10%\%CUR_DIR%\%alternate%,%10%\%CUR_DIR%\%link%,%10%\%CUR_DIR%\%loc%,%10%\%CUR_DIR%\%person%"
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\Runonce\Setup\","",,"rundll32.exe shell32.dll,Control_RunDLL main.cpl,,1"
+
+[Scheme.Cur]
+alt.cur
+background.ani
+busy.ani
+precision.ani
+diag1.cur
+diag2.cur
+handwriting.cur
+help.cur
+horiz.cur
+link.cur
+loc.cur
+normal.cur
+move.cur
+person.cur
+text.ani
+unavailable.cur
+vert.cur
+
+[Scheme.Txt]
+
+[Strings]
+CUR_DIR       = "Cursors\MasterHand"
+SCHEME_NAME   = "MasterHand"
+pointer       = "normal.cur"
+help          = "help.cur"
+work          = "background.ani"
+busy          = "busy.ani"
+text          = "text.ani"
+unavailable   = "unavailable.cur"
+vert          = "vert.cur"
+horz          = "horiz.cur"
+dgn1          = "diag1.cur"
+dgn2          = "diag2.cur"
+move          = "move.cur"
+link          = "link.cur"
+cross         = "precision.ani"
+hand          = "handwriting.cur"
+alternate     = "alt.cur"
+loc	      = "loc.cur"
+person	      = "person.cur"

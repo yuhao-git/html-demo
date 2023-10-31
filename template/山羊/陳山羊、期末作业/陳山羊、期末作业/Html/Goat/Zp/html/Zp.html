@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/reset.css">
+		<!-- <link rel="stylesheet" href="../css/主页.css"> -->
+        <link rel="stylesheet" href="../css/iconfont1/font_2227825_m10vsrdqypq/iconfont.css">
+        <link rel="stylesheet" href="../css/anniu.css">
+        <link rel="stylesheet" href="../css/sz.css">
+        <link rel="stylesheet" href="../css/sc.css">
+        <style>
+
+                body {
+                height: 5000px;
+                background-color: #b1b5be;
+                }
+                a {
+                text-decoration: none;
+                }
+                .t {
+                margin-top: 20px;
+                width: 100%;
+                height: 60px;
+                position: sticky;
+                top: 0;
+                z-index: 999;
+                /* background-color: #fff; */
+                }
+                .t1{
+                    border-bottom-left-radius: 20px;
+                    border-bottom-right-radius: 20px;
+                    max-width: 1100px;
+                    height: 60px;
+                    background-color: rgba(177, 181, 190, 0.582);
+                    display: flex;
+                    justify-content: space-between;
+                    margin: auto;
+                }
+                .tl{
+                    width: 60px;
+                    height: 60px;
+                    /* background-color: #bfa; */
+                    order: 2;
+                }
+                .ta{
+                    width: 60px;
+                    height: 60px;
+                    /* background-color: rgb(75, 117, 64); */
+                    order: 1;
+                }
+                .tr{
+                    width: 60px;
+                    height: 60px;
+                    /* background-color: rgb(97, 18, 143); */
+                    order: 3;
+                }
+                .tt{
+                    width: 60px;
+                    height: 60px;
+                    /* background-color: #fff; */
+                    position: relative;
+                }
+                    .ta:hover .tb{
+                        height: 408px;
+                    }
+                .ta .tb{
+                    z-index: 888;
+                    overflow: hidden;
+                    width: 100%;
+                    height: 0;
+                    display: flex;
+                    flex-direction: column;
+                    background-color: rgba(17, 16, 17, 0.674);
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    margin: auto;
+                    transition: 1s;
+                    /* border: 50px solid #bfa; */
+                }
+                .ta .tb li{
+                    /* margin-top: 10px; */
+                    width: 100%;
+                    height: 100px;
+                    border-bottom: 2px solid rgba(39, 35, 35, 0.123);
+                    
+                }
+                .ta .tb li a{
+                    display: block;
+                    color: rgb(168, 168, 168);
+                    transition: .4s;
+                    text-align: center;
+                    line-height: 100px;
+                }
+                .ta .tb li:hover  a{
+                    color: white;
+                }
+                .t .t1 .tt li {
+                    background-color: rgb(86, 88, 94);
+                    width: 29px;
+                    height: 2.5px;
+                    /* background-color: #000; */
+                    position: absolute;
+                    /* transform-origin: 0 0;  */
+                    left: 0;
+                    right: 0;
+                    margin: auto;
+                    transition: .9s;
+
+                    }
+                    .t .t1 .tt li:nth-child(1) {
+                    top: 18px;
+                    }
+                    .t .t1 .tt li:nth-child(2) {
+                    top: 28px;
+                    }
+                    .t .t1 .tt li:nth-child(3) {
+                    top: 38px;
+                    }
+                    .t .t1 .tt:hover li:nth-child(1){
+                    transform:translateY(10px) rotateZ(360deg)
+                    
+                    }
+                    .t .t1 .tt:hover li:nth-child(2) {
+                        opacity: 0;
+                        transform: rotateX(90deg);
+                        
+                    }
+                    .t .t1 .tt:hover li:nth-child(3) {
+                    transform: rotateZ(-90deg) translatex(10px);
+
+                    }
+                    .t .t1 .tl {
+                    width: 60px;
+                    height: 60px;
+                    line-height: 60px;
+                    color: #5f5757;
+                    z-index: 999;
+                    }
+                    .t .t1 .tl i {
+                    font-size: 60px;
+                    }
+                    .t .t1 .tl a {
+                    color: #536061;
+                    }
+                    .t .t1 .tr {
+                        width: 60px;
+                        height: 60px;
+                        position: relative;
+                        z-index: 999;
+                        }
+                        .t .t1 .tr .trone {
+                        left: 17px;
+                        top: 17px;
+                        position: absolute;
+                        transition: 0.4s;
+                        color: #545d5e;
+                        }
+                        .t .t1 .tr .trone i {
+                        font-size: 30px;
+                        }
+                        .t .t1 .tr .trtow {
+                        color: #545d5e;
+                        top: 20px;
+                        left: 17px;
+                        position: absolute;
+                        }
+                        .t .t1 .tr .trtow i {
+                        font-size: 30px;
+                        opacity: 0;
+                        transition: 0.4s;
+                        }
+                        .t .t1 .tr:hover .trone {
+                        opacity: 0;
+                        }
+                        .t .t1 .tr:hover .trtow i {
+                        color: white;
+                        opacity: 1;
+                        }
+
+
+
+
+                .bgimg {
+                display: inline-flex;
+                position: fixed;
+                left: 0;
+                right: 0;
+                top: 120px;
+                margin: auto;
+                height: 500px;
+                flex: auto;
+                z-index: -999;
+                transition: 2s;
+                }
+                .bgimg .bgimgone {
+                margin: auto;
+                width: 780px;
+                height: 500px;
+                background-image: url(../img/2.jpg);
+                background-repeat: no-repeat;
+                background-size: contain;
+                }
+                .bgimg span {
+                position: absolute;
+                text-align: center;
+                left: 0;
+                top: 30px;
+                right: 0;
+                color: #796b6b;
+                font: 40px "叶根友毛笔行书2.0版";
+                transition: 2s;
+                opacity: 1;
+                }
+                .no{
+                    position: relative;
+                    top: 1000px;
+                }
+                .no .noone,
+                .no .notow,
+                .no .nothree,
+                .no .nofour {
+                    
+                    height: 850px;
+                    width: 100%;
+                }
+                .no .noone {
+                    background-color: rgba(0, 0, 0, 0.6);
+                }
+                .no .notow {
+                    background-color: rgba(255, 255, 255, 0.6);
+                }
+                .no .nothree {
+                    background-color: rgba(0, 0, 0, 0.6);
+                }
+                .no .nofour {
+                    background-color: rgba(255, 255, 255, 0.6);
+                }
+
+                @media (min-width: 800px){
+                    .tl{
+                        order: 1;
+                    }
+                    .ta{
+                        order: 2;
+                        flex-grow: 5;
+                    }
+                    .ta .tt{
+                        display: none;
+                    }
+                    .ta .tb{
+                        height: 60px;
+                        position: static;
+                        display: flex;
+                        flex-flow: row;
+                        background-color: rgba(0, 0, 0, 0);
+                    }
+                    .ta:hover .tb{
+                        height: 60px;
+                        
+                    }
+                    .ta .tb li{
+                        border-bottom: none;
+                    }
+                    .ta .tb li a{
+                        line-height: 60px;
+                    }
+                    .tr{
+                        order: 3;
+                    }
+                    .bgimg span{
+                        opacity: 0;
+                    }
+                }
+                @media (max-width: 400px){
+                    .bgimg{
+                        top:240px;
+                    }
+                }
+        </style>
+</head>
+<body>
+    <div class="bgimg">
+        <div class="bgimgone"></div>
+        <span>陈&nbsp;山&nbsp;羊</span>
+    </div>
+    <div class="t">
+        <div class="t1">
+            <div class="tl">
+                <a href="#"><i class="iconfont icon-yang"></i></a>
+            </div>
+            
+            <div class="ta">
+                <a href="#">
+                <ul class="tt">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+                </a>
+                <ul class="tb">
+                    <li>
+                        <a href="#no1">
+                            HTML/CSS Notes
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#no2">
+                            Actual Combat
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#no3">
+                            Devise素材
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#no4">
+                            我的计划
+                        </a>
+                    </li>
+                </ul> 
+            </div>
+            <div class="tr">
+                <a href="#" class="trone"><i class="iconfont icon-eye"></i></a>
+                <a href="#" class="trtow"><i class="iconfont icon-eye-close"></i></a>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="no">
+        <div class="noone" id="no1">
+            <div class="aaaniu">
+                <div class="anniu">
+                <div class="anniu1">
+                    <span>CSS</span>
+                </div>
+                <div class="anniu2">
+                    <ul class="css">
+                        <li><a href="#no1">属性</a></li>
+                        <li><a href="#no1">元素</a></li>
+                        <li><a href="#no1">选择器</a></li>
+                    </ul>
+                </div>
+                </div>
+            </div>
+            <div class="baaniu">
+                <div class="bnniu">
+                   <div class="bnniu1">
+                       <span>HTML</span>
+                   </div>
+                   <div class="bnniu2">
+                       <ul class="css">
+                        <li><a href="#no1">属性</a></li>
+                        <li><a href="#no1">元素</a></li>
+                        <li><a href="#no1">选择器</a></li>
+                       </ul>
+                   </div>
+                </div>
+            </div>
+
+            <div class="caaniu">
+                <div class="cnniu">
+                   <div class="cnniu1">
+                       <span>Less</span>
+                   </div>
+                   <div class="cnniu2">
+                       <ul class="css">
+                        <li><a href="#no1">属性</a></li>
+                        <li><a href="#no1">元素</a></li>
+                        <li><a href="#no1">选择器</a></li>
+                       </ul>
+                   </div>
+                </div>
+            </div>
+
+            <div class="daaniu">
+                <div class="dnniu">
+                   <div class="dnniu1">
+                       <span>Sass</span>
+                   </div>
+                   <div class="dnniu2">
+                       <ul class="css">
+                        <li><a href="#no1">属性</a></li>
+                        <li><a href="#no1">元素</a></li>
+                        <li><a href="#no1">选择器</a></li>
+                       </ul>
+                   </div>
+                </div>
+            </div>
+
+            <div class="eaaniu">
+                <div class="enniu">
+                   <div class="enniu1">
+                       <span>Js</span>
+                   </div>
+                   <div class="enniu2">
+                       <ul class="css">
+                        <li><a href="#no1">属性</a></li>
+                        <li><a href="#no1">元素</a></li>
+                        <li><a href="#no1">选择器</a></li>
+                       </ul>
+                   </div>
+                </div>
+            </div>
+    </div>
+        <div class="notow" id="no2">
+            <div class="sz">
+                <div class="asz1">
+                    <div class="aszkj">
+                        <div class="asztop">
+                            
+                        </div>
+                        <div class="aszauto">
+                            <a href="#"><span>...</span></a>
+                        </div>
+                        <div class="aszbottom">
+                            <span>2020/12/12</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bsz1">
+                    <div class="bszkj">
+                        <div class="bsztop">
+                           
+                        </div>
+                        <div class="bszauto">
+                            <a href="#"><span>...</span></a>
+                        </div>
+                        <div class="bszbottom">
+                            <span>2020/12/12</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="csz1">
+                    <div class="cszkj">
+                        <div class="csztop">
+
+                        </div>
+                        <div class="cszauto">
+                            <a href="#"><span>...</span></a>
+                        </div>
+                        <div class="cszbottom">
+                            <span>2020/12/12</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="dsz1">
+                    <div class="dszkj">
+                        <div class="dsztop">
+
+                        </div>
+                        <div class="dszauto">
+                            <a href="#"><span>...</span></a>
+                        </div>
+                        <div class="dszbottom">
+                            <span>2020/12/12</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sz1">
+                <div class="asz1">
+                    <div class="aszkj">
+                        <div class="asztop">
+                            
+                        </div>
+                        <div class="aszauto">
+                            <a href="#"><span>...</span></a>
+                        </div>
+                        <div class="aszbottom">
+                            <span>2020/12/12</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bsz1">
+                    <div class="bszkj">
+                        <div class="bsztop">
+                           
+                        </div>
+                        <div class="bszauto">
+                            <a href="#"><span>...</span></a>
+                        </div>
+                        <div class="bszbottom">
+                            <span>2020/12/12</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="csz1">
+                    <div class="cszkj">
+                        <div class="csztop">
+
+                        </div>
+                        <div class="cszauto">
+                            <a href="#"><span>...</span></a>
+                        </div>
+                        <div class="cszbottom">
+                            <span>2020/12/12</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="dsz1">
+                    <div class="dszkj">
+                        <div class="dsztop">
+
+                        </div>
+                        <div class="dszauto">
+                            <a href="#"><span>...</span></a>
+                        </div>
+                        <div class="dszbottom">
+                            <span>2020/12/12</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sz2">
+                <div class="asz1">
+                    <div class="aszkj">
+                        <div class="asztop">
+                            
+                        </div>
+                        <div class="aszauto">
+                            <a href="#"><span>...</span></a>
+                        </div>
+                        <div class="aszbottom">
+                            <span>2020/12/12</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bsz1">
+                    <div class="bszkj">
+                        <div class="bsztop">
+                           
+                        </div>
+                        <div class="bszauto">
+                            <a href="#"><span>...</span></a>
+                        </div>
+                        <div class="bszbottom">
+                            <span>2020/12/12</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="csz1">
+                    <div class="cszkj">
+                        <div class="csztop">
+
+                        </div>
+                        <div class="cszauto">
+                            <a href="#"><span>...</span></a>
+                        </div>
+                        <div class="cszbottom">
+                            <span>2020/12/12</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="dsz1">
+                    <div class="dszkj">
+                        <div class="dsztop">
+
+                        </div>
+                        <div class="dszauto">
+                            <a href="#"><span>...</span></a>
+                        </div>
+                        <div class="dszbottom">
+                            <span>2020/12/12</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nothree" id="no3">
+            <div class="sc">
+                <div class="sp">
+                    <a href="#no3"><span>图片</span></a>
+                    <a href="#no3"><span>视频</span></a>
+                    <a href="#no3"><span>源码</span></a>
+                </div>
+                
+                     <div class="scauto">
+                        <ul class="scauto1">
+                            <li class="sa1" id="sa1"></li>
+                            <li class="sa2" id="sa1"></li>
+                            <li class="sa3" id="sa1"></li>
+                            <li class="sa4" id="sa1"></li>
+                            <li class="sa5" id="sa1"></li>
+                            <li class="sa6" id="sa1"></li>
+                        </ul>
+                        <ul class="scauto2">
+                            <li class="sa1"></li>
+                            <li class="sa2"></li>
+                            <li class="sa3"></li>
+                            <li class="sa4"></li>
+                            <li class="sa5"></li>
+                            <li class="sa6"></li>
+                        </ul>
+                        <ul class="scauto3">
+                            <li class="sa1"></li>
+                            <li class="sa2"></li>
+                            <li class="sa3"></li>
+                            <li class="sa4"></li>
+                            <li class="sa5"></li>
+                            <li class="sa6"></li>
+                        </ul> 
+                     </div>
+            <div class="sctop">
+                <!-- <div class="sta"></div>
+                <div class="scb"></div>
+                <div class="scc"></div> -->
+                <div class="sc1">     
+                    
+                    <div class="s1"></div>
+                    <div class="s2"></div>
+                    <div class="s3"></div>
+                    <div class="s4"></div>
+                    <div class="s5"></div>
+                    <div class="s6"></div>
+                </div>
+                <div class="sc2">               
+                    <div class="s1"></div>
+                    <div class="s2"></div>
+                    <div class="s3"></div>
+                    <div class="s4"></div>
+                    <div class="s5"></div>
+                    <div class="s6"></div>
+                </div>
+                <div class="sc3">               
+                    <div class="s1"></div>
+                    <div class="s2"></div>
+                    <div class="s3"></div>
+                    <div class="s4"></div>
+                    <div class="s5"></div>
+                    <div class="s6"></div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="nofour" id="no4"></div>
+    </div>
+</body>
+</html>

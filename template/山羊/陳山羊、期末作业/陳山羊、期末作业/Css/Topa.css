@@ -1,0 +1,193 @@
+.zd{
+    position: fixed;
+     right: 39px;
+     width: 3px;
+     height: 535px;
+     background-color: #000;
+ }
+ .zd1{
+     width: 60px;
+     height: 100px;
+     position: fixed;
+     top: 500px;
+     right: 10px;
+ }
+ .zd1 i{
+     font-size: 20px;
+     font-weight: 900;
+     color: antiquewhite;
+     margin-left: 18px;
+ }
+ @media(max-width: 1180px){
+     .zd{
+        display: none;
+     }
+     .zd1{
+        display: none;
+     }
+ }
+
+.topt {
+  max-width: 1180px;
+  height: 140px;
+  background-color: #2f3542;
+  margin: auto;
+  background-image: url(../Img/3.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.6s;
+}
+.topa {
+  position: sticky;
+  margin: 15px auto;
+  top: 0px;
+  max-width: 1180px;
+  height: 60px;
+  /* background-image: linear-gradient(to top,rgb(157, 148, 167),rgb(60,16,110)); */
+  background: #778ca3;
+  display: flex;
+  justify-content: space-between;
+  z-index: 9999;
+}
+.topal {
+  width: 30%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+}
+.topal .tal1 {
+  font-size: 22px;
+  line-height: 60px;
+  padding-left: 10px;
+  color: #ffffff;
+}
+.topal .tal1:hover {
+  color: #2f3542;
+}
+.topaa {
+  width: 35%;
+  height: 60px;
+  transition: 1s;
+}
+.topaa::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 300px;
+  height: 0px;
+  /* background: rgba(0, 0, 0, 0.527); */
+  z-index: 998;
+  transition: 0.4s .5s;
+  background-image: url(../Img/5.png);
+  box-shadow: -1px 10px 10px rgba(0, 0, 0, 0.4);
+
+}
+.topaa:hover::before {
+  height: 300px;
+}
+
+.topaa::after {
+  font-weight: 900;
+  content: "Goat";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(
+    to right,
+    rgb(201, 22, 156),
+    rgb(177, 2, 177),
+    rgb(36, 127, 230),
+    rgb(47, 49, 146),
+    rgb(62, 45, 138),
+    rgb(165, 50, 194),
+    rgb(145, 21, 247),
+    rgb(221, 19, 160)
+  );
+  clip-path: circle(6% at 50% 55%);
+  animation: move 6s infinite ease-in-out;
+}
+@keyframes move {
+  0% {
+    clip-path: circle(6% at 36% 55%);
+  }
+  50% {
+    clip-path: circle(6% at 65% 55%);
+  }
+  100% {
+    clip-path: circle(6% at 36% 55%);
+  }
+}
+.topaa h2 {
+  color: #381d1d;
+  transition: 0.5s;
+  font-weight: 900;
+}
+.topaa {
+  font-size: 65px;
+  text-align: center;
+  line-height: 60px;
+}
+.topar {
+  width: 30%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+}
+.topar .tar1 {
+  font-size: 22px;
+  line-height: 60px;
+  padding-right: 10px;
+  color: #ffffff;
+}
+.topar .tar1:hover {
+  color: #2f3542;
+}
+
+@media (min-width: 505px) {
+  .topt {
+    background-image: url(../Img/2.png);
+  }
+}
+
+@media (max-width: 605px) {
+  .topal .tal1 {
+    font-size: 16px;
+  }
+  .topar .tar1 {
+    font-size: 16px;
+  }
+}
+@media (max-width: 300px) {
+  .topt {
+    height: 80px;
+  }
+}
+@media (max-width: 450px) {
+  .topt {
+    height: 120px;
+    justify-content: space-around;
+  }
+  .topaa {
+    display: none;
+  }
+  .topal {
+    width: 40%;
+  }
+  .topar {
+    width: 40%;
+  }
+}
+@media (min-width: 700px) {
+  .topt {
+    background-image: url(../Img/1.png);
+  }
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/reset.css">
+    <style>
+        body{
+            background-color: #000;
+        }
+        .love{
+            filter: blur(5px);
+            position: relative;
+            top: 200px;
+            margin: auto;
+            transform: rotateZ(45deg);
+            width: 200px;
+            height: 200px;
+            background-color:rgb(134, 4, 54);
+            animation: love 1s infinite;
+            /* border-radius: 10px; */
+        }
+        .love::after,.love::before{
+            content: '';
+            background-color: rgb(134, 4, 54);
+            border-radius: 50%;
+            position: absolute;
+            
+            animation: love 1s infinite;
+        }
+        .love::after{
+            top: -100px;
+            left: 0;
+        }
+        .love::before{
+            top: 0;
+            left: -100px;
+        }
+        @keyframes love{
+            0%{
+                width: 200px;
+                height: 200px;
+            }
+            20%{
+                width: 230px;
+                height: 230px;
+                background-color: red;
+            }
+            100%{
+                filter: blur(1px);
+                width: 200px;
+                height: 200px;
+            }
+        }
+
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <a href="../Zy.html">
+        <div class="love"></div>
+    </a>
+</body>
+</html>

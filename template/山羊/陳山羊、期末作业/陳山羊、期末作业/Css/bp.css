@@ -1,0 +1,153 @@
+.bp {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: #8a57a5;
+  box-shadow: 10px 10px 30px #2a1636, -15px -15px 31px #aa58d6;
+  margin: 45px auto;
+  position: relative;
+  transition: 1s;
+  /* opacity: .7; */
+}
+.bplogo {
+  width: 1px;
+  height: 1px;
+  border-radius: 50%;
+  position: absolute;
+  z-index: -99;
+}
+.bp:hover .bplogo {
+  transition: 5s;
+  outline: 3000px solid rgba(0, 0, 0, 0.8);
+}
+.bp:hover {
+  transition: 1s;
+  background: #d080cb;
+  box-shadow: 9px 9px 18px #b16dad, -9px -9px 18px #ef93e9;
+}
+
+.bp > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+}
+
+.bpa {
+  width: 280px;
+  height: 280px;
+  animation: bpa 60s linear infinite;
+  z-index: 100;
+  border-radius: 50%;
+}
+@keyframes bpa {
+  from {
+    transform: rotatez(0);
+  }
+  to {
+    transform: rotatez(360deg);
+  }
+}
+
+.bpa1 {
+  width: 4px;
+  height: 140px;
+  background-color: rgba(143, 66, 137, 0.9);
+  border-radius: 10px;
+  margin: auto;
+  box-shadow: -2px 1px 10px rgba(3, 0, 0, 0.4);
+}
+
+.bpb {
+  width: 220px;
+  height: 220px;
+  animation: bpb 360s linear infinite;
+  z-index: 300;
+  border-radius: 50%;
+}
+
+@keyframes bpb {
+  from {
+    transform: rotatez(0);
+  }
+  to {
+    transform: rotatez(360deg);
+  }
+}
+
+.bpb1 {
+  width: 4px;
+  height: 110px;
+  background-color: rgba(143, 66, 137, 0.7);
+  border-radius: 10px;
+  margin: auto;
+  box-shadow: -2px 1px 10px rgba(3, 0, 0, 0.5);
+}
+
+.bpc {
+  width: 160px;
+  height: 160px;
+  animation: bpc 3600s linear infinite;
+  border-radius: 50%;
+}
+
+@keyframes bpc {
+  from {
+    transform: rotatez(0);
+  }
+  to {
+    transform: rotatez(360deg);
+  }
+}
+
+.bpc1 {
+  width: 4px;
+  height: 80px;
+  background-color: rgba(143, 58, 137, 0.5);
+  border-radius: 10px;
+  margin: auto;
+  box-shadow: -2px 1px 10px rgba(3, 0, 0, 0.4);
+}
+
+@media (max-width: 600px) {
+  .bp {
+    width: 200px;
+    height: 200px;
+    margin-top: 80px;
+  }
+  .bpa {
+    width: 180px;
+    height: 180px;
+  }
+  .bpa1 {
+    width: 4px;
+    height: 90px;
+  }
+  .bpb {
+    width: 120px;
+    height: 120px;
+  }
+  .bpb1 {
+    width: 4px;
+    height: 60px;
+  }
+  .bpc {
+    width: 60px;
+    height: 60px;
+  }
+  .bpc1 {
+    width: 4px;
+    height: 30px;
+  }
+}
+@media (max-width: 450px) {
+  .fj {
+    width: 287px;
+    height: 100px;
+    background: #a4b0be;
+    position: absolute;
+    top: 620px;
+  }
+}

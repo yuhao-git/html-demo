@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>山羊の前端小窝</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: linear-gradient(to top, #fad0c4 0%, #ffd1ff 100%);
+        }
+
+        .shell {
+            position: relative;
+            width: 520px;
+            border-radius: 0 0 1em 1em;
+            box-shadow: 0 19px 38px rgba(0, 0, 0, 0.2), 0 15px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .shell header {
+            border-radius: 1em 1em 0 0;
+            background: #e66b6b;
+            color: #fff;
+            padding: 3em 2em;
+            background-image: url(./img/01.gif);
+            background-size: cover;
+        }
+
+        .day {
+            font-size: 8em;
+            font-weight: 900;
+            line-height: 1em;
+        }
+
+        .month {
+            font-size: 4em;
+            line-height: 1em;
+            text-transform: lowercase;
+        }
+
+        .calendar {
+            width: 100%;
+            background: #fff;
+            border-radius: 0 0 1em 1em;
+            box-shadow: 0 2px 1px rgba(0, 0, 0, .2), 0 3px 1px #fff;
+            color: #000000;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .calendar thead {
+            color: #e66b6b;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .calendar td {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-align: center;
+            font: 600 17px '';
+            transition: .2s;
+        }
+
+        .calendar tbody td:hover {
+            background: #da89a2;
+            color: #fff;
+            font: 600 23px '';
+        }
+
+        .current-day {
+            color: #e66b6b;
+        }
+
+        .prev-month,
+        .next-month {
+            color: #cacaca;
+        }
+
+        .ring-left,
+        .ring-right {
+            position: absolute;
+            top: 265px;
+        }
+
+        .ring-left {
+            left: 2em;
+        }
+
+        .ring-right {
+            right: 2em;
+        }
+
+        .ring-left:before,
+        .ring-right:before {
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: 0 3px 1px rgba(0, 0, 0, .3), 0 -1px 1px rgba(0, 0, 0, .2);
+            content: "";
+            display: inline-block;
+            margin: 8px;
+            height: 32px;
+            width: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="shell">
+        <header>
+            <div class="day">11</div>
+            <div class="month">October</div>
+        </header>
+        <table class="calendar">
+            <thead>
+                <tr>
+                    <td>Mon</td>
+                    <td>Tue</td>
+                    <td>Wed</td>
+                    <td>Thu</td>
+                    <td>Fri</td>
+                    <td>Sat</td>
+                    <td>Sun</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="prev-month">25</td>
+                    <td class="prev-month">26</td>
+                    <td class="prev-month">27</td>
+                    <td class="prev-month">28</td>
+                    <td class="prev-month">29</td>
+                    <td class="prev-month">30</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                    <td>7</td>
+                    <td>8</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>10</td>
+                    <td class="current-day">11</td>
+                    <td>12</td>
+                    <td>13</td>
+                    <td>14</td>
+                    <td>15</td>
+                </tr>
+                <tr>
+                    <td>16</td>
+                    <td>17</td>
+                    <td>18</td>
+                    <td>19</td>
+                    <td>20</td>
+                    <td>21</td>
+                    <td>22</td>
+                </tr>
+                <tr>
+                    <td>23</td>
+                    <td>24</td>
+                    <td>25</td>
+                    <td>26</td>
+                    <td>27</td>
+                    <td>28</td>
+                    <td>29</td>
+                </tr>
+                <tr>
+                    <td>30</td>
+                    <td>31</td>
+                    <td class="prev-month">1</td>
+                    <td class="prev-month">2</td>
+                    <td class="prev-month">3</td>
+                    <td class="prev-month">4</td>
+                    <td class="prev-month">5</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ring-left"></div>
+        <div class="ring-right"></div>
+    </div>
+
+</body>
+
+</html>

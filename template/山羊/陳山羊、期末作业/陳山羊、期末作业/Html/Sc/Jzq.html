@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/reset.css">
+    <style>
+        body{
+            background-color: #000;
+        }
+        .auto{
+            position: relative;
+            top: 200px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            transition: .4s;
+            border: 5px solid transparent;
+            border-top-color: #9980FA;
+            animation: move 3s infinite linear;
+        }
+        .auto::before{
+            content: '';
+            position: absolute;
+            top: 9px;
+            left: 9px;
+            right: 9px;
+            bottom: 9px;
+            border-radius: 50%;
+            border: 5px solid transparent;
+            border-top-color: #D980FA;
+            animation: move 2s infinite linear;
+        }
+        .auto::after{
+            content: '';
+            position: absolute;
+            top: 22px;
+            left: 22px;
+            right: 22px;
+            bottom: 22px;
+            border-radius: 50%;
+            border: 5px solid transparent;
+            border-top-color: #FDA7DF;
+            animation: move 1s infinite linear;
+        }
+        @keyframes move{
+            0%{
+                transform: rotateZ(0deg);
+            }
+            100%{
+                transform: rotateZ(360deg);
+            }
+        }
+        .auto:hover{
+            background-color: rgba(217, 2, 245, 0.219);
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <a href="../Zy.html"><div class="auto"></div></a>
+</body>
+</html>

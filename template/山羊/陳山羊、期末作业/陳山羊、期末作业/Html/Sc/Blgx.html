@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+         body{
+             background-color: #000;
+         }
+         a{
+             color: #000;
+         }
+         .auto{
+             width: 300px;
+             height: 200px;
+             background-image: linear-gradient(to right,rgb(221, 53, 165),rgb(206, 38, 228));
+             border-radius: 30px;
+             position: relative;
+             top: 200px;
+             margin: auto;
+             overflow: hidden;
+             
+         }
+         .auto:hover{
+             animation: move .2s linear;
+         }
+         @keyframes move{
+             0%{
+                top: 200px;
+             }
+             50%{
+                top: 195px;
+             }
+             100%{
+                top: 200px;
+             }
+         }
+         .auto::after{
+             position: absolute;
+             top: 150px;
+             left: 0;
+             content: '';
+             background-image: linear-gradient(rgba(0, 0, 0, 0.0),rgb(255, 255, 255,.3),rgb(0, 0, 0,.0));
+             width: 600px;
+             height: 50px;
+             display: block;
+             transform: rotateZ(-45deg) translate(0,-370px);
+         }
+         .auto:hover::after{
+            transition: 1s;
+            transform: rotateZ(-45deg) translate(0,100px);
+         }
+         .auto span{
+             position: absolute;
+             text-transform: uppercase;
+             font:35px "叶根友毛笔行书2.0版";
+             font-weight: 900;
+             left: 0;
+             right: 0;
+             top: 80px;
+             text-align: center;
+         }
+    </style>
+    <title>Document</title>
+</head>
+<body> <a href="../Zy.html">
+    <div class="auto">
+       <span>sad-of-goat</span>
+    </div></a>
+</body>
+</html>

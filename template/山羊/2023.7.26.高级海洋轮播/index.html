@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>山羊の前端小窝</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .shell {
+            display: flex;
+            flex-direction: column;
+            width: 90vw;
+            height: 90vh;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.4);
+            background-color: #fff;
+            color: #000;
+            overflow: hidden;
+        }
+
+        .ocean {
+            width: 100%;
+            height: 60%;
+            background-color: blue;
+            background-image: url(./images/bg.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .ocean-text {
+            font: 900 45vh '';
+            position: relative;
+            background-image: url(./images/text.jpg);
+            background-size: 160% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            transform: translate(25%, -5%);
+            -webkit-text-stroke: 5px #ffffff;
+        }
+
+        .content {
+            position: relative;
+            width: 100%;
+            height: 40%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .main {
+            width: 300%;
+            height: 35vh;
+            position: relative;
+            display: flex;
+            left: 0;
+            transition: .3s;
+        }
+
+        .box {
+            width: 100vw;
+            height: 100%;
+            position: relative;
+        }
+
+        .page {
+            position: absolute;
+            color: #fff;
+            left: 150px;
+            top: -80px;
+        }
+
+        .page h2 {
+            font: 900 120px '';
+            color: #29519b;
+        }
+
+        .page span {
+            font: 400 30px '';
+            position: absolute;
+            right: -55px;
+            top: 30px;
+            color: rgb(134, 194, 250);
+        }
+
+        .bbspan {
+            display: block;
+            font: 500 40px '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-55%);
+            left: 150px;
+        }
+
+        .box h3 {
+            position: absolute;
+            right: 180px;
+            top: 50%;
+            font: 100 19px '';
+            transform: translateY(-50%);
+        }
+
+        .left {
+            width: 40px;
+            height: 40px;
+            background-image: url("./images/left.png");
+            background-size: cover;
+            position: absolute;
+            top: 50%;
+            left: 2%;
+            transform: translateY(-50%);
+            z-index: 999;
+            opacity: 0.5;
+        }
+
+        .right {
+            width: 40px;
+            height: 40px;
+            background-image: url("./images/right.png");
+            background-size: cover;
+            position: absolute;
+            top: 50%;
+            right: 2%;
+            transform: translateY(-50%);
+            z-index: 999;
+        }
+
+        .title {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 120px;
+        }
+
+        h1 {
+            color: #29519b;
+        }
+
+        .article {
+            width: 40%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 120px;
+        }
+
+        .article h2 {
+            margin-bottom: 10px;
+            font-size: 30px;
+            color: #29519b;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="shell">
+        <div class="ocean">
+            <div class="ocean-text">GOAT</div>
+        </div>
+        <div class="content">
+            <div class="left"></div>
+            <div class="right"></div>
+            <div class="main">
+                <div class="box">
+                    <div class="page">
+                        <h2> 01</h2>
+                        <span> / 03</span>
+                    </div>
+                    <div class="title">
+                        <h4> More than</h4>
+                        <h1> 1 000 000</h1>
+                        <h5> seabirds die yearly due to plastic debris</h5>
+                    </div>
+                    <div class="article">
+                        <h2> Facts and Stats on Ocean Pollution</h2>
+                        <p> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore, amet hic provident ipsa
+                            placeat ad. Excepturi distinctio consectetur voluptatibus rem deleniti ducimus officia
+                            natus, magnam aut architecto sint reprehenderit provident?</p>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div class="page">
+                        <h2> 02</h2>
+                        <span> / 03</span>
+                    </div>
+                    <div class="title">
+                        <h4> More than</h4>
+                        <h1> 1 000 000</h1>
+                        <h5> seabirds die yearly due to plastic debris</h5>
+                    </div>
+                    <div class="article">
+                        <h2> Facts and Stats on Ocean Pollution</h2>
+                        <p> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore, amet hic provident ipsa
+                            placeat ad. Excepturi distinctio consectetur voluptatibus rem deleniti ducimus officia
+                            natus, magnam aut architecto sint reprehenderit provident?</p>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div class="page">
+                        <h2> 03</h2>
+                        <span> / 03</span>
+                    </div>
+                    <div class="title">
+                        <h4> More than</h4>
+                        <h1> 1 000 000</h1>
+                        <h5> seabirds die yearly due to plastic debris</h5>
+                    </div>
+                    <div class="article">
+                        <h2> Facts and Stats on Ocean Pollution</h2>
+                        <p> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore, amet hic provident ipsa
+                            placeat ad. Excepturi distinctio consectetur voluptatibus rem deleniti ducimus officia
+                            natus, magnam aut architecto sint reprehenderit provident?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    const left = document.querySelector(".left")
+    const right = document.querySelector(".right")
+    const main = document.querySelector(".main")
+    var index = 0
+    function add() {
+        if (index < 1) {
+            index = 2
+        } else {
+            index--
+        }
+    }
+    function desc() {
+        if (index > 1) {
+            index = 0
+        } else {
+            index++
+        }
+    }
+    function position() {
+        main.style.left = (index * -100) + "%" 
+    }
+    left.addEventListener("click", () => {
+        add()
+        position()
+        console.log(index)
+    }) 
+    right.addEventListener("click", () => {
+        desc()
+        position()
+        console.log(index)
+    }) 
+
+</script>
+
+</html>

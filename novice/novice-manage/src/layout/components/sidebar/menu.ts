@@ -56,7 +56,12 @@ const menu = [
         path: "/component/threeSwiper",
         icon: "card",
         label: "三维轮播",
-      }
+      },
+      {
+        path: "/component/socketTest",
+        icon: "card",
+        label: "三维轮播",
+      },
     ]
   }
 ];
