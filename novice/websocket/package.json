@@ -1,0 +1,9 @@
+{
+	"scripts": {
+		"dev": "node app.js",
+		"socket": "node socketio.js"
+	},
+	"dependencies": {
+		"ws": "^8.14.2"
+	}
+}

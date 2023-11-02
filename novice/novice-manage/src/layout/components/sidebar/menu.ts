@@ -60,7 +60,7 @@ const menu = [
       {
         path: "/component/socketTest",
         icon: "card",
-        label: "三维轮播",
+        label: "socketTest",
       },
     ]
   }

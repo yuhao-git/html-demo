@@ -28,6 +28,12 @@ export default defineConfig(({ command, mode }) => {
     server: {
       host: "0.0.0.0",
       port: config.port,
+      client:{
+        webSocketURL: 'ws://localhost:12010/'
+      },
+      headers:{
+        "Access-Control-Allow-Origin": "*"
+      }
     },
     plugins: [
       vue(),

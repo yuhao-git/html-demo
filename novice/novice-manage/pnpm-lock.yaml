@@ -31,6 +31,7 @@ specifiers:
   vue-router: ^4.2.1
   vue-tsc: ^1.6.5
   vuedraggable: 4.1.0
+  ws: ^8.14.2
 
 dependencies:
   '@element-plus/icons-vue': registry.npmmirror.com/@element-plus/icons-vue/2.1.0_vue@3.3.4
@@ -47,6 +48,7 @@ dependencies:
   vue-json-viewer: registry.npmmirror.com/vue-json-viewer/3.0.4_vue@3.3.4
   vue-router: registry.npmmirror.com/vue-router/4.2.1_vue@3.3.4
   vuedraggable: registry.npmmirror.com/vuedraggable/4.1.0_vue@3.3.4
+  ws: registry.npmmirror.com/ws/8.14.2
 
 devDependencies:
   '@typescript-eslint/eslint-plugin': registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.59.6_d2tnq3me7fwqifnmdgcmmzd77u
@@ -6184,6 +6186,21 @@ packages:
       imurmurhash: registry.npmmirror.com/imurmurhash/0.1.4
       signal-exit: registry.npmmirror.com/signal-exit/3.0.7
     dev: true
+
+  registry.npmmirror.com/ws/8.14.2:
+    resolution: {integrity: sha512-wEBG1ftX4jcglPxgFCMJmZ2PLtSbJ2Peg6TmpJFTbe9GZYOQCDPdMYu/Tm0/bGZkw8paZnJY45J4K2PZrLYq8g==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/ws/-/ws-8.14.2.tgz}
+    name: ws
+    version: 8.14.2
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: '>=5.0.2'
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+    dev: false
 
   registry.npmmirror.com/xml-name-validator/4.0.0:
     resolution: {integrity: sha512-ICP2e+jsHvAj2E2lIHxa5tjXRlKDJo4IdvPvCXbXQGdzSfmSpNVyIKMvoZHjDY9DP0zV17iI85o90vRFXNccRw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/xml-name-validator/-/xml-name-validator-4.0.0.tgz}
