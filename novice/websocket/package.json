@@ -4,6 +4,7 @@
 		"socket": "node socketio.js"
 	},
 	"dependencies": {
+		"socket.io": "^4.7.2",
 		"ws": "^8.14.2"
 	}
 }

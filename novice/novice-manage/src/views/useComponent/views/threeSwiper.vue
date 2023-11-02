@@ -58,7 +58,9 @@
 
     <span class="ml-2">用户Id : {{userId}}</span>
     <el-select placeholder="要同步的用户Id"
+               class="ml-2"
                @change="startLocalAnimation"
+               clearable
                v-model="toUserId">
       <el-option v-for="item in userList"
                  :key="item"
@@ -251,7 +253,7 @@ function initWebsocket() {
   };
 }
 
-// 解析获取到得信息
+// 解析获取到的信息
 function parseMessage(data) {
   let res = JSON.parse(data);
   if (res.type === "userList") {

@@ -2,6 +2,21 @@
  * http://www.npmdoc.org/wszhongwenwendangws-jszhongwenjiaochengjiexi.html 文档
  * 启动服务：node app.js
  */
+
+/**
+ * websocket方法 ：
+ * open
+ * close 
+ * send
+ * 
+ * 
+ * 监听事件：
+ * onopen
+ * onclose
+ * onerror
+ * onmessage
+ * 
+ */
 const WebSocket = require('ws');
 let clientObj = {}
 
@@ -10,11 +25,12 @@ server.on('connection', (ws) => {
 
   ws.on('message', (data, isBinary) => {
     let resData = JSON.parse(data);
+    let resivedData = isBinary ? data : data.toString();
     if (resData.type === 'login') {
       clientObj[resData.userId] = ws;
       console.log('用户' + resData.userId + '登录成功');
     }
-    let resivedData = isBinary ? data : data.toString();
+    
     if (resData.type === 'logout') {
       delete clientObj[resData.userId];
       console.log('用户' + resData.userId + '退出登录');
@@ -42,20 +58,6 @@ server.on('connection', (ws) => {
         // client.send(resivedData);
       }
     }
+
   });
 });
-
-/**
- * websocket方法 ：
- * open
- * close 
- * send
- * 
- * 
- * 监听事件：
- * onopen
- * onclose
- * onerror
- * onmessage
- * 
- */

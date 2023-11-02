@@ -1,88 +1,100 @@
 <template>
-  <div>
-    <p>
-      {{state.resiveMsgList}}
-    </p>
-    <!-- 多端同步通讯 -->
-    <el-input placeholder="发送信息"
-              v-model="state.sendMsg"
-              @keydown.enter="onSendMsg({data: state.sendMsg})">
-      <template #append>
-        <el-button @click="onSendMsg({data: state.sendMsg})"> 发送 </el-button>
-      </template>
-    </el-input>
-
-    <el-button @click="clickAction"> 点击 </el-button>
+  <div class="h-full w-3/4 m-auto relative">
+    <div class="h-1/6 flex justify-center items-center  border border-black rounded-md">
+      {{userId}}
+    </div>
+    <div class="h-5/6 pb-0">
+      <el-scrollbar height="100%"
+                    class="pb-10"
+                    ref="scrollbar">
+        <div ref="innerRef">
+          <div v-for="(item,index) in chatHistory"
+               :key="index">
+            {{item}}
+          </div>
+        </div>
+      </el-scrollbar>
+    </div>
+    <div class="absolute w-full bottom-0">
+      <el-input v-model="msg"
+                @keydown.enter="sendMsg(msg)"
+                placeholder="消息...">
+        <template #append>
+          <el-button @click="sendMsg(msg)">发送消息</el-button>
+        </template>
+      </el-input>
+    </div>
   </div>
+
 </template>
 
 <script setup>
-import { reactive, toRefs, onMounted, onUnmounted } from "vue";
-import { ElMessage } from "element-plus";
-// https://developer.mozilla.org/zh-CN/docs/Web/API/WebSocket
-let ws = null;
-const state = reactive({
-  resiveMsgList: [],
-  sendMsg: "",
-  clickTimes: 0,
-});
-
+import {
+  ref,
+  reactive,
+  toRefs,
+  onMounted,
+  watchEffect,
+  computed,
+  nextTick,
+  onBeforeUnmount,
+} from "vue";
+import io from "socket.io-client";
+let socket = null;
+let msg = ref("");
+let chatHistory = ref([]);
+let scrollbar = ref(null);
+let innerRef = ref(null);
+let userId = ref("用户" + (Math.random() * 1000).toFixed(0));
 onMounted(() => {
-  initWebsocket();
+  initSocket();
 });
 
-onUnmounted(() => {
-  closeConnect();
+onBeforeUnmount(() => {
+  closeSocket();
 });
-function initWebsocket() {
-  ws = new WebSocket("ws://localhost:12010/");
+// 页面刷新时onBeforeUnmount无效
+window.addEventListener("beforeunload", function () {
+  closeSocket();
+});
 
-  // 开始通信时的处理
-  ws.onopen = function (event) {
-    console.log("连接成功！");
-  };
-
-  ws.onmessage = function (event) {
-    parseMessage(event.data);
-  };
+function scrollToBottom() {
+  nextTick(() => {
+    scrollbar.value?.setScrollTop(innerRef.value.scrollHeight);
+  });
 }
 
-// 解析获取到得信息
-function parseMessage(data) {
-  let res = JSON.parse(data);
-  if (res.type === "click") {
-    ElMessage(res.data);
-  }
-  if (res.type === "info") {
-    state.resiveMsgList.push(res.data);
+function showMessage(data, type) {
+  if (type === "message") {
+    chatHistory.value.push(data);
+    scrollToBottom();
   }
 }
 
-// 发送信息
-function onSendMsg({ data, type = "info" }) {
-  let param = {
-    type,
-    data,
-  };
-  //添加状态判断，当为OPEN时，发送消息
-  if (ws.readyState === 1) {
-    ws.send(JSON.stringify(param));
-  } else {
-    console.error("发送失败");
+function sendMsg(msg) {
+  if (!msg) {
+    return;
   }
+  socket.emit("message", msg);
 }
 
-// 关闭连接
-function closeConnect() {
-  ws.onclose = function (event) {
-    //关闭时的处理操作
-  };
-  ws.close();
+function initSocket() {
+  socket = io("ws://192.168.72.59:3000/");
+  // 第一个enter代表是进入事件，第二个enter为了显示需要
+  socket.on("enter", function (data) {
+    showMessage(data, "enter");
+  });
+
+  socket.on("message", function (data) {
+    showMessage(data, "message");
+  });
+
+  socket.on("leave", function (data) {
+    showMessage(data, "leave");
+  });
 }
 
-// 点击按钮
-function clickAction() {
-  state.clickTimes++;
-  onSendMsg({ data: "点击了按钮" + state.clickTimes + "次", type: "click" });
+function closeSocket() {
+  socket.disconnect();
 }
 </script>
