@@ -30,27 +30,27 @@ const menu = [
       {
         path: "/component/tab",
         icon: "card",
-        label: "tabs",
+        label: "标签页",
       },
       {
         path: "/component/pop",
         icon: "card",
-        label: "pop",
+        label: "监听",
       },
       {
         path: "/component/count",
         icon: "card",
-        label: "count",
+        label: "计数",
       },
       {
         path: "/component/preview",
         icon: "card",
-        label: "preview",
+        label: "表格",
       },
       {
         path: "/component/ring",
         icon: "card",
-        label: "ring",
+        label: "旋转",
       },
       {
         path: "/component/threeSwiper",
@@ -60,7 +60,7 @@ const menu = [
       {
         path: "/component/socketTest",
         icon: "card",
-        label: "socketTest",
+        label: "即时通讯",
       },
     ]
   }

@@ -6,30 +6,68 @@ let io = require('socket.io')(app, { cors: true })
 
 // 运行的服务器端口号
 let PORT = 3000
-let clientCount = 0
 let userObj = {}
 // 监听端口
 app.listen(PORT)
-
+// io.emit代表广播，socket.emit代表私发
 io.on('connection', function (socket) {
-  // 给每个用户取名字
-  clientCount++
-  socket.nickname = 'user' + clientCount
-  // io.emit代表广播，socket.emit代表私发
-  io.emit('enter', socket.nickname + '  comes in')
-
+  // 加入
+  socket.on('enter', (userId) => enter(socket, userId))
   // socket.on 表示服务器接收一个客户端message 事件
-  socket.on('message', relayMessage)
-
+  socket.on('message', (param) => relayMessage(socket, param))
   // 客户端断开，自带事件
-  socket.on('disconnect', function () {
-    io.emit('leave', socket.nickname + ' left')
-  })
+  socket.on('disconnect', () => leave(socket))
+  // 私聊
+  socket.on('proviteMessage', (param) => privateChat(socket, param))
+  // 群聊
+  socket.on('groupMeaasge', (param) => groupChat(socket, param))
+  // 加入房间
+  socket.on('joinRoom', (roomId) => joinRoom(socket, roomId))
 })
 
+// 新用户加入
+function enter(socket, userId) {
+  // 将每个用户id存储在userObj中
+  userObj[userId] = socket.id;
+  // 给每个用户取名字
+  socket.nickname = userId;
+  // 给所有人发送用户列表
+  socket.broadcast.emit('enter', socket.nickname)
+  sendUserList(socket);
+}
+
+// 用户退出
+function leave(socket) {
+  delete userObj[socket.nickname];
+  socket.broadcast.emit('leave', socket.nickname)
+  sendUserList(socket);
+}
+
 // 转发消息
-function relayMessage(param) {
-  io.emit('message', socket.nickname + ' says: ' + param)
+function relayMessage(socket, param) {
+  // io.emit('message',  param); // 广播
+  socket.broadcast.emit('message', param); //  发送给所有客户端，除了发送者
+}
+
+// 返回用户列表
+function sendUserList(socket) {
+  let userList = Object.keys(userObj);
+  io.emit('userList', userList)
+}
+
+// 私聊
+function privateChat(socket, param) {
+  socket.to(userObj[param.toUserId]).emit('proviteMessage', param);
+}
+
+// 加入某房间
+function joinRoom(socket, roomId) {
+  socket.join(roomId);
+}
+
+// 群聊
+function groupChat(socket, param) {
+  socket.to(param.roomId).emit('groupMeaasge', param);
 }
 
 
@@ -69,5 +107,17 @@ function relayMessage(param) {
 
 //   // 发送给当前 node 实例下的所有客户端（在使用多个 node 实例的情况下）
 //   io.local.emit('hi', 'my lovely babies');
+
+
+//   // 加入房间
+//   socket.join('some room');
+
+//  // 每个 Socket 都会自带一个随机的、独一无二的 id ，为了方便起见，每个 Socket 会自动 jion 加入以自己 id 命名的房间 可以很容易的用来实现 单聊模式
+// io.on("connection", socket => {
+//   socket.on("private message", (anotherSocketId, msg) => {
+//     socket.to(anotherSocketId).emit("private message", socket.id, msg);
+//   });
+// });
+
 
 // };
