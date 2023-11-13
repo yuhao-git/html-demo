@@ -4,6 +4,7 @@
 </template>
 
 <script setup>
+// https://cloud.tencent.com/developer/article/2276766
 import * as THREE from "three";
 import {
   ref,
@@ -22,6 +23,8 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 const container = ref(null);
 const scene = new THREE.Scene();
 const renderer = new THREE.WebGLRenderer();
+renderer.outputEncoding = THREE.sRGBEncoding;
+// 图像颜色与原本的gltf文件颜色有偏差，这里只需要修改WebGL渲染器默认的编码方式.outputEncoding就可以了
 const loader = new GLTFLoader();
 let camera = null;
 
@@ -124,11 +127,40 @@ function importModel() {
 function addMesh() {
   const mesh = new THREE.Mesh(
     new THREE.PlaneGeometry(100, 100),
-    new THREE.MeshPhongMaterial({ color: 0xf0f2f5, depthWrite: false })
+    new THREE.MeshPhongMaterial({
+      color: 0xf0f2f5,
+      depthWrite: false,
+      side: THREE.DoubleSide,
+    })
   );
   mesh.rotation.x = -Math.PI / 2;
   mesh.receiveShadow = true;
   scene.add(mesh);
+}
+
+function initLight() {
+  const hesLight = new THREE.HemisphereLight(0xffffff, 0x444444);
+  hesLight.intensity = 0.6;
+  scene.add(hesLight);
+
+  const dirLight = new THREE.DirectionalLight();
+  dirLight.position.set(5, 5, 5);
+  scene.add(dirLight);
+  //聚光灯
+  const sportLight = new THREE.SpotLight(0xffffff, 0.8);
+  sportLight.angle = Math.PI / 8; //散射角度，跟水平线的夹角
+  sportLight.penumbra = 0.1; // 聚光锥的半影衰减百分比
+  sportLight.decay = 2; // 纵向：沿着光照距离的衰减量。
+  sportLight.distance = 30;
+  sportLight.shadow.radius = 10;
+  // 阴影映射宽度，阴影映射高度
+  sportLight.shadow.mapSize.set(4096, 4096);
+
+  sportLight.position.set(-5, 5, 1);
+  // 光照射的方向
+  sportLight.target.position.set(0, 0, 0);
+  sportLight.castShadow = true; //开启阴影
+  scene.add(sportLight);
 }
 
 onMounted(() => {

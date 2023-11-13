@@ -22,8 +22,11 @@
       }
     </script>
     <script type="module">
+
+      let texture = null;
       import * as THREE from "three";
       import { OrbitControls } from "./jsm/controls/OrbitControls.js";
+      import { CSS2DObject } from "./jsm/renderers/CSS2DRenderer.js";
       import Stats from "./jsm/libs/stats.module.js";
       import { GUI } from "./jsm/libs/lil-gui.module.min.js";
       var scene, camera, renderer, cylinderMesh, stats, controls, clock;
@@ -58,6 +61,25 @@
         scene.add(spotLight);
       }
 
+      function tag() {
+      // 创建div元素(作为标签)
+        var div = document.createElement("div");
+        div.style.visibility = "hidden";
+        div.innerHTML = "Hello Three.js";
+        div.style.padding = "4px 10px";
+        div.style.color = "#fff";
+        div.style.fontSize = "16px";
+        div.style.position = "absolute";
+        div.style.backgroundColor = "rgba(25,25,25,0.5)";
+        div.style.borderRadius = "5px";
+        //div元素包装为CSS2模型对象CSS2DObject
+        var label = new CSS2DObject(div);
+        div.style.pointerEvents = "none"; //避免HTML标签遮挡三维场景的鼠标事件
+        // 设置HTML元素标签在three.js世界坐标中位置
+        // label.position.set(x, y, z);
+        return label; //返回CSS2模型标签
+      }
+
       function initModel() {
         //创建圆柱
         // radiusTop — 圆柱的顶部半径，默认值是1。
@@ -69,28 +91,30 @@
         // thetaStart — 第一个分段的起始角度，默认为0。（three o'clock position）
         // thetaLength — 圆柱底面圆扇区的中心角，通常被称为“θ”（西塔）。默认值是2*Pi，这使其成为一个完整的圆柱。
         let geometry = new THREE.CylinderGeometry(
-          4,
-          4,
-          4,
+          10,
+          10,
+          5,
           64,
           1,
           true,
           0,
-          Math.PI / 2.5
+          Math.PI * 2 
         );
 
         //加载纹理
-        let texture = new THREE.TextureLoader().load("../assets/img/happy.png");
-
+        // texture = new THREE.TextureLoader().load("./assets/img/arrow.png");
+        // texture = new THREE.CanvasTexture(drawGradientImage());
+        texture = new THREE.CanvasTexture(createHelloThreejsImage());
+        
         texture.wrapS = texture.wrapT = THREE.RepeatWrapping; //每个都重复
         texture.repeat.set(1, 1);
-        texture.needsUpdate = true;
+        // texture.needsUpdate = true;  // 图片需要更新
 
         let materials = [
           //圆柱侧面材质，使用纹理贴图
           new THREE.MeshBasicMaterial({
             map: texture,
-            // color:"red",
+            // color:"yellow",
             // opacity:0.5,
             // color: "#ffffff",
             alphaTest: "0.1",
@@ -113,17 +137,17 @@
           }),
         ];
         cylinderMesh = new THREE.Mesh(geometry, materials);
-        let cylinderMesh2 = cylinderMesh.clone();
-        cylinderMesh2.rotateY(Math.PI / 2);
-        let cylinderMesh3 = cylinderMesh.clone();
-        cylinderMesh3.rotateY(Math.PI);
-        let cylinderMesh4 = cylinderMesh.clone();
-        cylinderMesh4.rotateY(Math.PI / 2 * 3);
+        // let cylinderMesh2 = cylinderMesh.clone();
+        // cylinderMesh2.rotateY(Math.PI / 2);
+        // let cylinderMesh3 = cylinderMesh.clone();
+        // cylinderMesh3.rotateY(Math.PI);
+        // let cylinderMesh4 = cylinderMesh.clone();
+        // cylinderMesh4.rotateY(Math.PI / 2 * 3);
 
         scene.add(cylinderMesh);
-        scene.add(cylinderMesh2);
-        scene.add(cylinderMesh3);
-        scene.add(cylinderMesh4);
+        // scene.add(cylinderMesh2);
+        // scene.add(cylinderMesh3);
+        // scene.add(cylinderMesh4);
 
         // initPlane(); // 创建平面
       }
@@ -165,7 +189,7 @@
       function initControls() {
         clock = new THREE.Clock(); //创建THREE.Clock对象，用于计算上次调用经过的时间
         controls = new OrbitControls(camera, renderer.domElement);
-        controls.autoRotate = true; //是否自动旋转
+        // controls.autoRotate = true; //是否自动旋转
       }
 
       let cylinderRadius = 0;
@@ -191,8 +215,49 @@
         document.getElementById("Stats-output").appendChild(stats.domElement);
       }
 
+      // 生成渐变色纹理
+      function drawGradientImage(canvasWidth = 300, canvasHeight = 300) {
+        const canvas = document.createElement('canvas');
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
+        const ctx = canvas.getContext('2d');
+
+        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        gradient.addColorStop(0, 'red');
+        gradient.addColorStop(0.5, 'yellow');
+        gradient.addColorStop(1, 'blue');
+
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        return canvas;
+      }
+      // 创建一个Hello Threejs的图片
+      function createHelloThreejsImage() {
+        // 创建一个Canvas对象
+        var canvas = document.createElement("canvas");
+        canvas.width = 260;
+        canvas.height = 40;
+
+        // 获取2D上下文
+        var ctx = canvas.getContext("2d");
+
+        // 设置文本样式
+        ctx.font = "32px Arial";
+        ctx.fillStyle = "#ffffff";
+
+        // 绘制文本
+        ctx.fillText("Hello Three.js", 0, 32);
+
+        // 获取图片数据
+        // var dataURL = canvas.toDataURL("image/png");
+
+        // 返回图片数据
+        return canvas;
+      }
       function render() {
         // cylinderAnimate(); //圆柱光圈扩散更新
+        texture.offset.x += 0.003
         stats.update();
         const delta = clock.getDelta(); //获取自上次调用的时间差
         controls.update(delta); //控制器更新
@@ -213,6 +278,7 @@
       }
 
       window.onload = init;
+      
     </script>
   </body>
 </html>

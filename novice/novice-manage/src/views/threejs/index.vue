@@ -2,8 +2,8 @@
   <div class="chart">
     <!-- <el-button @click="showShare = true">打开</el-button>
     <el-button @click="showShare = false">关闭</el-button>
-    <Drawer :show="showShare"></Drawer> -->
-    <!-- <div ref="chart"
+    <Drawer :show="showShare"></Drawer>
+    <div ref="chart"
          class="chart"></div> -->
     <Model></Model>
   </div>

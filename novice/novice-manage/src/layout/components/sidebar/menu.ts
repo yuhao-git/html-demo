@@ -40,7 +40,7 @@ const menu = [
       {
         path: "/component/count",
         icon: "card",
-        label: "计数",
+        label: "计数hooks",
       },
       {
         path: "/component/preview",
