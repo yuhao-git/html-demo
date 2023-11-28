@@ -62,6 +62,12 @@ const menu = [
         icon: "card",
         label: "即时通讯",
       },
+      {
+        path: "/component/transition",
+        icon: "card",
+        label: "动画",
+      },
+      
     ]
   }
 ];

@@ -50,7 +50,10 @@ const routes = [
         path: "/component/socketTest",
         component: () => import("@/views/useComponent/views/socketTest.vue"),
       },
-
+      {
+        path: "/component/transition",
+        component: () => import("@/views/useComponent/views/transition.vue"),
+      },
     ],
   },
 ];

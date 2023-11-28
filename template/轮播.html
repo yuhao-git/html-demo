@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="element">1</div>
+      <div class="element">2</div>
+      <div class="element">3</div>
+      <div class="element">4</div>
+      <div class="element">5</div>
+      <div class="element">6</div>
+      <div class="element">7</div>
+    </div>
+  </body>
+  <script>
+    const elements = document.querySelectorAll(".element");
+    let firstClickedElement = null;
+
+    elements.forEach((element) => {
+      element.addEventListener("click", () => {
+        const clickedElement = element;
+
+        if (!firstClickedElement) {
+          firstClickedElement = clickedElement;
+        } else {
+          const container = document.querySelector(".container");
+          const firstIndex = Array.from(elements).indexOf(firstClickedElement);
+          const secondIndex = Array.from(elements).indexOf(clickedElement);
+
+          // 交换两个元素位置
+          if (firstIndex !== secondIndex) {
+            container.classList.add("move");
+
+            // 将第二个元素插入到第一个元素前面
+            if (firstIndex < secondIndex) {
+              container.insertBefore(clickedElement, firstClickedElement);
+            } else {
+              container.insertBefore(firstClickedElement, clickedElement);
+            }
+
+            // 重置第一个点击的元素
+            firstClickedElement = null;
+
+            // 移除添加的类以触发过渡效果
+            setTimeout(() => {
+              container.classList.remove("move");
+            }, 500); // 这里的时间需要和 CSS 过渡时间保持一致
+          } else {
+            firstClickedElement = null;
+          }
+        }
+      });
+    });
+  </script>
+  <style lang="css">
+    .element {
+      flex: 1; /* 元素平均占据父容器宽度 */
+      text-align: center;
+      cursor: pointer;
+      height: 200px;
+      line-height: 200px;
+      border: 1px solid #ccc;
+    }
+
+    .container {
+      display: flex;
+      transition: transform 0.5s ease-in-out; /* 添加过渡效果 */
+    }
+
+    .move {
+      transform: translateX(0%);
+    }
+
+    .container {
+      display: flex;
+      transition: transform 0.5s ease-in-out; /* 添加过渡效果 */
+    }
+
+    .element {
+      flex: 1;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .move {
+      transform: translateX(0%);
+    }
+  </style>
+</html>

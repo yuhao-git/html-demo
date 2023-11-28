@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
+    "animate.css": "^4.1.1",
     "dotenv": "^16.0.3",
     "element-plus": "^2.3.4",
     "exceljs": "^4.3.0",

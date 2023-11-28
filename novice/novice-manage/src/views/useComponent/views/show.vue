@@ -4,18 +4,16 @@
 
 <script lang='ts' setup>
 import { ref, reactive, toRefs, onBeforeMount, onMounted, watchEffect, computed, onActivated } from 'vue';
-import { useStore } from 'vuex';
 import { useRoute, useRouter } from 'vue-router';
 
-onMounted(()=>{
+onMounted(() => {
   console.log('mounted')
 })
 
-onActivated( ()=>{
+onActivated(() => {
   console.log('activated')
 })
 
 
 </script>
-<style scoped lang='less'>
-</style>
+<style scoped lang='less'></style>
