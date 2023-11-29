@@ -53,8 +53,8 @@ const routes = [
       {
         path: "/animate/animejs",
         component: () => import("@/views/animate/animejs/index.vue"),
-      }
-
+      },
+      {
         path: "/component/transition",
         component: () => import("@/views/useComponent/views/transition.vue"),
       },
