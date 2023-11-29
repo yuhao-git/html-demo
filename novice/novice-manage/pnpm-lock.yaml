@@ -6,6 +6,7 @@ specifiers:
   '@typescript-eslint/parser': ^5.59.6
   '@vitejs/plugin-vue': ^3.2.0
   '@vue/test-utils': ^2.3.2
+  animejs: ^3.2.1
   autoprefixer: ^10.4.14
   dotenv: ^16.0.3
   element-plus: ^2.3.4
@@ -36,6 +37,7 @@ specifiers:
 
 dependencies:
   '@element-plus/icons-vue': registry.npmmirror.com/@element-plus/icons-vue/2.1.0_vue@3.3.4
+  animejs: registry.npmmirror.com/animejs/3.2.1
   dotenv: registry.npmmirror.com/dotenv/16.0.3
   element-plus: registry.npmmirror.com/element-plus/2.3.4_vue@3.3.4
   exceljs: registry.npmmirror.com/exceljs/4.3.0
@@ -1607,6 +1609,12 @@ packages:
       json-schema-traverse: registry.npmmirror.com/json-schema-traverse/0.4.1
       uri-js: registry.npmmirror.com/uri-js/4.4.1
     dev: true
+
+  registry.npmmirror.com/animejs/3.2.1:
+    resolution: {integrity: sha512-sWno3ugFryK5nhiDm/2BKeFCpZv7vzerWUcUPyAZLDhMek3+S/p418ldZJbJXo5ZUOpfm2kP2XRO4NJcULMy9A==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/animejs/-/animejs-3.2.1.tgz}
+    name: animejs
+    version: 3.2.1
+    dev: false
 
   registry.npmmirror.com/ansi-escapes/4.3.2:
     resolution: {integrity: sha512-gKXj5ALrKWQLsYG9jlTRmR/xKluxHV+Z9QEwNIgCfM1/uwPMCuzVVnh5mwTd+OuBZcwSIMbqssNWRm1lE51QaQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/ansi-escapes/-/ansi-escapes-4.3.2.tgz}

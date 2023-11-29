@@ -23,6 +23,11 @@ const menu = [
     label: "三维模型",
   },
   {
+    path: "/animate/animejs",
+    icon: "sun",
+    label: "动画",
+  },
+  {
     path: "/component",
     icon: "card",
     label: "组件",

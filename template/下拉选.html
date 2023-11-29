@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo</title>
+    <!-- 请勿在项目正式环境中引用该 layui.css 地址 -->
+    <link href="//unpkg.com/layui@2.8.18/dist/css/layui.css" rel="stylesheet">
+  </head>
+  <body>
+    <button class="layui-btn" id="ID-dropdown-demo-complex">
+      无限层级 + 跳转 + 事件 + 自定义模板
+    </button>
+
+    <!-- 请勿在项目正式环境中引用该 layui.js 地址 -->
+    <script src="//unpkg.com/layui@2.8.18/dist/layui.js"></script>
+    <script>
+layui.use(function(){
+  var dropdown = layui.dropdown;
+  var util = layui.util;
+  // 高级演示 - 复杂结构
+  dropdown.render({
+    elem: '#ID-dropdown-demo-complex',
+    data: [{
+      title: 'menu item 1',
+      templet: '<i class="layui-icon layui-icon-picture"></i> {{= d.title }} <span class="layui-badge-dot"></span>',
+      id: 100,
+      href: '#'
+    },{
+      title: 'menu item 2',
+      templet: '<img src="https://unpkg.com/outeres@0.0.11/demo/avatar/0.png" style="width: 16px;"> {{= d.title }} ',
+      id: 101,
+      href: '/',
+      target: '_blank'
+    },
+    ],
+    click: function(item){
+      layer.msg(util.escape(JSON.stringify(item)));
+    }
+  });
+});
+</script>
+
+  </body>
+</html>

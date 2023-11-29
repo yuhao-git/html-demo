@@ -2,7 +2,7 @@
 
 <html>
   <head>
-    <title>光圈扩散</title>
+    <title>贴图动画</title>
     <style>
       body {
         margin: 0;
@@ -93,7 +93,7 @@
         let geometry = new THREE.CylinderGeometry(
           10,
           10,
-          5,
+          2,
           64,
           1,
           true,
@@ -102,12 +102,12 @@
         );
 
         //加载纹理
-        // texture = new THREE.TextureLoader().load("./assets/img/arrow.png");
+        texture = new THREE.TextureLoader().load("./assets/img/arrow.png");
         // texture = new THREE.CanvasTexture(drawGradientImage());
-        texture = new THREE.CanvasTexture(createHelloThreejsImage());
+        // texture = new THREE.CanvasTexture(createHelloThreejsImage());
         
         texture.wrapS = texture.wrapT = THREE.RepeatWrapping; //每个都重复
-        texture.repeat.set(1, 1);
+        texture.repeat.set(10, 1);
         // texture.needsUpdate = true;  // 图片需要更新
 
         let materials = [
@@ -257,7 +257,7 @@
       }
       function render() {
         // cylinderAnimate(); //圆柱光圈扩散更新
-        texture.offset.x += 0.003
+        texture.offset.x -= 0.006
         stats.update();
         const delta = clock.getDelta(); //获取自上次调用的时间差
         controls.update(delta); //控制器更新

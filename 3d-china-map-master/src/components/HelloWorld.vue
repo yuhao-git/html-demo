@@ -2,16 +2,18 @@
   <div class="hello">
     <Map :tagData="tagData"
          @tagClick="onClick" />
+
   </div>
 </template>
 
 <script>
-import Map from "@/components/Map";
+// import Map from "@/components/Map";
+import Map from "@/components/charts2d";
 export default {
   name: "HelloWorld",
   components: { Map },
   props: {
-    msg: String
+    msg: String,
   },
   data() {
     return {
@@ -21,16 +23,16 @@ export default {
           cityName: "大丰区",
           value: [120.470324, 33.199531],
           projectCount: 3,
-          deviceCount: 1
-        }
-      ]
+          deviceCount: 1,
+        },
+      ],
     };
   },
   methods: {
     onClick(d) {
       alert(d.cityName);
-    }
-  }
+    },
+  },
 };
 </script>
 
