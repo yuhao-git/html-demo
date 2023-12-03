@@ -7,6 +7,9 @@ dependencies:
   animate.css:
     specifier: ^4.1.1
     version: registry.npmmirror.com/animate.css@4.1.1
+  animejs:
+    specifier: ^3.2.1
+    version: registry.npmmirror.com/animejs@3.2.1
   dotenv:
     specifier: ^16.0.3
     version: registry.npmmirror.com/dotenv@16.0.3
@@ -1642,6 +1645,12 @@ packages:
     resolution: {integrity: sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/animate.css/-/animate.css-4.1.1.tgz}
     name: animate.css
     version: 4.1.1
+    dev: false
+
+  registry.npmmirror.com/animejs@3.2.1:
+    resolution: {integrity: sha512-sWno3ugFryK5nhiDm/2BKeFCpZv7vzerWUcUPyAZLDhMek3+S/p418ldZJbJXo5ZUOpfm2kP2XRO4NJcULMy9A==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/animejs/-/animejs-3.2.1.tgz}
+    name: animejs
+    version: 3.2.1
     dev: false
 
   registry.npmmirror.com/ansi-escapes@4.3.2:

@@ -56,7 +56,7 @@
                active-text="高亮"
                inactive-text="无高亮"></el-switch>
 
-    <span class="ml-2">用户Id : {{userId}}</span>
+    <span class="ml-2">用户Id : {{ userId }}</span>
     <el-select placeholder="要同步的用户Id"
                class="ml-2"
                @change="startLocalAnimation"
@@ -69,19 +69,19 @@
   </div>
   <!-- 动画区域 -->
   <div class="container">
-    {{currentIndex + 1}}
+    {{ currentIndex + 1 }}
     <div class="swiper"
          @mouseenter="pauseLocalAnimation"
          @mouseleave="startLocalAnimation"
          :style="state.swiperStyle">
       <div class="item"
-           v-for="(item,i) in state.list"
-           :style="{transform:` rotateY(${360 / state.list.length * i}deg)  translateZ(${state.radius}px) `}"
+           v-for="(item, i) in state.list"
+           :style="{ transform: ` rotateY(${360 / state.list.length * i}deg)  translateZ(${state.radius}px) ` }"
            :key="i">
-        <div @click="focusTarget(item,i)"
+        <div @click="focusTarget(item, i)"
              :style="getItemContentStyle(i)"
              class="item-content"
-             :class="{'highlight': state.isHighLight && currentIndex == i}">{{item}}
+             :class="{ 'highlight': state.isHighLight && currentIndex == i }">{{ item }}
         </div>
       </div>
     </div>
@@ -112,9 +112,9 @@ let state = reactive({
   rotateY: 0,
   direction: "left",
   rotateX: 20,
-  isFaceToScreen: false,
+  isFaceToScreen: true,
   isHighLight: false,
-  list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+  list: [1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7],
   animationDuration: 1000,
   itemRotateX: 20,
   animationCounter: 0,
@@ -126,7 +126,7 @@ let timer = null;
 let animationDurationCss = ref(state.animationDuration + "ms");
 
 watchEffect(() => {
-  state.list = Array.from({ length: state.listNum }, (_, i) => i + 1);
+  state.list = Array.from({ length: state.listNum }, (_, i) => i % 7 + 1);
 });
 
 // 当前index
@@ -153,9 +153,8 @@ window.addEventListener("beforeunload", function () {
 });
 
 function getItemContentStyle(i) {
-  let transform = `rotateY(${
-    state.rotateY - (360 / state.list.length) * i
-  }deg) rotateX(${state.itemRotateX}deg)`;
+  let transform = `rotateY(${state.rotateY - (360 / state.list.length) * i
+    }deg) rotateX(${state.itemRotateX}deg)`;
   if (!state.isFaceToScreen) {
     transform = `rotateX(${state.itemRotateX}deg)`;
   }
@@ -191,9 +190,8 @@ function focusTarget(param, i) {
 // 动画
 function animation(index) {
   state.swiperStyle = {
-    transform: `rotateX(${-state.rotateX}deg) rotateY(${
-      -(index / state.list.length) * 360
-    }deg)`,
+    transform: `rotateX(${-state.rotateX}deg) rotateY(${-(index / state.list.length) * 360
+      }deg)`,
   };
   state.rotateY = (index * 360) / state.list.length;
 }
@@ -308,11 +306,12 @@ function closeConnect() {
   height: 100%;
   width: 100%;
   position: relative;
-  overflow: hidden;
+  // overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   perspective: 1200px;
+  margin: 0 auto;
 }
 
 .swiper {
@@ -323,6 +322,7 @@ function closeConnect() {
   cursor: pointer;
   transform: rotateX(-20deg);
   transition: transform @animation-duration ease;
+
   .item {
     position: absolute;
     height: @swiper-height;
