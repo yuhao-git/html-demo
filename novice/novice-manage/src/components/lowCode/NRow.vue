@@ -20,7 +20,7 @@
   </el-row>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import draggable from "vuedraggable";
 import { ref } from "vue";
 const dataSource = ref([

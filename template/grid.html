@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>grid布局学习</title>
+  </head>
+  <style>
+    body {
+      height: 200px;
+      border: 1px solid blue;
+    }
+    .grid {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      /* grid-template-rows: minmax(0, 1fr); */
+      overflow: hidden;
+      place-items: center;
+      gap: 10px;
+      /* border: 1px solid; */
+    }
+    div {
+      background: #999;
+      /* overflow: auto; */
+      height: 100%;
+      width: 100%;
+      
+    }
+    aside {
+      height: 50%;
+      width: 50%;
+      background: red;
+      border: 1px solid;
+    }
+    .hide-scroll{
+      width: calc(100% + 40px);
+      margin-right: -40px;
+    }
+  </style>
+  <body>
+    <section class="grid">
+      <div>1</div>
+      <div class="hide-scroll">
+        <aside>1</aside>
+        <aside>2</aside>
+        <aside>3</aside>
+        <aside>4</aside>
+        <aside>5</aside>
+        <aside>6</aside>
+        <aside>7</aside>
+        <aside>8</aside>
+        <aside>9</aside>
+        <aside>10</aside>
+        <aside>11</aside>
+        <aside>12</aside>
+        <aside>13</aside>
+        <aside>14</aside>
+        <aside>15</aside>
+        <aside>16</aside>
+        <aside>17</aside>
+        <aside>18</aside>
+        <aside>19</aside>
+        <aside>20</aside>
+        <aside>21</aside>
+        <aside>22</aside>
+        <aside>23</aside>
+        <aside>24</aside>
+        <aside>25</aside>
+        <aside>26</aside>
+        <aside>27</aside>
+        <aside>28</aside>
+        <aside>29</aside>
+        <aside>30</aside>
+        <aside>31</aside>
+        <aside>32</aside>
+        <aside>33</aside>
+        <aside>34</aside>
+        <aside>35</aside>
+        <aside>36</aside>
+        <aside>37</aside>
+        <aside>38</aside>
+        <aside>39</aside>
+        <aside>40</aside>
+      </div>
+    </section>
+  </body>
+</html>
