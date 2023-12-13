@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>折线图</title>
+  <style>
+    path {
+      stroke-dasharray: 800;
+      stroke-dashoffset: 800;
+      animation: pathAnimation 2s linear infinite;
+    }
+
+    @keyframes pathAnimation {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <svg width="400" height="300">
+    <path d="M 50 250 L 150 50 L 250 200 L 350 100" stroke="blue" fill="none" />
+  </svg>
+</body>
+</html>
