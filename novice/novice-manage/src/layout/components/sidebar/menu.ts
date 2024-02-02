@@ -28,6 +28,11 @@ const menu = [
     label: "动画",
   },
   {
+    path: "/visiual",
+    icon: "sun",
+    label: "可视化",
+  },
+  {
     path: "/component",
     icon: "card",
     label: "组件",

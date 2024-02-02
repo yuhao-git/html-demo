@@ -58,6 +58,10 @@ const routes = [
         path: "/component/transition",
         component: () => import("@/views/useComponent/views/transition.vue"),
       },
+      {
+        path: "/visiual",
+        component: () => import("@/views/visiual/index.vue"),
+      },
     ],
   },
 ];

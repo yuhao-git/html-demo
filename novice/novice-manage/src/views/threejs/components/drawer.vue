@@ -29,23 +29,10 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
-<<<<<<< Updated upstream
   // background-color: #00f;
   top: 20%;
   left: 10%;
   border: 1px solid;
-=======
-  overflow: hidden;
-  width: auto;
-  height: auto;
-}
-
-.content {
-  width: 900px;
-  height: 450px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(200, 200, 200, 0.3);
->>>>>>> Stashed changes
 }
 
 .fade-enter-active {
