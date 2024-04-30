@@ -1,3 +1,9 @@
+/*
+ * @git config user.name: yuhao-git
+ * @LastEditors: yuhao-git
+ * @Description: 
+ * Copyright (c) 2024 by ${git_name} , All Rights Reserved.
+ */
 import layout from "../../layout/index.vue";
 
 const routes = [
@@ -61,6 +67,10 @@ const routes = [
       {
         path: "/visiual",
         component: () => import("@/views/visiual/index.vue"),
+      },
+      {
+        path: "/mark",
+        component: () => import("@/views/mark/index.vue"),
       },
     ],
   },

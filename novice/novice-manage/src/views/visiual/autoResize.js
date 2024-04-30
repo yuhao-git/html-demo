@@ -22,6 +22,7 @@ function debounce(delay, callback) {
     }
 }
 
+
 export default {
     data() {
         return {

@@ -1,0 +1,12 @@
+{
+  "name": "js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node 防抖节流.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

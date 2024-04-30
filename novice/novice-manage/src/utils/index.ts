@@ -24,3 +24,21 @@ export function getHighlight(text: string, keyWord: string, className: string = 
   });
   return res;
 }
+
+
+/**
+ * 防抖函数
+ * @param fn 
+ * @param delay 
+ */
+export function deounce(fn:Function,delay:number) {
+  let timer:any = null;
+  return function(){
+    if(timer){
+      clearTimeout(timer)
+    }
+    timer = setTimeout(()=>{
+      fn.apply(this,arguments)
+    },delay)
+  }
+}

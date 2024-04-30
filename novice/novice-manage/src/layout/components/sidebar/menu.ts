@@ -33,6 +33,11 @@ const menu = [
     label: "可视化",
   },
   {
+    path: "/mark",
+    icon: "sun",
+    label: "文本标记",
+  },
+  {
     path: "/component",
     icon: "card",
     label: "组件",

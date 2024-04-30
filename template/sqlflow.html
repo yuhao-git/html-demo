@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SQLFlow</title>
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/jsplumb/2.15.5/css/jsplumb.min.css">
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/jsplumb/2.15.5/js/jsplumb.min.js"></script>
+    </head>
+    <body>
+        <!-- 在这里添加你的代码 -->
+        <textarea id="sqlInput" rows="5" cols="50"></textarea>
+        <button onclick="parseSql()">解析 SQL</button>
+        <div id="sqlOutput"></div>
+
+        <script>
+            // 导入 SQLParser
+            const { parse } = require('sql-parser');
+
+            function parseSql() {
+            const sqlInput = document.getElementById('sqlInput');
+            const sqlOutput = document.getElementById('sqlOutput');
+
+            // 清空输出区域
+            sqlOutput.innerHTML = '';
+
+            try {
+                // 解析 SQL 语句
+                const parsedSql = parse(sqlInput.value);
+
+                // 使用 JsPlumb 绘制 SQL 语句的结构图
+                drawSqlStructure(parsedSql);
+            } catch (error) {
+                alert('无法解析 SQL 语句，请检查输入是否正确。');
+            }
+            }
+
+            function drawSqlStructure(parsedSql) {
+            // 在这里编写使用 JsPlumb 绘制 SQL 语句结构图的代码
+            }
+
+            function drawSqlStructure(parsedSql) {
+                const sqlOutput = document.getElementById('sqlOutput');
+
+                // 创建节点元素
+                const fromNode = document.createElement('div');
+                fromNode.className = 'node';
+                fromNode.textContent = 'FROM';
+                const whereNode = document.createElement('div');
+                whereNode.className = 'node';
+                whereNode.textContent = 'WHERE';
+
+                // 将节点添加到输出区域
+                sqlOutput.appendChild(fromNode);
+                sqlOutput.appendChild(whereNode);
+
+                // 使用 JsPlumb 连接节点
+                const instance = jsPlumb.getInstance();
+                instance.connect({ source: 'fromNode', target: 'whereNode' });
+            }
+
+        </script>
+
+        <style>
+            .node {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            display: inline-block;
+            background-color: #f9f9f9;
+            cursor: pointer;
+            }
+        </style>
+    </body>
+</html>

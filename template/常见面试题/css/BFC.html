@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BFC</title>
+  </head>
+  <body>
+    <article>
+      <h2>BFC是什么？</h2>
+      创建一个独立的上下文，影响其内部元素的布局和排列方式。
+      BFC（Block Formatting Context）直译为"块级格式化上下文"，是一个具有特殊的布局规则的独立渲染区域，它对内部的块级盒进行格式化，并决定如何与周围元素相互影响。
+      <p>BFC也是解决一些布局问题（比如浮动问题、外边距折叠）的方法之一。</p>
+      <p>BFC满足以下规则：</p>
+      <p>1.内部的Box会在垂直方向，一个接一个地放置。</p>
+      <p>2.Box之间的垂直方向的距离由margin决定，属于同一个BFC的两个相邻Box的margin会合并。</p>
+      <p>3.BFC的区域不会与浮动盒子重叠。</p>
+      <p>4.计算BFC的高度时，浮动元素也参与计算。</p>
+      <p>5.每个元素的margin box的左边，与包含块border box的左边相接触。</p>
+      <h2>BFC主要用途是什么？</h2>
+      <p>1.清除浮动：BFC容器可以用来清除浮动元素的影响，确保父元素包含浮动子元素的高度，避免高度塌陷问题。这在创建多列布局或类似网格的布局时非常有用。</p>
+      <p>2.防止外边距重叠：在同一个BFC容器内的相邻块级元素的外边距不会发生重叠，有助于更精确地控制元素之间的间距。</p>
+      <h2>如何处理相邻元素外边距重叠问题？</h2>
+      <p>1.使用padding，border代替margin</p>
+      <p>2.给元素创建BFC</p>
+      <h2>如何内处理外元素外边距重叠？</h2>
+      <p>1.父元素设置透明border</p>
+      <p>2.给父元素创建BFC</p>
+
+    </article>
+    <div class="container-2">
+      <div class="div-1"></div>
+      <div class="div-2"></div>
+      <div class="div-3"></div>
+      <div class="div-4"></div>
+    </div>
+
+    <!-- <div class="father">
+      <div class="son"></div>
+    </div>
+    <div class="mather"></div> -->
+  </body>
+  <style>
+    .container-2{
+      /* display: flex; */
+      /* display: grid; */
+      /* float: left; */
+      /* position: absolute; */
+      /* overflow: auto; */
+      /* border: 1px solid #000000; */
+      width: 400px;
+      /* height: 100px; */
+      background-color: aqua;
+    }
+    .container-2::after{
+      content: "";
+      clear: both;
+      display: block;
+    }
+    .div-1,.div-2,.div-3,.div-4{
+      float: left;
+      background-color: #ff0000;
+      height: 20px;
+      width: 20px;
+      margin: 20px;
+    }
+
+
+    div.mather{
+        width: 300px;
+        height: 200px;
+        background-color: rgb(0, 68, 101);
+        margin-top: 20px;
+        /* float: left; */
+        /* overflow: hidden; */
+        /* position: absolute; */
+        /* display: grid; */
+    }
+    div.father{
+        width: 200px;
+        /* height: 200px; */
+        background-color: rgb(219, 68, 101);
+        /* margin-left: 100px; */
+        /* margin-top: 100px; */
+        /* 触发bfc的方式 */
+        /* float: left; */
+        /* overflow: hidden; */
+        /* position: absolute; */
+        /* display: grid; */
+    }
+    div.son{
+        width: 100px;
+        height: 100px;
+        background-color: rgb(56, 248, 207);
+        margin-left: 50px;
+        margin-top: 50px;
+        margin-bottom: 20px;
+    }
+  </style>
+</html>
