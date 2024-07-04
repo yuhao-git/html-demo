@@ -37,9 +37,7 @@ import {
 } from "../../utils/graphUtil.js";
 
 import toolbar from "./components/Toolbar/index.vue";
-
-
-let graph = null;
+const currentHighlightColor = "#ff0000";
 export default {
   components: { toolbar },
   props: {},
@@ -76,29 +74,47 @@ export default {
     onFieldLineage(checked) {
       this.fieldChecked = checked;
       let lineageWholeData = sourceData.data.withProcessData;
-      let lineagePartData = sourceData.data.noProcessData;
-
-      if (!lineageWholeData || !lineagePartData) {
+      if (!lineageWholeData) {
         return;
       }
-      let data;
-
+      let data = null;
       if (this.fieldChecked) {
-        if (this.wholeChecked) {
-          data = transformData(lineageWholeData.data);
-        } else {
-          data = transformData(lineagePartData.data);
-        }
+        data = transformData(lineageWholeData.data);
       } else {
-        if (this.wholeChecked) {
-          data = collapseData(lineageWholeData.data);
-        } else {
-          data = collapseData(lineagePartData.data);
-        }
+        data = collapseData(lineageWholeData.data);
       }
       renderGraph(this.graph, data);
     },
+    // // 字段、表血缘切换
+    // onFieldLineage(checked) {
+    //   this.fieldChecked = checked;
+    //   let lineageWholeData = sourceData.data.withProcessData;
+    //   let lineagePartData = sourceData.data.noProcessData;
 
+    //   if (!lineageWholeData || !lineagePartData) {
+    //     return;
+    //   }
+    //   let data;
+    //   if (this.fieldChecked) {
+    //     data = transformData(lineageWholeData.data);
+    //   } else {
+    //     data = collapseData(lineageWholeData.data);
+    //   }
+    //   // if (this.fieldChecked) { // 字段
+    //   //   if (this.wholeChecked) { // 全链路
+    //   //     data = transformData(lineageWholeData.data);
+    //   //   } else {
+    //   //     data = transformData(lineagePartData.data);
+    //   //   }
+    //   // } else {
+    //   //   if (this.wholeChecked) {
+    //   //     data = collapseData(lineageWholeData.data);
+    //   //   } else {
+    //   //     data = collapseData(lineagePartData.data);
+    //   //   }
+    //   // }
+    //   renderGraph(this.graph, data);
+    // },
     // 初始化图形
     initGraph() {
       const container = this.$refs.container;
@@ -168,14 +184,62 @@ export default {
       // 获取数据
       const wholeData = sourceData.data.withProcessData.data;
       const data = transformData(wholeData);
+      console.log(JSON.parse(JSON.stringify(data)));
       // 渲染数据
       renderGraph(this.graph, data);
       // 绑定节点点击事件
       this.bindEvents(this.graph);
     },
+    // 处理连线点击事件
+    handleEdgeClick(graph, item, name) {
+      const sourceNode = item.getSource();
+      const sourceModel = sourceNode.getModel();
+      const sourceEdges = sourceNode.getInEdges();
+
+      // 获取当前连线的 source 节点
+      const sourceAnchor = item.getModel()["sourceAnchor"];
+      const leftActiveEdges = [];
+      leftActiveEdges.push(item);
+
+      getLeftRelation(sourceEdges, sourceModel, sourceAnchor, leftActiveEdges);
+      const targetNode = item.getTarget();
+      const targetModel = targetNode.getModel();
+      const targetEdges = targetNode.getOutEdges();
+
+      // 获取当前连线的 target 节点
+      const targetAnchor = item.getModel()["targetAnchor"];
+      const rightActiveEdges = [];
+      rightActiveEdges.push(item);
+
+      getRightRelation(
+        targetEdges,
+        targetModel,
+        targetAnchor,
+        rightActiveEdges
+      );
+
+      // 清除状态
+      clearAllStats(graph);
+
+      // 设置左关联边及节点状态
+      setLeftStats(
+        graph,
+        leftActiveEdges,
+        currentHighlightColor,
+        name
+      );
+
+      // 设置右关联边及节点状态
+      setRightStats(
+        graph,
+        rightActiveEdges,
+        currentHighlightColor,
+        name
+      );
+    },
     // 处理节点点击事件
     handleNodeClick(graph, item, currentAnchor, name) {
-      const currentHighlightColor = "#ff0000";
+      
       const model = item.getModel();
       const edges = item.getEdges();
 
@@ -218,9 +282,9 @@ export default {
       graph.off("edge:click").on("edge:click", (evt) => {
         const { item } = evt;
         if (this.fieldChecked) {
-          handleEdgeClick(graph, item, "highlight");
+          this.handleEdgeClick(graph, item, "highlight");
         } else {
-          handleEdgeClick(graph, item, "tableHighlight");
+          this.handleEdgeClick(graph, item, "tableHighlight");
         }
       });
 
@@ -230,7 +294,6 @@ export default {
         clearAllStats(graph);
       });
     },
-    //
   },
 };
 </script>
@@ -240,6 +303,21 @@ export default {
   width: 100%;
   overflow: hidden;
   position: relative;
+}
+</style>
+
+<style>
+.g6-minimap {
+  width: 200px;
+  height: 120px;
+  position: absolute;
+  bottom: 60px !important;
+  right: 24px !important;
+  left: unset !important;
+  top: unset !important;
+  background: #fff;
+  box-shadow: 0 8px 10px -5px rgba(0, 0, 0, 0.2),
+    0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12);
 }
 
 .g6-component-toolbar {

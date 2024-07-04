@@ -27,8 +27,8 @@ export default {
 <style lang="less" scoped>
 .toolbar-container {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 0px;
+  left: 0px;
   z-index: 100;
 }
 </style>
