@@ -2,7 +2,7 @@ import {
   itemHeight,
   maxLevel,
   nodeWidth,
-} from '../components/LineageGraph/registerShape';
+} from "../components/lineageGraph/registerShape.js";
 
 // 自定义数据转换
 export const transformData = (data) => {
