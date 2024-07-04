@@ -38,6 +38,11 @@ const menu = [
     label: "文本标记",
   },
   {
+    path: "/lineage",
+    icon: "sun",
+    label: "血缘分析",
+  },
+  {
     path: "/component",
     icon: "card",
     label: "组件",

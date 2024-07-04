@@ -72,6 +72,10 @@ const routes = [
         path: "/mark",
         component: () => import("@/views/mark/index.vue"),
       },
+      {
+        path: "/lineage",
+        component: () => import("@/views/lineage/index.vue"),
+      },
     ],
   },
 ];
