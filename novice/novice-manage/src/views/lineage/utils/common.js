@@ -168,7 +168,6 @@ export const collapseData = (data) => {
   const nodes = [];
   const edgeMap = new Map();
   const tableFields = new Set();
-
   data.forEach((item) => {
     const targetField = item.targetField;
     const tableField = handleTableField(targetField);

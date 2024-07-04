@@ -142,11 +142,15 @@ G6.registerNode('dice-er-box', {
       if (value) {
         //label.attr('fill', '#A3B1BF');
         //label.attr('fill', 'red');
-        label.attr('fontWeight', 800);
+        if (label) {
+          label.attr('fontWeight', 800);
+        }
       } else {
         //label.attr('fill', '#A3B1BF');
         //label.attr('fill', 'red');
-        label.attr('fontWeight', 500);
+        if (label) {
+          label.attr('fontWeight', 500);
+        }
       }
     }
 
@@ -158,11 +162,15 @@ G6.registerNode('dice-er-box', {
       if (value) {
         //label.attr('fill', '#A3B1BF');
         //label.attr('fill', 'red');
-        label.attr('fontWeight', 800);
+        if (label) {
+          label.attr('fontWeight', 800);
+        }
       } else {
         //label.attr('fill', '#A3B1BF');
         //label.attr('fill', 'red');
-        label.attr('fontWeight', 500);
+        if (label) {
+          label.attr('fontWeight', 500);
+        }
       }
     }
   },
@@ -265,8 +273,8 @@ G6.registerEdge('dice-er-edge', {
       } else {
         // shape.attr('opacity', 1);
 
-        shape.attr('stroke', '#6C6B6B');
-        shape.attr('lineWidth', 2);
+        shape.attr('stroke', '#999');
+        shape.attr('lineWidth', 1);
       }
     }
   },

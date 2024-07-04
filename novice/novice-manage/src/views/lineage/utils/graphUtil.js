@@ -174,3 +174,10 @@ export const setRightStats = (graph, edges, color, name) => {
     graph.setItemState(edge.getTarget(), `${name}-${targetAnchor}`, true);
   });
 };
+
+// 重新设置画布大小
+export const resetGraphSize = (graph, container) => {
+  if (!graph || graph.get("destroyed")) return;
+  if (!container || !container.scrollWidth || !container.scrollHeight) return;
+  graph.changeSize(container.clientWidth, container.clientHeight);
+}

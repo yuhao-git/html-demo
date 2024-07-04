@@ -1,7 +1,10 @@
 <!--  -->
 <template>
-  <div ref="container" class="container">
-    <div ref="toolbarRef" class="g6-component-toolbar"></div>
+  <div class="container">
+    <toolbar :onFieldLineage="onFieldLineage"></toolbar>
+    <div ref="container" class="container">
+      <div ref="toolbarRef" class="g6-component-toolbar"></div>
+    </div>
   </div>
 </template>
 
@@ -15,7 +18,7 @@ import {
   getLeftRelation, // 获取选中 label 的所有左关联边
   getRightRelation,
   transformData, // 数据转换
-} from "../../utils/common";
+} from "../../utils/common.js";
 import {
   clearAllStats, // 清除所有状态
   handleAutoZoom, // 自适应canvas大小
@@ -30,21 +33,72 @@ import {
   renderGraph, // 渲染视图
   setLeftStats, // 设置左边关联节点及边状态
   setRightStats, // 设置右边关联节点及边状态
+  resetGraphSize, // 设置大小
 } from "../../utils/graphUtil.js";
+
+import toolbar from "./components/Toolbar/index.vue";
+
+
+let graph = null;
 export default {
-  components: {},
+  components: { toolbar },
   props: {},
   data() {
     return {
-      graph: null,
+      // graph: null,
       fieldChecked: true,
+      wholeChecked: true,
     };
   },
   computed: {},
   mounted() {
     this.drawChart();
+    window.addEventListener("resize", this.updateSize);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.updateSize);
+    this.destroy();
   },
   methods: {
+    // 调整尺寸
+    updateSize() {
+      resetGraphSize(this.graph, this.$refs.container);
+    },
+    // 销毁对象
+    destroy() {
+      if (this.graph) {
+        this.graph.clear?.();
+        this.graph.destroy?.();
+        this.graph = null;
+      }
+    },
+    // 字段、表血缘切换
+    onFieldLineage(checked) {
+      this.fieldChecked = checked;
+      let lineageWholeData = sourceData.data.withProcessData;
+      let lineagePartData = sourceData.data.noProcessData;
+
+      if (!lineageWholeData || !lineagePartData) {
+        return;
+      }
+      let data;
+
+      if (this.fieldChecked) {
+        if (this.wholeChecked) {
+          data = transformData(lineageWholeData.data);
+        } else {
+          data = transformData(lineagePartData.data);
+        }
+      } else {
+        if (this.wholeChecked) {
+          data = collapseData(lineageWholeData.data);
+        } else {
+          data = collapseData(lineagePartData.data);
+        }
+      }
+      renderGraph(this.graph, data);
+    },
+
     // 初始化图形
     initGraph() {
       const container = this.$refs.container;
@@ -98,8 +152,10 @@ export default {
         defaultEdge: {
           type: "dice-er-edge",
           style: {
-            stroke: "#6C6B6B", // 默认填充色
-            lineWidth: 2, // 默认线宽
+            // stroke: "#6C6B6B", // 默认填充色
+            // lineWidth: 2, // 默认线宽
+            stroke: "#999", // 默认填充色
+            lineWidth: 1, // 默认线宽
             endArrow: true,
           },
         },
@@ -108,18 +164,18 @@ export default {
     // 渲染数据
     drawChart() {
       // 初始化图形
-      const graph = this.initGraph();
+      this.graph = this.initGraph();
       // 获取数据
       const wholeData = sourceData.data.withProcessData.data;
       const data = transformData(wholeData);
       // 渲染数据
-      renderGraph(graph, data);
+      renderGraph(this.graph, data);
       // 绑定节点点击事件
-      this.bindEvents(graph);
+      this.bindEvents(this.graph);
     },
     // 处理节点点击事件
     handleNodeClick(graph, item, currentAnchor, name) {
-      const currentHighlightColor = "red";
+      const currentHighlightColor = "#ff0000";
       const model = item.getModel();
       const edges = item.getEdges();
 
@@ -174,7 +230,7 @@ export default {
         clearAllStats(graph);
       });
     },
-    // 
+    //
   },
 };
 </script>
@@ -183,9 +239,13 @@ export default {
   height: 100%;
   width: 100%;
   overflow: hidden;
+  position: relative;
 }
 
 .g6-component-toolbar {
+  position: absolute;
+  bottom: 0;
+  right: 0;
   background: rgb(255, 255, 255);
   position: absolute;
   left: unset !important;

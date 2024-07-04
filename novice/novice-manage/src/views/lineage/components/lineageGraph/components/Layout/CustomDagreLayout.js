@@ -13,7 +13,7 @@ class CustomDagreLayout extends Base {
     this.updateCfg(options);
     this.begin = [0, 0]; /** 布局的起始（左上角）位置 */
     this.nodesep = 150; // 节点水平间距(px)
-    this.ranksep = 600; // 每一层节点之间间距
+    this.ranksep = 500; // 每一层节点之间间距
   }
 
 

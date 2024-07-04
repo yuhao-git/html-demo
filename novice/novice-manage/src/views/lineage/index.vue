@@ -1,7 +1,6 @@
 <!-- 数据血缘关系 -->
 <template>
     <LineageGraph />
-    <div></div>
 </template>
 
 <script>
