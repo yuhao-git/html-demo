@@ -21,7 +21,8 @@ const colorMap = {
 };
 
 const handleLabelLength = (label) => {
-  return (label && label.length) > 26 ? label.slice(0, 26) + '...' : label;
+  const _label = label.slice(0,label.lastIndexOf('_')) // 去除 index-order 后缀
+  return (_label && _label.length) > 26 ? _label.slice(0, 26) + '...' : _label;
 };
 
 G6.registerNode('dice-er-box', {

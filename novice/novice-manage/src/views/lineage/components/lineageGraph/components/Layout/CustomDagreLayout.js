@@ -49,9 +49,7 @@ class CustomDagreLayout extends Base {
         );
       }
     });
-
     // 初始化布局的起始位置和最大宽度、高度
-    // TODO 重新调整层级
     const startX = begin[0];
     const startY = begin[1];
     const size = layerMap.size;

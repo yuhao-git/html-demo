@@ -4,26 +4,45 @@ import {
   nodeWidth,
 } from "../components/lineageGraph/registerShape.js";
 
-// 自定义数据转换
+/**
+ * 转换数据结构。
+ * 
+ * 该函数接收一个数据数组，并将其转换为节点和边的集合，用于图形可视化表示。
+ * 节点代表数据表或字段，边代表表间关系。
+ * 
+ * @param {Array} data - 原始数据数组，每个元素包含表字段和引用字段信息。
+ * @returns {Object} 返回一个对象，包含转换后的节点和边数组。
+ */
 export const transformData = (data) => {
+  // 存储最终的节点信息
   const nodes = [];
+  // 使用Map存储边的信息，以去重
   // 用 map 实现对象去重
-  const edgeMap= new Map();
+  const edgeMap = new Map();
+  // 使用Set存储表字段，以去重
   // 用 set 实现表名去重
   const tableFields = new Set();
 
+  // 遍历原始数据，处理每个项
   data.forEach((item) => {
+    // 获取目标字段
     const targetField = item.targetField;
+    // 处理目标字段，用于统一字段格式
     const tableField = handleTableField(targetField);
+    // 将处理后的表字段添加到Set中
     tableFields.add(tableField);
+    // 如果存在引用字段，则创建边的信息
     if (item.refFields) {
       createEdge(edgeMap, tableFields, tableField, item.refFields);
     }
   });
 
+  // 根据tableFields创建节点信息
   createNode(nodes, tableFields);
+  // 将edgeMap中的边信息转换为数组
   const edges = Array.from(edgeMap.values());
 
+  // 返回包含节点和边的对象
   return {
     nodes,
     edges,
@@ -66,16 +85,35 @@ const createEdge = (
 };
 
 /**
+ * 根据字段信息生成表名和字段名的组合。
+ * 
+ * 此函数用于处理字段名的格式化，根据字段是否为最终字段，生成不同的表名-字段名组合。
+ * 如果字段是最终字段，那么只需返回字段名本身；如果不是最终字段，则返回带有层级和索引的字段名。
+ * 这种格式化有助于在处理复杂数据结构时，保持字段名的可追踪性和唯一性。
+ * 
+ * @param {Object} item - 包含字段相关信息的对象。
+ * @param {string} item.fieldName - 字段名。
+ * @param {boolean} item.final - 指示字段是否为最终字段的布尔值。
+ * @param {string} item.level - 字段所在的层级。
+ * @param {number} item.index - 字段在当前层级中的索引。
+ * @returns {string} 表名和字段名的组合，或者仅字段名。
+ */
+/**
  * 拼接表名+字段，逻辑可参考文档
  */
 const handleTableField = (item) => {
+  // 提取字段名
   const fieldName = item.fieldName;
+  // 初始化表名-字段名组合的变量
   let tableField = '';
+  // 如果字段是最终字段，直接使用字段名
   if (item.final) {
     tableField = fieldName;
   } else {
+    // 如果字段不是最终字段，拼接层级、索引和字段名
     tableField = `${item.level}-${item.index}:${fieldName}`;
   }
+  // 返回处理后的表名-字段名组合
   return tableField;
 };
 
@@ -99,17 +137,33 @@ const getTableFieldName = (item) => {
 };
 
 /**
+ * 解析表名获取表的层级和顺序。
+ * 
+ * 表名的格式假设为：level_number-order_number，此函数负责解析出层级和顺序。
+ * 层级和顺序都是基于字符串的数字，需要转换为数值类型。
+ * 
+ * @param tableField 表的字段名，预期包含层级和顺序信息。
+ * @returns {Object} 返回一个对象，包含解析出的层级（level）和顺序（order）。
+ */
+/**
  * 获取表层级及order
  */
 const getTableLevelAndOrder = (tableField) => {
+  // 初始化层级为最大层级值，订单为0
   let level = maxLevel;
   let order = 0;
+  // 查找最后一个“-”的位置，用于确定层级和订单的分割点
   const endIndex = tableField.lastIndexOf('-');
+  // 如果找到了“-”，说明表名中包含层级和订单信息
   if (endIndex !== -1) {
+    // 查找最后一个“_”的位置，用于确定层级的起始点
     const startIndex = tableField.lastIndexOf('_');
+    // 提取并转换层级字符串为数值
     level = Number(tableField.slice(startIndex + 1, endIndex));
+    // 提取并转换订单字符串为数值
     order = Number(tableField.slice(endIndex + 1, tableField.length));
   }
+  // 返回包含层级和订单的对象
   return { level, order };
 };
 
@@ -177,6 +231,7 @@ const createNode = (nodes, tableFields) => {
     // 将节点对象添加到节点数组中。
     nodes.push(obj);
   });
+
 };
 
 /**

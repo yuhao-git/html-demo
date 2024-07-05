@@ -1,8 +1,8 @@
 <!--  -->
 <template>
-  <div class="container">
+  <div class="g-container">
     <toolbar :onFieldLineage="onFieldLineage"></toolbar>
-    <div ref="container" class="container">
+    <div ref="container" class="g-container">
       <div ref="toolbarRef" class="g6-component-toolbar"></div>
     </div>
   </div>
@@ -191,7 +191,6 @@ export default {
       // 获取数据
       const wholeData = sourceData.data.withProcessData.data;
       const data = transformData(wholeData);
-      console.log(JSON.parse(JSON.stringify(data)));
       // 渲染数据
       renderGraph(this.graph, data);
       // 绑定节点点击事件
@@ -305,7 +304,7 @@ export default {
 };
 </script>
 <style lang='less' scoped>
-.container {
+.g-container {
   height: 100%;
   width: 100%;
   overflow: hidden;
