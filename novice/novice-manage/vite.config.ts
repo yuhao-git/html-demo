@@ -1,6 +1,7 @@
 // vite.config.ts
 import vue from "@vitejs/plugin-vue";
 import { defineConfig, loadEnv } from "vite";
+import vueDevTools from 'vite-plugin-vue-devtools'
 // import AutoImport from "unplugin-auto-import/vite";   // 自动引入组件拖慢首次访问加载速度
 // import Components from "unplugin-vue-components/vite";
 // import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
@@ -36,6 +37,7 @@ export default defineConfig(({ command, mode }) => {
       }
     },
     plugins: [
+      vueDevTools(),
       vue(),
       createSvg("./src/assets/icon/svg/"),
       svgLoader(),
