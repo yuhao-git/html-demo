@@ -140,9 +140,16 @@ export default {
         },
         // 布局配置
         layout: {
+          // type: "dagre",
+          // rankdir: "LR", 
+          // // 可选参数
+          // align: "DL", //'UL' | 'UR' | 'DL' | 'DR'
+          // nodesep: 10,
+          // ranksep: 140,
+          // 自定义布局
           type: "lineageLayout",
           controlPoints: true,
-          nodesep: 200,
+          nodesep: 150,
           ranksep: 600,
           begin: [1000, 1000],
         },
