@@ -1,0 +1,113 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+var path = require('path');
+const envFilePath = path.resolve(__dirname, `../.env.${process.env.NODE_ENV}`);
+require('dotenv').config({
+  path: envFilePath, // 配置文件路径
+  // encoding: 'utf8', // 编码方式，默认utf8
+  // debug: false, // 是否开启debug，默认false
+}).parsed;
+
+var app = require('../app');
+var debug = require('debug')('server:server');
+var http = require('http');
+
+var os = require('os');
+
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+
+  // 控制台输出当前的 ip和端口号
+  var ip = addr.address === '::' ? 'localhost' : addr.address;
+  console.log(`Server is running at http://${ip}:${addr.port}`);
+  // 局域网中的ip
+  var networkInterfaces = os.networkInterfaces();
+  for (var interface in networkInterfaces) {
+    networkInterfaces[interface].forEach(function(details){
+      if (details.family === 'IPv4' && !details.internal) {
+        console.log(`LAN IP Address: http://${details.address}:${addr.port}`);
+      }
+    });
+  }
+}

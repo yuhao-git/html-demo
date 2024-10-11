@@ -1,0 +1,41 @@
+# Ignore Python bytecode files
+*.pyc
+*.pyo
+__pycache__/
+data/
+# Ignore virtual environment directories
+venv/
+env/
+
+# Ignore IDE and editor specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore macOS specific files
+.DS_Store
+
+# Ignore log files
+*.log
+
+# Ignore build directories
+build/
+dist/
+
+# Ignore coverage reports
+coverage/
+*.cover
+.hypothesis/
+
+# Ignore temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+*.orig
+*.save
+
+# Ignore node_modules
+node_modules/

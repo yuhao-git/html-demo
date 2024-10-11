@@ -1,0 +1,53 @@
+{
+  "app": {
+    "pleaseUseMobileVisit": "Please use a mobile device to access",
+    "warning": "WARNING",
+    "notFound": "Not found",
+    "backBtn": "Back"
+  },
+  "home": {
+    "darkMode": "🌗 Dark Mode",
+    "mockGuide": "💿 Mock Guide",
+    "language": "📚 Language",
+    "404Demo": "🙅 Page 404 Demo",
+    "echartsDemo": "📊 Echarts Demo",
+    "persistPiniaState": "🍍 Persistent Pinia state",
+    "unocssExample": "🎨 Unocss example",
+    "keepAlive": "🧡 KeepAlive Demo",
+    "iconx": "🎉 Iconx example",
+    "video": "🎥 Video"
+  },
+  "mock": {
+    "fromAsyncData": "Data from asynchronous requests",
+    "noData": "No data",
+    "pull": "Pull",
+    "reset": "Reset"
+  },
+  "charts": {
+    "January": "Jan",
+    "February": "Feb",
+    "March": "Mar",
+    "April": "Apr",
+    "May": "May",
+    "June": "Jun"
+  },
+  "layouts": {
+    "home": "HOME",
+    "profile": "PROFILE",
+    "example": "EXAMPLE"
+  },
+  "profile": {
+    "placeholder": "WIP"
+  },
+  "keepAlive": {
+    "label": "The current component will be cached"
+  },
+  "login": {
+    "login": "Login",
+    "username": "Username",
+    "password": "Password",
+    "noAccount": "No account",
+    "goRegist": "Register",
+    "welcome": "Welcome"
+  }
+}
