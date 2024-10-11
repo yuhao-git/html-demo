@@ -442,7 +442,7 @@ console.log(crypto.randomBytes(32).toString('hex'));
  * @param {*} res 
  */
 const serveVideoFiles = (req, res) => {
-    const videoPath = path.join(VIDEO_DIRECTORY, req.params.filename);
+    const videoPath = path.join(VIDEO_DIRECTORY = "E://files", req.params.filename);
     const stat = fs.statSync(videoPath);
 
     // Handle range requests for streaming
