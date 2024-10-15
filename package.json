@@ -2,7 +2,7 @@
   "name": "html-demo",
   "packageManager": "pnpm",
   "scripts": {
-    "dev:video": "concurrently \"pnpm -F video dev\" \"pnpm -F server dev\"",
+    "dev:video": "concurrently \"pnpm -F video dev\" \"pnpm -F server dev\" ",
     "dev": "pnpm -F video dev"
   },
   "engines": {

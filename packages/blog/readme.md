@@ -2,9 +2,14 @@
 
 ### docker 创建 mysql
 
+```bash
 docker-compose up -d
+```
+
+// docker-compose.yml   中配置了数据持久化，目录中将会生成 /data 
 
 ``` yml
+# docker-compose.yml  
 version: '3'
 services:
   mysql: # 服务名称
@@ -233,9 +238,9 @@ function onListening() {
 
 前置依赖
 
-```
-sequelize-cli  -g
-sequelize mysql2
+```bash
+npm install sequelize-cli  -g
+npm install sequelize mysql2
 ```
 
  执行 `sequelize init`
@@ -244,7 +249,7 @@ sequelize mysql2
 
 > config  数据库连接配置
 >
-> ```
+> ```json
 > "development": {
 >     "username": "root",
 >     "password": "123456",
