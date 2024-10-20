@@ -3,13 +3,19 @@ const path = require('path');
 const { success, failure } = require('../../utils/response');
 const multer = require('multer'); // 引入 multer
 const VIDEO_DIRECTORY = process.env.VIDEO_DIRECTORY;
+const SECRET_DIRECTORY = process.env.SECRET_DIRECTORY;
+let DIRECTORY = VIDEO_DIRECTORY;
+
+
 /**
  * 获取视频文件列表
  * @param {*} req 
  * @param {*} res 
  */
 const getVideoFiles = (req, res) => {
-    fs.readdir(VIDEO_DIRECTORY, (err, files) => {
+    // 判断是否是精选视频
+    DIRECTORY = req.query.secret == '01' ? SECRET_DIRECTORY : VIDEO_DIRECTORY;
+    fs.readdir(DIRECTORY, (err, files) => {
         if (err) {
             failure(res, err);
         } else {
@@ -25,7 +31,7 @@ const getVideoFiles = (req, res) => {
  * @param {*} res 
  */
 const serveVideoFiles = (req, res) => {
-    const videoPath = path.join(VIDEO_DIRECTORY, req.params.filename);
+    const videoPath = path.join(DIRECTORY, req.params.filename);
     const stat = fs.statSync(videoPath);
 
     // Handle range requests for streaming
@@ -96,7 +102,7 @@ const uploadVideo = (req, res) => {
         // 配置 multer 存储选项
         const storage = multer.diskStorage({
             destination: (req, file, cb) => {
-                cb(null, VIDEO_DIRECTORY); // 设置上传文件的存储目录
+                cb(null, DIRECTORY); // 设置上传文件的存储目录
             },
             filename: (req, file, cb) => {
                 cb(null, `${Date.now()}-${file.originalname}`); // 使用时间戳和原始文件名
@@ -119,4 +125,26 @@ const uploadVideo = (req, res) => {
 }
 
 
-module.exports = { getVideoFiles, serveVideoFiles, uploadVideo };
+/**
+ * 删除视频文件
+ * @param {*} req 请求对象
+ * @param {*} res 响应对象
+ */
+const deleteVideoFile = (req, res) => {
+    // 构建视频文件的完整路径
+    const videoPath = path.join(DIRECTORY, req.params.filename);
+    // 使用fs模块的unlink方法删除文件
+    fs.unlink(videoPath, (err) => {
+        // 如果删除过程中发生错误
+        if (err) {
+            // 调用failure函数发送错误响应
+            failure(res, err);
+        } else {
+            // 如果删除成功，调用success函数发送成功响应
+            success(res, { message: '文件删除成功' });
+        }
+    });
+}
+
+
+module.exports = { getVideoFiles, serveVideoFiles, uploadVideo, deleteVideoFile };

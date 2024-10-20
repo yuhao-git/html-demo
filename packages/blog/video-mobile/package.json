@@ -2,7 +2,6 @@
   "name": "video",
   "type": "module",
   "version": "2.0.1",
-  "packageManager": "pnpm@9.3.0",
   "description": "Vue + Vite H5 Starter Template",
   "license": "MIT",
   "scripts": {
@@ -77,20 +76,5 @@
     "vite-plugin-vue-devtools": "^7.2.1",
     "vitest": "^1.6.0",
     "vue-tsc": "^2.0.19"
-  },
-  "pnpm": {
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "postcss",
-        "esbuild"
-      ],
-      "allowedVersions": {
-        "rollup": "^4.x",
-        "unocss": "^0.x"
-      },
-      "allowAny": [
-        "eslint"
-      ]
-    }
   }
 }

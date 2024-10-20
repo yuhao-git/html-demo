@@ -51,7 +51,7 @@ function languagePicker(value) {
 </script>
 
 <template>
-  <var-app-bar v-if="title" :title="title" :fixed="true" :safe-area-top="true">
+  <var-app-bar z-20 v-if="title" :title="title" :fixed="true" :safe-area-top="true">
     <template #left>
       <var-button color="transparent" text-color="#fff" round text @click="onBack">
         <var-icon name="chevron-left" :size="24" />

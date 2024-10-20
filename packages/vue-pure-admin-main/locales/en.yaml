@@ -127,7 +127,7 @@ login:
   tip: After scanning the code, click "Confirm" to complete the login
   definite: Definite
   loginSuccess: Login Success
-  registerSuccess: Regist Success
+  registerSuccess: register Success
   tickPrivacy: Please tick Privacy Policy
   readAccept: I have read it carefully and accept
   privacyPolicy: Privacy Policy

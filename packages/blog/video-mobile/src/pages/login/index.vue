@@ -7,7 +7,7 @@
             <div pt-20>
                 <var-button block type="primary" @click="handleSubmit">{{ t("login.login") }}</var-button>
             </div>
-            <p class="mt-15">{{ t("login.noAccount") }}？ <a href="#">{{ t("login.goRegist") }}</a></p>
+            <p class="mt-15">{{ t("login.noAccount") }}？ <a href="#" @click="goRegist">{{ t("login.goRegist") }}</a></p>
         </div>
     </container>
 </template>
@@ -39,11 +39,14 @@ const password = ref('');
 const handleSubmit = async () => {
     // 登录
     const res = await login({ username: username.value, password: encryptWithRSA(password.value) })
-    localStorage.setItem(STORAGE_TOKEN_KEY, res.data.token)
     userStore.token = res.data.token
-    userStore.userInfo = { username: username.value } // Assuming the API returns user info
+    userStore.userInfo = res.data.userInfo
     router.push('/profile')
 };
+
+const goRegist = () => {
+    router.push('/register')
+}
 
 
 </script>

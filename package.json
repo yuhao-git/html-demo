@@ -1,9 +1,9 @@
 {
   "name": "html-demo",
-  "packageManager": "pnpm",
+  "packageManager": "pnpm@9.3.0",
   "scripts": {
-    "dev:video": "concurrently \"pnpm -F video dev\" \"pnpm -F server dev\" ",
-    "dev": "pnpm -F video dev"
+    "dev": "concurrently \"pnpm -F video dev\" \"pnpm -F server dev\" ",
+    "dev:video": "pnpm -F video dev"
   },
   "engines": {
     "node": ">= 16",
@@ -11,5 +11,8 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^9.0.1"
+  }
 }

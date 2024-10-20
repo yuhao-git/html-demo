@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 var path = require('path');
+const chalk = require('chalk');
 const envFilePath = path.resolve(__dirname, `../.env.${process.env.NODE_ENV}`);
 require('dotenv').config({
   path: envFilePath, // 配置文件路径
@@ -100,13 +101,13 @@ function onListening() {
 
   // 控制台输出当前的 ip和端口号
   var ip = addr.address === '::' ? 'localhost' : addr.address;
-  console.log(`Server is running at http://${ip}:${addr.port}`);
+  console.log(`  ➜  Local:  `,chalk.green(`http://${ip}:${addr.port}`));
   // 局域网中的ip
   var networkInterfaces = os.networkInterfaces();
   for (var interface in networkInterfaces) {
     networkInterfaces[interface].forEach(function(details){
       if (details.family === 'IPv4' && !details.internal) {
-        console.log(`LAN IP Address: http://${details.address}:${addr.port}`);
+        console.log(`  ➜  Network:`,chalk.green(`http://${details.address}:${addr.port}`) );
       }
     });
   }

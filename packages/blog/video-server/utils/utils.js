@@ -36,3 +36,18 @@ exports.encryptData = (data) => {
         throw new Error('Failed to encrypt data');
     }
 };
+
+/**
+ * 生成任意长度随机字符串
+ * @param {number} len 
+ * @returns 
+ */
+exports.generateRandomString = (len) => {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let randomString = '';
+    for (let i = 0; i < len; i++) {
+        randomString += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return randomString;
+};
+

@@ -1,2 +1,4 @@
 packages:
-  - 'packages/**'
+  - 'packages/blog/*'
+  - 'packages/novice/*'
+  - 'packages/press'

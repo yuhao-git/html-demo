@@ -49,5 +49,16 @@
     "noAccount": "没有账号",
     "goRegist": "去注册",
     "welcome": "欢迎使用"
+  },
+  "register": {
+    "register": "注册",
+    "welcome": "欢迎注册",
+    "username": "请输入账号",
+    "email": "请输入邮箱",
+    "password": "请输入密码",
+    "confirmPassword": "请再次输入密码",
+    "alreadyHaveAccount": "已经有账号",
+    "goLogin": "去登录",
+    "nickname": "请输入昵称"
   }
 }

@@ -3,9 +3,9 @@ import axios from 'axios'
 import { Snackbar } from '@varlet/ui'
 import '@varlet/ui/es/style'
 import useAppStore from "@/stores/modules/app"
-import { localStorage } from '@/utils/local-storage'
-import { STORAGE_TOKEN_KEY } from '@/stores/mutation-type'
+import { useUserStore } from '@/stores/modules/user'
 const appStore = useAppStore()
+const userStore = useUserStore()
 let count = 0;
 // 这是用于设置请求后端的Token KEY。
 // 根据自己的需求，可以修改为Access-Token，Authorization等。
@@ -31,6 +31,7 @@ export type RequestError = AxiosError<{
 function errorHandler(error: RequestError): Promise<any> {
   console.log(error)
   let message = error.message
+  // debugger
   if (error.response) {
     const { data = {}, status, statusText } = error.response
     // 403 无权限
@@ -64,7 +65,7 @@ function errorHandler(error: RequestError): Promise<any> {
 function requestHandler(config: InternalAxiosRequestConfig): InternalAxiosRequestConfig | Promise<InternalAxiosRequestConfig> {
   count++;
   appStore.setLoading(true);
-  const savedToken = localStorage.get(STORAGE_TOKEN_KEY)
+  const savedToken = userStore.token ? userStore.token : null
   // 如果token存在
   // 让每个请求都携带一个自定义的token，请根据实际情况修改。
   if (savedToken) {

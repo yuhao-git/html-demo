@@ -12,9 +12,10 @@ exports.register = async (req, res) => {
         const { username, password, email, nickname } = req.body;
         const decryptPassword = decryptData(password)
         await UserService.registerUser({ username, password: decryptPassword, email, nickname });
-        success(res, { message: '注册成功' });
+        const info = await UserService.loginUser({ username, password: decryptPassword });
+        success(res, { message: '注册成功', data: { token: info.token } });
     } catch (error) {
-        failure(res, error);
+        failure(res, error.message);
     }
 };
 
@@ -27,8 +28,8 @@ exports.login = async (req, res) => {
     try {
         const { username, password } = req.body;
         const decryptPassword = decryptData(password)
-        const token = await UserService.loginUser({ username, password: decryptPassword });
-        success(res, { message: '登录成功', data: { token: token.token } });
+        const info = await UserService.loginUser({ username, password: decryptPassword });
+        success(res, { message: '登录成功', data: { userInfo: info.user, token: info.token } });
     } catch (error) {
         failure(res, error.message);
     }

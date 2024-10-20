@@ -16,7 +16,7 @@ import { loginRules } from "./utils/rule";
 import phone from "./components/phone.vue";
 import TypeIt from "@/components/ReTypeit";
 import qrCode from "./components/qrCode.vue";
-import regist from "./components/regist.vue";
+import register from "./components/register.vue";
 import update from "./components/update.vue";
 import { initRouter } from "@/router/utils";
 import { useNav } from "@/layout/hooks/useNav";
@@ -263,7 +263,7 @@ watch(imgCode, value => {
           <!-- 二维码登录 -->
           <qrCode v-if="currentPage === 2" />
           <!-- 注册 -->
-          <regist v-if="currentPage === 3" />
+          <register v-if="currentPage === 3" />
           <!-- 忘记密码 -->
           <update v-if="currentPage === 4" />
         </div>

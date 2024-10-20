@@ -49,5 +49,16 @@
     "noAccount": "No account",
     "goRegist": "Register",
     "welcome": "Welcome"
+  },
+  "register": {
+    "register": "Register",
+    "welcome": "Welcome",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "alreadyHaveAccount": "Already have an account",
+    "goLogin": "Login",
+    "nickname": "Nickname"
   }
 }
