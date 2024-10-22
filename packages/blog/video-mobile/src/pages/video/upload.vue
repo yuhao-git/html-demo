@@ -59,6 +59,3 @@ const uploadVideo = async () => {
 };
 </script>
 
-<style scoped>
-/* 添加样式 */
-</style>

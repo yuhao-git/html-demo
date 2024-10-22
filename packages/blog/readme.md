@@ -292,11 +292,54 @@ sequelize db:seed --seed 20240922045046-article
 
 回滚，迁移
 
-```
+```bash
 sequelize db:migrate:undo
 ```
 
+已有表中添加字段
 
+如在user 表中添加 字段
+
+1. 
+
+```
+sequelize migration:generate --name add-avatar-status-lastLoginAt-to-user
+```
+
+2. 
+
+```js
+'use strict';
+
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.addColumn('Users', 'avatar', {
+      type: Sequelize.STRING,
+      allowNull: true, // 根据需要设置为 true 或 false
+    });
+    await queryInterface.addColumn('Users', 'status', {
+      type: Sequelize.TINYINT,
+      allowNull: true, // 根据需要设置为 true 或 false
+    });
+    await queryInterface.addColumn('Users', 'lastLoginAt', {
+      type: Sequelize.DATE,
+      allowNull: true, // 根据需要设置为 true 或 false
+    });
+  },
+
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.removeColumn('Users', 'avatar');
+    await queryInterface.removeColumn('Users', 'status');
+    await queryInterface.removeColumn('Users', 'lastLoginAt');
+  }
+};
+```
+
+3. 
+
+```
+sequelize db:migrate
+```
 
 
 

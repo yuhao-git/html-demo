@@ -51,3 +51,17 @@ exports.getUser = async (req, res) => {
 };
 
 
+/**
+ * 更新用户信息
+ * @param {*} req 
+ * @param {*} res 
+ */
+exports.updateUser = async (req, res) => {
+    try {
+        const { id, ...data } = req.body;
+        await UserService.updateUser(id, data);
+        success(res, { message: '更新成功' });
+    } catch (error) {
+        failure(res, error)
+    }
+}

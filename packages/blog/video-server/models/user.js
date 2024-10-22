@@ -54,9 +54,9 @@ module.exports = (sequelize, DataTypes) => {
     company: DataTypes.STRING,
     introduce: DataTypes.TEXT,
     role: DataTypes.TINYINT,
-    // avatar: DataTypes.STRING,
-    // status: DataTypes.TINYINT,
-    // lastLoginAt: DataTypes.DATE
+    avatar: DataTypes.STRING,
+    status: DataTypes.TINYINT,
+    lastLoginAt: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'User',

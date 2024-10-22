@@ -109,7 +109,7 @@ const uploadVideo = (req, res) => {
             }
         });
         const upload = multer({ storage }); // 创建 multer 实例
-        upload.array('videoFiles', 100)(req, res, (err) => { // 允许最多上传10个文件
+        upload.array('videoFiles', 100)(req, res, (err) => { // 允许最多上传100个文件
             if (err) {
                 throw new Error('Error uploading files.');
             }

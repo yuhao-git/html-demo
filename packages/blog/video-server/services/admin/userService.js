@@ -84,3 +84,16 @@ exports.getUser = async (username, currentPage, pageSize) => {
     return getPaginatedData(User, where, attributes, currentPage, pageSize);
 };
 
+/**
+ * 更新用户信息
+ * @param {Number} id 
+ * @param {Object} data 
+ * @returns {Promise<any>}
+ */
+exports.updateUser = async (id, data) => {
+    const user = await User.findByPk(id);
+    if (!user) {
+        throw new Error('用户不存在');
+    }
+    await user.update(data);
+};

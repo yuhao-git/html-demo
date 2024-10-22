@@ -8,6 +8,7 @@ var adminCategoryRouter = require('./admin/category');
 var adminArticleRouter = require('./admin/article');
 var videoRouter = require('./web/video');
 var systemRouter = require("./admin/system")
+var imageRouter = require('./web/image');
 
 router.use('/', indexRouter);
 router.use('/admin/user', adminUserRouter);
@@ -15,4 +16,6 @@ router.use('/admin/system', jwtMiddleware, systemRouter);
 router.use('/admin/category', jwtMiddleware, adminCategoryRouter);
 router.use('/admin/article', jwtMiddleware, adminArticleRouter);
 router.use('/video', videoRouter);
+router.use('/image', imageRouter);
+
 module.exports = router;

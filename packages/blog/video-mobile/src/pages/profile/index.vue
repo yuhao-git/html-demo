@@ -2,21 +2,31 @@
   <Container class="p-20">
     <template v-if="userInfo.username">
       <div>
-        <var-paper radius="10"  class="flex shadow-md items-center  p-16 rounded-3xl mb-20">
-          <var-avatar :size="72" mr-15>
-            {{ userInfo.nickname.charAt(0) }}
-          </var-avatar>
+        <var-paper radius="10" class="flex shadow-md items-center  p-16 rounded-3xl mb-20">
+          <div class="h-72 w-72 overflow-hidden mr-15">
+            <var-uploader hide-list v-model="files" @after-read="uploadUserAvatar">
+              <div class="h-72 w-72 border-2 rounded-full"
+                :style="{ background: `url(${apiBaseUrl}/image/${userInfo.avatar})`, backgroundSize: 'cover', backgroundPosition: 'center' }"
+                v-if="userInfo.avatar">
+              </div>
+              <var-avatar v-else :size="72">
+                <div class="flex items-center justify-center w-full h-full"> {{ userInfo.nickname.charAt(0) }}
+                </div>
+              </var-avatar>
+            </var-uploader>
+          </div>
           <div>
+
             <div class="mb-8 text-20 font-bold font-mono"> {{ userInfo.nickname }}</div>
             <div class="mb-2 text-14 text-gray-500 font-sans">用户: {{ userInfo.username }}</div>
             <div class="mb-2 text-14 text-gray-500 font-sans">邮箱: {{ userInfo.email }}</div>
           </div>
         </var-paper>
-        <var-paper mb-15 radius="10"  shadow-md >
-          <var-cell ripple border  @click="toggle">
+        <var-paper mb-15 radius="10" shadow-md>
+          <var-cell ripple border @click="toggle">
             {{ t('home.darkMode') }}
             <template #extra>
-              <var-switch @click.stop  v-model="checked"  />
+              <var-switch @click.stop v-model="checked" />
             </template>
           </var-cell>
 
@@ -54,6 +64,10 @@ import { shutdownSystem } from '@/api/system'
 import { languageColumns, locale } from '@/utils/i18n'
 const appStore = useAppStore()
 const language = computed(() => languageColumns.find(l => l.value === locale.value).text)
+import { uploadAvatar } from '@/api/profile'
+const files = ref<File[]>([])
+
+const apiBaseUrl = import.meta.env.VITE_APP_API_BASE_URL_VIDEO
 
 definePage({
   name: 'profile',
@@ -107,6 +121,20 @@ async function languagePicker() {
         return
       locale.value = values[0] as string
     },
+  })
+}
+
+/**
+ * 上传头像
+ */
+function uploadUserAvatar() {
+  const formData = new FormData();
+  formData.append('avatar', files.value[0].file);
+  formData.append('userId', userStore.userInfo.id);
+  formData.append('filename', files.value[0].name);
+  uploadAvatar(formData).then(res => {
+    userStore.userInfo.avatar = res.data.avatar
+    files.value = []
   })
 }
 </script>

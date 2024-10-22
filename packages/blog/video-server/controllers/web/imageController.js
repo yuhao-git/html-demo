@@ -2,38 +2,54 @@
 const multer = require('multer');
 const path = require('path');
 const { success, failure } = require('../../utils/response');
+const UserService = require('../../services/admin/userService');
 
 // 提供静态文件服务
 // app.use('/avatars', express.static(path.join(__dirname, 'e://avatar')));
-
 const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, 'e://files/avatar/');
+    destination: function (req, file, cb) {
+        cb(null, 'E://files/avatar/');
     },
-    filename: function(req, file, cb) {
-        cb(null, req.user.id + path.extname(file.originalname));
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
     }
 });
+const upload = multer({ storage });
 
-const upload = multer({ storage: storage });
-
-exports.uploadAvatar = (req, res) => {
-    upload.single('avatar')(req, res, function(err) {
-        if (err) {
-            failure(res, err);
-        } else {
-            success(res, { message: '头像上传成功', data: req.file.filename });
-        }
-    });
+/**
+ * 上传头像
+ * @param {Request} req 
+ * @param {Response} res 
+ */
+exports.uploadAvatar = async (req, res) => {
+    try {
+        upload.single('avatar')(req, res, async (err) => {
+            if (err) {
+                throw new Error("Error uploading files.");
+            }
+            if (!req.file) {
+                throw new Error('No file uploaded.');
+            }
+            // 更新用户头像
+            await UserService.updateUser(req.body.userId, { avatar: req.body.filename });
+            success(res, { message: '头像上传成功', data: { avatar: req.body.filename } });
+        });
+    } catch (err) {
+        failure(res, err.message);
+    }
 }
 
-
-exports.getAvatar = (req, res) => { 
-    const userId = req.params.id; // 从请求参数中获取用户ID
-    const avatarPath = path.join('e://avatar', `${userId}.png`); // 构建头像文件的完整路径
-    res.sendFile(avatarPath, (err) => {
-        if (err) {
-            res.status(err.status).end(); // 处理错误
-        }
-    });
+/**
+ * 获取头像
+ * @param {Request} req 
+ * @param {Response} res 
+ */
+exports.getAvatar = (req, res) => {
+    try {
+        const avatarId = req.params.avatarId;
+        const avatarPath = path.join('E://files/avatar', `${avatarId}`); // 构建头像文件的完整路径
+        res.sendFile(avatarPath);
+    } catch (err) {
+        res.status(err.status).end(); // 处理错误
+    }
 }
