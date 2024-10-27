@@ -3,20 +3,17 @@
     <template v-if="userInfo.username">
       <div>
         <var-paper radius="10" class="flex shadow-md items-center  p-16 rounded-3xl mb-20">
-          <div class="h-72 w-72 overflow-hidden mr-15">
-            <var-uploader hide-list v-model="files" @after-read="uploadUserAvatar">
-              <div class="h-72 w-72 border-2 rounded-full"
-                :style="{ background: `url(${apiBaseUrl}/image/${userInfo.avatar})`, backgroundSize: 'cover', backgroundPosition: 'center' }"
-                v-if="userInfo.avatar">
+          <div class="h-72 w-72 overflow-hidden mr-15" @click="createBasic">
+            <div class="h-72 w-72 border-2 rounded-full"
+              :style="{ background: `url(${apiBaseUrl}/image/${userInfo.avatar})`, backgroundSize: 'cover', backgroundPosition: 'center' }"
+              v-if="userInfo.avatar">
+            </div>
+            <var-avatar v-else :size="72">
+              <div class="flex items-center justify-center w-full h-full"> {{ userInfo.nickname.charAt(0) }}
               </div>
-              <var-avatar v-else :size="72">
-                <div class="flex items-center justify-center w-full h-full"> {{ userInfo.nickname.charAt(0) }}
-                </div>
-              </var-avatar>
-            </var-uploader>
+            </var-avatar>
           </div>
           <div>
-
             <div class="mb-8 text-20 font-bold font-mono"> {{ userInfo.nickname }}</div>
             <div class="mb-2 text-14 text-gray-500 font-sans">用户: {{ userInfo.username }}</div>
             <div class="mb-2 text-14 text-gray-500 font-sans">邮箱: {{ userInfo.email }}</div>
@@ -68,6 +65,7 @@ import { uploadAvatar } from '@/api/profile'
 const files = ref<File[]>([])
 
 const apiBaseUrl = import.meta.env.VITE_APP_API_BASE_URL_VIDEO
+import { ImagePreview, ActionSheet } from '@varlet/ui'
 
 definePage({
   name: 'profile',
@@ -109,6 +107,10 @@ function toggle() {
   appStore.switchMode(isDark.value ? 'dark' : 'light')
 }
 
+
+/**
+ * 语言选择
+ */
 async function languagePicker() {
   await Picker({
     modelValue: [locale.value],
@@ -127,14 +129,59 @@ async function languagePicker() {
 /**
  * 上传头像
  */
-function uploadUserAvatar() {
+function handleFileUpload(file: File) {
   const formData = new FormData();
-  formData.append('avatar', files.value[0].file);
   formData.append('userId', userStore.userInfo.id);
-  formData.append('filename', files.value[0].name);
+  formData.append('filename', file.name);
+  formData.append('avatar', file);
   uploadAvatar(formData).then(res => {
-    userStore.userInfo.avatar = res.data.avatar
-    files.value = []
-  })
+    userStore.userInfo.avatar = res.data.avatar;
+    files.value = [];
+  });
+}
+
+/**
+ * 预览头像
+ */
+function previewImage() {
+  ImagePreview(`${apiBaseUrl}/image/${userInfo.value.avatar}`)
+}
+
+/**
+ * 创建基础信息
+ */
+async function createBasic() {
+  const actions = userInfo.value.avatar ? [
+    {
+      name: '查看头像'
+    },
+    {
+      name: '修改头像'
+    }
+  ] : [
+    {
+      name: '修改头像'
+    }
+  ]
+  const action = await ActionSheet({
+    actions: actions
+  });
+
+  if (action.name === '修改头像') {
+    // 触发文件选择
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+    fileInput.onchange = (event) => {
+      const file = (event.target as HTMLInputElement).files?.[0];
+      if (file) {
+        handleFileUpload(file); // 调用上传头像的函数
+      }
+    };
+    fileInput.click(); // 模拟点击文件输入框
+  }
+  if (action.name === '查看头像') {
+    previewImage();
+  }
 }
 </script>

@@ -13,7 +13,7 @@ exports.register = async (req, res) => {
         const decryptPassword = decryptData(password)
         await UserService.registerUser({ username, password: decryptPassword, email, nickname });
         const info = await UserService.loginUser({ username, password: decryptPassword });
-        success(res, { message: '注册成功', data: { token: info.token } });
+        success(res, { message: '注册成功', data: { token: info.token, userInfo: info.user } });
     } catch (error) {
         failure(res, error.message);
     }

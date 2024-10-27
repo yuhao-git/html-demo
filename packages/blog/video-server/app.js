@@ -3,7 +3,6 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var bodyParser = require('body-parser');
 var routes = require('./routes/routes');
 var app = express(); 
 
@@ -12,8 +11,8 @@ app.set('views', path.join(__dirname, 'views')); // 视图目录
 app.set('view engine', 'jade'); // 视图引擎
 
 app.use(logger('dev')); // 日志
-app.use(bodyParser.json({limit:'10mb'})); 
-app.use(bodyParser.urlencoded({extended:true, limit:'10mb'}));
+app.use(express.json()); // 使用 express 内置的 json 解析
+app.use(express.urlencoded({ extended: true })); // 使用 express 内置的 urlencoded 解析
 app.use(cookieParser()); // 解析cookie
 app.use(express.static(path.join(__dirname, 'public'))); // 静态资源
 // http://localhost:8081/images/01.png
@@ -21,7 +20,6 @@ app.use(express.static(path.join(__dirname, 'public'))); // 静态资源
 // 提供静态文件服务
 app.use('/avatars', express.static('E://files/avatar')); 
 // http://localhost:8081/avatars/01.png
-
 
 
 // 路由
