@@ -52,12 +52,6 @@ export default {
         // },
       ],
     },
-    winTime: {
-      default: 3000,
-    },
-    hasAddress: {
-      default: false,
-    },
     managersAddress: {
       default: () => [
         // { name: "大丰区", address: "地址地址地址地址大丰区" },
@@ -77,38 +71,18 @@ export default {
   data() {
     return {
       showLoading: true,
-      myChart: null,
+      // myChart: null,  // 万万不能响应式，会导致echarts5绘图异常，绘图效率低下，vue3 中可以使用 markRaw 将 Echarts 实例标记为原始对象
       aspectScale: 0.88, // 长宽比
       geoCoordMap: {},
-      windowShow: false,
-      winIndex: 0,
-      lastWinIndex: 0,
       nameMap: new Map(),
-      addrWinShow: false,
-      addrStyle: {
-        left: 0,
-        top: 0,
-      },
-      addrContent: {
-        name: "",
-        addr: "",
-      },
     };
   },
   mounted() {
     this.init();
   },
   beforeDestroy() {
-    if (this.time) {
-      clearInterval(this.time);
-    }
-    if (this.time2) {
-      clearTimeout(this.time2);
-    }
     this.myChart?.dispose?.();
     this.myChart = null;
-    this.time = null;
-    this.time2 = null;
   },
   methods: {
     async init() {
@@ -126,6 +100,7 @@ export default {
     // 绘制地图
     async drawChart() {
       let option = await this.getOption();
+      console.log(option);
       this.$nextTick(() => {
         if (!this.$refs.chart) {
           return;
@@ -218,9 +193,9 @@ export default {
       const geoShadow = colors
         .map((colorItem, colorIndex) => {
           return {
+            z: 50,
             map: "mapDataHollow",
             // type: "map",
-            z: 50,
             aspectScale: this.aspectScale,
             itemStyle: {
               areaColor: colorItem,
@@ -245,13 +220,62 @@ export default {
           trigger: "item",
         },
         geo: [
+          // 顶部图形
+          {
+            z: 91,
+            map: "mapDataHollow",
+            aspectScale: this.aspectScale,
+            itemStyle: {
+              areaColor: {
+                image: piePatternImg,
+                repeat: "no-repeat",
+              },
+            },
+          },
+          // 模拟厚度
+          ...geoShadow,
+          // 第二层边缘发光
+          {
+            z: 90,
+            map: "mapDataHollow",
+            aspectScale: this.aspectScale,
+            itemStyle: {
+              areaColor: "rgba(176, 230, 249,1)",
+              borderColor: "rgba(176, 230, 249,1)",
+              shadowColor: "rgba(176, 230, 249, 0.9)",
+              shadowBlur: 4,
+              borderWidth: 3,
+            },
+          },
+          // 底层阴影
+          {
+            z: 10,
+            map: "mapDataHollow",
+            aspectScale: this.aspectScale,
+            itemStyle: {
+              areaColor: "#000",
+              shadowColor: "#000",
+              shadowBlur: 10,
+              shadowOffsetX: 4,
+              shadowOffsetY: 26,
+            },
+          },
+        ],
+        grid: {
+          left: 0,
+          top: 0,
+          bottom: 0,
+          right: 0,
+          id: "grid",
+        },
+        series: [
           // 顶层贴图
           {
             z: 99,
-            // type: "map",
+            type: "map",
             map: "mapData",
             aspectScale: this.aspectScale,
-            coordinateSystem: "geo",
+            // coordinateSystem: "geo", // 地图坐标系
             itemStyle: {
               borderWidth: 0.2,
               borderColor: "#fff",
@@ -292,45 +316,7 @@ export default {
               disabled: false,
             },
           },
-          // 模拟厚度
-          ...geoShadow,
-          // 第二层边缘发光
-          {
-            z: 90,
-            type: "map",
-            map: "mapDataHollow",
-            aspectScale: this.aspectScale,
-            itemStyle: {
-              areaColor: "rgba(176, 230, 249,1)",
-              borderColor: "rgba(176, 230, 249,1)",
-              shadowColor: "rgba(176, 230, 249, 0.9)",
-              shadowBlur: 4,
-              borderWidth: 3,
-            },
-          },
-          // 底层阴影
-          {
-            z: 10,
-            type: "map",
-            map: "mapDataHollow",
-            aspectScale: this.aspectScale,
-            itemStyle: {
-              areaColor: "#000",
-              shadowColor: "#000",
-              shadowBlur: 10,
-              shadowOffsetX: 4,
-              shadowOffsetY: 26,
-            },
-          },
         ],
-        grid: {
-          left: 0,
-          top: 0,
-          bottom: 0,
-          right: 0,
-          id: "grid",
-        },
-        series: [],
       };
     },
   },
