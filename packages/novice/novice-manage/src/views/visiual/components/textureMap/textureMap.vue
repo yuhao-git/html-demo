@@ -100,7 +100,6 @@ export default {
     // 绘制地图
     async drawChart() {
       let option = await this.getOption();
-      console.log(option);
       this.$nextTick(() => {
         if (!this.$refs.chart) {
           return;
@@ -195,6 +194,7 @@ export default {
           return {
             z: 50,
             map: "mapDataHollow",
+            silent: true, // 不响应鼠标事件
             // type: "map",
             aspectScale: this.aspectScale,
             itemStyle: {
@@ -216,12 +216,13 @@ export default {
       const piePatternImg = await this.loadImageCompleted(mappng);
       return {
         tooltip: {
-          show: false,
+          show: true,
           trigger: "item",
         },
         geo: [
           // 顶部图形
           {
+            silent: true, // 不响应鼠标事件
             z: 91,
             map: "mapDataHollow",
             aspectScale: this.aspectScale,
@@ -250,6 +251,7 @@ export default {
           // 底层阴影
           {
             z: 10,
+            silent: true, // 不响应鼠标事件
             map: "mapDataHollow",
             aspectScale: this.aspectScale,
             itemStyle: {
@@ -279,41 +281,43 @@ export default {
             itemStyle: {
               borderWidth: 0.2,
               borderColor: "#fff",
-              areaColor: {
-                image: piePatternImg,
-                repeat: "no-repeat",
+              areaColor: "transparent",
+
+              // areaColor: {
+              //   image: piePatternImg,
+              //   repeat: "no-repeat",
+              // },
+            },
+
+            emphasis: {
+              itemStyle: {
+                // areaColor: "transparent",
+                shadowColor: "#a3fffe",
+                shadowBlur: 5,
+                borderColor: "#2acfff",
+                borderWidth: 1,
+                areaColor: "rgba(42, 207, 255,0.2)",
+              },
+              label: {
+                color: "#fff",
+              },
+            },
+            select: {
+              itemStyle: {
+                // areaColor: "transparent",
+                shadowColor: "#a3fffe",
+                shadowBlur: 5,
+                borderColor: "#2acfff",
+                borderWidth: 1,
+                areaColor: "rgba(42, 207, 255,0.2)",
+              },
+              label: {
+                color: "#fff",
               },
             },
             label: {
-              show: false,
+              show: true,
               color: "#fff",
-              formatter: (p) => {
-                [`{title| ${p.name} }`, "{imgVertebral|}", "{imgCircle|}"].join(
-                  "\n"
-                );
-              },
-              rich: {
-                title: {
-                  color: "#fff",
-                  height: 28,
-                  width: 100,
-                  fontFamily: "SourceHanSansCN-Medium",
-                  fontSize: 14,
-                  backgroundColor: {
-                    image: titleBg,
-                  },
-                },
-                imgVertebral: {
-                  height: 36,
-                  width: 32,
-                  backgroundColor: {
-                    image: pointVertebral,
-                  },
-                },
-              },
-            },
-            emphasis: {
-              disabled: false,
             },
           },
         ],
