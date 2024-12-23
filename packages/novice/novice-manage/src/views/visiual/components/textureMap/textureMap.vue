@@ -127,8 +127,10 @@ export default {
       };
       const data = await $commonApi.getMapData(mapName); // yancheng-hollow
       const mapJsonData = data.data;
+      // 从mapJsonData中获取旋转中心
+      const jwd = mapJsonData.features[0].properties.cp;
+      // const jwd = [120.139998, 33.377631]; // [120.136078, 33.383912]; // 旋转中心
 
-      const jwd = [120.139998, 33.377631]; // [120.136078, 33.383912]; // 旋转中心
       // const deg = 0.36; // 旋转角度
       const deg = 0; // 旋转角度
       // 旋转
@@ -222,6 +224,7 @@ export default {
         geo: [
           // 顶部图形
           {
+            
             silent: true, // 不响应鼠标事件
             z: 91,
             map: "mapDataHollow",
