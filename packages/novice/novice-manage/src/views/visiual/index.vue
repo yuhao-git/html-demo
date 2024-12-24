@@ -1,29 +1,54 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import visTableVue from "./visTable.vue";
+import { shallowRef, onMounted, ref } from "vue";
+import { markRaw } from "vue";
 
-const data = ref({
-  header: ["列1", "列2", "列3"],
-  data: [
-    ["行1列1", "行1列2", "行1列3"],
-    ["行2列1", "行2列2", "行2列3"],
-    ["行3列1", "行3列2", "行3列3"],
-    ["行4列1", "行4列2", "行4列3"],
-    ["行5列1", "行5列2", "行5列3"],
-    ["行6列1", "行6列2", "行6列3"],
-    ["行7列1", "行7列2", "行7列3"],
-    ["行8列1", "行8列2", "行8列3"],
-    ["行9列1", "行9列2", "行9列3"],
-    ["行10列1", "行10列2", "行10列3"],
-    ["行10列1", "行10列2", "行10列3"],
-    ["行10列1", "行10列2", "行10列3"],
-    ["行10列1", "行10列2", "行10列3"],
-  ],
-  // headerBGC: "rgba(19,80,171,0.3)",
-  oddRowBGC: "rgba(19,80,171,0.2)",
+// 使用 import.meta.glob 自动引入 ./views 目录下的所有 .vue 文件
+const viewsModules = import.meta.glob("./views/*.vue");
+
+// 存储引入的组件
+const components = shallowRef({});
+
+// 动态引入组件
+const loadComponents = async () => {
+  const loadedComponents: Record<string, any> = {};
+  for (const path in viewsModules) {
+    const componentConfig = await viewsModules[path]();
+    const componentName = path.replace(/^\.\/views\/(.*)\.vue$/, "$1");
+    loadedComponents[componentName] = markRaw(
+      componentConfig.default || componentConfig
+    );
+  }
+  components.value = loadedComponents;
+};
+
+// 在组件挂载时加载组件
+onMounted(() => {
+  loadComponents();
 });
+
+const active = ref("");
+function handleSelect(index: string) {
+  active.value = index;
+}
 </script>
 
 <template>
-  <visTableVue :config="data" />
+  <!-- <div class="w-full overflow-x-hidden">
+    
+  </div> -->
+  <div class="w-full flex h-full">
+    <el-menu class="h-full" @select="handleSelect">
+      <el-menu-item
+        v-for="(component, name) in components"
+        :key="name"
+        :index="name"
+      >
+        <span>{{ name }}</span>
+      </el-menu-item>
+    </el-menu>
+    <div class="flex-1 h-full overflow-auto">
+      <component :is="components[active]" />
+    </div>
+  </div>
 </template>
+

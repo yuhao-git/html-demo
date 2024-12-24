@@ -1,6 +1,5 @@
 <template>
-  <div ref="container"
-       class="h-full w-full"></div>
+  <div ref="container" class="h-full w-full"></div>
 </template>
 
 <script setup>
@@ -112,7 +111,7 @@ function importModel() {
   // scene.add(cube);
 
   loader.load(
-    "/models/shiba/scene.gltf",
+    "/models/town/town.gltf",
     function (gltf) {
       let model = gltf.scene;
       scene.add(model);
@@ -167,7 +166,7 @@ onMounted(() => {
   setEnvironmentParameter();
   importModel();
   setLight();
-  addMesh();
+  // addMesh();
   const controls = new OrbitControls(camera, container.value);
   controls.enableDamping = true;
   controls.update();
