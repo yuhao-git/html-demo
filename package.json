@@ -3,6 +3,7 @@
   "packageManager": "pnpm@9.3.0",
   "scripts": {
     "dev": "concurrently \"pnpm -F video dev\" \"pnpm -F server dev\" ",
+    "novice":"pnpm -F novice dev",
     "dev:video": "pnpm -F video dev"
   },
   "engines": {

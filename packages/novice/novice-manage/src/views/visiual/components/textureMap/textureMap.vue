@@ -10,8 +10,6 @@
 import $commonApi from "./common";
 import mappng from "./img/map.png";
 import * as echarts from "echarts";
-import pointVertebral from "./img/point-vertebral.png";
-import titleBg from "./img/title-bg.png";
 import loading from "../visLoading.vue";
 export default {
   name: "textureMap",

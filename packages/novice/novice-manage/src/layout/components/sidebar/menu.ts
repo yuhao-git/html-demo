@@ -26,11 +26,23 @@ const menu = [
     path: "/animate/animejs",
     icon: "sun",
     label: "动画",
+    children: [
+      {
+        path: "/animate/vueAnimate",
+        icon: "sun",
+        label: "animatejs动画",
+      },
+      {
+        path: "/animate/animejs",
+        icon: "sun",
+        label: "vue动画",
+      },
+    ]
   },
   {
     path: "/visiual",
     icon: "sun",
-    label: "可视化",
+    label: "可视化组件",
   },
   {
     path: "/mark",
@@ -91,6 +103,7 @@ const menu = [
     ]
   }
 ];
+
 
 (function setGUID(nemu: Array<menuItem>) {
   function setKey(node: menuItem) {

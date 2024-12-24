@@ -308,6 +308,21 @@ export default {
         this.data.length
       );
       let option = {
+        // graphic: {
+        //   elements: [
+        //     {
+        //       type: 'image',
+        //       z: 1,
+        //       style: {
+        //         image: img,
+        //         width: this.graphicOption.width,
+        //         height: this.graphicOption.height,
+        //       },
+        //       left: 'center',
+        //       top: 'center',
+        //     },
+        //   ],
+        // },
         legend: {
           formatter: (itemName) => {
             let data = this.data.filter((item) => item.name === itemName)[0];

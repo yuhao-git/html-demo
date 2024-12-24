@@ -1,8 +1,12 @@
 <template>
-  <div>
-    <div class="css-selector-demo"
-         v-for="item in 100"
-         :key="item">{{item}}</div>
+  <div class="flex gap-2">
+    <div
+      class="css-selector-demo flex justify-center items-center"
+      v-for="item in 10"
+      :key="item"
+    >
+      {{ item }}
+    </div>
   </div>
 </template>
 
@@ -13,9 +17,13 @@ let animeObj = null;
 onMounted(() => {
   animeObj = anime({
     targets: ".css-selector-demo",
-    translateX: 250,
+    translateY: 50,
+    backgroundColor: "#ff00ff",
+    borderRadius: ["0%", "50%"],
+    easing: "easeInOutQuad",
+    duration: 500,
     loop: true,
-    direction: "alternate",
+    direction: "alternate", // 可选参数 normal | reverse | alternate | alternate-reverse
     delay: function (el, i) {
       return i * 100;
     },
@@ -30,8 +38,8 @@ onBeforeUnmount(() => {
 </script>
 <style scoped lang='less'>
 .css-selector-demo {
-  height: 20px;
-  width: 20px;
+  height: 30px;
+  width: 30px;
   border: 1px solid #000;
 }
 </style>
