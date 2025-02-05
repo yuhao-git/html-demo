@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useDetail } from "./hooks";
 
+
+
 defineOptions({
   name: "TabQueryDetail"
 });

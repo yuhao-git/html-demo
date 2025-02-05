@@ -1,0 +1,108 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  perspective: 1000px;
+  background-color: #f0f0f0;
+}
+:root{
+  --radius: 400px;
+  --duration: 20s;
+}
+
+.carousel {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  transform-style: preserve-3d;
+  animation: rotate var(--duration) infinite linear;
+}
+
+.item {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background-color: #3498db;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+  border: 2px solid #2980b9;
+  transform-origin: center center;
+}
+
+@keyframes rotate {
+  from {
+      transform: rotateY(0deg);
+  }
+  to {
+      transform: rotateY(360deg);
+  }
+}
+
+
+@keyframes rotate-1 {
+  from {
+      transform: rotateY(0deg) translateZ(var(--radius)) rotateY(0deg);
+  }
+  to {
+      transform: rotateY(0deg) translateZ(var(--radius)) rotateY(-360deg);
+  }
+}
+
+@keyframes rotate-2 {
+  from {
+      transform: rotateY(60deg) translateZ(var(--radius)) rotateY(-60deg);
+  }
+  to {
+      transform: rotateY(60deg) translateZ(var(--radius)) rotateY(-420deg);
+  }
+}
+
+@keyframes rotate-3 {
+  from {
+      transform: rotateY(120deg) translateZ(var(--radius)) rotateY(-120deg);
+  }
+  to {
+      transform: rotateY(120deg) translateZ(var(--radius)) rotateY(-480deg);
+  }
+}
+
+@keyframes rotate-4 {
+  from {
+      transform: rotateY(180deg) translateZ(var(--radius)) rotateY(-180deg);
+  }
+  to {
+      transform: rotateY(180deg) translateZ(var(--radius)) rotateY(-540deg);
+  }
+}
+
+
+@keyframes rotate-5 {
+  from {
+      transform: rotateY(240deg) translateZ(var(--radius)) rotateY(-240deg);
+  }
+  to {
+      transform: rotateY(240deg) translateZ(var(--radius)) rotateY(-600deg);
+  }
+}
+
+@keyframes rotate-6 {
+  from {
+      transform: rotateY(300deg) translateZ(var(--radius)) rotateY(-300deg);
+  }
+  to {
+      transform: rotateY(300deg) translateZ(var(--radius)) rotateY(-660deg);
+  }
+}
+
+/* Positioning the items in a circle */
+.item:nth-child(1) { transform: rotateY(0deg) translateZ(var(--radius)); animation: rotate-1 var(--duration) infinite linear; }
+.item:nth-child(2) { transform: rotateY(60deg) translateZ(var(--radius)); animation: rotate-2 var(--duration) infinite linear; }
+.item:nth-child(3) { transform: rotateY(120deg) translateZ(var(--radius)); animation: rotate-3 var(--duration) infinite linear;}
+.item:nth-child(4) { transform: rotateY(180deg) translateZ(var(--radius)); animation: rotate-4 var(--duration) infinite linear;}
+.item:nth-child(5) { transform: rotateY(240deg) translateZ(var(--radius)); animation: rotate-5 var(--duration) infinite linear;}
+.item:nth-child(6) { transform: rotateY(300deg) translateZ(var(--radius)); animation: rotate-6 var(--duration) infinite linear;}

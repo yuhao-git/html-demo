@@ -1,30 +1,52 @@
+// 导入 Node.js 的路径模块，用于处理和转换文件路径
 import { dirname, resolve } from 'node:path'
+// 导入 Node.js 的 URL 模块，用于处理 URL
 import { fileURLToPath } from 'node:url'
+// 从 @unhead/vue 中导入 unheadVueComposablesImports，用于处理 Vue 组件的导入
 import { unheadVueComposablesImports } from '@unhead/vue'
+// 导入 @vitejs/plugin-legacy 插件，用于支持旧版浏览器
 import legacy from '@vitejs/plugin-legacy'
+// 导入 @vitejs/plugin-vue 插件，用于支持 Vue 单文件组件
 import vue from '@vitejs/plugin-vue'
+// 导入 UnoCSS 的 Vite 插件，用于支持原子化 CSS
 import UnoCSS from 'unocss/vite'
+// 导入 unplugin-auto-import 的 Vite 插件，用于自动导入模块
 import AutoImport from 'unplugin-auto-import/vite'
+// 导入 unplugin-vue-components 的 Vite 插件，用于自动按需引入 Vue 组件
 import Components from 'unplugin-vue-components/vite'
+// 导入 unplugin-vue-router 的自动导入配置
 import { VueRouterAutoImports } from 'unplugin-vue-router'
+// 导入 unplugin-vue-router 的 Vite 插件，用于支持 Vue 路由
 import VueRouter from 'unplugin-vue-router/vite'
+// 导入 vite-plugin-mock-dev-server 插件，用于开发环境下的模拟服务器
 import mockDevServerPlugin from 'vite-plugin-mock-dev-server'
+// 导入 vite-plugin-pwa 插件，用于支持渐进式 Web 应用
 import { VitePWA } from 'vite-plugin-pwa'
+// 导入 vite-plugin-sitemap 插件，用于生成站点地图
 import Sitemap from 'vite-plugin-sitemap'
+// 导入 vite-plugin-vue-devtools 插件，用于支持 Vue 开发者工具
 import VueDevTools from 'vite-plugin-vue-devtools'
+// 导入 @intlify/unplugin-vue-i18n 的 Vite 插件，用于支持 Vue 国际化
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
+// 导入 @varlet/import-resolver，用于解析 Varlet 组件的导入
 import { VarletImportResolver } from '@varlet/import-resolver'
+// 导入 @varlet/unplugin-icon-builder 的 Vite 插件，用于构建图标
 import icon from '@varlet/unplugin-icon-builder/vite'
+// 从本地文件导入 createViteVConsole 函数，用于创建 VConsole 实例
 import { createViteVConsole } from './vconsole'
+
+import {simpleVitePlugin} from './myplugin'
 
 export function createVitePlugins() {
   return [
+    
     // https://github.com/posva/unplugin-vue-router
     VueRouter({
       extensions: ['.vue'],
       routesFolder: 'src/pages',
       dts: 'src/typed-router.d.ts',
     }),
+    simpleVitePlugin(),
 
     vue(),
 
@@ -49,7 +71,7 @@ export function createVitePlugins() {
         /\.vue$/,
         /\.vue\?vue/,
       ],
-      imports: [
+      imports: [  
         'vue',
         'vitest',
         '@vueuse/core',

@@ -56,7 +56,6 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         ],
       },
     },
-
     build: {
       cssCodeSplit: false,
       chunkSizeWarningLimit: 2048,

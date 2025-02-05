@@ -8,7 +8,7 @@
 
 <script>
 import $commonApi from "./common";
-import mappng from "./img/map.png";
+import mappng from "./img/map-1.png";
 import * as echarts from "echarts";
 import loading from "../visLoading.vue";
 export default {
@@ -84,8 +84,8 @@ export default {
   },
   methods: {
     async init() {
-      await this.loadMapData("china", "mapData");
-      await this.loadMapData("china-h", "mapDataHollow");
+      await this.loadMapData("650000", "mapData");
+      await this.loadMapData("650000-s", "mapDataHollow");
       // await this.rotateMap("china", "mapData");
       // await this.rotateMap("china-h", "mapDataHollow");
       this.drawChart();
@@ -222,7 +222,6 @@ export default {
         geo: [
           // 顶部图形
           {
-            
             silent: true, // 不响应鼠标事件
             z: 91,
             map: "mapDataHollow",
@@ -230,25 +229,60 @@ export default {
             itemStyle: {
               areaColor: {
                 image: piePatternImg,
-                repeat: "no-repeat",
+                repeat: "repeat",
+                // 剩余参数
               },
             },
           },
           // 模拟厚度
-          ...geoShadow,
+          // ...geoShadow,
+          {
+            z: 50,
+            top: "12%",
+            map: "mapDataHollow",
+            aspectScale: this.aspectScale,
+            itemStyle: {
+              areaColor: "rgba(0,0,0,0.4)",
+              // areaColor: {
+              //   type: "linear",
+              //   x: 0,
+              //   y: 0,
+              //   x2: 0,
+              //   y2: 1,
+              //   colorStops: [
+              //     { offset: 0.8, color: "rgba(0,0,0,0.4)" }, // color at 0% position
+              //     { offset: 1, color: "#87cefa" }, // color at 100% position
+              //   ],
+              //   global: false, // false by default
+              // },
+              // areaColor: {
+              //   type: "radial",
+              //   x: 0.5,
+              //   y: 0.5,
+              //   r: 0.5,
+              //   colorStops: [
+              //     { offset: 0, color: "#ff7f50" }, // color at 0% position
+              //     { offset: 1, color: "#87cefa" }, // color at 100% position
+              //   ],
+              //   global: false, // false by default
+              // },
+              borderColor: "#0E98C6",
+              borderWidth: 2,
+            },
+          },
           // 第二层边缘发光
           {
             z: 90,
             map: "mapDataHollow",
             aspectScale: this.aspectScale,
             itemStyle: {
-              areaColor: "rgba(176, 230, 249,1)",
-              borderColor: "rgba(176, 230, 249,1)",
+              borderColor: "#00F2FD",
               shadowColor: "rgba(176, 230, 249, 0.9)",
-              shadowBlur: 4,
-              borderWidth: 3,
+              shadowBlur: 6,
+              borderWidth: 4,
             },
           },
+
           // 底层阴影
           {
             z: 10,
@@ -259,8 +293,8 @@ export default {
               areaColor: "#000",
               shadowColor: "#000",
               shadowBlur: 10,
-              shadowOffsetX: 4,
-              shadowOffsetY: 26,
+              shadowOffsetX: 3,
+              shadowOffsetY: 20,
             },
           },
         ],

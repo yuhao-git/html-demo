@@ -27,7 +27,6 @@ useHead({
 })
 
 const appStore = useAppStore()
-
 const routeTransitionNameStore = useRouteTransitionNameStore()
 const { routeTransitionName } = storeToRefs(routeTransitionNameStore)
 const { initializeThemeSwitcher } = useAutoThemeSwitcher(appStore)
