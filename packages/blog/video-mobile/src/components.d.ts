@@ -23,6 +23,7 @@ declare module 'vue' {
     VarCounter: typeof import('@varlet/ui')['_CounterComponent']
     VarFab: typeof import('@varlet/ui')['_FabComponent']
     VarIcon: typeof import('@varlet/ui')['_IconComponent']
+    VarInput: typeof import('@varlet/ui')['_InputComponent']
     VarLoading: typeof import('@varlet/ui')['_LoadingComponent']
     VarMenu: typeof import('@varlet/ui')['_MenuComponent']
     VarOverlay: typeof import('@varlet/ui')['_OverlayComponent']

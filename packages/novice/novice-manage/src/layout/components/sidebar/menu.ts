@@ -99,9 +99,42 @@ const menu = [
         icon: "card",
         label: "动画",
       },
-      
+
     ]
-  }
+  },
+  {
+    path: "/playGround",
+    icon: "sun",
+    label: "演练场",
+    children: [
+      {
+        path: "/playGround/asyncComponent",
+        icon: "sun",
+        label: "异步组件",
+      },
+      {
+        path: "/playGround/use",
+        icon: "sun",
+        label: "组合式函数",
+      },
+      {
+        path: "/playGround/provide",
+        icon: "sun",
+        label: "注入",
+      },
+      {
+        path: "/playGround/plugin",
+        icon: "sun",
+        label: "插件",
+      },
+      {
+        path: "/playGround/render",
+        icon: "sun",
+        label: "渲染函数",
+      },
+
+    ]
+  },
 ];
 
 

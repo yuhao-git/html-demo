@@ -3,9 +3,86 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>gsap</title>
+  <title>gsap 视差动画</title>
+  <style>
+    body {
+      margin: 0;
+      height: 200vh;
+      background: #222;
+      overflow-x: hidden;
+    }
+    .parallax-container {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .layer {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      left: 0;
+      top: 0;
+      will-change: transform;
+      pointer-events: none;
+    }
+    .layer.bg {
+      background: linear-gradient(#4e54c8, #8f94fb);
+      z-index: 1;
+    }
+    .layer.mid {
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;
+      opacity: 0.7;
+      z-index: 2;
+    }
+    .layer.fg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+    }
+    .layer.fg h1 {
+      color: #fff;
+      font-size: 4rem;
+      text-shadow: 0 4px 16px #0008;
+      margin: 0;
+    }
+  </style>
 </head>
 <body>
-  
+  <div class="parallax-container">
+    <div class="layer bg"></div>
+    <div class="layer mid"></div>
+    <div class="layer fg"><h1>GSAP 视差动画</h1></div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    // 使用 requestAnimationFrame 优化滚动动画
+    let lastScrollY = 0;
+    let ticking = false;
+
+    function onScroll() {
+      lastScrollY = window.scrollY;
+      requestTick();
+    }
+
+    function requestTick() {
+      if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }
+
+    function updateParallax() {
+      const scrollY = lastScrollY;
+      gsap.to('.bg', {y: scrollY * 0.15, overwrite: 'auto', duration: 0.3, ease: "power1.out"});
+      gsap.to('.mid', {y: scrollY * 0.35, overwrite: 'auto', duration: 0.3, ease: "power1.out"});
+      gsap.to('.fg', {y: scrollY * 0.6, overwrite: 'auto', duration: 0.3, ease: "power1.out"});
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll);
+    // 初始化
+    updateParallax();
+  </script>
 </body>
 </html>

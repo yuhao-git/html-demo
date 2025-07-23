@@ -80,8 +80,54 @@ const routes = [
         path: "/lineage",
         component: () => import("@/views/lineage/index.vue"),
       },
+      {
+        path: "/playGround/asyncComponent",
+        component: () => import("@/views/playGround/asyncComponent/index.vue"),
+      },
+      {
+        path: "/playGround/use",
+        component: () => import("@/views/playGround/use/index.vue"),
+      },
+      {
+        path: "/playGround/provide",
+        component: () => import("@/views/playGround/provide/index.vue"),
+      },
+      {
+        path: "/playGround/plugin",
+        component: () => import("@/views/playGround/plugin/index.vue"),
+      },
+      {
+        path: "/playGround/render",
+        component: () => import("@/views/playGround/render/index.vue"),
+      },
     ],
   },
 ];
+
+/**
+ * 自动加载文件生成路由
+ * @param basePath 
+ * @returns 
+ */
+export function generateRoutes(basePath: string = "@/views") {
+  // 1. 使用 Vite 的 Glob 导入功能扫描所有 Vue 文件
+  const modules = import.meta.glob('/src/views/**/*.vue');
+  
+  // 2. 转换模块映射为路由配置
+  return Object.entries(modules).map(([filePath, component]) => {
+    // 从文件路径提取路由路径
+    const routePath = filePath
+      .replace(/^\/src\/views/, '')  // 移除基础路径
+      .replace(/\.vue$/, '')         // 移除文件扩展名
+      .replace(/\/index$/, '')       // 移除index结尾
+      .toLowerCase();                // 统一小写
+    
+    // 返回路由配置对象
+    return {
+      path: routePath || '/',  // 处理根路径情况
+      component: component
+    };
+  });
+}
 
 export default routes;

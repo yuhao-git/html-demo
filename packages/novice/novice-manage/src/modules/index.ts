@@ -5,6 +5,6 @@ import "./element"
 import "./customComponents"
 import "./utils"
 import "./piniaPersistedstate"
-
+import "./plugin"
 import app from './app'
 app.mount("#app");

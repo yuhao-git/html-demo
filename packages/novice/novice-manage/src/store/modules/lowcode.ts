@@ -1,8 +1,8 @@
 import { defineStore } from "pinia";
 import { store } from "@/store";
 
-export const useLowcodeStore = defineStore({
-  id: "lowcode",
+export const useLowcodeStore = defineStore("lowcode",{
+  // id: "lowcode",
   state: () => ({
     // 组件列表
     // 配置列表
@@ -14,3 +14,4 @@ export const useLowcodeStore = defineStore({
 export function useLowcodeStoreHook() {
   return useLowcodeStore(store);
 }
+
