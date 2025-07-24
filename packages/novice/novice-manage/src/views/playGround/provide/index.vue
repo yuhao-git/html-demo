@@ -14,9 +14,14 @@
 
 <script setup>
 import children from "./children.vue";
-import { provide, ref } from "vue";
+import { provide, ref, readonly } from "vue";
 const topName = ref("topName");
-provide("topName", topName);
+
+function changeTopName(val) {
+  topName.value = val;
+}
+
+provide("topName", { topName: readonly(topName), changeTopName });
 
 const fName = ref("fName");
 

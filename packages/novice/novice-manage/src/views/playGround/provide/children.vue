@@ -1,6 +1,7 @@
 <template>
   <div>
-    <el-input v-model="topName"></el-input>
+    = {{ localTopName }} =
+    <el-input v-model="localTopName"></el-input>
     <el-input v-model="modelValue"></el-input>
     <el-input v-model="anotherVlaue"></el-input>
     <div>fName：{{ fName }}</div>
@@ -8,8 +9,8 @@
 </template>
 
 <script setup>
-import { inject } from "vue";
-const topName = inject("topName");
+import { computed, inject, ref } from "vue";
+const { topName, changeTopName } = inject("topName");
 
 const props = defineProps({
   fName: {
@@ -21,6 +22,10 @@ const props = defineProps({
 const modelValue = defineModel("modelValue");
 const anotherVlaue = defineModel("anotherVlaue");
 
+const localTopName = computed({
+  get: () => topName.value,
+  set: (val) => {
+    changeTopName(val);
+  },
+});
 </script>
-<style scoped lang='less'>
-</style>
