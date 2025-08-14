@@ -30,12 +30,12 @@ const menu = [
       {
         path: "/animate/vueAnimate",
         icon: "sun",
-        label: "animatejs动画",
+        label: "vue动画",
       },
       {
         path: "/animate/animejs",
         icon: "sun",
-        label: "vue动画",
+        label: "animatejs动画",
       },
     ]
   },
