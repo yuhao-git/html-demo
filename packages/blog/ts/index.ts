@@ -7,7 +7,7 @@ interface Person {
 type PersonType = {
   name: string;
   age: number;
-  email: string;
+  email?: string;
 };
 
 const person: PersonType = {

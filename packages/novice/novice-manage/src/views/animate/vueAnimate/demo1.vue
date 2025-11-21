@@ -76,9 +76,9 @@ const { show } = toRefs(state);
 // .fade-enter-from {
 // }
 .fade-enter-active {
-  animation: fadeInWithLight 1800ms ease-in-out backwards 300ms;
+  animation: fadeInWithLight 1000ms ease-in-out backwards 300ms;
   &::after {
-    animation: fadeOut 1800ms ease-in-out forwards 300ms;
+    animation: fadeOut 1000ms ease-in-out forwards 300ms;
   }
 }
 
@@ -87,9 +87,9 @@ const { show } = toRefs(state);
 // .fade-leave-from {
 // }
 .fade-leave-active {
-  animation: fadeOutWithLight 1800ms ease-in-out backwards 300ms;
+  animation: fadeOutWithLight 1000ms ease-in-out backwards 300ms;
   &::after {
-    animation: fadeOut 1800ms ease-in-out forwards 300ms;
+    animation: fadeOut 1000ms ease-in-out forwards 300ms;
   }
 }
 // .fade-leave-to {

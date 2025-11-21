@@ -141,6 +141,9 @@ const removeItem = (id) => {
 .list-leave-active {
   transition: all 0.5s ease;
 }
+.list-leave-active{
+  position: absolute;
+}
 
 .list-enter-from {
   opacity: 0;

@@ -1,5 +1,6 @@
 <template>
-  <div class="absolute">
+  <div class="relative">
+    <el-button @click="toggleShow">切换</el-button>
     <transition name="fade" mode="out-in">
       <div v-if="show" class="border w-20 h-20 bg-slate-500"></div>
     </transition>
@@ -7,9 +8,12 @@
 </template>
 
 <script setup>
-const props = defineProps({
-  show: Boolean,
-});
+import { ref } from "vue"
+let show = ref(false)
+const toggleShow = () => {
+  show.value = !show.value
+}
+
 </script>
 <style scoped lang='less'>
 .fade-enter-active,
@@ -18,25 +22,15 @@ const props = defineProps({
   transform-origin: top center;
 }
 
+
+/** 
+vue2 vue3
+周期不同，vue2为 
+ */
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-  transform:  translateY(-100%)  scale(0);
+  transform: translateY(-100%) scale(0);
 }
 
-// @keyframes fadeIn {
-//   from {
-//     opacity: 0;
-//   }
-//   to {
-//     opacity: 1;
-//   }
-// }
-
-// .fade-enter-active{
-//   animation: fadeIn 0.5s;
-// }
-// .fade-leave-active {
-//   animation: fadeIn 0.5s reverse;
-// }
 </style>

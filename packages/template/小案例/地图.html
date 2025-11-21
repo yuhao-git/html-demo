@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Three.js 地图 - 精致细柱扫描特效</title>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #000000; }
+        
+        #loading {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            color: #00ffff; font-family: sans-serif; font-size: 20px;
+            z-index: 10; letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+        }
+    </style>
+    
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+                "d3-geo": "https://esm.sh/d3-geo@3.1.0"
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <div id="loading">SYSTEM LOADING...</div>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { geoMercator } from 'd3-geo';
+
+        // --- GDP 数据 ---
+        const gdpData = {
+            "广东省": 135673, "江苏省": 128222, "山东省": 92069, "浙江省": 82553,
+            "四川省": 60132, "河南省": 59132, "湖北省": 55803, "福建省": 54355,
+            "湖南省": 50012, "上海市": 47218, "安徽省": 47050, "河北省": 43944,
+            "北京市": 43760, "陕西省": 33786, "江西省": 32200, "重庆市": 30145,
+            "辽宁省": 30209, "云南省": 30021, "广西壮族自治区": 27202, "山西省": 25698,
+            "内蒙古自治区": 24627, "贵州省": 20913, "新疆维吾尔自治区": 19125, "天津市": 16737,
+            "黑龙江省": 15883, "吉林省": 13531, "甘肃省": 11863, "海南省": 7551,
+            "宁夏回族自治区": 5314, "青海省": 3799, "西藏自治区": 2392,
+            "台湾省": 50000
+        };
+
+        let scene, camera, renderer, controls;
+        let mapGroup = new THREE.Group();
+        let barGroup = new THREE.Group();
+        
+        const barShaderMaterials = []; 
+        const clock = new THREE.Clock();
+
+        // --- Shaders ---
+        const mapSideFragmentShader = `
+            uniform vec3 uColorBottom;
+            uniform vec3 uColorTop;
+            varying vec2 vUv;
+            void main() {
+                vec3 color = mix(uColorBottom, uColorTop, vUv.y);
+                gl_FragColor = vec4(color, 1.0); 
+            }
+        `;
+        const vertexShader = `
+            varying vec2 vUv;
+            void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }
+        `;
+
+        const barFragmentShader = `
+            uniform vec3 uColor;
+            uniform float uTime;
+            uniform float uHeight; 
+            varying vec2 vUv;
+
+            void main() {
+                float gradient = 0.3 + vUv.y * 0.5;
+                
+                // 物理高度换算
+                float pixelHeight = vUv.y * uHeight;
+                
+                // 扫描速度与循环
+                float scanHeight = mod(uTime * 20.0, uHeight + 15.0);
+
+                // 距离计算
+                float dist = scanHeight - pixelHeight;
+                float beam = 0.0;
+                float beamSize = 8.0; // 光带物理长度
+
+                if (dist > 0.0 && dist < beamSize) {
+                    // 渐变拖尾
+                    beam = pow(1.0 - (dist / beamSize), 2.0);
+                }
+                // 激光头高亮
+                if (dist > 0.0 && dist < 0.5) {
+                    beam += 0.8;
+                }
+
+                vec3 finalColor = uColor * gradient + vec3(beam);
+                float alpha = 0.9 + beam * 0.1;
+
+                gl_FragColor = vec4(finalColor, alpha);
+            }
+        `;
+
+        // --- 纹理生成 ---
+        function createMapTexture() {
+            const size = 512;
+            const canvas = document.createElement('canvas');
+            canvas.width = size; canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#021019'; ctx.fillRect(0, 0, size, size);
+            ctx.lineWidth = 1; ctx.strokeStyle = '#113344';
+            const step = 32; 
+            for (let i = 0; i < size; i += step) {
+                ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, size); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(size, i); ctx.stroke();
+            }
+            const imgData = ctx.getImageData(0,0,size,size);
+            for(let i=0; i<imgData.data.length; i+=4) {
+                if(Math.random()>0.95) {
+                    imgData.data[i]+=30; imgData.data[i+1]+=30; imgData.data[i+2]+=30;
+                }
+            }
+            ctx.putImageData(imgData, 0, 0);
+            const texture = new THREE.CanvasTexture(canvas);
+            texture.wrapS = THREE.RepeatWrapping; texture.wrapT = THREE.RepeatWrapping;
+            texture.repeat.set(0.04, 0.04); 
+            return texture;
+        }
+
+        function init() {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x000000); 
+
+            camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 2000);
+            camera.up.set(0, 0, 1); 
+            camera.position.set(0, -120, 90); 
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            document.body.appendChild(renderer.domElement);
+
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.maxPolarAngle = Math.PI / 2 - 0.1;
+
+            const light = new THREE.DirectionalLight(0xffffff, 1.2);
+            light.position.set(20, -50, 100);
+            scene.add(light);
+            scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+
+            scene.add(mapGroup);
+            scene.add(barGroup);
+
+            window.addEventListener('resize', onWindowResize);
+            loadMapData();
+            animate();
+        }
+
+        function loadMapData() {
+            const loader = new THREE.FileLoader();
+            loader.load('https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json', (data) => {
+                const jsonData = JSON.parse(data);
+                generateMap(jsonData);
+                document.getElementById('loading').style.display = 'none';
+            });
+        }
+
+        function generateMap(jsonData) {
+            const projection = geoMercator().center([104.0, 37.5]).scale(80).translate([0, 0]);
+            const extrudeDepth = 3.0;
+
+            const mapTexture = createMapTexture();
+            const mapTopMaterial = new THREE.MeshLambertMaterial({ map: mapTexture, transparent: true, opacity: 1.0 });
+            const mapSideMaterial = new THREE.ShaderMaterial({
+                uniforms: { uColorBottom: { value: new THREE.Color(0x000055) }, uColorTop: { value: new THREE.Color(0x00ffff) } },
+                vertexShader: vertexShader, fragmentShader: mapSideFragmentShader, side: THREE.DoubleSide
+            });
+            const lineMaterial = new THREE.LineBasicMaterial({ color: 0x99ffff, transparent: true, opacity: 0.4 });
+
+            jsonData.features.forEach(feature => {
+                const name = feature.properties.name;
+                const coordinates = feature.geometry.coordinates;
+                const type = feature.geometry.type;
+                const provinceObj = new THREE.Object3D();
+
+                coordinates.forEach(polygon => {
+                    const points = (type === 'MultiPolygon') ? polygon[0] : polygon;
+                    const shape = new THREE.Shape();
+                    const linePoints = [];
+                    for (let i = 0; i < points.length; i++) {
+                        const [lng, lat] = points[i];
+                        const [x, y] = projection([lng, lat]);
+                        if (i === 0) shape.moveTo(x, -y); else shape.lineTo(x, -y);
+                        linePoints.push(new THREE.Vector3(x, -y, extrudeDepth + 0.05));
+                    }
+                    const geometry = new THREE.ExtrudeGeometry(shape, { depth: extrudeDepth, bevelEnabled: false });
+                    const mesh = new THREE.Mesh(geometry, [mapTopMaterial, mapSideMaterial]);
+                    const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(linePoints), lineMaterial);
+                    provinceObj.add(mesh);
+                    provinceObj.add(line);
+                });
+                mapGroup.add(provinceObj);
+                
+                const center = new THREE.Box3().setFromObject(provinceObj).getCenter(new THREE.Vector3());
+                center.z = extrudeDepth; 
+                createBar(center, gdpData[name] || 5000, name);
+            });
+
+            const center = new THREE.Box3().setFromObject(mapGroup).getCenter(new THREE.Vector3());
+            mapGroup.position.x = -center.x; mapGroup.position.y = -center.y;
+            barGroup.position.x = -center.x; barGroup.position.y = -center.y;
+        }
+
+        function createBar(position, gdp, name) {
+            const maxHeight = 45;
+            const scaleFactor = 140000 / maxHeight;
+            let height = gdp / scaleFactor;
+            if(height < 2) height = 2;
+
+            // --- 修改点：将 width 调小，使柱子变细 ---
+            const width = 0.6; 
+
+            // 使用 Y 轴作为高度，随后旋转，确保 UV 垂直分布
+            const geometry = new THREE.BoxGeometry(width, height, width); 
+
+            const color = new THREE.Color().setHSL(0.1, 1.0, 0.6); 
+
+            const shaderMaterial = new THREE.ShaderMaterial({
+                uniforms: {
+                    uTime: { value: 0 },
+                    uColor: { value: color },
+                    uHeight: { value: height }
+                },
+                vertexShader: vertexShader,
+                fragmentShader: barFragmentShader,
+                transparent: true,
+                side: THREE.DoubleSide,
+            });
+            barShaderMaterials.push(shaderMaterial);
+
+            const capMaterial = new THREE.MeshBasicMaterial({ color: color });
+
+            const materials = [
+                shaderMaterial, shaderMaterial, 
+                capMaterial, capMaterial,       
+                shaderMaterial, shaderMaterial  
+            ];
+
+            const bar = new THREE.Mesh(geometry, materials);
+            bar.rotation.x = Math.PI / 2; 
+            bar.position.set(position.x, position.y, position.z + height / 2);
+            
+            // 边框线也随之变细，不需要额外设置，因为它依赖 geometry
+            const edges = new THREE.EdgesGeometry(geometry);
+            const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffffff, transparent:true, opacity: 0.3 }));
+            bar.add(line);
+
+            barGroup.add(bar);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const elapsedTime = clock.getElapsedTime();
+            barShaderMaterials.forEach(mat => { mat.uniforms.uTime.value = elapsedTime; });
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        init();
+
+    </script>
+</body>
+</html>
