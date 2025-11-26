@@ -174,7 +174,8 @@
 
             void main() {
                 // 1. 基础渐变
-                vec3 baseColor = mix(uColorBottom, uColorTop, vUv.y);
+                // vec3 baseColor = mix(uColorBottom, uColorTop, vUv.y);
+                vec3 baseColor = mix(uColorTop, uColorBottom, vUv.y);
 
                 // 2. 扫描逻辑
                 float speed = 0.5;
@@ -287,17 +288,17 @@
         // 创建地图侧面材质（带扫描光效）
         const mapSideMaterial = new THREE.ShaderMaterial({
           uniforms: {
-            uColorBottom: { value: new THREE.Color(0x000510) },
+            uColorBottom: { value: new THREE.Color(0x000510) }, 
             uColorTop: { value: new THREE.Color(0x004466) },
             uTime: { value: 0 },
           },
-          vertexShader: vertexShader, //
-          fragmentShader: mapSideFragmentShader, // 扫描光效
-          side: THREE.DoubleSide,
+          vertexShader: vertexShader, // 顶点着色器
+          fragmentShader: mapSideFragmentShader, // 扫描光效 片段
+          side: THREE.DoubleSide, // 双面
         });
         shaderMaterials.push(mapSideMaterial);
         // 创建地图顶面材质（纯色半透明）
-        const mapTopMaterial = new THREE.MeshLambertMaterial({ color: 0x021019, transparent: true, opacity: 0.9 });
+        const mapTopMaterial = new THREE.MeshLambertMaterial({ color: 0x004466, transparent: true, opacity: 1.0 });
         // 创建省份边界线材质
         const lineMaterial = new THREE.LineBasicMaterial({ color: 0x00aaff, transparent: true, opacity: 0.5 });
 
