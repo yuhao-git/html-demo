@@ -1,324 +1,514 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <title>Three.js 地图 - 科技蓝细光圈版</title>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Three.js 地图 - 全显文字版</title>
     <style>
-        body { margin: 0; overflow: hidden; background-color: #000000; }
-        
-        #loading {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            color: #00ffff; font-family: sans-serif; font-size: 20px;
-            z-index: 10; letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
-        }
+      body {
+        margin: 0;
+        overflow: hidden;
+        background-color: #000000;
+      }
 
-        /* --- 标签样式 (配色改为科技蓝) --- */
-        .bar-label {
-            color: #ffffff; font-family: 'Microsoft YaHei', sans-serif; font-size: 12px;
-            text-shadow: 0 0 4px #000000; pointer-events: none; user-select: none;
-            margin-top: -10px; transition: opacity 0.3s; opacity: 1;
-        }
-        .label-hidden { opacity: 0 !important; }
-        
-        /* 数值颜色改为青色 */
-        .bar-value { color: #00ffff; font-size: 10px; font-weight: bold; display: block; }
+      #loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #00ffff;
+        font-family: sans-serif;
+        font-size: 20px;
+        z-index: 10;
+        letter-spacing: 2px;
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+      }
 
-        /* --- Tooltip 样式 (边框和阴影改为青色) --- */
-        #tooltip {
-            position: absolute; z-index: 100;
-            background: rgba(0, 15, 30, 0.95); /* 更深蓝的背景 */
-            border: 1px solid #00ffff;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
-            color: #fff; padding: 10px 15px; border-radius: 4px;
-            font-family: sans-serif; display: none; pointer-events: none;
-            backdrop-filter: blur(4px);
-        }
+      /* --- 标签样式 --- */
+      .bar-label {
+        color: #ffffff;
+        font-family: "Microsoft YaHei", sans-serif;
+        font-size: 12px;
+        text-shadow: 0 0 4px #000000;
+        pointer-events: none;
+        user-select: none;
+        /* 无动画，瞬时响应 */
+        opacity: 1;
+        text-align: center;
+        margin-top: -10px;
+      }
+
+      .label-hidden {
+        opacity: 0 !important;
+      }
+
+      /* 数值样式 */
+      .bar-value {
+        color: #00ffff;
+        font-size: 10px;
+        font-weight: bold;
+        display: block;
+      }
+
+      /* --- Tooltip --- */
+      #tooltip {
+        position: absolute;
+        z-index: 100;
+        background: rgba(0, 15, 30, 0.95);
+        border: 1px solid #00ffff;
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+        color: #fff;
+        padding: 10px 15px;
+        border-radius: 4px;
+        font-family: sans-serif;
+        display: none;
+        pointer-events: none;
+        backdrop-filter: blur(4px);
+      }
+
+      /* --- 控制面板 --- */
+      #controls-panel {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 50;
+        display: flex;
+        gap: 10px;
+      }
+      .btn {
+        background: rgba(0, 255, 255, 0.1);
+        border: 1px solid #00ffff;
+        color: #00ffff;
+        padding: 8px 16px;
+        cursor: pointer;
+        font-family: "Microsoft YaHei";
+        font-size: 14px;
+        transition: all 0.3s;
+        clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%);
+      }
+      .btn:hover,
+      .btn.active {
+        background: rgba(0, 255, 255, 0.5);
+        color: #000;
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+      }
     </style>
-    
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
-                "d3-geo": "https://esm.sh/d3-geo@3.1.0"
-            }
-        }
-    </script>
-</head>
-<body>
 
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+          "d3-geo": "https://esm.sh/d3-geo@3.1.0"
+        }
+      }
+    </script>
+  </head>
+  <body>
     <div id="loading">SYSTEM LOADING...</div>
     <div id="tooltip"></div>
 
+    <div id="controls-panel">
+      <div class="btn active" onclick="switchMode('bar')">柱状图</div>
+      <div class="btn" onclick="switchMode('fly')">飞线图</div>
+      <div class="btn" onclick="switchMode('scatter')">散点图</div>
+      <div class="btn" onclick="switchMode('path')">路径图</div>
+    </div>
+
     <script type="module">
-        import * as THREE from 'three';
-        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-        import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
-        import { geoMercator } from 'd3-geo';
+      import * as THREE from "three";
+      import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+      import { CSS2DRenderer, CSS2DObject } from "three/addons/renderers/CSS2DRenderer.js";
+      import { geoMercator } from "d3-geo";
 
-        const gdpData = { "广东省": 135673, "江苏省": 128222, "山东省": 92069, "浙江省": 82553, "四川省": 60132, "河南省": 59132, "湖北省": 55803, "上海市": 47218, "北京市": 43760, "福建省": 54355, "湖南省": 50012, "安徽省": 47050 };
+      const gdpData = { 广东省: 135673, 江苏省: 128222, 山东省: 92069, 浙江省: 82553, 四川省: 60132, 河南省: 59132, 湖北省: 55803, 上海市: 47218, 北京市: 43760, 福建省: 54355, 湖南省: 50012, 安徽省: 47050 };
 
-        let scene, camera, renderer, labelRenderer, controls;
-        let mapGroup = new THREE.Group();
-        let barGroup = new THREE.Group();
-        let floorMesh;
-        
-        const shaderMaterials = []; 
-        const clock = new THREE.Clock();
-        const labelObjects = []; 
-        const raycaster = new THREE.Raycaster();
-        const mouse = new THREE.Vector2();
-        const tooltip = document.getElementById('tooltip');
+      let scene, camera, renderer, labelRenderer, controls;
+      let mapGroup = new THREE.Group();
 
-        // ----------------------------------------------------------------
-        // Shader 1: 扩散光圈底座 (修改点：光圈变窄)
-        // ----------------------------------------------------------------
-        const floorVertexShader = `
-            varying vec2 vUv;
-            void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }
-        `;
+      const layers = {
+        bar: new THREE.Group(),
+        fly: new THREE.Group(),
+        scatter: new THREE.Group(),
+        path: new THREE.Group(),
+      };
 
-        const floorFragmentShader = `
-            uniform sampler2D uMap;
+      const provinceCenters = {};
+      const projection = geoMercator().center([104.0, 37.5]).scale(80).translate([0, 0]);
+      const shaderMaterials = [];
+      const clock = new THREE.Clock();
+      const labelObjects = [];
+      const raycaster = new THREE.Raycaster();
+      const mouse = new THREE.Vector2();
+      const tooltip = document.getElementById("tooltip");
+
+      window.switchMode = (mode) => {
+        document.querySelectorAll(".btn").forEach((b) => b.classList.remove("active"));
+        document.querySelector(`.btn[onclick="switchMode('${mode}')"]`).classList.add("active");
+
+        Object.keys(layers).forEach((key) => (layers[key].visible = key === mode));
+
+        labelObjects.forEach((obj) => {
+          const label = obj.cssObject;
+          const element = obj.element;
+          const valueSpan = element.querySelector(".bar-value");
+
+          if (mode === "bar") {
+            label.position.set(obj.basePos.x, obj.basePos.y, obj.topZ);
+            if (valueSpan) valueSpan.style.display = "block";
+            element.style.marginTop = "-10px";
+          } else {
+            label.position.set(obj.basePos.x, obj.basePos.y, obj.basePos.z + 0.5);
+            if (valueSpan) valueSpan.style.display = "none";
+            element.style.marginTop = "0px";
+          }
+        });
+      };
+
+      const floorFragmentShader = `uniform sampler2D uMap; uniform float uTime; uniform vec3 uRippleColor; varying vec2 vUv; void main() { vec4 texColor = texture2D(uMap, vUv); float dist = distance(vUv, vec2(0.5)); float wave = fract(uTime * 0.3); float ring = smoothstep(0.005, 0.0, abs(dist - wave * 0.5)); ring *= 4.0 * (1.0 - wave); float vignette = smoothstep(0.5, 0.2, dist); vec3 finalColor = texColor.rgb * 0.4 + uRippleColor * ring; gl_FragColor = vec4(finalColor, vignette); }`;
+      const barFragmentShader = `uniform vec3 uColor; uniform float uTime; uniform float uHeight; varying vec2 vUv; void main() { float gradient = 0.3 + vUv.y * 0.6; float scan = smoothstep(0.0, 8.0, 8.0 - abs((mod(uTime * 20.0, uHeight + 15.0) - vUv.y * uHeight))); float head = step(abs((mod(uTime * 20.0, uHeight + 15.0) - vUv.y * uHeight)), 0.3); gl_FragColor = vec4(uColor * gradient + vec3(scan + head), 0.8 + scan * 0.2); }`;
+      const mapSideFragmentShader = `
+            uniform vec3 uColorBottom;
+            uniform vec3 uColorTop;
             uniform float uTime;
-            uniform vec3 uRippleColor;
             varying vec2 vUv;
 
             void main() {
-                vec4 texColor = texture2D(uMap, vUv);
-                float dist = distance(vUv, vec2(0.5));
+                // 1. 基础渐变
+                vec3 baseColor = mix(uColorBottom, uColorTop, vUv.y);
 
-                float speed = 0.3;
-                float wave = fract(uTime * speed);
-                float radius = wave * 0.5;
+                // 2. 扫描逻辑
+                float speed = 0.5;
                 
-                // --- 修改点：光圈宽度变极窄 (0.005) ---
-                float ringWidth = 0.005; 
+                // 让 scanPos 从 -0.5 运行到 2.0 (范围跨度 2.5)
+                // 这样能确保光带完全从底部升起，并完全离开顶部，不会有截断
+                float scanPos = -3.0 + fract(uTime * speed) * 6.0;
                 
-                // 使用 smoothstep 制作锐利的边缘
-                float ring = smoothstep(ringWidth, 0.0, abs(dist - radius));
-                
-                // 增强一点亮度，因为线变细了容易看不清
-                ring *= 4.0 * (1.0 - wave);
-
-                float vignette = smoothstep(0.5, 0.2, dist);
-                
-                // 混合
-                vec3 finalColor = texColor.rgb * 0.4 + uRippleColor * ring;
-                gl_FragColor = vec4(finalColor, vignette);
-            }
-        `;
-
-        // ----------------------------------------------------------------
-        // Shader 2: 柱状图 (逻辑不变，颜色由外部传入控制)
-        // ----------------------------------------------------------------
-        const barFragmentShader = `
-            uniform vec3 uColor;
-            uniform float uTime;
-            uniform float uHeight; 
-            varying vec2 vUv;
-
-            void main() {
-                // 底色渐变
-                float gradient = 0.3 + vUv.y * 0.6;
-                
-                float pixelHeight = vUv.y * uHeight;
-                float scanHeight = mod(uTime * 20.0, uHeight + 15.0);
-                float dist = scanHeight - pixelHeight;
+                // 向上扫描：头部在上方(大Y)，拖尾在下方(小Y)
+                // dist = 头部位置 - 当前位置
+                float dist = scanPos - vUv.y; 
                 
                 float beam = 0.0;
-                float beamSize = 8.0; 
-
-                if (dist > 0.0 && dist < beamSize) {
-                    beam = pow(1.0 - (dist / beamSize), 3.0); // 3.0 让拖尾更锐利
+                
+                // 头部 (高亮实线)
+                if (dist > 0.0 && dist < 0.03) {
+                    beam = 1.0;
                 }
-                // 激光头
-                if (dist > 0.0 && dist < 0.3) { // 更细的头
-                    beam += 1.0;
+                // 拖尾 (渐变虚化)
+                else if (dist >= 0.03 && dist < 2.0) {  // 拖尾范围再延长到2.0，让尾巴更长
+                    // 归一化拖尾，离头部越远越暗
+                    float trail = 1.0 - (dist - 0.03) / 1.97;  // 调整归一化系数，保持平滑过渡
+                    beam = pow(trail, 3.0); // 3次方让尾巴消失得更自然
                 }
 
-                vec3 finalColor = uColor * gradient + vec3(beam); 
-                gl_FragColor = vec4(finalColor, 0.8 + beam * 0.2);
+                // 3. 颜色混合
+                vec3 beamColor = mix(vec3(0.0, 1.0, 1.0), vec3(1.0, 1.0, 1.0), beam);
+                vec3 finalColor = baseColor + beamColor * beam;
+
+                gl_FragColor = vec4(finalColor, 1.0);
             }
         `;
+      const flyLineFragmentShader = `uniform float uTime; uniform vec3 uColor; varying vec2 vUv; void main() { float dash = fract(vUv.x * 2.0 - uTime * 1.5); float alpha = smoothstep(0.0, 0.2, dash) * smoothstep(0.6, 0.4, dash); if(dash > 0.4 && dash < 0.5) alpha = 1.0; gl_FragColor = vec4(uColor, alpha); if (alpha < 0.01) discard; }`;
+      const scatterFragmentShader = `uniform float uTime; uniform vec3 uColor; varying vec2 vUv; void main() { float dist = distance(vUv, vec2(0.5)); if(dist > 0.5) discard; float pulse = fract(uTime * 1.5); float ring = smoothstep(0.1, 0.0, abs(dist - pulse * 0.5)); float center = smoothstep(0.1, 0.0, dist); gl_FragColor = vec4(uColor, ring * (1.0 - pulse) + center); }`;
+      const pathFragmentShader = `uniform float uTime; varying vec2 vUv; void main() { float flow = fract(vUv.x * 10.0 - uTime * 2.0); float brightness = step(0.5, flow); vec3 color = mix(vec3(0.0, 0.3, 0.5), vec3(0.0, 1.0, 0.5), brightness); gl_FragColor = vec4(color, 1.0); }`;
+      const vertexShader = `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
 
-        const mapSideFragmentShader = `uniform vec3 uColorBottom; uniform vec3 uColorTop; varying vec2 vUv; void main() { vec3 color = mix(uColorBottom, uColorTop, vUv.y); gl_FragColor = vec4(color, 1.0); }`;
-        const vertexShader = `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
 
-        function createFloorTexture() {
-            const size = 1024; const canvas = document.createElement('canvas'); canvas.width = size; canvas.height = size; const ctx = canvas.getContext('2d');
-            ctx.fillStyle = '#000000'; ctx.fillRect(0, 0, size, size);
-            ctx.strokeStyle = '#113344'; ctx.lineWidth = 2;
-            ctx.beginPath(); ctx.arc(size/2, size/2, size*0.1, 0, Math.PI*2); ctx.stroke();
-            ctx.beginPath(); ctx.arc(size/2, size/2, size*0.25, 0, Math.PI*2); ctx.stroke();
-            ctx.beginPath(); ctx.arc(size/2, size/2, size*0.4, 0, Math.PI*2); ctx.stroke();
-            ctx.strokeStyle = '#0a2233'; ctx.lineWidth = 1;
-            for(let i=0; i<size; i+=64) { ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, size); ctx.stroke(); ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(size, i); ctx.stroke(); }
-            return new THREE.CanvasTexture(canvas);
+      function init() {
+        scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x000000);
+        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 2000);
+        camera.up.set(0, 0, 1);
+        camera.position.set(0, -160, 120);
+
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        document.body.appendChild(renderer.domElement);
+
+        labelRenderer = new CSS2DRenderer();
+        labelRenderer.setSize(window.innerWidth, window.innerHeight);
+        labelRenderer.domElement.style.position = "absolute";
+        labelRenderer.domElement.style.top = "0px";
+        labelRenderer.domElement.style.pointerEvents = "none";
+        document.body.appendChild(labelRenderer.domElement);
+
+        controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.maxPolarAngle = Math.PI / 2 - 0.1;
+
+        const light = new THREE.DirectionalLight(0xffffff, 1.2);
+        light.position.set(20, -50, 100);
+        scene.add(light);
+        scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+
+        createFloor();
+        scene.add(mapGroup);
+        Object.values(layers).forEach((g) => scene.add(g));
+
+        window.addEventListener("resize", onWindowResize);
+        window.addEventListener("mousemove", onMouseMove);
+
+        loadMapData();
+        animate();
+      }
+
+      function createFloor() {
+        const geometry = new THREE.PlaneGeometry(350, 350);
+        const canvas = document.createElement("canvas");
+        canvas.width = 1024;
+        canvas.height = 1024;
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#206482";
+        ctx.fillRect(0, 0, 1024, 1024);
+        ctx.strokeStyle = "#113344";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(512, 512, 200, 0, Math.PI * 2);
+        ctx.stroke();
+        const material = new THREE.ShaderMaterial({ uniforms: { uMap: { value: new THREE.CanvasTexture(canvas) }, uTime: { value: 0 }, uRippleColor: { value: new THREE.Color(0x00ffff) } }, vertexShader: vertexShader, fragmentShader: floorFragmentShader, transparent: true, depthWrite: false });
+        shaderMaterials.push(material);
+        const floorMesh = new THREE.Mesh(geometry, material);
+        floorMesh.position.set(0, 0, -2);
+        scene.add(floorMesh);
+      }
+
+      function loadMapData() {
+        const loader = new THREE.FileLoader();
+        loader.load("https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json", (data) => {
+          generateMap(JSON.parse(data));
+          document.getElementById("loading").style.display = "none";
+          switchMode("bar");
+        });
+      }
+
+      function generateMap(jsonData) {
+        // 设置地图拉伸厚度
+        const extrudeDepth = 3.0;
+        // 创建地图侧面材质（带扫描光效）
+        const mapSideMaterial = new THREE.ShaderMaterial({
+          uniforms: {
+            uColorBottom: { value: new THREE.Color(0x000510) },
+            uColorTop: { value: new THREE.Color(0x004466) },
+            uTime: { value: 0 },
+          },
+          vertexShader: vertexShader, //
+          fragmentShader: mapSideFragmentShader, // 扫描光效
+          side: THREE.DoubleSide,
+        });
+        shaderMaterials.push(mapSideMaterial);
+        // 创建地图顶面材质（纯色半透明）
+        const mapTopMaterial = new THREE.MeshLambertMaterial({ color: 0x021019, transparent: true, opacity: 0.9 });
+        // 创建省份边界线材质
+        const lineMaterial = new THREE.LineBasicMaterial({ color: 0x00aaff, transparent: true, opacity: 0.5 });
+
+        // 遍历所有省份要素
+        jsonData.features.forEach((feature) => {
+          const name = feature.properties.name;
+          const coordinates = feature.geometry.coordinates;
+          const provinceObj = new THREE.Object3D();
+
+          // 处理每个多边形（含岛洞情况）
+          coordinates.forEach((polygon) => {
+            // 区分 MultiPolygon 与 Polygon
+            const points = feature.geometry.type === "MultiPolygon" ? polygon[0] : polygon;
+            const shape = new THREE.Shape();
+            const linePoints = [];
+            for (let i = 0; i < points.length; i++) {
+              const [lng, lat] = points[i];
+              const [x, y] = projection([lng, lat]);
+              if (i === 0) shape.moveTo(x, -y);
+              else shape.lineTo(x, -y);
+              linePoints.push(new THREE.Vector3(x, -y, extrudeDepth + 0.05));
+            }
+            // 挤出成型：顶面+侧面
+            provinceObj.add(new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: extrudeDepth, bevelEnabled: false }), [mapTopMaterial, mapSideMaterial]));
+            // 添加边界线
+            provinceObj.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(linePoints), lineMaterial));
+          });
+
+          mapGroup.add(provinceObj);
+          // 计算并缓存省份中心点
+          const center = new THREE.Box3().setFromObject(provinceObj).getCenter(new THREE.Vector3());
+          center.z = extrudeDepth;
+          provinceCenters[name] = center;
+        });
+
+        // 将地图整体居中
+        const center = new THREE.Box3().setFromObject(mapGroup).getCenter(new THREE.Vector3());
+        mapGroup.position.x = -center.x;
+        mapGroup.position.y = -center.y;
+        // 同步所有可视化图层位置
+        Object.values(layers).forEach((layer) => {
+          layer.position.x = -center.x;
+          layer.position.y = -center.y;
+        });
+
+        // 初始化各类可视化元素
+        initVisualizations();
+      }
+
+      function initVisualizations() {
+        Object.keys(gdpData).forEach((name) => {
+          if (provinceCenters[name]) createBar(provinceCenters[name], gdpData[name], name);
+        });
+        if (provinceCenters["北京市"]) {
+          const startPos = provinceCenters["北京市"];
+          Object.keys(gdpData).forEach((name) => {
+            if (name !== "北京市" && provinceCenters[name]) createFlyLine(startPos, provinceCenters[name]);
+          });
+        }
+        Object.keys(gdpData).forEach((name) => {
+          if (provinceCenters[name]) createScatter(provinceCenters[name], gdpData[name]);
+        });
+        const routeNames = ["广东省", "湖南省", "湖北省", "河南省", "河北省", "北京市"];
+        const routePoints = [];
+        routeNames.forEach((name) => {
+          if (provinceCenters[name]) routePoints.push(provinceCenters[name].clone().add(new THREE.Vector3(0, 0, 1)));
+        });
+        if (routePoints.length > 1) createPath(routePoints);
+      }
+
+      function createBar(position, value, name) {
+        const height = Math.max(2, value / 3000);
+        const geometry = new THREE.BoxGeometry(0.8, height, 0.8);
+        const color = new THREE.Color().setHSL(0.55, 0.9, 0.6);
+        const material = new THREE.ShaderMaterial({ uniforms: { uTime: { value: 0 }, uColor: { value: color }, uHeight: { value: height } }, vertexShader: vertexShader, fragmentShader: barFragmentShader, transparent: true });
+        shaderMaterials.push(material);
+        const bar = new THREE.Mesh(geometry, material);
+        bar.rotation.x = Math.PI / 2;
+        bar.position.set(position.x, position.y, position.z + height / 2);
+        bar.userData = { name: name, value: value };
+        bar.add(new THREE.LineSegments(new THREE.EdgesGeometry(geometry), new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.3 })));
+        layers.bar.add(bar);
+        const div = document.createElement("div");
+        div.className = "bar-label";
+        div.innerHTML = `${name}<span class="bar-value">${(value / 10000).toFixed(1)}万</span>`;
+        const label = new CSS2DObject(div);
+        label.position.set(position.x, position.y, position.z);
+        mapGroup.add(label);
+        labelObjects.push({ cssObject: label, element: div, basePos: position.clone(), topZ: position.z + height + 1.5, value: value });
+      }
+
+      function createFlyLine(start, end) {
+        const mid = start.clone().add(end).multiplyScalar(0.5);
+        mid.z += 15;
+        const curve = new THREE.QuadraticBezierCurve3(start, mid, end);
+        const geometry = new THREE.TubeGeometry(curve, 20, 0.15, 4, false);
+        const material = new THREE.ShaderMaterial({ uniforms: { uTime: { value: 0 }, uColor: { value: new THREE.Color(0xffaa00) } }, vertexShader: vertexShader, fragmentShader: flyLineFragmentShader, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false });
+        shaderMaterials.push(material);
+        layers.fly.add(new THREE.Mesh(geometry, material));
+        const ringGeo = new THREE.PlaneGeometry(1.5, 1.5);
+        const ringMat = new THREE.ShaderMaterial({ uniforms: { uTime: { value: 0 }, uColor: { value: new THREE.Color(0xffaa00) } }, vertexShader: vertexShader, fragmentShader: scatterFragmentShader, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide });
+        shaderMaterials.push(ringMat);
+        const ring = new THREE.Mesh(ringGeo, ringMat);
+        ring.position.copy(end);
+        ring.position.z += 0.2;
+        layers.fly.add(ring);
+      }
+
+      function createScatter(position, value) {
+        const scale = 1.0 + (value / 150000) * 2;
+        const geometry = new THREE.PlaneGeometry(scale * 3, scale * 3);
+        const material = new THREE.ShaderMaterial({ uniforms: { uTime: { value: 0 }, uColor: { value: new THREE.Color(0x00ff88) } }, vertexShader: vertexShader, fragmentShader: scatterFragmentShader, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide });
+        shaderMaterials.push(material);
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.position.set(position.x, position.y, position.z + 0.5);
+        layers.scatter.add(mesh);
+      }
+
+      function createPath(points) {
+        const curve = new THREE.CatmullRomCurve3(points);
+        const geometry = new THREE.TubeGeometry(curve, 64, 0.4, 6, false);
+        const material = new THREE.ShaderMaterial({ uniforms: { uTime: { value: 0 } }, vertexShader: vertexShader, fragmentShader: pathFragmentShader, transparent: true });
+        shaderMaterials.push(material);
+        layers.path.add(new THREE.Mesh(geometry, material));
+      }
+
+      // --- 核心修改：碰撞检测逻辑 ---
+      function checkLabelCollisions() {
+        const tempV = new THREE.Vector3();
+
+        // 场景1：非柱状图模式 -> 全显示 (不计算遮挡)
+        if (!layers.bar.visible) {
+          labelObjects.forEach((item) => {
+            // 计算屏幕位置只为了检查是否在相机背后
+            tempV.copy(item.cssObject.position).applyMatrix4(mapGroup.matrixWorld).project(camera);
+            // 仅当标签跑到相机屁股后面时才隐藏，否则全显
+            if (tempV.z > 1) {
+              item.element.classList.add("label-hidden");
+            } else {
+              item.element.classList.remove("label-hidden");
+            }
+          });
+          return; // 直接退出，不进行矩形遮挡计算
         }
 
-        function createMapTexture() {
-            const size = 512; const canvas = document.createElement('canvas'); canvas.width = size; canvas.height = size; const ctx = canvas.getContext('2d');
-            ctx.fillStyle = '#021019'; ctx.fillRect(0, 0, size, size);
-            ctx.lineWidth = 1; ctx.strokeStyle = '#113344';
-            for (let i = 0; i < size; i += 32) { ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, size); ctx.stroke(); ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(size, i); ctx.stroke(); }
-            const imgData = ctx.getImageData(0,0,size,size);
-            for(let i=0; i<imgData.data.length; i+=4) if(Math.random()>0.95) { imgData.data[i]+=30; imgData.data[i+1]+=30; imgData.data[i+2]+=30; }
-            ctx.putImageData(imgData, 0, 0);
-            return new THREE.CanvasTexture(canvas);
+        // 场景2：柱状图模式 -> 执行原有的避让算法
+        const visibleLabels = [];
+        labelObjects.forEach((item) => {
+          tempV.copy(item.cssObject.position).applyMatrix4(mapGroup.matrixWorld).project(camera);
+          if (tempV.z > 1) {
+            item.element.classList.add("label-hidden");
+            return;
+          }
+          visibleLabels.push({ item: item, x: (tempV.x * 0.5 + 0.5) * window.innerWidth, y: (tempV.y * -0.5 + 0.5) * window.innerHeight, width: item.element.offsetWidth + 4, height: item.element.offsetHeight + 4 });
+        });
+        visibleLabels.sort((a, b) => b.item.value - a.item.value);
+        const occupiedBoxes = [];
+        visibleLabels.forEach((label) => {
+          const myBox = { left: label.x - label.width / 2, right: label.x + label.width / 2, top: label.y - label.height / 2, bottom: label.y + label.height / 2 };
+          let isColliding = false;
+          for (let box of occupiedBoxes) {
+            if (myBox.left < box.right && myBox.right > box.left && myBox.top < box.bottom && myBox.bottom > box.top) {
+              isColliding = true;
+              break;
+            }
+          }
+          if (isColliding) label.item.element.classList.add("label-hidden");
+          else {
+            label.item.element.classList.remove("label-hidden");
+            occupiedBoxes.push(myBox);
+          }
+        });
+      }
+
+      function onMouseMove(event) {
+        if (!layers.bar.visible) {
+          tooltip.style.display = "none";
+          return;
         }
-
-        function init() {
-            scene = new THREE.Scene(); scene.background = new THREE.Color(0x000000);
-            camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 2000);
-            camera.up.set(0, 0, 1); camera.position.set(0, -160, 120);
-
-            renderer = new THREE.WebGLRenderer({ antialias: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(window.devicePixelRatio);
-            document.body.appendChild(renderer.domElement);
-
-            labelRenderer = new CSS2DRenderer();
-            labelRenderer.setSize(window.innerWidth, window.innerHeight);
-            labelRenderer.domElement.style.position = 'absolute'; labelRenderer.domElement.style.top = '0px'; labelRenderer.domElement.style.pointerEvents = 'none';
-            document.body.appendChild(labelRenderer.domElement);
-
-            controls = new OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true; controls.maxPolarAngle = Math.PI / 2 - 0.1;
-
-            const light = new THREE.DirectionalLight(0xffffff, 1.2); light.position.set(20, -50, 100); scene.add(light);
-            scene.add(new THREE.AmbientLight(0xffffff, 0.4));
-
-            createFloor();
-            scene.add(mapGroup); scene.add(barGroup);
-
-            window.addEventListener('resize', onWindowResize);
-            window.addEventListener('mousemove', onMouseMove);
-
-            loadMapData();
-            animate();
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        raycaster.setFromCamera(mouse, camera);
+        const hit = raycaster.intersectObjects(layers.bar.children, true).find((item) => item.object.isMesh);
+        if (hit && hit.object.userData.name) {
+          const obj = hit.object;
+          tooltip.style.display = "block";
+          tooltip.style.left = event.clientX + 15 + "px";
+          tooltip.style.top = event.clientY + 15 + "px";
+          tooltip.innerHTML = `<div style="font-size:14px; color:#00ffff;">${obj.userData.name}</div><div style="font-size:16px; color:#fff;">${obj.userData.value}</div>`;
+        } else {
+          tooltip.style.display = "none";
         }
+      }
 
-        function createFloor() {
-            const geometry = new THREE.PlaneGeometry(350, 350);
-            const material = new THREE.ShaderMaterial({
-                uniforms: {
-                    uMap: { value: createFloorTexture() },
-                    uTime: { value: 0 },
-                    uRippleColor: { value: new THREE.Color(0x00ffff) } 
-                },
-                vertexShader: floorVertexShader,
-                fragmentShader: floorFragmentShader,
-                transparent: true,
-                depthWrite: false, 
-            });
-            shaderMaterials.push(material);
-            floorMesh = new THREE.Mesh(geometry, material);
-            floorMesh.position.set(0, 0, -2); 
-            scene.add(floorMesh);
-        }
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        labelRenderer.setSize(window.innerWidth, window.innerHeight);
+      }
+      function animate() {
+        requestAnimationFrame(animate);
+        const elapsedTime = clock.getElapsedTime();
+        shaderMaterials.forEach((mat) => (mat.uniforms.uTime.value = elapsedTime));
+        controls.update();
+        checkLabelCollisions();
+        renderer.render(scene, camera);
+        labelRenderer.render(scene, camera);
+      }
 
-        function loadMapData() {
-            const loader = new THREE.FileLoader();
-            loader.load('https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json', (data) => {
-                generateMap(JSON.parse(data));
-                document.getElementById('loading').style.display = 'none';
-            });
-        }
-
-        function generateMap(jsonData) {
-            const projection = geoMercator().center([104.0, 37.5]).scale(80).translate([0, 0]);
-            const extrudeDepth = 3.0;
-            const mapTex = createMapTexture(); mapTex.wrapS = THREE.RepeatWrapping; mapTex.wrapT = THREE.RepeatWrapping; mapTex.repeat.set(0.04, 0.04);
-            const mapTopMaterial = new THREE.MeshLambertMaterial({ map: mapTex, transparent: true, opacity: 1.0 });
-            const mapSideMaterial = new THREE.ShaderMaterial({ uniforms: { uColorBottom: { value: new THREE.Color(0x000055) }, uColorTop: { value: new THREE.Color(0x00ffff) } }, vertexShader: vertexShader, fragmentShader: mapSideFragmentShader, side: THREE.DoubleSide });
-            const lineMaterial = new THREE.LineBasicMaterial({ color: 0x99ffff, transparent: true, opacity: 0.4 });
-
-            jsonData.features.forEach(feature => {
-                const name = feature.properties.name; const coordinates = feature.geometry.coordinates; const type = feature.geometry.type; const provinceObj = new THREE.Object3D();
-                coordinates.forEach(polygon => {
-                    const points = (type === 'MultiPolygon') ? polygon[0] : polygon;
-                    const shape = new THREE.Shape(); const linePoints = [];
-                    for (let i = 0; i < points.length; i++) {
-                        const [lng, lat] = points[i]; const [x, y] = projection([lng, lat]);
-                        if (i === 0) shape.moveTo(x, -y); else shape.lineTo(x, -y);
-                        linePoints.push(new THREE.Vector3(x, -y, extrudeDepth + 0.05));
-                    }
-                    provinceObj.add(new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: extrudeDepth, bevelEnabled: false }), [mapTopMaterial, mapSideMaterial]));
-                    provinceObj.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(linePoints), lineMaterial));
-                });
-                mapGroup.add(provinceObj);
-                const center = new THREE.Box3().setFromObject(provinceObj).getCenter(new THREE.Vector3()); center.z = extrudeDepth;
-                if(gdpData[name]) createBar(center, gdpData[name], name);
-            });
-            const center = new THREE.Box3().setFromObject(mapGroup).getCenter(new THREE.Vector3());
-            mapGroup.position.x = -center.x; mapGroup.position.y = -center.y;
-            barGroup.position.x = -center.x; barGroup.position.y = -center.y;
-        }
-
-        function createBar(position, gdp, name) {
-            const height = Math.max(2, gdp / (140000 / 45));
-            const width = 0.6; 
-            const geometry = new THREE.BoxGeometry(width, height, width);
-            
-            // --- 修改点：颜色改为科技蓝 ---
-            // Hue: 0.55 (Blue/Cyan), Saturation: 0.9, Lightness: 0.6
-            const color = new THREE.Color().setHSL(0.55, 0.9, 0.6); 
-
-            const shaderMaterial = new THREE.ShaderMaterial({ uniforms: { uTime: { value: 0 }, uColor: { value: color }, uHeight: { value: height } }, vertexShader: vertexShader, fragmentShader: barFragmentShader, transparent: true, side: THREE.DoubleSide });
-            shaderMaterials.push(shaderMaterial);
-            const bar = new THREE.Mesh(geometry, [shaderMaterial, shaderMaterial, new THREE.MeshBasicMaterial({ color: color }), new THREE.MeshBasicMaterial({ color: color }), shaderMaterial, shaderMaterial]);
-            bar.rotation.x = Math.PI / 2; bar.position.set(position.x, position.y, position.z + height / 2); bar.userData = { name: name, gdp: gdp };
-            bar.add(new THREE.LineSegments(new THREE.EdgesGeometry(geometry), new THREE.LineBasicMaterial({ color: 0xffffff, transparent:true, opacity: 0.3 })));
-            barGroup.add(bar);
-
-            const div = document.createElement('div'); div.className = 'bar-label'; 
-            div.innerHTML = `${name}<span class="bar-value">${(gdp/10000).toFixed(1)}万</span>`;
-            const label = new CSS2DObject(div); label.position.set(position.x, position.y, position.z + height + 1.5);
-            barGroup.add(label);
-            labelObjects.push({ element: div, position: label.position, gdp: gdp });
-        }
-
-        function checkLabelCollisions() {
-            const visibleLabels = []; const tempV = new THREE.Vector3();
-            labelObjects.forEach(item => {
-                tempV.copy(item.position).applyMatrix4(barGroup.matrixWorld).project(camera);
-                if (tempV.z > 1) { item.element.classList.add('label-hidden'); return; }
-                visibleLabels.push({ item: item, x: (tempV.x * .5 + .5) * window.innerWidth, y: (tempV.y * -.5 + .5) * window.innerHeight, width: item.element.offsetWidth + 4, height: item.element.offsetHeight + 4 });
-            });
-            visibleLabels.sort((a, b) => b.item.gdp - a.item.gdp);
-            const occupiedBoxes = [];
-            visibleLabels.forEach(label => {
-                const myBox = { left: label.x - label.width / 2, right: label.x + label.width / 2, top: label.y - label.height / 2, bottom: label.y + label.height / 2 };
-                let isColliding = false;
-                for (let box of occupiedBoxes) { if (myBox.left < box.right && myBox.right > box.left && myBox.top < box.bottom && myBox.bottom > box.top) { isColliding = true; break; } }
-                if (isColliding) label.item.element.classList.add('label-hidden');
-                else { label.item.element.classList.remove('label-hidden'); occupiedBoxes.push(myBox); }
-            });
-        }
-
-        function onMouseMove(event) {
-            mouse.x = (event.clientX / window.innerWidth) * 2 - 1; mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-            raycaster.setFromCamera(mouse, camera);
-            const hit = raycaster.intersectObjects(barGroup.children, true).find(item => item.object.isMesh);
-            if (hit && hit.object.userData.name) {
-                const obj = hit.object; tooltip.style.display = 'block'; tooltip.style.left = event.clientX + 15 + 'px'; tooltip.style.top = event.clientY + 15 + 'px';
-                // 提示框颜色也改为青色/白色
-                tooltip.innerHTML = `<div style="font-size:14px; color:#00ffff;">${obj.userData.name}</div><div style="font-size:16px; color:#fff;">${obj.userData.gdp}</div>`;
-            } else { tooltip.style.display = 'none'; }
-        }
-
-        function onWindowResize() { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); labelRenderer.setSize(window.innerWidth, window.innerHeight); }
-        function animate() {
-            requestAnimationFrame(animate); const elapsedTime = clock.getElapsedTime();
-            shaderMaterials.forEach(mat => mat.uniforms.uTime.value = elapsedTime);
-            controls.update(); checkLabelCollisions();
-            renderer.render(scene, camera); labelRenderer.render(scene, camera);
-        }
-
-        init();
+      init();
     </script>
-</body>
+  </body>
 </html>
